@@ -1,0 +1,67 @@
+﻿using gestionEmployer.Core.Models;
+using gestionEmployer.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using gestionEmployer.Core.Interfaces;
+using System.Linq.Expressions;
+
+namespace gestionEmployer.Infrastructure.Data.Repositories
+{
+    public class EmployeeRepository : IEmployeeRepository
+    {
+        private readonly AppDbContext _context;
+
+        public EmployeeRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
+      
+
+        public  async Task<Employer?> GetEmployeeByIdAsync(int id)
+        {
+            var employee = await _context.Employers.FindAsync(id);
+            return employee;
+        }
+
+        //Méthode de récuperation de tous les employees by idAdmin
+        public async Task<IEnumerable<Employer>> GetEmployesByAdminIdAsync(int idAdmin)
+        {
+            return await _context.Employers.Where(e => e.IdAdmin == idAdmin).ToListAsync();
+        }
+
+        //Methode Existe qui se surcharge dans le service 
+        public bool Exists(Expression<Func<Employer, bool>> predicate)
+        {
+            return _context.Employers.Any(predicate);
+        }
+
+        public async Task<Employer> AddEmployeeAsync(Employer employee)
+        {
+             _context.Employers.Add(employee);
+            await _context.SaveChangesAsync();
+            return employee;
+        }
+
+       
+
+        public async Task<Employer?> UpdateEmployeeAsync(Employer employee)
+        {
+            _context.Employers.Update(employee);
+            await _context.SaveChangesAsync();
+            return employee;
+        }
+
+        public async Task<Employer?> DeleteEmployeeAsync(int id)
+        {
+            var employee = _context.Employers.Find(id);
+            if (employee != null)
+            {
+                _context.Employers.Remove(employee);
+                await _context.SaveChangesAsync();
+            }
+            return employee;
+        }
+
+        
+    }
+}

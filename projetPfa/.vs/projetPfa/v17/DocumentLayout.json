@@ -1,0 +1,241 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\api\\mappers\\employeemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\api\\mappers\\employeemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\api\\dtos\\employeedto\\addemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\api\\dtos\\employeedto\\addemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\infrastructure\\data\\repositories\\employerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\infrastructure\\data\\repositories\\employerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|solutionrelative:gestionsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\gestionemployer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\gestionemployer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionsite\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|solutionrelative:gestionsite\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionsite\\gestionsite.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|solutionrelative:gestionsite\\gestionsite.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20241231133601_InitialMigrat.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs",
+              "RelativeDocumentMoniker": "gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs",
+              "RelativeToolTip": "gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T13:36:01.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EmployeeMapper.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\API\\Mappers\\EmployeeMapper.cs",
+              "RelativeDocumentMoniker": "gestionEmployer\\API\\Mappers\\EmployeeMapper.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\API\\Mappers\\EmployeeMapper.cs",
+              "RelativeToolTip": "gestionEmployer\\API\\Mappers\\EmployeeMapper.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T13:28:51.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AddEmployeeDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\API\\DTOs\\EmployeeDTO\\AddEmployeeDTO.cs",
+              "RelativeDocumentMoniker": "gestionEmployer\\API\\DTOs\\EmployeeDTO\\AddEmployeeDTO.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\API\\DTOs\\EmployeeDTO\\AddEmployeeDTO.cs",
+              "RelativeToolTip": "gestionEmployer\\API\\DTOs\\EmployeeDTO\\AddEmployeeDTO.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA5wB0AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T13:28:08.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EmployerRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Infrastructure\\Data\\Repositories\\EmployerRepository.cs",
+              "RelativeDocumentMoniker": "gestionEmployer\\Infrastructure\\Data\\Repositories\\EmployerRepository.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Infrastructure\\Data\\Repositories\\EmployerRepository.cs",
+              "RelativeToolTip": "gestionEmployer\\Infrastructure\\Data\\Repositories\\EmployerRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T13:27:59.805Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "gestionEmployer\\Infrastructure\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "gestionEmployer\\Infrastructure\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T13:25:05.792Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20241231132129_InitialMigrat.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs",
+              "RelativeDocumentMoniker": "gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs",
+              "RelativeToolTip": "gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T13:21:29.121Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\appsettings.json",
+              "RelativeDocumentMoniker": "gestionEmployer\\appsettings.json",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\appsettings.json",
+              "RelativeToolTip": "gestionEmployer\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-31T13:19:59.212Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "20241231131911_InitialMigra.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs",
+              "RelativeDocumentMoniker": "gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs",
+              "RelativeToolTip": "gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T13:19:11.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "gestionEmployer",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\gestionEmployer.csproj",
+              "RelativeDocumentMoniker": "gestionEmployer\\gestionEmployer.csproj",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\gestionEmployer.csproj",
+              "RelativeToolTip": "gestionEmployer\\gestionEmployer.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-31T13:16:09.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "gestionSite\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\Properties\\launchSettings.json",
+              "RelativeToolTip": "gestionSite\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-30T19:05:15.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\appsettings.json",
+              "RelativeDocumentMoniker": "gestionSite\\appsettings.json",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\appsettings.json",
+              "RelativeToolTip": "gestionSite\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-30T19:04:56.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "gestionSite.http",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\gestionSite.http",
+              "RelativeDocumentMoniker": "gestionSite\\gestionSite.http",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\gestionSite.http",
+              "RelativeToolTip": "gestionSite\\gestionSite.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2024-12-30T19:04:54.21Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAANAVAAAAAAAAAAD4v94VAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-12-30T18:51:21.105Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
