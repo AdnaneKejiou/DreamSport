@@ -15,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddSiteDependencies();
 builder.Services.addAnnoncesDependencies ();
 builder.Services.AddFaqDependencies();
+builder.Services.AddTerrainDependencies();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

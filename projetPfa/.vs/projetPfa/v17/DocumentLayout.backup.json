@@ -1,57 +1,58 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\",
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\api\\dtos\\returnaddedusermanualy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\api\\dtos\\returnaddedusermanualy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\api\\mappers\\employeemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\api\\mappers\\employeemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\core\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\core\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\api\\dtos\\employeedto\\addemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\api\\dtos\\employeedto\\addemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\infrastructure\\data\\repositories\\employerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\infrastructure\\data\\repositories\\employerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\infrastructure\\data\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\infrastructure\\data\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\core\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\core\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\api\\filters\\validatemodelattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\api\\filters\\validatemodelattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|solutionrelative:gestionsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\core\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\core\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionemployer\\gestionemployer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{76FACF30-B94A-4CA4-AE01-0FEF0DEDAE2A}|gestionEmployer\\gestionEmployer.csproj|solutionrelative:gestionemployer\\gestionemployer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionutilisateur\\api\\dtos\\addusermanualydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78DB397-4AF3-4D77-8A3D-8779C1A33BD4}|gestionUtilisateur\\gestionUtilisateur.csproj|solutionrelative:gestionutilisateur\\api\\dtos\\addusermanualydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionsite\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|solutionrelative:gestionsite\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Migrations\\20250103155631_initialMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:gestionUtilisateur\\Migrations\\20250103155631_initialMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|c:\\users\\usuario\\desktop\\tache\\dreamssports\\projetpfa\\gestionsite\\gestionsite.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|solutionrelative:gestionsite\\gestionsite.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+      "AbsoluteMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionsite\\infrastructure\\data\\repositories\\faqrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|solutionrelative:gestionsite\\infrastructure\\data\\repositories\\faqrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|c:\\users\\usuario\\desktop\\new folder\\dreamsport\\projetpfa\\gestionsite\\core\\interfaces\\faqinterfaces\\ifaqrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2DBA977-FD2B-4563-A5F5-AEF5DBB25AEC}|gestionSite\\gestionSite.csproj|solutionrelative:gestionsite\\core\\interfaces\\faqinterfaces\\ifaqrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -61,177 +62,185 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Program.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\Program.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Program.cs",
+              "RelativeToolTip": "gestionUtilisateur\\Program.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAwwB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T15:41:59.411Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReturnAddedUserManualy.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\API\\DTOs\\ReturnAddedUserManualy.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\API\\DTOs\\ReturnAddedUserManualy.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\API\\DTOs\\ReturnAddedUserManualy.cs",
+              "RelativeToolTip": "gestionUtilisateur\\API\\DTOs\\ReturnAddedUserManualy.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAA3wBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T16:18:39.24Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "20241231133601_InitialMigrat.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs",
-              "RelativeDocumentMoniker": "gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs",
-              "RelativeToolTip": "gestionEmployer\\Migrations\\20241231133601_InitialMigrat.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\API\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\API\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\API\\Controllers\\UserController.cs",
+              "RelativeToolTip": "gestionUtilisateur\\API\\Controllers\\UserController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwCQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:36:01.655Z",
+              "WhenOpened": "2025-01-03T16:14:10.102Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "EmployeeMapper.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\API\\Mappers\\EmployeeMapper.cs",
-              "RelativeDocumentMoniker": "gestionEmployer\\API\\Mappers\\EmployeeMapper.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\API\\Mappers\\EmployeeMapper.cs",
-              "RelativeToolTip": "gestionEmployer\\API\\Mappers\\EmployeeMapper.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAA0AAAAAAAAAA==",
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Core\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\Core\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Core\\Services\\UserService.cs",
+              "RelativeToolTip": "gestionUtilisateur\\Core\\Services\\UserService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwBMAAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:28:51.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AddEmployeeDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\API\\DTOs\\EmployeeDTO\\AddEmployeeDTO.cs",
-              "RelativeDocumentMoniker": "gestionEmployer\\API\\DTOs\\EmployeeDTO\\AddEmployeeDTO.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\API\\DTOs\\EmployeeDTO\\AddEmployeeDTO.cs",
-              "RelativeToolTip": "gestionEmployer\\API\\DTOs\\EmployeeDTO\\AddEmployeeDTO.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAA5wB0AAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:28:08.903Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "EmployerRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Infrastructure\\Data\\Repositories\\EmployerRepository.cs",
-              "RelativeDocumentMoniker": "gestionEmployer\\Infrastructure\\Data\\Repositories\\EmployerRepository.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Infrastructure\\Data\\Repositories\\EmployerRepository.cs",
-              "RelativeToolTip": "gestionEmployer\\Infrastructure\\Data\\Repositories\\EmployerRepository.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:27:59.805Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Infrastructure\\Data\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "gestionEmployer\\Infrastructure\\Data\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Infrastructure\\Data\\AppDbContext.cs",
-              "RelativeToolTip": "gestionEmployer\\Infrastructure\\Data\\AppDbContext.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:25:05.792Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "20241231132129_InitialMigrat.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs",
-              "RelativeDocumentMoniker": "gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs",
-              "RelativeToolTip": "gestionEmployer\\Migrations\\20241231132129_InitialMigrat.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:21:29.121Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\appsettings.json",
-              "RelativeDocumentMoniker": "gestionEmployer\\appsettings.json",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\appsettings.json",
-              "RelativeToolTip": "gestionEmployer\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-31T13:19:59.212Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "20241231131911_InitialMigra.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs",
-              "RelativeDocumentMoniker": "gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs",
-              "RelativeToolTip": "gestionEmployer\\Migrations\\20241231131911_InitialMigra.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:19:11.459Z",
+              "WhenOpened": "2025-01-03T16:06:27.026Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "gestionEmployer",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\gestionEmployer.csproj",
-              "RelativeDocumentMoniker": "gestionEmployer\\gestionEmployer.csproj",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionEmployer\\gestionEmployer.csproj",
-              "RelativeToolTip": "gestionEmployer\\gestionEmployer.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-12-31T13:16:09.662Z",
+              "Title": "AddUserManualyDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\API\\DTOs\\AddUserManualyDTO.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\API\\DTOs\\AddUserManualyDTO.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\API\\DTOs\\AddUserManualyDTO.cs",
+              "RelativeToolTip": "gestionUtilisateur\\API\\DTOs\\AddUserManualyDTO.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA5wBgAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T16:00:09.811Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "gestionSite\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\Properties\\launchSettings.json",
-              "RelativeToolTip": "gestionSite\\Properties\\launchSettings.json",
+              "Title": "20250103155631_initialMigration.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Migrations\\20250103155631_initialMigration.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\Migrations\\20250103155631_initialMigration.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Migrations\\20250103155631_initialMigration.cs",
+              "RelativeToolTip": "gestionUtilisateur\\Migrations\\20250103155631_initialMigration.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-30T19:05:15.305Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T15:56:31.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\Infrastructure\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "gestionUtilisateur\\Infrastructure\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T15:56:08.442Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\appsettings.json",
-              "RelativeDocumentMoniker": "gestionSite\\appsettings.json",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\appsettings.json",
-              "RelativeToolTip": "gestionSite\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-30T19:04:56.634Z",
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Core\\Interfaces\\IUserService.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\Core\\Interfaces\\IUserService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Core\\Interfaces\\IUserService.cs",
+              "RelativeToolTip": "gestionUtilisateur\\Core\\Interfaces\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T15:29:50.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ValidateModelAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\API\\Filters\\ValidateModelAttribute.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\API\\Filters\\ValidateModelAttribute.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\API\\Filters\\ValidateModelAttribute.cs",
+              "RelativeToolTip": "gestionUtilisateur\\API\\Filters\\ValidateModelAttribute.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T15:26:42.408Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "gestionSite.http",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\gestionSite.http",
-              "RelativeDocumentMoniker": "gestionSite\\gestionSite.http",
-              "ToolTip": "C:\\Users\\Usuario\\Desktop\\Tache\\dreamssports\\projetPfa\\gestionSite\\gestionSite.http",
-              "RelativeToolTip": "gestionSite\\gestionSite.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2024-12-30T19:04:54.21Z"
+              "Title": "FAQRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionSite\\Infrastructure\\Data\\Repositories\\FAQRepository.cs",
+              "RelativeDocumentMoniker": "gestionSite\\Infrastructure\\Data\\Repositories\\FAQRepository.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionSite\\Infrastructure\\Data\\Repositories\\FAQRepository.cs",
+              "RelativeToolTip": "gestionSite\\Infrastructure\\Data\\Repositories\\FAQRepository.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAIwCUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T14:59:14.907Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "Microsoft.Common.CurrentVersion.targets",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "ViewState": "AgIAANAVAAAAAAAAAAD4v94VAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2024-12-30T18:51:21.105Z"
+              "Title": "IFAQRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionSite\\Core\\Interfaces\\FAQInterfaces\\IFAQRepository.cs",
+              "RelativeDocumentMoniker": "gestionSite\\Core\\Interfaces\\FAQInterfaces\\IFAQRepository.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionSite\\Core\\Interfaces\\FAQInterfaces\\IFAQRepository.cs",
+              "RelativeToolTip": "gestionSite\\Core\\Interfaces\\FAQInterfaces\\IFAQRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T14:58:48.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Infrastructure\\Data\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\Infrastructure\\Data\\Repositories\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Infrastructure\\Data\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "gestionUtilisateur\\Infrastructure\\Data\\Repositories\\UserRepository.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwCEAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T14:57:32.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Core\\Interfaces\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "gestionUtilisateur\\Core\\Interfaces\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\New folder\\dreamsport\\projetPfa\\gestionUtilisateur\\Core\\Interfaces\\IUserRepository.cs",
+              "RelativeToolTip": "gestionUtilisateur\\Core\\Interfaces\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T14:57:13.988Z",
+              "EditorCaption": ""
             }
           ]
         }
