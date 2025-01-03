@@ -22,7 +22,7 @@ namespace gestionSite.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("gestionSite.Core.Models.Annonce", b =>
+            modelBuilder.Entity("gestionSite.Core.Models.Annonces", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,15 +137,13 @@ namespace gestionSite.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TerrainStatusId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("_TerrainStatusId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("_TerrainStatusId");
 
                     b.ToTable("Terrains");
                 });
@@ -164,15 +162,6 @@ namespace gestionSite.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TerrainStatuses");
-                });
-
-            modelBuilder.Entity("gestionSite.Core.Models.Terrain", b =>
-                {
-                    b.HasOne("gestionSite.Core.Models.TerrainStatus", "_TerrainStatus")
-                        .WithMany()
-                        .HasForeignKey("_TerrainStatusId");
-
-                    b.Navigation("_TerrainStatus");
                 });
 #pragma warning restore 612, 618
         }
