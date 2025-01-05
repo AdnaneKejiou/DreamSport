@@ -8,5 +8,8 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<bool> DoesUserWithPhoneExist(string phone,int id);
         Task<bool> DoesUserWithEmailExist(string email,int id);
         Task<bool> DoesUserWithUsernameExist(string username, int id);
+        Task<User?> GetByIdAsync(int id);
+        Task UpdateAsync(User user);
+        Task DeleteAsync(User user);
     }
 }

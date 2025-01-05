@@ -43,5 +43,22 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
         {
             return await _context.Users.AnyAsync(u => u.Email == username && u.IdAdmin==id);
         }
+        public async Task<User?> GetByIdAsync(int id)
+        {
+            return await _context.Set<User>().FindAsync(id);
+        }
+
+        public async Task UpdateAsync(User user)
+        {
+            _context.Set<User>().Update(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(User user)
+        {
+            _context.Set<User>().Remove(user);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

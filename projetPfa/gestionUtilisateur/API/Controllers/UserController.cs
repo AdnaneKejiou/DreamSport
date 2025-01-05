@@ -34,5 +34,44 @@ namespace gestionUtilisateur.API.Controllers
             return BadRequest(result);
         }
 
+
+        [HttpPut("{id}")]
+        [ValidateModelAttribute]
+        public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] UpdateUserDto dto)
+        {
+            if (id <= 0)
+                return BadRequest("ID utilisateur invalide.");
+
+            var result = await _userService.UpdateUserAsync(id, dto);
+            if (result == null)
+                return NotFound($"Utilisateur avec l'ID {id} introuvable.");
+
+            return Ok(new { message = "Profil mis à jour avec succès.", data = result });
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var result = await _userService.DeleteUserAsync(id);
+            if (!result) return NotFound();
+
+            return NoContent();
+        }
+        [HttpPut("update-sport-data/{id}")]
+        [ValidateModelAttribute]
+        public async Task<IActionResult> UpdateSportDataAsync(int id, [FromBody] UpdateSportDataDTO dto)
+        {
+            if (id <= 0)
+                return BadRequest("ID utilisateur invalide.");
+
+            var result = await _userService.UpdateSportDataAsync(id, dto);
+            if (!result)
+                return NotFound($"Utilisateur avec l'ID {id} introuvable.");
+
+            return Ok(new { message = "Profil sportif mis à jour avec succès." });
+        }
+
+
     }
 }
