@@ -54,5 +54,24 @@ namespace gestionUtilisateur.API.Mappers
 
         }
 
+        //Recup password
+        public static User RecupererPasswod(  RecupererPasswordDTO dto)
+        {
+            return new User {
+
+                Email = dto.Email,
+                IdAdmin = dto.idAdmin,
+            };
+        }
+
+        public static ReturnForgotPasswordDTO returnUpdatedPasswordDTO(User user)
+        {
+            return new ReturnForgotPasswordDTO
+            {
+                Email = user.Email,
+                idAdmin = user.IdAdmin
+            };
+        }
+
     }
 }

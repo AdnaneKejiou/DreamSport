@@ -9,6 +9,7 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<bool> UpdateUserAsync(int id, UpdateUserDto updateUserDto);
         Task<bool> DeleteUserAsync(int id);
         Task<bool> UpdateSportDataAsync(int userId, UpdateSportDataDTO dto);
+        Task<ReturnForgotPasswordDTO> RecupererPasswodAsync( RecupererPasswordDTO dTO);
 
     }
 }

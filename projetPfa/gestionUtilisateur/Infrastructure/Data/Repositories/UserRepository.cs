@@ -60,5 +60,12 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<User> GetByEmailAsync(string email, int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.IdAdmin == id);
+        }
+
+        
+
     }
 }

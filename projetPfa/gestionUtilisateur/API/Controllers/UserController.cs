@@ -72,6 +72,22 @@ namespace gestionUtilisateur.API.Controllers
             return Ok(new { message = "Profil sportif mis à jour avec succès." });
         }
 
+        [HttpPut]
+        [ValidateModelAttribute]
+        public async Task<IActionResult> RecupererPassword([FromBody] RecupererPasswordDTO dto)
+        {
+            
+                // Appel au service
+                var userDto = await _userService.RecupererPasswodAsync(dto);
+                
+            if (userDto.error!=null)
+            {
+                return BadRequest(userDto);
+            }
+                return Ok(userDto);
+            
+        }
+
 
     }
 }

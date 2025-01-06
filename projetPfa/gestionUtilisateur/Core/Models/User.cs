@@ -21,5 +21,7 @@
         public DateTime DateBlockedReservation { get; set; }
         public Boolean IsReservationBlocked { get; set; }
         public int IdAdmin { get; set; }
+
+
     }
 }

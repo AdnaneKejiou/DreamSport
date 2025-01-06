@@ -78,7 +78,44 @@ namespace gestionUtilisateur.Core.Services
             //ajouter CDN
         }
 
+        public async Task<ReturnForgotPasswordDTO> RecupererPasswodAsync( RecupererPasswordDTO dto)
+        {
+            // Recherche l'utilisateur par email
+            var user = await _userRepository.GetByEmailAsync(dto.Email, dto.idAdmin);
+            if (user == null)
+            {
+                user = UserMapper.RecupererPasswod(dto);
+                var Returnto = UserMapper.returnUpdatedPasswordDTO(user);
+                Returnto.error = "Aucun utilisateur trouvé avec cet email";
+                return Returnto;
+            }
+            var ReturnDto = UserMapper.returnUpdatedPasswordDTO(user);
 
+            // Générer un nouveau mot de passe
+            var nouveauMotDePasse = GenererNouveauMotDePasse();
 
+            // Mise à jour du mot de passe dans l'objet utilisateur
+            user.Password = nouveauMotDePasse;
+
+            // Mise à jour dans la base de données
+            await _userRepository.UpdateAsync(user);
+            // Retourner true après une mise à jour réussie
+            return ReturnDto;
+        }
+
+        private string GenererNouveauMotDePasse()
+            {
+                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var random = new Random();
+                return new string(Enumerable.Repeat(chars, 10)
+                    .Select(s => s[random.Next(s.Length)]).ToArray());
+            }
+        }
     }
-}
+
+
+
+
+
+    
+
