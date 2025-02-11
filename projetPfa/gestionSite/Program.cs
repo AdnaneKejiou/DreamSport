@@ -1,5 +1,9 @@
 
 
+using gestionSite.Core.Interfaces.SportInterfaces;
+using gestionSite.Core.Services;
+using gestionSite.Infrastructure.Data.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,8 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.AddControllers();
-//builder.Services.AddScoped<IFAQRepository, FAQRepository>();
-//builder.Services.AddScoped<IFAQService, FAQService>();
+builder.Services.AddScoped<ISportRepository, SportRepository>();
+builder.Services.AddScoped<ISportService, SportService>();
 
 builder.Services.AddSiteDependencies();
 builder.Services.addAnnoncesDependencies ();

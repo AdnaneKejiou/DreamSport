@@ -17,5 +17,18 @@ namespace gestionSite.Infrastructure.Data
         public DbSet<Site> Sites { get; set; }
         public DbSet<Annonces> Annonces { get; set; }
 
+        public DbSet<Sport_Categorie> Sports { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Terrain>()
+                .HasOne(t => t.Sport_Categorie)
+                .WithMany()
+                .HasForeignKey(t => t.Id)
+                .OnDelete(DeleteBehavior.Restrict); // or SetNull / Cascade based on your needs
+        }
+
     }
 }

@@ -8,5 +8,8 @@
         public string? Image {  get; set; }
         public int TerrainStatusId { get; set; }
         public int IdAdmin { get; set; }
+        public int IdSport_Categorie { get; set; }
+
+        public Sport_Categorie Sport_Categorie { get;set; }
     }
 }
