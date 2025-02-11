@@ -14,12 +14,10 @@ namespace gestionUtilisateur.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly AppDbContext _context;
 
-        public UserController(IUserService userService,AppDbContext context)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _context = context;
         }
 
         [HttpPost]
@@ -36,14 +34,60 @@ namespace gestionUtilisateur.API.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("api/users")]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+
+        [HttpPut("{id}")]
+        [ValidateModelAttribute]
+        public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] UpdateUserDto dto)
         {
-            // Fetch all users from the database
-            var users = await _context.Users.ToListAsync();
-            
-            // Return the list of users
-            return Ok(users);
+            if (id <= 0)
+                return BadRequest("ID utilisateur invalide.");
+
+            var result = await _userService.UpdateUserAsync(id, dto);
+            if (result == null)
+                return NotFound($"Utilisateur avec l'ID {id} introuvable.");
+
+            return Ok(new { message = "Profil mis à jour avec succès.", data = result });
         }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var result = await _userService.DeleteUserAsync(id);
+            if (!result) return NotFound();
+
+            return NoContent();
+        }
+        [HttpPut("update-sport-data/{id}")]
+        [ValidateModelAttribute]
+        public async Task<IActionResult> UpdateSportDataAsync(int id, [FromBody] UpdateSportDataDTO dto)
+        {
+            if (id <= 0)
+                return BadRequest("ID utilisateur invalide.");
+
+            var result = await _userService.UpdateSportDataAsync(id, dto);
+            if (!result)
+                return NotFound($"Utilisateur avec l'ID {id} introuvable.");
+
+            return Ok(new { message = "Profil sportif mis à jour avec succès." });
+        }
+
+        [HttpPut]
+        [ValidateModelAttribute]
+        public async Task<IActionResult> RecupererPassword([FromBody] RecupererPasswordDTO dto)
+        {
+            
+                // Appel au service
+                var userDto = await _userService.RecupererPasswodAsync(dto);
+                
+            if (userDto.error!=null)
+            {
+                return BadRequest(userDto);
+            }
+                return Ok(userDto);
+            
+        }
+
+
     }
 }
