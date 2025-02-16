@@ -31,5 +31,25 @@ namespace gestionEquipe.API.Controllers
             //return Created("/api/faq/" + result.IdAdmin, result);
         }
 
+
+
+        //   supprimer une équipe avec ses membres
+        [HttpDelete("{equipeId}")]
+        public async Task<IActionResult> SupprimerEquipe(int equipeId)
+        {
+            try
+            {
+                await _equipeService.SupprimerEquipeAvecMembresAsync(equipeId);
+                return NoContent(); // Réponse 204 No Content lorsque la suppression est réussie
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); // En cas d'erreur, retour d'une réponse 400 BadRequest
+            }
+        }
+
+        
+        
+
     }
 }

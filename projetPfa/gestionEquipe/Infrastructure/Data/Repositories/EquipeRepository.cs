@@ -51,6 +51,33 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
         {
             return await _context.Equipes.AnyAsync(e => e.Id == id );
         }
+
+        //supprimer equipe with id (membres inclus grace oncascade)
+
+        // Méthode pour supprimer l'équipe et ses membres
+        public async Task SupprimerEquipeAvecMembresAsync(int equipeId)
+        {
+            var equipe = await _context.Equipes
+                .Include(e => e.Members)  // Inclure les membres pour supprimer en cascade
+                .FirstOrDefaultAsync(e => e.Id == equipeId);
+
+            if (equipe == null)
+            {
+                throw new Exception("Équipe non trouvée");
+            }
+
+            // Supprimer l'équipe (les membres seront supprimés automatiquement grâce à la cascade)
+            _context.Equipes.Remove(equipe);
+            await _context.SaveChangesAsync();
+        }
+
+        // Méthode pour obtenir une équipe par son ID
+        public async Task<Equipe> GetEquipeByIdAsync(int equipeId)
+        {
+            return await _context.Equipes
+                .Include(e => e.Members)  // Inclure les membres
+                .FirstOrDefaultAsync(e => e.Id == equipeId);
+        }
     }
 
 }

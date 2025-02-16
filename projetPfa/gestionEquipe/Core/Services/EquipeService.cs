@@ -41,5 +41,15 @@ namespace gestionEquipe.Core.Services
             return EquipeMapper.ModelToAdded(AddeddEquipe);
 
         }
+
+        // Méthode pour supprimer l'équipe avec ses membres
+        public async Task SupprimerEquipeAvecMembresAsync(int equipeId)
+        {
+            var equipe = await _equipeRepository.GetEquipeByIdAsync(equipeId);
+            if (equipe == null) throw new KeyNotFoundException ("Team not found");
+            await _equipeRepository.SupprimerEquipeAvecMembresAsync(equipeId);
+        }
+
+        
     }
 }
