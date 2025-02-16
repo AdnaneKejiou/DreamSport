@@ -30,5 +30,23 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
             
         }
 
+        public async Task<Members> AddMemberAsync(Members member)
+        {
+            var result = await _context.Memberss.AddAsync(member); // Add entity
+            
+            return result.Entity; // Return the saved entity
+        }
+
+        public async Task<Members> AddMemberSaveAsync(Members member)
+        {
+            var result = await _context.Memberss.AddAsync(member); // Add entity
+            _context.SaveChanges();
+            return result.Entity; // Return the saved entity
+        }
+
+        public async Task<int> CountTeamMembersAsync(int EquipeId)
+        {
+            return await _context.Memberss.CountAsync(e => e.EquipeId == EquipeId);
+        }
     }
 }

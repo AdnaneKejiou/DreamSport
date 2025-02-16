@@ -28,7 +28,8 @@ namespace gestionEquipe.Infrastructure.Data
             modelBuilder.Entity<Members>()
                 .HasOne(m => m.Equipe)
                 .WithMany(e => e.Members)
-                .HasForeignKey(m => m.EquipeId);
+                .HasForeignKey(m => m.EquipeId)
+                .OnDelete(DeleteBehavior.Cascade);  // Cascade delete, if necessary
         }
 
     }

@@ -6,7 +6,9 @@ namespace gestionEquipe.Core.Interfaces
     public interface IMembersRepository
     {
         Task<Members> KickMemberAsync(Members member);
-        
+        Task<Members> AddMemberAsync(Members member);
+        Task<Members> AddMemberSaveAsync(Members member);
         Task<bool> ExistInTeamAsync(Members member);
+        Task<int> CountTeamMembersAsync(int EquipeId);
     }
 }

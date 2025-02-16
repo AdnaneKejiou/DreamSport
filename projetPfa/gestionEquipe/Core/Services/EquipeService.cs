@@ -2,6 +2,9 @@
 using gestionEquipe.API.Mappers;
 using gestionEquipe.Core.Interfaces;
 using gestionEquipe.Core.Models;
+using gestionEquipe.Infrastructure.Data.Repositories;
+using gestionEquipe.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace gestionEquipe.Core.Services
 {
@@ -10,10 +13,15 @@ namespace gestionEquipe.Core.Services
     {
         private readonly IEquipeRepository _equipeRepository;
         private readonly ISiteService _siteService;
+        private readonly IMembersRepository _membersRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public EquipeService(IEquipeRepository equipeRepository,ISiteService siteService) {
+
+        public EquipeService(IEquipeRepository equipeRepository,ISiteService siteService,IMembersRepository membersRepository,IUnitOfWork unitOfWork) {
             _equipeRepository = equipeRepository;
             _siteService = siteService;
+            _membersRepository = membersRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<AddedEquipeDTO> AddEquipeAsync(Equipe _equipe)
@@ -37,9 +45,39 @@ namespace gestionEquipe.Core.Services
             {
                 return ReturningEquipe;
             }
-            var AddeddEquipe = await _equipeRepository.AddEquipeAsync(_equipe);
-            return EquipeMapper.ModelToAdded(AddeddEquipe);
+            
+            
+             await AddEquipeWithMemberAsync(_equipe);
+            return ReturningEquipe;
 
+        }
+
+        private async Task<Equipe> AddEquipeWithMemberAsync(Equipe equipe)
+        {
+            // Start the transaction if necessary
+            await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                // Add both the Equipe and the Member
+                equipe = await _equipeRepository.AddEquipeAsync(equipe);
+                Members member = new Members
+                {
+                    UserId = equipe.CaptainId,
+                    EquipeId = equipe.Id,
+                };
+                await _membersRepository.AddMemberAsync(member);
+
+                await _unitOfWork.SaveChangesAsync();  // Save changes
+
+                await _unitOfWork.CommitAsync();  // Commit transaction
+                return equipe;
+            }
+            catch
+            {
+                await _unitOfWork.RollbackAsync();  // Rollback if any errors occur
+                throw;
+            }
         }
     }
 }

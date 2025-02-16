@@ -15,24 +15,17 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
 
         public async Task<Equipe> AddEquipeAsync(Equipe _equipe)
         {
-            try
-            {
                 var result = await _context.Equipes.AddAsync(_equipe);
                 await _context.SaveChangesAsync();
 
                 return result.Entity;
-            }
-            catch
-            {
-                // Handle exceptions as needed (e.g., log the error)
-                return null;
-            }
+            
         }
 
         public async Task<int> CountEquipesBySportAndUser(int userId, int SportId)
         {
             return await _context.Equipes
-                .Where(e => e.CaptainId == userId && e.SportId == SportId)
+                .Where(e => e.SportId == SportId && e.Members.Any(m => m.UserId == userId))
                 .CountAsync();
         }
 
@@ -47,10 +40,13 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
             return await _context.Equipes.AnyAsync(e => e.CaptainId == CaptainID && e.Id == EquipeId);
         }
         
-        public async Task<bool> ExistWithIdAsync(int id)
+        public async Task<Equipe> ExistWithIdAsync(int id)
         {
-            return await _context.Equipes.AnyAsync(e => e.Id == id );
+            return await _context.Equipes
+                                     .FirstOrDefaultAsync(m => m.Id == id);
         }
+
+
     }
 
 }

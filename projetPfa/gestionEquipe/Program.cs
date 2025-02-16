@@ -18,6 +18,7 @@ builder.Services.AddHttpClient<SiteService>();
 builder.Services.AddScoped<IEquipeRepository, EquipeRepository>();
 builder.Services.AddScoped<IEquipeService, EquipeService>();
 builder.Services.AddScoped<ISiteService, SiteService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 builder.Services.AddControllers();
