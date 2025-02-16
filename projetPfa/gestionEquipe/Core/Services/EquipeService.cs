@@ -45,11 +45,33 @@ namespace gestionEquipe.Core.Services
         // Méthode pour supprimer l'équipe avec ses membres
         public async Task SupprimerEquipeAvecMembresAsync(int equipeId)
         {
-            var equipe = await _equipeRepository.GetEquipeByIdAsync(equipeId);
+            var equipe = await _equipeRepository.GetEquipeById(equipeId);
             if (equipe == null) throw new KeyNotFoundException ("Team not found");
             await _equipeRepository.SupprimerEquipeAvecMembresAsync(equipeId);
         }
 
         
+
+        public async Task<UpdatedEquipeDTO> UpdateEquipeAsync(Equipe _equipe) {
+
+            var ReturningEquipe = EquipeMapper.EquipetoUpdatedEquipeDTO(_equipe);
+
+            if (_equipeRepository.GetEquipeById(_equipe.Id) == null)
+            {
+                ReturningEquipe.Errors.Add("Count", "This user had more than one team in that sport");
+            }
+
+            if (ReturningEquipe.Errors.Count > 0)
+            {
+                return ReturningEquipe;
+            }
+
+            var UpdatedEquipe = await _equipeRepository.UpdateEquipeAsync(_equipe);
+
+            return EquipeMapper.EquipetoUpdatedEquipeDTO(UpdatedEquipe);
+
+
+
+        }
     }
 }

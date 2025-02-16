@@ -20,7 +20,31 @@ namespace gestionEquipe.API.Mappers
             };
         }
 
-        
+        public static Equipe UpdateEquipDTOtoEquipe(UpdateEquipeDTO dto)
+        {
+            return new Equipe
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Description = dto.Description,
+                Avatar = dto.Avatar,
+                SportId = dto.SportId,
+
+            };
+        }
+
+        public static UpdatedEquipeDTO EquipetoUpdatedEquipeDTO(Equipe dto)
+        {
+            return new UpdatedEquipeDTO
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Description = dto.Description,
+                Avatar = dto.Avatar,
+                SportId = dto.SportId,
+
+            };
+        }
 
         public static AddedEquipeDTO ModelToAdded(Equipe equipe)
         {
