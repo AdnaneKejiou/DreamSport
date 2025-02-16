@@ -6,6 +6,9 @@ namespace gestionEquipe.Core.Interfaces
     public interface IEquipeService
     {
         Task<AddedEquipeDTO> AddEquipeAsync(Equipe _equipe);
+        Task<UpdatedEquipeDTO> UpdateEquipeAsync(Equipe _equipe);
+
+
 
     }
 }

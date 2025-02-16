@@ -41,5 +41,27 @@ namespace gestionEquipe.Core.Services
             return EquipeMapper.ModelToAdded(AddeddEquipe);
 
         }
+
+        public async Task<UpdatedEquipeDTO> UpdateEquipeAsync(Equipe _equipe) {
+
+            var ReturningEquipe = EquipeMapper.EquipetoUpdatedEquipeDTO(_equipe);
+
+            if (_equipeRepository.GetEquipeById(_equipe.Id) == null)
+            {
+                ReturningEquipe.Errors.Add("Count", "This user had more than one team in that sport");
+            }
+
+            if (ReturningEquipe.Errors.Count > 0)
+            {
+                return ReturningEquipe;
+            }
+
+            var UpdatedEquipe = await _equipeRepository.UpdateEquipeAsync(_equipe);
+
+            return EquipeMapper.EquipetoUpdatedEquipeDTO(UpdatedEquipe);
+
+
+
+        }
     }
 }

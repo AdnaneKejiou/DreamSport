@@ -29,6 +29,46 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
             }
         }
 
+        public async Task<Equipe> UpdateEquipeAsync(Equipe _equipe)
+        {
+            try
+            {
+
+               Equipe existingEquipe = await GetEquipeById(_equipe.Id);
+              
+
+                // Update the properties of the existing equipe
+
+                if (_equipe.Name!=null)
+                {
+                    existingEquipe.Name = _equipe.Name;
+                }
+
+                if (_equipe.Description != null)
+                {
+                    existingEquipe.Description = _equipe.Description;
+                }
+                if (_equipe.Avatar != null)
+                {
+                    existingEquipe.Avatar = _equipe.Avatar;
+                }
+
+
+
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                return existingEquipe; // Return the updated equipe
+            }
+            catch (Exception ex)
+            {
+                
+                return null; // Or you could throw the exception if desired
+            }
+        }
+
+
         public async Task<int> CountEquipesBySportAndUser(int userId, int SportId)
         {
             return await _context.Equipes
@@ -51,6 +91,30 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
         {
             return await _context.Equipes.AnyAsync(e => e.Id == id );
         }
+
+        public async Task<Equipe> GetEquipeById(int id)
+        {
+            try
+            {
+                // Find the existing equipe by its ID
+                var equipe = await _context.Equipes
+                    .FirstOrDefaultAsync(e => e.Id == id);
+
+                if (equipe == null)
+                {
+                   
+                    return null; // or you can throw new KeyNotFoundException("Equipe not found");
+                }
+
+                return equipe;
+            }
+            catch (Exception ex)
+            {
+           
+                return null; // You can return a custom error object or rethrow the exception
+            }
+        }
+
     }
 
 }

@@ -9,5 +9,8 @@ namespace gestionEquipe.Core.Interfaces
         Task<bool> ExistWithName(string name, int AdminID);
         Task<bool> ExistWithIdAsync(int  id);
         Task<bool> IsCaptainAsync(int CaptainID, int EquipeId);
+        Task<Equipe> UpdateEquipeAsync(Equipe _equipe);
+        Task<Equipe> GetEquipeById(int id);
+
     }
 }
