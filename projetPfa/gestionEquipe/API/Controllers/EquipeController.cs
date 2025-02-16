@@ -31,5 +31,37 @@ namespace gestionEquipe.API.Controllers
             //return Created("/api/faq/" + result.IdAdmin, result);
         }
 
+        [HttpPut]
+        public async Task<ActionResult<UpdatedEquipeDTO>> UpdateEquipeAsync([FromBody] UpdateEquipeDTO UpdateEquipe)
+        {
+          var equipe = EquipeMapper.UpdateEquipDTOtoEquipe(UpdateEquipe);
+            UpdatedEquipeDTO result = await _equipeService.UpdateEquipeAsync(equipe);
+           if (result.Errors.Count() > 0)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+
+
+        //   supprimer une équipe avec ses membres
+        [HttpDelete("{equipeId}")]
+        public async Task<IActionResult> SupprimerEquipe(int equipeId)
+        {
+            try
+            {
+                await _equipeService.SupprimerEquipeAvecMembresAsync(equipeId);
+                return NoContent(); // Réponse 204 No Content lorsque la suppression est réussie
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); // En cas d'erreur, retour d'une réponse 400 BadRequest
+            }
+        }
+
+        
+        
+
     }
 }

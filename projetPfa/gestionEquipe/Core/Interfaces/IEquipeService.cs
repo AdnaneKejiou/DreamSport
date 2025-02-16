@@ -6,6 +6,14 @@ namespace gestionEquipe.Core.Interfaces
     public interface IEquipeService
     {
         Task<AddedEquipeDTO> AddEquipeAsync(Equipe _equipe);
+        Task<UpdatedEquipeDTO> UpdateEquipeAsync(Equipe _equipe);
+
+
+
+        // Méthode pour supprimer une équipe avec ses membres
+        Task SupprimerEquipeAvecMembresAsync(int equipeId);
+
+        // Méthode pour obtenir une équipe par son ID
 
     }
 }

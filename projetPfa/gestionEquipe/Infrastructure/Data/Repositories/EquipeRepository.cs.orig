@@ -86,6 +86,8 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
                                      .FirstOrDefaultAsync(m => m.Id == id);
         }
 
+<<<<<<< HEAD
+=======
         //supprimer equipe with id (membres inclus grace oncascade)
 
         // Méthode pour supprimer l'équipe et ses membres
@@ -129,8 +131,7 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
                 return null; // You can return a custom error object or rethrow the exception
             }
         }
-
-
+>>>>>>> 493ec34f3b2cb453ee16ba843616b06acef3c136
 
     }
 

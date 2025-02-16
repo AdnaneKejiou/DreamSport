@@ -52,6 +52,7 @@ namespace gestionEquipe.Core.Services
 
         }
 
+<<<<<<< HEAD
         private async Task<Equipe> AddEquipeWithMemberAsync(Equipe equipe)
         {
             // Start the transaction if necessary
@@ -78,8 +79,7 @@ namespace gestionEquipe.Core.Services
                 await _unitOfWork.RollbackAsync();  // Rollback if any errors occur
                 throw;
             }
-        }
-
+=======
         // Méthode pour supprimer l'équipe avec ses membres
         public async Task SupprimerEquipeAvecMembresAsync(int equipeId)
         {
@@ -110,6 +110,7 @@ namespace gestionEquipe.Core.Services
 
 
 
+>>>>>>> 493ec34f3b2cb453ee16ba843616b06acef3c136
         }
     }
 }

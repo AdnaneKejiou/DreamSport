@@ -29,7 +29,11 @@ namespace gestionEquipe.Infrastructure.Data
                 .HasOne(m => m.Equipe)
                 .WithMany(e => e.Members)
                 .HasForeignKey(m => m.EquipeId)
+<<<<<<< HEAD
+                .OnDelete(DeleteBehavior.Cascade);  // Cascade delete, if necessary
+=======
                 .OnDelete(DeleteBehavior.Cascade);  // Ajout de la suppression en cascade
+>>>>>>> 493ec34f3b2cb453ee16ba843616b06acef3c136
         }
 
 
