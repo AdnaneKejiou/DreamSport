@@ -1,5 +1,6 @@
 ﻿using gestionEquipe.API.DTOs;
 using gestionEquipe.Core.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace gestionEquipe.API.Mappers
 {
@@ -18,6 +19,8 @@ namespace gestionEquipe.API.Mappers
 
             };
         }
+
+        
 
         public static AddedEquipeDTO ModelToAdded(Equipe equipe)
         {

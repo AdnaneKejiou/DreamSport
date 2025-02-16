@@ -42,6 +42,15 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
 
         }
 
+        public async Task<bool> IsCaptainAsync(int CaptainID, int EquipeId)
+        {
+            return await _context.Equipes.AnyAsync(e => e.CaptainId == CaptainID && e.Id == EquipeId);
+        }
+        
+        public async Task<bool> ExistWithIdAsync(int id)
+        {
+            return await _context.Equipes.AnyAsync(e => e.Id == id );
+        }
     }
 
 }

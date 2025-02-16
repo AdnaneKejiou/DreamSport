@@ -1,8 +1,12 @@
-projetPfa/.vs/
-projetPfa/gestionEmployer/bin/
-projetPfa/gestionSite/bin/
-projetPfa/gestionUtilisateur/bin/
-projetPfa/ApiGateway/bin/
-projetPfa/gestionEquipe/bin/
-projetPfa/gestionReservation/bin/
-projetPfa/serviceMail/bin/
+# Ignore Visual Studio specific files
+.vs/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Ignore bin folders for all projects
+**/bin/
+
+# Ignore build output and temporary files
+obj/

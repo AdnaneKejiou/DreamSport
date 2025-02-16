@@ -25,7 +25,7 @@ namespace gestionEquipe.Infrastructure.ExternServices
                 return cachedData;
             }
 
-            // Fetch from API
+            // Ila kan lcashe khawi
             var result = await FetchSportsAsync();
 
             // Cache the data for 5 minutes
@@ -34,7 +34,7 @@ namespace gestionEquipe.Infrastructure.ExternServices
             return result;
         }
 
-        private async Task<List<SportCategorieDTO>> FetchSportsAsync()
+        private async Task<List<SportCategorieDTO>> FetchSportsAsync() // communiquer avec  gestion SIte
         {
             var response = await _httpClient.GetAsync("http://localhost:5150/api/SportCategorie/execute");
             response.EnsureSuccessStatusCode();

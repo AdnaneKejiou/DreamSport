@@ -9,5 +9,7 @@
         public String Description { get; set; }
         public String Avatar {  get; set; }
         public int CaptainId { get; set; }
+
+        public List<Members> Members { get; set; }
     }
 }
