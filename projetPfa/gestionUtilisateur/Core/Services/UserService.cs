@@ -2,21 +2,24 @@
 using gestionUtilisateur.API.Mappers;
 using gestionUtilisateur.Core.Interfaces;
 using gestionUtilisateur.Core.Models;
-
+using System.Net.Http;
+using System.Text.Json;
 
 namespace gestionUtilisateur.Core.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly HttpClient _httpClient;  // Modifiez ici pour utiliser HttpClient
 
-
-        public UserService(IUserRepository userRepository)
+        // Injecter HttpClient via le constructeur
+        public UserService(IUserRepository userRepository, HttpClient httpClient)
         {
             _userRepository = userRepository;
+            _httpClient = httpClient;  // Stocker l'instance d'HttpClient
         }
 
-    public async Task<ReturnAddedUserManualy> AddUserManualyAsync(User _user)
+        public async Task<ReturnAddedUserManualy> AddUserManualyAsync(User _user)
         {
             var Errors = new Dictionary<string, string>();
             if (await _userRepository.DoesUserWithPhoneExist(_user.PhoneNumber, _user.IdAdmin))
@@ -47,6 +50,7 @@ namespace gestionUtilisateur.Core.Services
             AddedUser.errors = Errors;
             return AddedUser;
         }
+
         public async Task<bool> UpdateUserAsync(int id, UpdateUserDto dto)
         {
             var user = await _userRepository.GetByIdAsync(id);
@@ -65,6 +69,7 @@ namespace gestionUtilisateur.Core.Services
             await _userRepository.DeleteAsync(user);
             return true;
         }
+
         public async Task<bool> UpdateSportDataAsync(int userId, UpdateSportDataDTO dto)
         {
             var user = await _userRepository.GetByIdAsync(userId);
@@ -78,7 +83,7 @@ namespace gestionUtilisateur.Core.Services
             //ajouter CDN
         }
 
-        public async Task<ReturnForgotPasswordDTO> RecupererPasswodAsync( RecupererPasswordDTO dto)
+        public async Task<ReturnForgotPasswordDTO> RecupererPasswodAsync(RecupererPasswordDTO dto)
         {
             // Recherche l'utilisateur par email
             var user = await _userRepository.GetByEmailAsync(dto.Email, dto.idAdmin);
@@ -104,18 +109,29 @@ namespace gestionUtilisateur.Core.Services
         }
 
         private string GenererNouveauMotDePasse()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, 10)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        // Vérification si l'utilisateur est bloqué
+        public async Task<bool> IsReservationBlocked(int userId)
+        {
+            // Appel au microservice pour récupérer le statut de l'utilisateur
+            var response = await _httpClient.GetAsync($"http://user-service/api/users/{userId}/status");
+
+            if (!response.IsSuccessStatusCode)
             {
-                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                var random = new Random();
-                return new string(Enumerable.Repeat(chars, 10)
-                    .Select(s => s[random.Next(s.Length)]).ToArray());
+                return true; // Si l'appel échoue, on considère que l'utilisateur est bloqué
             }
+
+            // Lire le contenu de la réponse sous forme de chaîne
+            var userStatus = await response.Content.ReadAsStringAsync();
+
+            // Vérifier si le statut de l'utilisateur est "blocked"
+            return userStatus.Equals("blocked", StringComparison.OrdinalIgnoreCase);
         }
     }
-
-
-
-
-
-    
-
+}

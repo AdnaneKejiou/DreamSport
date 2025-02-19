@@ -17,14 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="API\Controllers\" />
-    <Folder Include="API\DTOs\" />
     <Folder Include="API\Filters\" />
     <Folder Include="API\Mappers\" />
-    <Folder Include="Core\Interfaces\" />
-    <Folder Include="Core\Models\" />
-    <Folder Include="Core\Services\" />
-    <Folder Include="Infrastructure\Data\Repositories\" />
     <Folder Include="Infrastructure\ExternServices\" />
   </ItemGroup>
 
