@@ -78,6 +78,14 @@ namespace gestionSite.Infrastructure.Repositories
         {
             return await _context.Terrains.FindAsync(id);
         }
+
+        public async Task<Terrain?> GetTerrainByIdWithStatusAsync(int id)
+        {
+            return await _context.Terrains
+                .Include(t => t.terrainStatus)  // Load TerrainStatus
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
     }
 }
     

@@ -10,7 +10,7 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<bool> DeleteUserAsync(int id);
         Task<bool> UpdateSportDataAsync(int userId, UpdateSportDataDTO dto);
         Task<ReturnForgotPasswordDTO> RecupererPasswodAsync( RecupererPasswordDTO dTO);
-        Task<bool> IsReservationBlocked(int userId);  // Vérifier si la réservation est bloquée
+        Task<User> GetUserAsync(int userId);
 
     }
 }

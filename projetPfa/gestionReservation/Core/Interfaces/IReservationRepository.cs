@@ -8,6 +8,5 @@ public interface IReservationRepository
     // Récupérer une réservation par son identifiant
     Task<Reservation> GetByIdAsync(int id);
 
-    // Vérifier la disponibilité d'un terrain à une date donnée
-    Task<bool> IsTerrainAvailableAsync(int terrainId, DateTime dateRes);
+    Task<int> GetReservationsCountByTerrainAndDateAsync(int terrainId, DateTime dateRes);
 }

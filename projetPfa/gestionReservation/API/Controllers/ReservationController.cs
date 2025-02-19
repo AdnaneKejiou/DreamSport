@@ -1,4 +1,7 @@
 ﻿using gestionReservation.API.DTOs;
+using gestionReservation.API.Exceptions;
+using gestionReservation.API.Mappers;
+using gestionReservation.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gestionReservation.API.Controllers
@@ -15,24 +18,49 @@ namespace gestionReservation.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateReservation([FromBody] ReservationDto reservationDto)
+        public async Task<IActionResult> AjouterReservationAsync([FromBody] AddReservationDto reservation)
         {
-            if (reservationDto == null)
+            try
             {
-                return BadRequest("La réservation est invalide.");
+                Reservation res = ReservationMapper.AddDTOtoModel(reservation);
+                var result = await _reservationService.AjouterReservationAsync(res);
+                return Ok(result); // Return HTTP 200 with the created reservation
             }
-
-            bool result = await _reservationService.CreateReservationAsync(reservationDto);
-
-            if (result)
+            catch (BadRequestException ex)
             {
-                return Ok("Réservation créée avec succès.");
+                return BadRequest(new
+                {
+                    message = ex.Message,
+                    reservation = reservation
+                }); // HTTP 400
             }
-            else
+            catch (UnauthorizedAccessException ex)
             {
-                return BadRequest("La réservation a échoué. L'utilisateur peut être bloqué.");
+                return Unauthorized(new
+                {
+                    message = ex.Message,
+                    reservation = reservation
+                }); // HTTP 401
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new
+                {
+                    message = ex.Message,
+                    reservation = reservation
+                }); // HTTP 404
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "An unexpected error occurred",
+                    details = ex.Message,
+                    reservation = reservation
+                }); // HTTP 500
             }
         }
+
     }
 
 }

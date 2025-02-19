@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace gestionSite.Migrations
 {
     /// <inheritdoc />
-    public partial class SportAdded : Migration
+    public partial class ModifyTerrain : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -97,7 +97,8 @@ namespace gestionSite.Migrations
                 name: "Terrains",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -109,12 +110,28 @@ namespace gestionSite.Migrations
                 {
                     table.PrimaryKey("PK_Terrains", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Terrains_Sports_Id",
-                        column: x => x.Id,
+                        name: "FK_Terrains_Sports_IdSport_Categorie",
+                        column: x => x.IdSport_Categorie,
                         principalTable: "Sports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Terrains_TerrainStatuses_TerrainStatusId",
+                        column: x => x.TerrainStatusId,
+                        principalTable: "TerrainStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Terrains_IdSport_Categorie",
+                table: "Terrains",
+                column: "IdSport_Categorie");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Terrains_TerrainStatusId",
+                table: "Terrains",
+                column: "TerrainStatusId");
         }
 
         /// <inheritdoc />
@@ -133,10 +150,10 @@ namespace gestionSite.Migrations
                 name: "Terrains");
 
             migrationBuilder.DropTable(
-                name: "TerrainStatuses");
+                name: "Sports");
 
             migrationBuilder.DropTable(
-                name: "Sports");
+                name: "TerrainStatuses");
         }
     }
 }

@@ -1,81 +1,65 @@
 ﻿using gestionReservation.API.DTOs;
+using gestionReservation.Core.Interfaces;
 using gestionReservation.Core.Models;
+using gestionReservation.API.Exceptions;
 using System.Net.Http;
 using System.Text.Json;
+using gestionReservation.Infrastructure.Data.Repositories;
+using gestionReservation.API.Mappers;
 
 public class ReservationService : IReservationService
 {
     private readonly IReservationRepository _reservationRepository;
-    private readonly IStatusService _statusService;
-    private readonly HttpClient _httpClient; // Client HTTP pour les appels API
-
-    public ReservationService(
-        IReservationRepository reservationRepository,
-        IStatusService statusService,
-        HttpClient httpClient)
+    private readonly IStatusRepository _statusRepository;
+    private readonly ISiteService _siteService;
+    private readonly IUserService _userService;
+    public ReservationService(IReservationRepository reservationRepository, IStatusRepository statusRepository, IUserService userService, ISiteService siteService)
     {
         _reservationRepository = reservationRepository;
-        _statusService = statusService;
-        _httpClient = httpClient;
+        _statusRepository = statusRepository;
+        _userService = userService; 
+        _siteService = siteService;
     }
 
-    // Crée une réservation
-    public async Task<bool> CreateReservationAsync(ReservationDto reservationDto)
+    public async Task<AddReservationDto> AjouterReservationAsync(Reservation reservation)
     {
-        // Vérifier si l'utilisateur est bloqué
-        bool isBlocked = await IsReservationBlocked(reservationDto.IdUtilisateur);
-        if (isBlocked)
+        if(reservation.DateRes < DateTime.Now)
         {
-            return false;  // L'utilisateur est bloqué, il ne peut pas réserver
+            throw new BadRequestException("The reservation date must be today or in the future.");
         }
-
-        // Vérifier l'existence du terrain
-        if (!await DoesTerrainExistAsync(reservationDto.IdTerrain))
+        var user = await _userService.FetchUserAsync(reservation.IdUtilisateur);
+        if(user == null)
         {
-            return false;
+            throw new KeyNotFoundException("The user dont exist in our sytem");
         }
-
-        // Récupérer le statut "En attente" par défaut
-        var defaultStatus = await _statusService.GetDefaultStatusAsync();
-        if (defaultStatus == null)
+        if(user.IsReservationBlocked)
         {
-            return false; // Si le statut "En attente" n'existe pas, la réservation échoue
+            throw new UnauthorizedAccessException("You cant Reserve please talk to the support");
         }
-
-        // Créer une nouvelle réservation et affecter les propriétés du DTO à l'entité Reservation
-        var reservationEntity = new Reservation
+        var terrain = await _siteService.FetchTerrainAsync(reservation.IdUtilisateur);
+        if(terrain == null)
         {
-            DateRes = reservationDto.DateRes,
-            IdUtilisateur = reservationDto.IdUtilisateur,
-            IdTerrain = reservationDto.IdTerrain,
-            IdEmploye = reservationDto.IdEmploye,
-            IdAdmin = reservationDto.IdAdmin,
-            Status = defaultStatus // Assigner le statut "En attente"
-        };
+            throw new KeyNotFoundException("The terrain dont exist in our sytem");
+        }
+        if(terrain.terrainStatus.Libelle!= "Disponible")
+        {
+            throw new BadRequestException("This terrain cant be reserved at the moment");
+        }
+        if (await _reservationRepository.GetReservationsCountByTerrainAndDateAsync(reservation.TerrainId, reservation.DateRes) > 0)
+        {
+            throw new BadRequestException("This terrain is reserved at the date provided");
+        }
+        Status st = await _statusRepository.GetStatusByLibelle("en attente");
+        int idStatus = st.Id;
+        reservation.IdStatus = idStatus;
 
-        // Ajouter la réservation dans la base de données
-        await _reservationRepository.AddAsync(reservationEntity);
-
-        return true;  // Réservation réussie
+        await _reservationRepository.AddAsync(reservation);//add reservation
+        
+        var dto = ReservationMapper.ModelToAddDTO(reservation);
+        return dto;
     }
 
-    // Vérifie si l'utilisateur est bloqué
-    private async Task<bool> IsReservationBlocked(int userId)
-    {
-        var response = await _httpClient.GetAsync($"http://user-service/api/users/{userId}/status");
-        if (!response.IsSuccessStatusCode)
-        {
-            return true; // Si l'appel échoue, on considère que l'utilisateur est bloqué
-        }
+    
+    
 
-        var userStatus = await response.Content.ReadAsStringAsync(); // Exemple : "blocked" ou "active"
-        return userStatus.Equals("blocked", StringComparison.OrdinalIgnoreCase);
-    }
-
-    // Vérifie l'existence du terrain
-    private async Task<bool> DoesTerrainExistAsync(int terrainId)
-    {
-        var response = await _httpClient.GetAsync($"http://terrain-service/api/terrains/{terrainId}");
-        return response.IsSuccessStatusCode;
-    }
 }

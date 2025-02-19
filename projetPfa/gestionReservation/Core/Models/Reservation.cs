@@ -10,7 +10,7 @@
         public int IdAdmin { get; set; }
 
         // Référence à la table Status
-        public int IdStatus { get; set; }  // Foreign Key vers Status
+        public int? IdStatus { get; set; }  // Foreign Key vers Status
         public Status Status { get; set; }  // Le statut de la réservation (par défaut "En attente")
         public int TerrainId { get; internal set; }
     }

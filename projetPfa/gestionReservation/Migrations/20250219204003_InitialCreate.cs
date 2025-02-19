@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace gestionReservation.Migrations
 {
     /// <inheritdoc />
-    public partial class faireReservation : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,7 @@ namespace gestionReservation.Migrations
                     IdTerrain = table.Column<int>(type: "int", nullable: false),
                     IdEmploye = table.Column<int>(type: "int", nullable: false),
                     IdAdmin = table.Column<int>(type: "int", nullable: false),
-                    IdStatus = table.Column<int>(type: "int", nullable: false),
+                    IdStatus = table.Column<int>(type: "int", nullable: true),
                     TerrainId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

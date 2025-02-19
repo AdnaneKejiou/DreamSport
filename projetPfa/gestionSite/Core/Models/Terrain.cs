@@ -11,5 +11,6 @@
         public int IdSport_Categorie { get; set; }
 
         public Sport_Categorie Sport_Categorie { get;set; }
+        public TerrainStatus terrainStatus { get; set; }
     }
 }

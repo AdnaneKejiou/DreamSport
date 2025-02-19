@@ -88,6 +88,13 @@ namespace gestionUtilisateur.API.Controllers
             
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserAsync(int id)
+        {
+            User user = await _userService.GetUserAsync(id);
+            if(user == null) return NotFound();
+            return Ok(user);
+        }
 
     }
 }

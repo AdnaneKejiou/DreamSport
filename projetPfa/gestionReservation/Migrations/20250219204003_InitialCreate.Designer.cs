@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace gestionReservation.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250218172508_faireReservation")]
-    partial class faireReservation
+    [Migration("20250219204003_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,7 @@ namespace gestionReservation.Migrations
                     b.Property<int>("IdEmploye")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdStatus")
+                    b.Property<int?>("IdStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("IdTerrain")
@@ -82,8 +82,7 @@ namespace gestionReservation.Migrations
                     b.HasOne("gestionReservation.Core.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("IdStatus")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Status");
                 });

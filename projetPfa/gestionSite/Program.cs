@@ -1,5 +1,3 @@
-
-
 using gestionSite.Core.Interfaces.SportInterfaces;
 using gestionSite.Core.Services;
 using gestionSite.Infrastructure.Data.Repositories;

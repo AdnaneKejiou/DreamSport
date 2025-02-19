@@ -12,8 +12,8 @@ using gestionSite.Infrastructure.Data;
 namespace gestionSite.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250203172124_SportAdded")]
-    partial class SportAdded
+    [Migration("20250219181128_ModifyTerrain")]
+    partial class ModifyTerrain
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,7 +146,10 @@ namespace gestionSite.Migrations
             modelBuilder.Entity("gestionSite.Core.Models.Terrain", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -167,6 +170,10 @@ namespace gestionSite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdSport_Categorie");
+
+                    b.HasIndex("TerrainStatusId");
 
                     b.ToTable("Terrains");
                 });
@@ -191,11 +198,19 @@ namespace gestionSite.Migrations
                 {
                     b.HasOne("gestionSite.Core.Models.Sport_Categorie", "Sport_Categorie")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("IdSport_Categorie")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("gestionSite.Core.Models.TerrainStatus", "terrainStatus")
+                        .WithMany()
+                        .HasForeignKey("TerrainStatusId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Sport_Categorie");
+
+                    b.Navigation("terrainStatus");
                 });
 #pragma warning restore 612, 618
         }

@@ -117,21 +117,10 @@ namespace gestionUtilisateur.Core.Services
         }
 
         // Vérification si l'utilisateur est bloqué
-        public async Task<bool> IsReservationBlocked(int userId)
+        public async Task<User> GetUserAsync(int userId)
         {
-            // Appel au microservice pour récupérer le statut de l'utilisateur
-            var response = await _httpClient.GetAsync($"http://user-service/api/users/{userId}/status");
-
-            if (!response.IsSuccessStatusCode)
-            {
-                return true; // Si l'appel échoue, on considère que l'utilisateur est bloqué
-            }
-
-            // Lire le contenu de la réponse sous forme de chaîne
-            var userStatus = await response.Content.ReadAsStringAsync();
-
-            // Vérifier si le statut de l'utilisateur est "blocked"
-            return userStatus.Equals("blocked", StringComparison.OrdinalIgnoreCase);
+            User user = await _userRepository.GetByIdAsync(userId);
+            return user;
         }
     }
 }

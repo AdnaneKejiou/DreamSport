@@ -70,5 +70,10 @@ namespace gestionSite.Core.Services
         {
             return await _terrainRepository.GetTerrainByIdAsync(id);
         }
+
+        public async Task<Terrain?> GetTerrainByIdWithStatusAsync(int id)
+        {
+            return await _terrainRepository.GetTerrainByIdWithStatusAsync(id);
+        }
     }
 }

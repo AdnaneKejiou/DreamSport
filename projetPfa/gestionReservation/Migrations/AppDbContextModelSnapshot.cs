@@ -38,7 +38,7 @@ namespace gestionReservation.Migrations
                     b.Property<int>("IdEmploye")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdStatus")
+                    b.Property<int?>("IdStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("IdTerrain")
@@ -79,8 +79,7 @@ namespace gestionReservation.Migrations
                     b.HasOne("gestionReservation.Core.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("IdStatus")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Status");
                 });

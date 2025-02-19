@@ -23,9 +23,17 @@ public class ReservationRepository : IReservationRepository
         return await _context.Reservations.Include(r => r.Status).FirstOrDefaultAsync(r => r.Id == id);
     }
 
-    // Vérifier la disponibilité du terrain
-    public async Task<bool> IsTerrainAvailableAsync(int terrainId, DateTime dateRes)
+    public async Task<int> GetReservationsCountByTerrainAndDateAsync(int terrainId, DateTime dateRes)
     {
-        return !await _context.Reservations.AnyAsync(r => r.TerrainId == terrainId && r.DateRes == dateRes);
+        var count = await _context.Reservations
+            .Include(r => r.Status) // Join with Status
+            .Where(r => r.TerrainId == terrainId
+                        && r.DateRes == dateRes
+                        && r.Status.Libelle != "annule") // Filter by Status Libelle
+            .CountAsync();
+
+        return count;
     }
+
+
 }

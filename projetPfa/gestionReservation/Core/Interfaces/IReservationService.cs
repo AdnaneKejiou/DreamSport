@@ -1,7 +1,9 @@
 ﻿using gestionReservation.API.DTOs;
+using gestionReservation.Core.Models;
 
 public interface IReservationService
 {
     // Créer une réservation après toutes les vérifications
-    Task<bool> CreateReservationAsync(ReservationDto reservationDto);
+    Task<AddReservationDto> AjouterReservationAsync(Reservation reservation);
+
 }

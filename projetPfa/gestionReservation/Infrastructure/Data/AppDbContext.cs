@@ -12,7 +12,6 @@ public class AppDbContext : DbContext
 
     // DbSet pour les statuts
     public DbSet<Status> Status { get; set; }
-    public object Statuses { get; internal set; }
 
     // Autres entités comme Employe, Admin, etc. selon votre modèle
 
