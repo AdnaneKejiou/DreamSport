@@ -24,10 +24,17 @@ namespace gestionSite.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Terrain>()
-                .HasOne(t => t.Sport_Categorie)
+        .HasOne(t => t.Sport_Categorie)
+        .WithMany()
+        .HasForeignKey(t => t.IdSport_Categorie)
+        .OnDelete(DeleteBehavior.Restrict); // Choose Restrict, SetNull, or Cascade
+
+            // Correct foreign key relationship for TerrainStatus
+            modelBuilder.Entity<Terrain>()
+                .HasOne(t => t.terrainStatus)
                 .WithMany()
-                .HasForeignKey(t => t.Id)
-                .OnDelete(DeleteBehavior.Restrict); // or SetNull / Cascade based on your needs
+                .HasForeignKey(t => t.TerrainStatusId)
+                .OnDelete(DeleteBehavior.Restrict); // Adjust as needed
         }
 
     }

@@ -101,6 +101,16 @@ namespace gestionSite.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("by-id/{id}")]
+        public async Task<IActionResult> GetTerrainByIdWithStatusAsync(int id)
+        {
+            var terrain = await _terrainService.GetTerrainByIdWithStatusAsync(id);
+            if (terrain == null)
+                return NotFound();
+
+            return Ok(terrain);
+        }
     }
 }
 

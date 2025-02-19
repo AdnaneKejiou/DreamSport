@@ -45,18 +45,18 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
         }
         public async Task<User?> GetByIdAsync(int id)
         {
-            return await _context.Set<User>().FindAsync(id);
+            return await _context.Users.FindAsync(id);
         }
 
         public async Task UpdateAsync(User user)
         {
-            _context.Set<User>().Update(user);
+            _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(User user)
         {
-            _context.Set<User>().Remove(user);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
 

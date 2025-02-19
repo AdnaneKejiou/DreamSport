@@ -11,6 +11,7 @@ namespace gestionSite.Core.Interfaces.TerrainInterfaces
         Task<Terrain?> DeleteTerrainAsync(int id);
         Task<bool> ExistsAsync(string name, int idAdmin);
         Task<Terrain?> GetTerrainByIdAsync(int id);
+        Task<Terrain?> GetTerrainByIdWithStatusAsync(int id);
 
     }
 }

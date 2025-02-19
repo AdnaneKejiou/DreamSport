@@ -143,7 +143,10 @@ namespace gestionSite.Migrations
             modelBuilder.Entity("gestionSite.Core.Models.Terrain", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -164,6 +167,10 @@ namespace gestionSite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdSport_Categorie");
+
+                    b.HasIndex("TerrainStatusId");
 
                     b.ToTable("Terrains");
                 });
@@ -188,11 +195,19 @@ namespace gestionSite.Migrations
                 {
                     b.HasOne("gestionSite.Core.Models.Sport_Categorie", "Sport_Categorie")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("IdSport_Categorie")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("gestionSite.Core.Models.TerrainStatus", "terrainStatus")
+                        .WithMany()
+                        .HasForeignKey("TerrainStatusId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Sport_Categorie");
+
+                    b.Navigation("terrainStatus");
                 });
 #pragma warning restore 612, 618
         }
