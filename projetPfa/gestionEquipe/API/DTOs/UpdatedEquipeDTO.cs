@@ -4,7 +4,7 @@ namespace gestionEquipe.API.DTOs
 {
     public class UpdatedEquipeDTO
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? AdminId { get; set; }
         public int? SportId { get; set; }
         public String? Name { get; set; }
@@ -14,7 +14,7 @@ namespace gestionEquipe.API.DTOs
 
         public List<Members>? Members { get; set; }
 
-        public Dictionary<string, string> Errors { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string>? Errors { get; set; } = new Dictionary<string, string>();
 
     }
 }

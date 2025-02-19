@@ -60,8 +60,28 @@ namespace gestionEquipe.API.Controllers
             }
         }
 
-        
-        
+        [HttpPut("ChangerCapitaine")]
+        public async Task<ActionResult<UpdatedEquipeDTO>> TransferCaptain([FromBody] ChangerCapitaineEquipeDTO transferDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var equipe = EquipeMapper.ChangerCapitainDTOToEquipe(transferDto);
+
+            var result = await _equipeService.TransferCaptaincyAsync(equipe);
+
+            if (result.Errors.Count() > 0)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+
+        }
+
+
+
 
     }
 }

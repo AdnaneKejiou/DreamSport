@@ -9,6 +9,7 @@ namespace gestionEquipe.Core.Interfaces
         Task<Members> AddMemberAsync(Members member);
         Task<Members> AddMemberSaveAsync(Members member);
         Task<bool> ExistInTeamAsync(Members member);
+        Task<bool> ExistInTeamWithIdAsync(int IdMembre,int IdEquipe); 
         Task<int> CountTeamMembersAsync(int EquipeId);
     }
 }

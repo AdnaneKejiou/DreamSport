@@ -29,6 +29,11 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
             return await _context.Memberss.AnyAsync(m => m.UserId == member.UserId && m.EquipeId == member.EquipeId);
             
         }
+        public async Task<bool> ExistInTeamWithIdAsync(int IdMembre,int idEquipe)
+        {
+            return await _context.Memberss.AnyAsync(m => m.UserId == IdMembre && m.EquipeId == idEquipe);
+
+        }
 
         public async Task<Members> AddMemberAsync(Members member)
         {

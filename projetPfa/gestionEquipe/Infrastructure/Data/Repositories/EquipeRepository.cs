@@ -26,37 +26,18 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
         {
             try
             {
-
-               Equipe existingEquipe = await GetEquipeById(_equipe.Id);
               
 
-                // Update the properties of the existing equipe
-
-                if (_equipe.Name!=null)
-                {
-                    existingEquipe.Name = _equipe.Name;
-                }
-
-                if (_equipe.Description != null)
-                {
-                    existingEquipe.Description = _equipe.Description;
-                }
-                if (_equipe.Avatar != null)
-                {
-                    existingEquipe.Avatar = _equipe.Avatar;
-                }
-
-
-
+              _context.Equipes.Update(_equipe);
 
                 // Save changes to the database
                 await _context.SaveChangesAsync();
 
-                return existingEquipe; // Return the updated equipe
+                return _equipe; // Return the updated equipe
             }
             catch (Exception ex)
             {
-                
+
                 return null; // Or you could throw the exception if desired
             }
         }
@@ -105,7 +86,7 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-       
+
 
         public async Task<Equipe> GetEquipeById(int id)
         {
@@ -117,19 +98,19 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
 
                 if (equipe == null)
                 {
-                   
-                    return null; // or you can throw new KeyNotFoundException("Equipe not found");
+
+                    throw new KeyNotFoundException("Equipe not found");
                 }
 
                 return equipe;
             }
             catch (Exception ex)
             {
-           
-                return null; // You can return a custom error object or rethrow the exception
+
+                Console.WriteLine($"Error: {ex.Message}"); // Ajouter un log ici
+                throw; // You can return a custom error object or rethrow the exception
             }
         }
-
 
 
     }

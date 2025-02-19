@@ -33,18 +33,20 @@ namespace gestionEquipe.API.Mappers
             };
         }
 
-        public static UpdatedEquipeDTO EquipetoUpdatedEquipeDTO(Equipe dto)
+        public static UpdatedEquipeDTO EquipetoUpdatedEquipeDTO(Equipe equipe)
         {
+            if (equipe == null) return null;
+
             return new UpdatedEquipeDTO
             {
-                Id = dto.Id,
-                Name = dto.Name,
-                Description = dto.Description,
-                Avatar = dto.Avatar,
-                SportId = dto.SportId,
-
+                Id = equipe.Id,
+                CaptainId = equipe.CaptainId,
+                Name = equipe.Name,
+                SportId = equipe.SportId,
+                // Assure-toi que toutes les propriétés nécessaires sont mappées ici
             };
         }
+
 
         public static AddedEquipeDTO ModelToAdded(Equipe equipe)
         {
@@ -58,5 +60,30 @@ namespace gestionEquipe.API.Mappers
                 SportId= equipe.SportId,
             };
         }
+        public static Equipe ChangerCapitainDTOToEquipe(ChangerCapitaineEquipeDTO dto)
+        {
+            return new Equipe
+            {
+                Id=dto.idEquipe,
+               
+                CaptainId=dto.idCapitain,
+    
+            };
+        }
+        public static UpdatedEquipeDTO EquipeChangedCapitain(Equipe dto)
+        {
+            return new UpdatedEquipeDTO
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                CaptainId = dto.CaptainId,
+                Description = dto.Description,
+                Avatar = dto.Avatar,
+                SportId = dto.SportId,
+                Errors=new Dictionary<string, string>()
+            };
+        }
+    
+
     }
 }

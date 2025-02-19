@@ -84,7 +84,7 @@ namespace gestionEquipe.Core.Services
         public async Task SupprimerEquipeAvecMembresAsync(int equipeId)
         {
             var equipe = await _equipeRepository.GetEquipeById(equipeId);
-            if (equipe == null) throw new KeyNotFoundException ("Team not found");
+            if (equipe == null) throw new KeyNotFoundException("Team not found");
             await _equipeRepository.SupprimerEquipeAvecMembresAsync(equipeId);
         }
 
@@ -94,9 +94,33 @@ namespace gestionEquipe.Core.Services
 
             var ReturningEquipe = EquipeMapper.EquipetoUpdatedEquipeDTO(_equipe);
 
-            if (_equipeRepository.GetEquipeById(_equipe.Id) == null)
+             Equipe existingEquipe = await _equipeRepository.GetEquipeById(_equipe.Id);
+
+            if (existingEquipe == null)
             {
-                ReturningEquipe.Errors.Add("Count", "This user had more than one team in that sport");
+                ReturningEquipe.Errors.Add("Count", "Team not exist");
+            }
+
+            // Update the properties of the existing equipe
+
+            if (_equipe.Name != null)
+            {
+                existingEquipe.Name = _equipe.Name;
+            }
+
+            if (_equipe.Description != null)
+            {
+                existingEquipe.Description = _equipe.Description;
+            }
+
+            if (_equipe.Avatar != null)
+            {
+                existingEquipe.Avatar = _equipe.Avatar;
+            }
+
+            if (_equipe.CaptainId > 0)
+            {
+                existingEquipe.CaptainId = _equipe.CaptainId;
             }
 
             if (ReturningEquipe.Errors.Count > 0)
@@ -104,12 +128,46 @@ namespace gestionEquipe.Core.Services
                 return ReturningEquipe;
             }
 
-            var UpdatedEquipe = await _equipeRepository.UpdateEquipeAsync(_equipe);
+            
+             var UpdatedEquipe = await _equipeRepository.UpdateEquipeAsync(existingEquipe);
 
             return EquipeMapper.EquipetoUpdatedEquipeDTO(UpdatedEquipe);
 
 
 
         }
+        public async Task<UpdatedEquipeDTO> TransferCaptaincyAsync(Equipe _equipe)
+        {
+
+            var ReturningEquipe = EquipeMapper.EquipeChangedCapitain(_equipe);
+
+            if (!await _membersRepository.ExistInTeamWithIdAsync(_equipe.CaptainId,_equipe.Id))
+            {
+                ReturningEquipe.Errors.Add("Count", "This user not exist in this team");
+            }
+            var equipe = await _equipeRepository.GetEquipeById(_equipe.Id);
+
+            if (equipe == null)
+            {
+                ReturningEquipe.Errors.Add("Count", "This team not exist");
+            }
+
+            if (ReturningEquipe.Errors.Count > 0)
+            {
+                return ReturningEquipe;
+            }
+
+            equipe.CaptainId = _equipe.CaptainId;
+
+            var UpdatedEquipe = await UpdateEquipeAsync(equipe);
+
+            
+
+            return UpdatedEquipe;
+
+
+
+        }
+
     }
 }
