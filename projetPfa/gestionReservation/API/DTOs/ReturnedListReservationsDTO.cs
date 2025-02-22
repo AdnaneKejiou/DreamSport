@@ -1,6 +1,8 @@
-﻿namespace gestionReservation.Core.Models
+﻿using gestionReservation.Core.Models;
+
+namespace gestionReservation.API.DTOs
 {
-    public class Reservation
+    public class ReturnedListReservationsDTO
     {
         public int Id { get; set; }
         public DateTime DateRes { get; set; } // La date de la réservation
@@ -12,12 +14,6 @@
         // Référence à la table Status
         public int? IdStatus { get; set; }  // Foreign Key vers Status
         public Status Status { get; set; }  // Le statut de la réservation (par défaut "En attente")
-    }
-
-
-    public class Status
-    {
-        public int Id { get; set; }
-        public string Libelle { get; set; } // Exemples : "En attente", "Confirmée", "Annulée"
+        public int TerrainId { get; internal set; }
     }
 }

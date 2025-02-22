@@ -16,8 +16,20 @@ namespace gestionReservation.API.Controllers
         {
             _reservationService = reservationService;
         }
-
-        [HttpPost]
+        [HttpGet]
+        public async Task<ActionResult<List<ReturnedListReservationsDTO>>> GetReservations( [FromQuery] GetReservationsDTO filter)
+        {
+            try
+            {
+                var reservations = await _reservationService.GetReservationsAsync( filter);
+                return Ok(reservations);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+            [HttpPost]
         public async Task<IActionResult> AjouterReservationAsync([FromBody] AddReservationDto reservation)
         {
             try

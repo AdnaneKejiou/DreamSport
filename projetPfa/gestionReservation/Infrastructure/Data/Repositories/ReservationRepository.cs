@@ -27,7 +27,7 @@ public class ReservationRepository : IReservationRepository
     {
         var count = await _context.Reservations
             .Include(r => r.Status) // Join with Status
-            .Where(r => r.TerrainId == terrainId
+            .Where(r => r.IdTerrain == terrainId
                         && r.DateRes == dateRes
                         && r.Status.Libelle != "annule") // Filter by Status Libelle
             .CountAsync();
@@ -35,5 +35,24 @@ public class ReservationRepository : IReservationRepository
         return count;
     }
 
+    public async Task<List<Reservation>> GetReservationsAsync(DateTime? startDate, DateTime? endDate)
+    {
+        var query = _context.Reservations.AsQueryable(); // Supprime le filtre sur le complexe
+
+        // Si aucune date n'est spécifiée, on récupère seulement les réservations futures
+        if (!startDate.HasValue && !endDate.HasValue)
+        {
+            query = query.Where(r => r.DateRes >= DateTime.Now);
+        }
+        else
+        {
+            if (startDate.HasValue)
+                query = query.Where(r => r.DateRes >= startDate.Value);
+            if (endDate.HasValue)
+                query = query.Where(r => r.DateRes <= endDate.Value);
+        }
+
+        return await query.ToListAsync();
+    }
 
 }
