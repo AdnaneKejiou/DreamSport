@@ -11,7 +11,7 @@ namespace gestionSite.API.Mappers
             {
                 Question = addFAQDto.Question,
                 Response = addFAQDto.Response,
-                IdAdmin = addFAQDto.IdAdmin,
+                IdAdmin = addFAQDto.AdminId,
             };
         }
 
@@ -22,7 +22,7 @@ namespace gestionSite.API.Mappers
                 Id = UpdateFAQDto.Id,
                 Question = UpdateFAQDto.Question,
                 Response = UpdateFAQDto.Response,
-                IdAdmin = UpdateFAQDto.IdAdmin
+                IdAdmin = UpdateFAQDto.AdminId
             };
         }
     }

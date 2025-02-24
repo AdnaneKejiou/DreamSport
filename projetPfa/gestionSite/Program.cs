@@ -1,3 +1,4 @@
+
 using gestionSite.Core.Interfaces.SportInterfaces;
 using gestionSite.Core.Services;
 using gestionSite.Infrastructure.Data.Repositories;
@@ -31,7 +32,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

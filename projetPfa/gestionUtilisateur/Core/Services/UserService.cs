@@ -86,7 +86,7 @@ namespace gestionUtilisateur.Core.Services
         public async Task<ReturnForgotPasswordDTO> RecupererPasswodAsync(RecupererPasswordDTO dto)
         {
             // Recherche l'utilisateur par email
-            var user = await _userRepository.GetByEmailAsync(dto.Email, dto.idAdmin);
+            var user = await _userRepository.GetByEmailAsync(dto.Email, dto.AdminId);
             if (user == null)
             {
                 user = UserMapper.RecupererPasswod(dto);

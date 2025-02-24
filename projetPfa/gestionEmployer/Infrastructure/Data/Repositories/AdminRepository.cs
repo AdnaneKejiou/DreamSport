@@ -1,6 +1,5 @@
 ﻿using gestionEmployer.Core.Interfaces;
 using gestionEmployer.Core.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace gestionEmployer.Infrastructure.Data.Repositories
 {
@@ -13,16 +12,14 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public async Task<Admin> GetAdminAsync(int id)
+        public bool IsTenantValid(int tenantId)
         {
-            return await _context.Admins
-                                 .FirstOrDefaultAsync(admin => admin.Id == id);
+            return _context.Admins.Any(t => t.Id == tenantId);
         }
 
-        public async Task<IEnumerable<Admin>> GetAllAdminsAsync()
+        public Admin? GetAdminByTenantId(int tenantId)
         {
-            return await _context.Admins
-                                 .ToListAsync();
+            return _context.Admins.FirstOrDefault(a => a.Id == tenantId);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace gestionUtilisateur.API.DTOs
         public string Email { get; set; }
         public string Password { get; set; }
         public string PasswordConfirmed { get; set; }
-        public int IdAdmin { get; set; }
+        public int AdminId { get; set; }
 
         public Dictionary<string, string> errors { get; set; } = new Dictionary<string, string>();
     }

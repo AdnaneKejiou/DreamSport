@@ -23,7 +23,7 @@ namespace gestionSite.API.Mappers
                 Background = _updateSiteDto.Background,
                 Addresse = _updateSiteDto.Addresse,
                 DomainName = _updateSiteDto.DomainName,
-                IdAdmin = _updateSiteDto.IdAdmin,
+                IdAdmin = _updateSiteDto.AdminId,
             };
         }
     }

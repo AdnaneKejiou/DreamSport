@@ -23,7 +23,7 @@ namespace gestionEmployer.API.Controllers
        
 
         // GET: api/Employee/{id}
-        [HttpGet("{id}")]
+        [HttpGet("get/{id}")]
         public IActionResult GetEmployeeById(int id)
         {
             var employee = _employeeService.GetEmployeeByIdAsync(id);
@@ -33,18 +33,18 @@ namespace gestionEmployer.API.Controllers
         }
 
         //GET ALL EMPLOYEES by idAdmin
-        [HttpGet("/admin/{idAdmin}")]
-        public async Task <ActionResult<IEnumerable<Employer>>> GetEmployesByAdminId(int idAdmin)
-        {
-            var employes = await _employeeService.GetEmployesByAdminIdAsync(idAdmin);
+      [HttpGet("admin/{AdminId}")]
+public async Task<ActionResult<IEnumerable<Employer>>> GetEmployesByAdminId(int AdminId)
+{
+    var employes = await _employeeService.GetEmployesByAdminIdAsync(AdminId);
+    if (employes == null)
+    {
+        return NotFound($"Aucun employé trouvé pour l'ID Admin : {AdminId}");
+    }
 
-            if (employes == null)
-            {
-                return NotFound($"Aucun employé trouvé pour l'ID Admin : {idAdmin}");
-            }
+    return Ok(employes);
+}
 
-            return Ok(employes);
-        }
 
 
         // POST: api/Employee

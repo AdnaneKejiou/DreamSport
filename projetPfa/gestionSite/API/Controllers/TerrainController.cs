@@ -22,19 +22,19 @@ namespace gestionSite.API.Controllers
         }
 
         // Consulter tous les terrains d'un administrateur
-        [HttpGet("{idAdmin}")]
-        public async Task<ActionResult<IEnumerable<Terrain>>> GetTerrainsByAdminAsync(int idAdmin)
+        [HttpGet("{AdminId}")]
+        public async Task<ActionResult<IEnumerable<Terrain>>> GetTerrainsByAdminAsync(int AdminId)
         {
-            if (idAdmin <= 0)
+            if (AdminId <= 0)
             {
                 return BadRequest("Invalid admin ID. It must be greater than 0.");
             }
 
-            var terrains = await _terrainService.GetAllTerrainsByAdminAsync(idAdmin);
+            var terrains = await _terrainService.GetAllTerrainsByAdminAsync(AdminId);
 
             if (terrains == null || !terrains.Any())
             {
-                return NotFound($"No terrains found for admin with ID {idAdmin}.");
+                return NotFound($"No terrains found for admin with ID {AdminId}.");
             }
 
             return Ok(terrains);

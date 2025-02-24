@@ -1,10 +1,10 @@
-﻿using gestionEmployer.Core.Models;
+using gestionEmployer.Core.Models;
 
 namespace gestionEmployer.Core.Interfaces
 {
     public interface IAdminRepository
     {
-        Task<Admin> GetAdminAsync(int  id);
-        Task<IEnumerable<Admin>> GetAllAdminsAsync();
+        bool IsTenantValid(int tenantId);
+        Admin? GetAdminByTenantId(int tenantId);
     }
 }

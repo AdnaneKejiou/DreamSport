@@ -24,6 +24,6 @@ namespace gestionUtilisateur.API.DTOs
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string PasswordConfirmed { get; set; }
         [Required(ErrorMessage ="required")]
-        public int IdAdmin { get; set; }
+        public int AdminId { get; set; }
     }
 }

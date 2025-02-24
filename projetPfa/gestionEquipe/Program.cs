@@ -4,13 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using gestionEquipe.Core.Interfaces;
 using gestionEquipe.Infrastructure.Data.Repositories;
 using gestionEquipe.Core.Services;
+using gestionEquipe;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IMembersRepository, MembersRepository>();
 builder.Services.AddScoped<IMembersService, MembersService>();
@@ -30,6 +31,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -37,7 +39,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
 app.UseRouting();
 

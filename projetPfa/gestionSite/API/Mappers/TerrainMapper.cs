@@ -14,7 +14,7 @@ namespace gestionSite.Infrastructure.Mappers
                 Description = addTerrainDto.Description,
                 Image = addTerrainDto.Image,
                 TerrainStatusId = addTerrainDto.TerrainStatusId,
-                IdAdmin = addTerrainDto.IdAdmin,
+                IdAdmin = addTerrainDto.AdminId,
             };
         }
 
@@ -28,7 +28,7 @@ namespace gestionSite.Infrastructure.Mappers
                 Description = updateTerrainDto.Description,
                 Image = updateTerrainDto.Image,
                 TerrainStatusId = updateTerrainDto.TerrainStatusId,
-                IdAdmin = updateTerrainDto.IdAdmin,
+                IdAdmin = updateTerrainDto.AdminId,
             };
         }
     }

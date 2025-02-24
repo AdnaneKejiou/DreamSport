@@ -45,7 +45,7 @@ public class ReservationService : IReservationService
         {
             throw new BadRequestException("This terrain cant be reserved at the moment");
         }
-        if (await _reservationRepository.GetReservationsCountByTerrainAndDateAsync(reservation.TerrainId, reservation.DateRes) > 0)
+        if (await _reservationRepository.GetReservationsCountByTerrainAndDateAsync(reservation.IdTerrain, reservation.DateRes) > 0)
         {
             throw new BadRequestException("This terrain is reserved at the date provided");
         }
@@ -58,6 +58,15 @@ public class ReservationService : IReservationService
         var dto = ReservationMapper.ModelToAddDTO(reservation);
         return dto;
     }
+    public async Task<List<ReturnedListReservationsDTO>> GetReservationsAsync( GetReservationsDTO filter)
+    {
+     
+
+        var reservations = await _reservationRepository.GetReservationsAsync(filter.StartDate, filter.EndDate);
+        List < ReturnedListReservationsDTO > reservationdto = ReservationMapper.ReservationsToReservationsDTOs(reservations);
+        return reservationdto;
+    }
+
 
     public async Task<Reservation> ReservationStatusUpdateAsync(UpdateStatusDTO dto)
     {

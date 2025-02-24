@@ -4,7 +4,6 @@
 *.userosscache
 *.suo
 *.sln.docstates
-
 # Ignore bin folders for all projects
 **/bin/
 

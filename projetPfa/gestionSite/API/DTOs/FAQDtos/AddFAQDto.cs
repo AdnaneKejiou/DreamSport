@@ -9,6 +9,6 @@ namespace gestionSite.API.DTOs.FAQDtos
         [Required]
         public string? Response { get; set; }
         [Required]
-        public int IdAdmin { get; set; }    
+        public int AdminId { get; set; }    
     }
 }

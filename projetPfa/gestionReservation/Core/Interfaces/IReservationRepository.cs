@@ -9,5 +9,7 @@ public interface IReservationRepository
     Task<Reservation> GetByIdAsync(int id);
 
     Task<int> GetReservationsCountByTerrainAndDateAsync(int terrainId, DateTime dateRes);
+    Task<List<Reservation>> GetReservationsAsync(DateTime? startDate, DateTime? endDate);
+
     Task<Reservation> UpdateReservationAsync(Reservation reservation);
 }
