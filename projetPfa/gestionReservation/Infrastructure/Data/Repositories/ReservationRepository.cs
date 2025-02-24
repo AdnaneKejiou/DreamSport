@@ -36,4 +36,12 @@ public class ReservationRepository : IReservationRepository
     }
 
 
+    public async Task<Reservation?> UpdateReservationAsync(Reservation reservation)
+    {
+        _context.Reservations.Update(reservation);
+        var changes = await _context.SaveChangesAsync();
+
+        return changes > 0 ? reservation : null;
+    }
+
 }

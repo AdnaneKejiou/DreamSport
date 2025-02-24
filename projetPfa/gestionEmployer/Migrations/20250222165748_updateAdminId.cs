@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace gestionEmployer.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrat : Migration
+    public partial class updateAdminId : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,7 +52,7 @@ namespace gestionEmployer.Migrations
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salaire = table.Column<double>(type: "float", nullable: false),
-                    IdAdmin = table.Column<int>(type: "int", nullable: false),
+                    AdminId = table.Column<int>(type: "int", nullable: false),
                     Nom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Prenom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -62,17 +62,17 @@ namespace gestionEmployer.Migrations
                 {
                     table.PrimaryKey("PK_Employers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employers_Admins_IdAdmin",
-                        column: x => x.IdAdmin,
+                        name: "FK_Employers_Admins_AdminId",
+                        column: x => x.AdminId,
                         principalTable: "Admins",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employers_IdAdmin",
+                name: "IX_Employers_AdminId",
                 table: "Employers",
-                column: "IdAdmin");
+                column: "AdminId");
         }
 
         /// <inheritdoc />

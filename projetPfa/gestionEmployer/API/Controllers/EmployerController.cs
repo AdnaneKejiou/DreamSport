@@ -52,9 +52,14 @@ namespace gestionEmployer.API.Controllers
         [ValidationModels]
         public async Task<ActionResult<ReturnAddedEmployee>> AddEmployee([FromBody] AddEmployeeDTO employee)
         {
+            
             var employerr = EmployeeMapper.AddEmployeeDTOToEmployer(employee);
 
             var employeeAjoute = await _employeeService.AddEmployeeAsync(employerr);
+            if (employeeAjoute.errors.Count()>0)
+            {
+                return BadRequest(employeeAjoute);
+            }
             return Ok(employeeAjoute);
         }
 

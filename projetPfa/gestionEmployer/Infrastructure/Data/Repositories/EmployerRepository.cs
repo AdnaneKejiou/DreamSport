@@ -26,7 +26,7 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
         //Méthode de récuperation de tous les employees by idAdmin
         public async Task<IEnumerable<Employer>> GetEmployesByAdminIdAsync(int idAdmin)
         {
-            return await _context.Employers.Where(e => e.IdAdmin == idAdmin).ToListAsync();
+            return await _context.Employers.Where(e => e.AdminId == idAdmin).ToListAsync();
         }
 
         //Methode Existe qui se surcharge dans le service 

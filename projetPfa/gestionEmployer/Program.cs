@@ -3,6 +3,7 @@ using gestionEmployer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using gestionEmployer.Infrastructure.Data.Repositories;
 using gestionEmployer.Core.Services;
+using gestionEmployer.Infrastructure.ExternServices;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +17,8 @@ builder.Services.AddSwaggerGen();
 //builder interfaces services and repositories
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 
 var app = builder.Build();

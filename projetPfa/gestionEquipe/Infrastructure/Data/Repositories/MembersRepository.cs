@@ -13,6 +13,28 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
             _context = context;
         }
 
+        public async Task<Members> KickkMemberAsync(Members member)
+        {
+            // Ensure that the entity is not already tracked by the context
+            var trackedMember = _context.Memberss
+                .FirstOrDefault(m => m.UserId == member.UserId && m.EquipeId == member.EquipeId);
+
+            if (trackedMember != null)
+            {
+                // If the member is tracked, detach it to avoid tracking conflicts
+                _context.Entry(trackedMember).State = EntityState.Detached;
+            }
+
+            // Now safely remove the member entity
+            _context.Memberss.Remove(member);
+
+            // Save changes to ensure the deletion is committed
+            await _context.SaveChangesAsync();
+
+            // Return the removed member object as confirmation
+            return member;
+        }
+
         public async Task<Members> KickMemberAsync(Members member)
         {
             _context.Memberss.Remove(member);
@@ -52,6 +74,13 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
         public async Task<int> CountTeamMembersAsync(int EquipeId)
         {
             return await _context.Memberss.CountAsync(e => e.EquipeId == EquipeId);
+        }
+
+        public async Task<List<Members>> GetTeamMembersAsync(int equipeId)
+        {
+            return await _context.Memberss
+                .Where(m => m.EquipeId == equipeId)
+                .ToListAsync();
         }
     }
 }

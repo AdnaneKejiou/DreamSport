@@ -60,7 +60,6 @@ namespace gestionEquipe.Core.Services
                 throw new InvalidOperationException("This team is full");
             }
             return await _membersRepository.AddMemberSaveAsync(member);
-        }
-        
+        }     
     }
 }

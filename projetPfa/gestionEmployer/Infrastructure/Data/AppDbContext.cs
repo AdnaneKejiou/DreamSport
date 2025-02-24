@@ -23,7 +23,7 @@ namespace gestionEmployer.Infrastructure.Data
         modelBuilder.Entity<Employer>()
             .HasOne<Admin>()
             .WithMany()
-            .HasForeignKey(e => e.IdAdmin)
+            .HasForeignKey(e => e.AdminId)
             .OnDelete(DeleteBehavior.Restrict); // You can specify behavior like Restrict, Cascade, etc.
     }
 

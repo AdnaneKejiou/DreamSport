@@ -11,6 +11,8 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<bool> UpdateSportDataAsync(int userId, UpdateSportDataDTO dto);
         Task<ReturnForgotPasswordDTO> RecupererPasswodAsync( RecupererPasswordDTO dTO);
         Task<User> GetUserAsync(int userId);
+        Task<bool> ResetConteurResAnnulerAsync(int userId);
+        Task<bool> CheckAndIncrementReservationAnnuleAsync(int userId);
 
     }
 }

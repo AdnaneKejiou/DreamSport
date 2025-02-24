@@ -80,6 +80,24 @@ namespace gestionEquipe.API.Controllers
 
         }
 
+        [HttpPost("capitaine-quitte")]
+        public async Task<IActionResult> CapitainQuitte([FromBody] CapitainQuitteDTO dto)
+        {
+            try
+            {
+                await _equipeService.CapitainQuitteAsync(dto.CapitaineId, dto.EquipeId);
+                return Ok(new { message = "Le capitaine a quitté et un nouveau capitaine a été désigné." });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { error = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
 
 
 

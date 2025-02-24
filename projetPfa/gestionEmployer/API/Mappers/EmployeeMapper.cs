@@ -10,7 +10,7 @@ namespace gestionEmployer.API.Mappers
         {
             return new Employer
             {
-                IdAdmin = _AddEmployeeDTO.IdAdmin,
+                AdminId = _AddEmployeeDTO.AdminId,
                 Nom = _AddEmployeeDTO.Nom,
                 Prenom = _AddEmployeeDTO.Prenom,
                 Birthday = _AddEmployeeDTO.Birthday,
@@ -50,7 +50,7 @@ namespace gestionEmployer.API.Mappers
                 Email = _Employer.Email,
                 Username = _Employer.Username,
                 Salaire = _Employer.Salaire,
-                IdAdmin = _Employer.IdAdmin,
+                AdminId = _Employer.AdminId,
                 errors = new List<string>()
             };
         }

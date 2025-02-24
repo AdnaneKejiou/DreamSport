@@ -6,7 +6,7 @@ namespace gestionEmployer.API.DTOs.DTOs
 {
     public class AddEmployeeDTO
     {
-        public int IdAdmin { get; set; }  // Id pour identifier l'employé, peut être retourné dans l'API.
+        public int AdminId { get; set; }  // Id pour identifier l'employé, peut être retourné dans l'API.
         [Required(ErrorMessage ="Nom obligatoire")]
         public string Nom { get; set; }
 

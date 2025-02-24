@@ -4,6 +4,7 @@ using gestionEmployer.Infrastructure.Data.Repositories;
 using System.ComponentModel.DataAnnotations;
 using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.API.Mappers;
+using gestionEmployer.Infrastructure.ExternServices.ExternDTOs;
 
 
 namespace gestionEmployer.Core.Services
@@ -11,10 +12,14 @@ namespace gestionEmployer.Core.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IMailService _mailService;
+        private readonly IAdminRepository _adminRepository;
 
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IMailService mailService, IAdminRepository adminRepository)
         {
             _employeeRepository = employeeRepository;
+            _mailService = mailService;
+            _adminRepository = adminRepository;
         }
 
         public async Task<Employer> GetEmployeeByIdAsync(int id)
@@ -26,9 +31,9 @@ namespace gestionEmployer.Core.Services
 
         //Methode de recuperations de tous les employees by IdAdmin
 
-        public async Task<IEnumerable<Employer>> GetEmployesByAdminIdAsync(int idAdmin)
+        public async Task<IEnumerable<Employer>> GetEmployesByAdminIdAsync(int AdminId)
         {
-            return await _employeeRepository.GetEmployesByAdminIdAsync(idAdmin);
+            return await _employeeRepository.GetEmployesByAdminIdAsync(AdminId);
         }
 
 
@@ -37,13 +42,13 @@ namespace gestionEmployer.Core.Services
         public async Task<ReturnAddedEmployee> AddEmployeeAsync(Employer employee)
         {
             ReturnAddedEmployee _ReturnAddedEmployee = EmployeeMapper.EmployeeToRTE(employee);
-            if (_employeeRepository.Exists(e => e.CIN == employee.CIN))
+            if (_employeeRepository.Exists(e => e.CIN == employee.CIN && e.AdminId == employee.AdminId))
                 _ReturnAddedEmployee.errors.Add("Cin deja utilise");
 
-            if (_employeeRepository.Exists(e => e.Email == employee.Email))
+            if (_employeeRepository.Exists(e => e.Email == employee.Email && e.AdminId == employee.AdminId))
                 _ReturnAddedEmployee.errors.Add("email deja utilise");
 
-            if (_employeeRepository.Exists(e => e.Username == employee.Username))
+            if (_employeeRepository.Exists(e => e.Username == employee.Username && e.AdminId == employee.AdminId))
                 _ReturnAddedEmployee.errors.Add("username deja utilise");
 
             if (_ReturnAddedEmployee.errors.Count>0)
@@ -53,7 +58,9 @@ namespace gestionEmployer.Core.Services
 
             // si toutes les attributs ne se répete pas enregistre l'employé 
 
-             await _employeeRepository.AddEmployeeAsync(employee);
+            Employer emp = await _employeeRepository.AddEmployeeAsync(employee);
+            EmailRequest emailRequest = new EmailRequest(employee.Email, employee.Nom + " " + employee.Prenom, employee.Password);
+            var xd = await _mailService.NewEmployeeMail(emailRequest);
             return _ReturnAddedEmployee;
 
         }
@@ -69,26 +76,26 @@ namespace gestionEmployer.Core.Services
         {
             // Récupérer l'employé existant
             Employer existingEmploye = await _employeeRepository.GetEmployeeByIdAsync(updatedEmploye.Id)
-                                    ?? throw new Exception("Employé non trouvé.");
+                                    ?? throw new KeyNotFoundException("Employé non trouvé.");
  
             // Liste pour stocker les erreurs trouvées
             var errors = new List<string>();
 
             // Vérification de l'unicité seulement si l'attribut est modifié
             if (updatedEmploye.CIN != existingEmploye.CIN &&
-                _employeeRepository.Exists(e => e.CIN == updatedEmploye.CIN && e.Id != updatedEmploye.Id && e.IdAdmin== updatedEmploye.IdAdmin))
+                _employeeRepository.Exists(e => e.CIN == updatedEmploye.CIN && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
             {
                 errors.Add("CIN déjà utilisé.");
             }
 
             if (updatedEmploye.Email != existingEmploye.Email &&
-                _employeeRepository.Exists(e => e.Email == updatedEmploye.Email && e.Id != updatedEmploye.Id && e.IdAdmin == updatedEmploye.IdAdmin))
+                _employeeRepository.Exists(e => e.Email == updatedEmploye.Email && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
             {
                 errors.Add("Email déjà utilisé.");
             }
 
             if (updatedEmploye.Username != existingEmploye.Username &&
-                _employeeRepository.Exists(e => e.Username == updatedEmploye.Username && e.Id != updatedEmploye.Id && e.IdAdmin == updatedEmploye.IdAdmin))
+                _employeeRepository.Exists(e => e.Username == updatedEmploye.Username && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
             {
                 errors.Add("Username déjà utilisé.");
             }
@@ -120,7 +127,7 @@ namespace gestionEmployer.Core.Services
         {
             //Vérification si l'employé existe  sinon il retourne un message "Employé non trouvé"
             var existingEmploye = _employeeRepository.GetEmployeeByIdAsync(id)
-                                      ?? throw new Exception("Employé non trouvé.");
+                                      ?? throw new KeyNotFoundException("Employé non trouvé.");
 
             //Suppression de l'employé qui a id entré
            return await _employeeRepository.DeleteEmployeeAsync(id);

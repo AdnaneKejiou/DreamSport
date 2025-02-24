@@ -169,5 +169,36 @@ namespace gestionEquipe.Core.Services
 
         }
 
+        public async Task<bool> CapitainQuitteAsync(int capitaineId, int equipeId)
+        {
+            Equipe equipe = await _equipeRepository.GetEquipeById(equipeId);
+            // Vérifier si l'utilisateur est bien le capitaine de l'équipe
+            bool estCapitaine = await _equipeRepository.IsCaptainAsync(capitaineId, equipeId);
+            if (!estCapitaine)
+                throw new UnauthorizedAccessException("User is blocked and cannot perform this action.");
+
+            // Récupérer la liste des membres de l'équipe
+            List<Members> membresIds = await _membersRepository.GetTeamMembersAsync(equipeId);
+            if (membresIds == null || membresIds.Count == 1)
+                throw new InvalidOperationException("No members available to select a captain.");
+
+            membresIds = membresIds.Where(e => e.UserId != capitaineId).ToList();
+
+            // Sélectionner aléatoirement un nouveau capitaine
+            Random random = new Random();
+            int nouveauCapitaineId = membresIds[random.Next(membresIds.Count)].UserId; // ✅ Access Id properly
+
+            equipe.CaptainId = nouveauCapitaineId;
+            // Mettre à jour l'équipe avec le nouveau capitaine
+            Equipe updateSuccess = await _equipeRepository.UpdateEquipeAsync(equipe);
+            if (updateSuccess == null)
+                throw new Exception("Erreur lors de la mise à jour du capitaine.");
+
+            // Supprimer l'ancien capitaine de l'équipe
+            Members ancienCapitaine = new Members { UserId = capitaineId, EquipeId = equipeId, Equipe = null };
+            await _membersRepository.KickkMemberAsync(ancienCapitaine);
+
+            return true;
+        }
     }
 }

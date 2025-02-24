@@ -3,6 +3,7 @@ using gestionUtilisateur.Core.Interfaces;
 using gestionUtilisateur.Core.Services;
 using gestionUtilisateur.Infrastructure.Data;
 using gestionUtilisateur.Infrastructure.Data.Repositories;
+using gestionUtilisateur.Infrastructure.Extern_Services;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<IMailService,MailService>();
 
 
 

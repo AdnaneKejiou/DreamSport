@@ -11,6 +11,6 @@ namespace gestionEmployer.Core.Models
         public DateTime Birthday { get; set; }
         public string Username { get; set; }
         public double Salaire { get; set; }
-        public int IdAdmin { get; set; }
+        public int AdminId { get; set; }
     }
 }

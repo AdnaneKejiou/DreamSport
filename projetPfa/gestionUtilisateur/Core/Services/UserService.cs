@@ -2,6 +2,7 @@
 using gestionUtilisateur.API.Mappers;
 using gestionUtilisateur.Core.Interfaces;
 using gestionUtilisateur.Core.Models;
+using gestionUtilisateur.Infrastructure.Extern_Services.Extern_DTOs;
 using System.Net.Http;
 using System.Text.Json;
 
@@ -10,13 +11,12 @@ namespace gestionUtilisateur.Core.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly HttpClient _httpClient;  // Modifiez ici pour utiliser HttpClient
-
+        private readonly IMailService _mailService;
         // Injecter HttpClient via le constructeur
-        public UserService(IUserRepository userRepository, HttpClient httpClient)
+        public UserService(IUserRepository userRepository, IMailService mailService)
         {
             _userRepository = userRepository;
-            _httpClient = httpClient;  // Stocker l'instance d'HttpClient
+            _mailService = mailService;
         }
 
         public async Task<ReturnAddedUserManualy> AddUserManualyAsync(User _user)
@@ -104,6 +104,9 @@ namespace gestionUtilisateur.Core.Services
 
             // Mise à jour dans la base de données
             await _userRepository.UpdateAsync(user);
+
+            EmailRequest emailRequest= new EmailRequest(user.Email, nouveauMotDePasse, user.Nom + " " + user.Prenom);
+            await _mailService.MailRecoverkey(emailRequest);
             // Retourner true après une mise à jour réussie
             return ReturnDto;
         }
@@ -121,6 +124,39 @@ namespace gestionUtilisateur.Core.Services
         {
             User user = await _userRepository.GetByIdAsync(userId);
             return user;
+        }
+
+        public async Task<bool> ResetConteurResAnnulerAsync(int userId)
+        {
+            User user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
+            user.ConteurReservationAnnule = 0;
+            await _userRepository.UpdateAsync(user);
+            return true;
+        }
+
+        public async Task<bool> CheckAndIncrementReservationAnnuleAsync(int userId)
+        {
+            User user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+                throw new KeyNotFoundException("The user not found");
+
+            // Vérifier si l'utilisateur est déjà bloqué
+            if (user.IsReservationBlocked)
+                return false;
+
+            // Incrémenter le compteur d'annulations
+            user.ConteurReservationAnnule++;
+            if (user.ConteurReservationAnnule >= 2)
+            {
+                user.IsReservationBlocked = true;
+                user.DateBlockedReservation = DateTime.UtcNow;
+            }
+            await _userRepository.UpdateAsync(user);
+            return true;
         }
     }
 }

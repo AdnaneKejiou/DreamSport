@@ -61,6 +61,24 @@ namespace gestionReservation.API.Controllers
             }
         }
 
+        [HttpPut("update-status")]
+        public async Task<IActionResult> UpdateReservationStatus([FromBody] UpdateStatusDTO dto)
+        {
+            try
+            {
+                Reservation reservation = await _reservationService.ReservationStatusUpdateAsync(dto);
+                return Ok(reservation);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
     }
 
 }

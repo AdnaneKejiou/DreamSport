@@ -12,8 +12,8 @@ using gestionEmployer.Infrastructure.Data;
 namespace gestionEmployer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241231133601_InitialMigrat")]
-    partial class InitialMigrat
+    [Migration("20250222165748_updateAdminId")]
+    partial class updateAdminId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,6 +69,9 @@ namespace gestionEmployer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
@@ -79,9 +82,6 @@ namespace gestionEmployer.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdAdmin")
-                        .HasColumnType("int");
 
                     b.Property<string>("Nom")
                         .IsRequired()
@@ -111,7 +111,7 @@ namespace gestionEmployer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdAdmin");
+                    b.HasIndex("AdminId");
 
                     b.ToTable("Employers");
                 });
@@ -137,7 +137,7 @@ namespace gestionEmployer.Migrations
                 {
                     b.HasOne("gestionEmployer.Core.Models.Admin", null)
                         .WithMany()
-                        .HasForeignKey("IdAdmin")
+                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

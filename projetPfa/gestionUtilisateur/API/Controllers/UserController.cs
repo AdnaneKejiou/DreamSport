@@ -95,6 +95,32 @@ namespace gestionUtilisateur.API.Controllers
             if(user == null) return NotFound();
             return Ok(user);
         }
+        [HttpPut("ResetConteur/{id}")]
+        public async Task<IActionResult> ResetConteurResAnnuler(int id)
+        {
+            var success = await _userService.ResetConteurResAnnulerAsync(id);
+            if (!success)
+                return NotFound($"Utilisateur avec l'ID {id} introuvable.");
 
+            return Ok(new { message = "Conteur_res_annuler réinitialisé avec succès." });
+        }
+
+        [HttpPut("check-reservation-annule/{id}")]
+        public async Task<IActionResult> CheckAndIncrementReservationAnnule(int id)
+        {
+            try
+            {
+                var success = await _userService.CheckAndIncrementReservationAnnuleAsync(id);
+                if (!success)
+                    return Conflict(new { message = "Utilisateur déjà bloqué des réservations." });
+
+                return Ok(new { message = "Le compteur des réservations annulées a été mis à jour." });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = "Une erreur interne s'est produite. Veuillez réessayer plus tard." });
+            }
+
+        }
     }
 }

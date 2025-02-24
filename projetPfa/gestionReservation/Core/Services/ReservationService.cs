@@ -59,7 +59,35 @@ public class ReservationService : IReservationService
         return dto;
     }
 
-    
-    
+    public async Task<Reservation> ReservationStatusUpdateAsync(UpdateStatusDTO dto)
+    {
+        Reservation reservation = await _reservationRepository.GetByIdAsync(dto.Id);
+        if(reservation == null)
+        {
+            throw new KeyNotFoundException("The reservation not found ");
+        }
+        reservation.IdEmploye = dto.EmployeeId;
+        if(dto.Status == "accepted")
+        {
+            if(!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
+            {
+                throw new Exception("Failed to reset compteur");
+            }
+            reservation.IdStatus = 3;
+        }
+        else
+        {
+            if(!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
+            {
+                throw new Exception("Failed to update the user compteur");
+            }
+            reservation.IdStatus = 2;
+        }
+        Reservation res = await _reservationRepository.UpdateReservationAsync(reservation);
+        return res;
+
+    }
+
+
 
 }
