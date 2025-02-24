@@ -1,8 +1,8 @@
+
 using gestionReservation.Core.Interfaces;
 using gestionReservation.Infrastructure.Data.Repositories;
 using gestionReservation.Infrastructure.ExternServices;
 using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,10 +42,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Configurer le pipeline de requêtes HTTP
-app.UseHttpsRedirection();
-app.UseRouting();
-app.MapControllers();  // Mapper les contrôleurs
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 // Démarrer l'application
 app.Run();

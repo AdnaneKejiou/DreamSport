@@ -8,7 +8,7 @@ namespace gestionUtilisateur.API.DTOs
         [EmailAddress(ErrorMessage = "L'adresse email n'est pas valide.")]
         public string Email { get; set; } 
         
-        public int idAdmin { get; set; }
+        public int AdminId { get; set; }
 
         
 

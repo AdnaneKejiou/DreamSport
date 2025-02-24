@@ -13,7 +13,7 @@ namespace gestionSite.API.Mappers
                 Description = ajouterAnnoncesDto.Description,
                 LaunchedAt = ajouterAnnoncesDto.LaunchedAt,
                 LifeTimeBySeconds = ajouterAnnoncesDto.LifeTimeBySeconds,
-                IdAdmin = ajouterAnnoncesDto.IdAdmin,
+                IdAdmin = ajouterAnnoncesDto.AdminId,
             };
 
         }

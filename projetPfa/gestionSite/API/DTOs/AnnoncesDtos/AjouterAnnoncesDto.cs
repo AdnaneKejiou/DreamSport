@@ -11,6 +11,6 @@ namespace gestionSite.API.DTOs.AnnoncesDtos
         [Required]
         public int LifeTimeBySeconds { get; set; }
         [Required]
-        public int IdAdmin { get; set; }
+        public int AdminId { get; set; }
     }
 }

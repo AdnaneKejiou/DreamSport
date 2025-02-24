@@ -18,21 +18,21 @@ namespace gestionSite.API.Controllers
             _annoncesService = annoncesService;
         }
 
-        [HttpGet("{adminId}")]
-        public async Task<ActionResult<IEnumerable<Annonces>>> GetAnnoncesAsync(int adminId)
+        [HttpGet("{AdminId}")]
+        public async Task<ActionResult<IEnumerable<Annonces>>> GetAnnoncesAsync(int AdminId)
         {
             // Validate the adminId parameter
-            if (adminId <= 0)
+            if (AdminId <= 0)
             {
                 return BadRequest("Invalid admin ID. It must be greater than 0.");
             }
             // Retrieve Annonces using the service
-            var annonces = await _annoncesService.GetAnnoncesByAdminAsync(adminId);
+            var annonces = await _annoncesService.GetAnnoncesByAdminAsync(AdminId);
 
             // Handle null or empty result
             if (annonces == null || !annonces.Any())
             {
-                return NotFound($"No Annonce found for admin with ID {adminId}.");
+                return NotFound($"No Annonce found for admin with ID {AdminId}.");
             }
             return Ok(annonces);
         }

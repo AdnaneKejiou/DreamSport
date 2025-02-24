@@ -43,7 +43,9 @@ namespace gestionEquipe.API.Mappers
                 CaptainId = equipe.CaptainId,
                 Name = equipe.Name,
                 SportId = equipe.SportId,
-                // Assure-toi que toutes les propriétés nécessaires sont mappées ici
+                Avatar=equipe.Avatar,
+                Description= equipe.Description,
+                Members = equipe.Members,
             };
         }
 

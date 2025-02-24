@@ -11,6 +11,6 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public string PasswordConfirmed { get; set; }
-        public int IdAdmin { get; set; }
+        public int AdminId { get; set; }
     }
 }

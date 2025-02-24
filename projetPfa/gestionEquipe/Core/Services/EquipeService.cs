@@ -15,18 +15,22 @@ namespace gestionEquipe.Core.Services
         private readonly ISiteService _siteService;
         private readonly IMembersRepository _membersRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-        public EquipeService(IEquipeRepository equipeRepository,ISiteService siteService,IMembersRepository membersRepository,IUnitOfWork unitOfWork) {
+        public EquipeService(IEquipeRepository equipeRepository,ISiteService siteService,IMembersRepository membersRepository,IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) {
             _equipeRepository = equipeRepository;
             _siteService = siteService;
             _membersRepository = membersRepository;
             _unitOfWork = unitOfWork;
-        }
+            _httpContextAccessor = httpContextAccessor;
 
+        }
         public async Task<AddedEquipeDTO> AddEquipeAsync(Equipe _equipe)
         {
+     
             int c = await _equipeRepository.CountEquipesBySportAndUser(_equipe.CaptainId, _equipe.SportId);
+            
             var ReturningEquipe = EquipeMapper.ModelToAdded(_equipe);
             if(c > 1)
             {
@@ -41,7 +45,12 @@ namespace gestionEquipe.Core.Services
             {
                 ReturningEquipe.Errors.Add("Sport", "Sport with this id dont exist");
             }
-            if(ReturningEquipe.Errors.Count > 0)
+            if (_equipe.AdminId == 0 || _equipe.AdminId < 0)
+            {
+                ReturningEquipe.Errors.Add("Admin", "Admin invalid");
+            }
+
+            if (ReturningEquipe.Errors.Count > 0)
             {
                 return ReturningEquipe;
             }
@@ -80,7 +89,6 @@ namespace gestionEquipe.Core.Services
             }
         }
 
-        // Méthode pour supprimer l'équipe avec ses membres
         public async Task SupprimerEquipeAvecMembresAsync(int equipeId)
         {
             var equipe = await _equipeRepository.GetEquipeById(equipeId);
@@ -93,8 +101,7 @@ namespace gestionEquipe.Core.Services
         public async Task<UpdatedEquipeDTO> UpdateEquipeAsync(Equipe _equipe) {
 
             var ReturningEquipe = EquipeMapper.EquipetoUpdatedEquipeDTO(_equipe);
-
-             Equipe existingEquipe = await _equipeRepository.GetEquipeById(_equipe.Id);
+            Equipe existingEquipe = await _equipeRepository.GetEquipeById(_equipe.Id);
 
             if (existingEquipe == null)
             {
@@ -138,7 +145,6 @@ namespace gestionEquipe.Core.Services
         }
         public async Task<UpdatedEquipeDTO> TransferCaptaincyAsync(Equipe _equipe)
         {
-
             var ReturningEquipe = EquipeMapper.EquipeChangedCapitain(_equipe);
 
             if (!await _membersRepository.ExistInTeamWithIdAsync(_equipe.CaptainId,_equipe.Id))

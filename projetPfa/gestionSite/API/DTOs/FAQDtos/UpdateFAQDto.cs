@@ -8,7 +8,7 @@ namespace gestionSite.API.DTOs.FAQDtos
 
         public string? Question { get; set; }
         public string? Response { get; set; }
-        public int IdAdmin { get; set; }
+        public int AdminId { get; set; }
 
     }
 }

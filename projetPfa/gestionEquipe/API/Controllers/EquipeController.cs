@@ -1,4 +1,5 @@
-﻿using gestionEquipe.API.DTOs;
+﻿using System.Text;
+using gestionEquipe.API.DTOs;
 using gestionEquipe.API.Mappers;
 using gestionEquipe.Core.Interfaces;
 using gestionEquipe.Core.Models;
@@ -12,6 +13,7 @@ namespace gestionEquipe.API.Controllers
     public class EquipeController : ControllerBase
     {
         private readonly IEquipeService _equipeService;
+
 
         public EquipeController(IEquipeService equipeService)
         {
@@ -79,6 +81,8 @@ namespace gestionEquipe.API.Controllers
             return Ok(result);
 
         }
+
+
 
 
 

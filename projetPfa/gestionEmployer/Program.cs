@@ -3,6 +3,7 @@ using gestionEmployer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using gestionEmployer.Infrastructure.Data.Repositories;
 using gestionEmployer.Core.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,7 +17,8 @@ builder.Services.AddSwaggerGen();
 //builder interfaces services and repositories
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 var app = builder.Build();
 
@@ -27,7 +29,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

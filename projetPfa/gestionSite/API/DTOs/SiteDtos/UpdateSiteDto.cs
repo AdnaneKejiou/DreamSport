@@ -14,6 +14,6 @@
         public string? Background { get; set; }
         public string? Addresse { get; set; }
         public string? DomainName { get; set; }
-        public int IdAdmin { get; set; }
+        public int AdminId { get; set; }
     }
 }

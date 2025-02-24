@@ -28,7 +28,7 @@ namespace gestionUtilisateur.API.Controllers
             var result = await _userService.AddUserManualyAsync(user);
             if (result.errors.Count == 0)
             {
-                return Created("/api/users/" + result.IdAdmin, result);
+                return Created("/api/users/" + result.AdminId, result);
 
             }
             return BadRequest(result);
@@ -72,7 +72,7 @@ namespace gestionUtilisateur.API.Controllers
             return Ok(new { message = "Profil sportif mis à jour avec succès." });
         }
 
-        [HttpPut]
+        [HttpPut("recover-password")]
         [ValidateModelAttribute]
         public async Task<IActionResult> RecupererPassword([FromBody] RecupererPasswordDTO dto)
         {

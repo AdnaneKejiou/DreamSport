@@ -17,7 +17,7 @@ namespace gestionUtilisateur.API.Mappers
                 Username = dto.Username,
                 Birthday = dto.Birthday,
                 Genre = dto.Genre,
-                IdAdmin = dto.IdAdmin,
+                IdAdmin = dto.AdminId,
             };
         }
 
@@ -32,7 +32,7 @@ namespace gestionUtilisateur.API.Mappers
                 Username = user.Username,
                 Birthday = user.Birthday,
                 Genre = user.Genre,
-                IdAdmin = user.IdAdmin,
+                AdminId = user.IdAdmin,
             };
         }
         public static void UpdateUser(User user, UpdateUserDto dto)
@@ -60,7 +60,7 @@ namespace gestionUtilisateur.API.Mappers
             return new User {
 
                 Email = dto.Email,
-                IdAdmin = dto.idAdmin,
+                IdAdmin = dto.AdminId,
             };
         }
 
@@ -69,7 +69,7 @@ namespace gestionUtilisateur.API.Mappers
             return new ReturnForgotPasswordDTO
             {
                 Email = user.Email,
-                idAdmin = user.IdAdmin
+                AdminId = user.IdAdmin
             };
         }
 

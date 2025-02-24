@@ -8,6 +8,6 @@
         public string? Description { get; set; }
         public string? Image { get; set; }
         public int TerrainStatusId { get; set; }
-        public int IdAdmin { get; set; }
+        public int AdminId { get; set; }
     }
 }

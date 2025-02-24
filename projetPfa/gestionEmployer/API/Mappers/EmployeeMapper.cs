@@ -10,7 +10,7 @@ namespace gestionEmployer.API.Mappers
         {
             return new Employer
             {
-                IdAdmin = _AddEmployeeDTO.IdAdmin,
+                IdAdmin = _AddEmployeeDTO.AdminId,
                 Nom = _AddEmployeeDTO.Nom,
                 Prenom = _AddEmployeeDTO.Prenom,
                 Birthday = _AddEmployeeDTO.Birthday,
