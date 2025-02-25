@@ -17,10 +17,10 @@ namespace gestionSite.Infrastructure.Repositories
         // Récupérer tous les terrains associés à un administrateur
         public async Task<IEnumerable<Terrain>> GetAllTerrainsByAdminAsync(int idAdmin)
         {
-            //return await _context.Terrains
-            //   .Where(t => t.IdAdmin == idAdmin)
-            //   .ToListAsync();
-             return await _context.Terrains.ToListAsync();
+            return await _context.Terrains
+                .Where(t => t.IdAdmin == idAdmin)
+                .ToListAsync();
+             
         }
 
         // Ajouter un terrain

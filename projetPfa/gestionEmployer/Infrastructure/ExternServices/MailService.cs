@@ -8,7 +8,7 @@ namespace gestionEmployer.Infrastructure.ExternServices
     public class MailService : IMailService
     {
         private readonly HttpClient _httpClient;
-        private static readonly string SiteUrl = "http://localhost:5193/api/Mail/send";
+        private static readonly string SiteUrl = "http://localhost:5010/Gateway/Mail/send";
 
         public MailService() 
         {
