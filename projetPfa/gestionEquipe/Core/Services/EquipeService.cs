@@ -106,6 +106,8 @@ namespace gestionEquipe.Core.Services
             if (existingEquipe == null)
             {
                 ReturningEquipe.Errors.Add("Count", "Team not exist");
+
+                return ReturningEquipe;
             }
 
             // Update the properties of the existing equipe

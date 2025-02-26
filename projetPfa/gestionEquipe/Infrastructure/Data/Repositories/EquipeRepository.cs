@@ -24,22 +24,15 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
 
         public async Task<Equipe> UpdateEquipeAsync(Equipe _equipe)
         {
-            try
-            {
-              
+           
 
               _context.Equipes.Update(_equipe);
 
                 // Save changes to the database
                 await _context.SaveChangesAsync();
 
-                return _equipe; // Return the updated equipe
-            }
-            catch (Exception ex)
-            {
-
-                return null; // Or you could throw the exception if desired
-            }
+                return _equipe; 
+           
         }
 
 
@@ -90,26 +83,13 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
 
         public async Task<Equipe> GetEquipeById(int id)
         {
-            try
-            {
-                // Find the existing equipe by its ID
+           
                 var equipe = await _context.Equipes
                     .FirstOrDefaultAsync(e => e.Id == id);
 
-                if (equipe == null)
-                {
-
-                    throw new KeyNotFoundException("Equipe not found");
-                }
 
                 return equipe;
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error: {ex.Message}"); // Ajouter un log ici
-                throw; // You can return a custom error object or rethrow the exception
-            }
+           
         }
 
 
