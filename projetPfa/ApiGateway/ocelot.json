@@ -477,9 +477,48 @@
       "UpstreamHttpMethod": [ "POST" ]
     }
   ],
-   
+  //---------------------------------------------------ChatEtInvitation---------------------------------------------------------
 
-    "GlobalConfiguration": {
-        "BaseUrl": "https://localhost:7000"
-    }
+  {
+    "Routes": [
+      // Route pour Refuser invitation
+      {
+        "DownstreamPathTemplate": "/api/InvitationMember/Refuser/{id}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 5270
+          }
+        ],
+        "UpstreamPathTemplate": "/gateway/InvitationMember/Refuser/{id}",
+        "UpstreamHttpMethod": [ "DELETE" ]
+      }
+    ]
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7000"
+  }
 }
+

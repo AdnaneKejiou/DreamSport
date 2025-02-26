@@ -6,5 +6,7 @@ namespace chatEtInvitation.Core.Interfaces.IRepositories
     {
         Task<MemberInvitation> GetMemberInvitationAsync(int emetteur, int recepteur);
         Task AddInvitationAsync(MemberInvitation invitation);
+        Task<bool> RefuserInvitation(int id  );
+        Task<bool> RefuserInvitation(int id  );
     }
 }
