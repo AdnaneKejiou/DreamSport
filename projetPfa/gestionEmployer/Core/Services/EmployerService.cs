@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.API.Mappers;
 using gestionEmployer.Infrastructure.ExternServices.ExternDTOs;
+using System.Collections.Generic;
 
 
 namespace gestionEmployer.Core.Services
@@ -31,9 +32,12 @@ namespace gestionEmployer.Core.Services
 
         //Methode de recuperations de tous les employees by IdAdmin
 
-        public async Task<IEnumerable<Employer>> GetEmployesByAdminIdAsync(int AdminId)
+        public async Task<IEnumerable<GetEmployeeDTO>> GetEmployesByAdminIdAsync(int AdminId)
         {
-            return await _employeeRepository.GetEmployesByAdminIdAsync(AdminId);
+            IEnumerable<Employer> empList = await _employeeRepository.GetEmployesByAdminIdAsync(AdminId);
+            IEnumerable<GetEmployeeDTO> dtoList = empList.Select(e => EmployeeMapper.ModelToGetEmployee(e));
+            return dtoList;
+
         }
 
 
@@ -72,52 +76,49 @@ namespace gestionEmployer.Core.Services
 
 
         //Dans cette mettre on vas modifier l'employé en verifiant tous les attributs s'ils existent déja
-        public async Task<Employer?> UpdateEmployeeAsync( Employer updatedEmploye)
+        public async Task<ReturnUpdatedEmpDto?> UpdateEmployeeAsync( Employer updatedEmploye)
         {
             // Récupérer l'employé existant
             Employer existingEmploye = await _employeeRepository.GetEmployeeByIdAsync(updatedEmploye.Id)
                                     ?? throw new KeyNotFoundException("Employé non trouvé.");
  
             // Liste pour stocker les erreurs trouvées
-            var errors = new List<string>();
+            ReturnUpdatedEmpDto dto = EmployeeMapper.ModelToUpdate(updatedEmploye);
 
             // Vérification de l'unicité seulement si l'attribut est modifié
             if (updatedEmploye.CIN != existingEmploye.CIN &&
                 _employeeRepository.Exists(e => e.CIN == updatedEmploye.CIN && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
             {
-                errors.Add("CIN déjà utilisé.");
+                dto.Errors.Add("CIN", "CIN déjà utilisé.");
             }
 
             if (updatedEmploye.Email != existingEmploye.Email &&
                 _employeeRepository.Exists(e => e.Email == updatedEmploye.Email && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
             {
-                errors.Add("Email déjà utilisé.");
+                dto.Errors.Add("Email","Email déjà utilisé.");
             }
 
             if (updatedEmploye.Username != existingEmploye.Username &&
                 _employeeRepository.Exists(e => e.Username == updatedEmploye.Username && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
             {
-                errors.Add("Username déjà utilisé.");
+                dto.Errors.Add("Username","Username déjà utilisé.");
             }
 
-            // Si des erreurs sont trouvées, lancer une exception avec toutes les erreurs
-            if (errors.Any())
+            if (dto.Errors.Count() == 0)
             {
-                throw new ValidationException(string.Join(", ", errors));
+                existingEmploye.Email = updatedEmploye.Email;
+                existingEmploye.Username = updatedEmploye.Username;
+                existingEmploye.Nom = updatedEmploye.Nom;
+                existingEmploye.Prenom = updatedEmploye.Prenom;
+                existingEmploye.PhoneNumber = updatedEmploye.PhoneNumber;
+                existingEmploye.Salaire = updatedEmploye.Salaire;
+                existingEmploye.Birthday = updatedEmploye.Birthday; 
+
+                // Sauvegarder les changements dans la base de données
+                var empp = await _employeeRepository.UpdateEmployeeAsync(existingEmploye);
             }
 
-            // Mise à jour des informations
-            existingEmploye.Nom = updatedEmploye.Nom;
-            existingEmploye.Prenom = updatedEmploye.Prenom;
-            existingEmploye.CIN = updatedEmploye.CIN;
-            existingEmploye.PhoneNumber = updatedEmploye.PhoneNumber;
-            existingEmploye.Email = updatedEmploye.Email;
-            existingEmploye.Username = updatedEmploye.Username;
-            existingEmploye.Password = updatedEmploye.Password;
-            existingEmploye.Salaire = updatedEmploye.Salaire;
-
-            // Sauvegarder les changements dans la base de données
-            return await _employeeRepository.UpdateEmployeeAsync(existingEmploye) ;
+            return dto;
         }
 
 

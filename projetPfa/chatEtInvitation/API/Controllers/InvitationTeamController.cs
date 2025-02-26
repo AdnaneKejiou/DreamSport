@@ -7,5 +7,6 @@ namespace chatEtInvitation.API.Controllers
     [ApiController]
     public class InvitationTeamController : ControllerBase
     {
+
     }
 }

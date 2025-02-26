@@ -17,10 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="API\DTOs\" />
     <Folder Include="API\Filters\" />
-    <Folder Include="API\Mappers\" />
-    <Folder Include="Infrastructure\ExternServices\" />
     <Folder Include="NewFolder\" />
   </ItemGroup>
 

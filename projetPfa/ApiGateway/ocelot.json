@@ -133,6 +133,19 @@
       "UpstreamPathTemplate": "/gateway/users/recover-password",
       "UpstreamHttpMethod": [ "PUT" ]
     },
+    {
+      // Route pour récupérer le mot de passe d'un utilisateur (PUT)
+      "DownstreamPathTemplate": "/api/user/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5255
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/users/{id}/{AdminId}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
 
     //--------------------------------------------------------Gestion des Annonces-------------------------------------------
 
@@ -448,6 +461,19 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/Mail/send",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    //--------------------------------------------------------Chat et invitation ---------------------------------------
+    {
+      "DownstreamPathTemplate": "/api/InvitationMember/send",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5270
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/InvitationMember/send",
       "UpstreamHttpMethod": [ "POST" ]
     }
   ],

@@ -55,5 +55,35 @@ namespace gestionEmployer.API.Mappers
             };
         }
 
+        public static GetEmployeeDTO ModelToGetEmployee(Employer _Employer)
+        {
+            return new GetEmployeeDTO
+            {
+                AdminId = _Employer.AdminId,
+                Nom = _Employer.Nom,
+                Prenom = _Employer.Prenom,
+                CIN = _Employer.CIN,
+                Email = _Employer.Email,
+                Birthday = _Employer.Birthday,
+                PhoneNumber = _Employer.PhoneNumber,
+                Salaire = _Employer.Salaire,
+                Username = _Employer.Username
+            };
+        }
+
+        public static ReturnUpdatedEmpDto ModelToUpdate(Employer _Employer)
+        {
+            return new ReturnUpdatedEmpDto
+            {
+                Nom = _Employer.Nom,
+                Prenom = _Employer.Prenom,
+                Email = _Employer.Email,
+                Birthday = _Employer.Birthday,
+                PhoneNumber = _Employer.PhoneNumber,
+                Salaire = _Employer.Salaire,
+                Username = _Employer.Username,
+                Id = _Employer.Id
+            };
+        }
     }
 }

@@ -42,14 +42,23 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
             return employee;
         }
 
-       
+
 
         public async Task<Employer?> UpdateEmployeeAsync(Employer employee)
         {
-            _context.Employers.Update(employee);
+            var trackedEntity = _context.Employers.Local.FirstOrDefault(e => e.Id == employee.Id);
+            if (trackedEntity != null)
+            {
+                _context.Entry(trackedEntity).State = EntityState.Detached; // Detach the old entity
+            }
+
+            _context.Employers.Attach(employee);
+            _context.Entry(employee).State = EntityState.Modified;
+
             await _context.SaveChangesAsync();
             return employee;
         }
+
 
         public async Task<Employer?> DeleteEmployeeAsync(int id)
         {

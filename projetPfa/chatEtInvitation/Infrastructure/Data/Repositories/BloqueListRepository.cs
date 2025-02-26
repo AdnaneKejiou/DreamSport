@@ -1,5 +1,7 @@
 ﻿using chatEtInvitation.Core.Interfaces.IRepositories;
+using chatEtInvitation.Core.Models;
 using gestionEmployer.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace chatEtInvitation.Infrastructure.Data.Repositories
 {
@@ -11,5 +13,12 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
         {
             _context = context;
         }
+
+        public async Task<BloqueList> IsBlockedAsync(int Bloked, int BlokedBy)
+        {
+            return await _context.BloqueList
+                .FirstOrDefaultAsync(b => b.Bloked == Bloked && b.BlokedBy == BlokedBy);
+        }
+
     }
 }

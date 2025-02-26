@@ -24,26 +24,32 @@ namespace gestionEmployer.API.Controllers
 
         // GET: api/Employee/{id}
         [HttpGet("get/{id}")]
-        public IActionResult GetEmployeeById(int id)
+        public async Task<IActionResult> GetEmployeeById(int id)
         {
-            var employee = _employeeService.GetEmployeeByIdAsync(id);
+            if (id <= 0)
+            {
+                return BadRequest("Id cant be < 0");
+            }
+            Employer employee = await _employeeService.GetEmployeeByIdAsync(id);
             if (employee == null)
                 return NotFound($"Employee with ID {id} not found.");
-            return Ok(employee);
+
+            GetEmployeeDTO dto = EmployeeMapper.ModelToGetEmployee(employee);
+            return Ok(dto);
         }
 
         //GET ALL EMPLOYEES by idAdmin
-      [HttpGet("admin/{AdminId}")]
-public async Task<ActionResult<IEnumerable<Employer>>> GetEmployesByAdminId(int AdminId)
-{
-    var employes = await _employeeService.GetEmployesByAdminIdAsync(AdminId);
-    if (employes == null)
-    {
-        return NotFound($"Aucun employé trouvé pour l'ID Admin : {AdminId}");
-    }
+        [HttpGet("admin/{AdminId}")]
+        public async Task<ActionResult<IEnumerable<ReturnAddedEmployee>>> GetEmployesByAdminId(int AdminId)
+        {
+            var employes = await _employeeService.GetEmployesByAdminIdAsync(AdminId);
+            if (employes == null || employes.Count()==0)
+            {
+                return NotFound($"Aucun employé trouvé pour l'ID Admin : {AdminId}");
+            }
 
-    return Ok(employes);
-}
+            return Ok(employes);
+        }
 
 
 
@@ -67,11 +73,24 @@ public async Task<ActionResult<IEnumerable<Employer>>> GetEmployesByAdminId(int 
         // PUT: api/Employee/{id}
         [HttpPut]
         [ValidationModels]
-        public IActionResult UpdateEmployee([FromBody] UpdateEmployeeDTO employee)
+        public async Task <IActionResult> UpdateEmployee([FromBody] UpdateEmployeeDTO employee)
         {
             Employer employer = EmployeeMapper.UpdateEmployeeDTOToEmployer(employee);
-            _employeeService.UpdateEmployeeAsync(employer);
-            return NoContent();
+
+            try
+            {
+                ReturnUpdatedEmpDto emp = await _employeeService.UpdateEmployeeAsync(employer);
+                if(emp.Errors.Count()>0)
+                {
+                    return BadRequest(emp);
+                }
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            
         }
 
         // DELETE: api/Employee/{id}
