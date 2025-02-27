@@ -437,17 +437,29 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
     {
-      // Route pour supprimer un employé par ID (DELETE)
-      "DownstreamPathTemplate": "/api/employee/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5097
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/employee/{id}",
-      "UpstreamHttpMethod": [ "DELETE" ]
+        // Route pour supprimer un employé par ID (DELETE)
+        "DownstreamPathTemplate": "/api/employee/{id}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 5097
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/employee/{id}",
+        "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    {
+        "DownstreamPathTemplate": "/api/admin/ajouter",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 5097
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/ajouter",
+        "UpstreamHttpMethod": [ "POST" ]
     },
     // -------------------------------------------------------Mail Service----------------------------------
     {

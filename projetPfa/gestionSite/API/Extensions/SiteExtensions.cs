@@ -13,6 +13,7 @@ namespace gestionSite.API.Extensions
         {
             services.AddScoped<ISiteService, SiteService>();
             services.AddScoped<ISiteRepository, SiteRepository>();
+        
 
         }
 

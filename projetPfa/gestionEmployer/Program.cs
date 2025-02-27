@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using gestionEmployer.Infrastructure.Data.Repositories;
 using gestionEmployer.Core.Services;
 using gestionEmployer.Infrastructure.ExternServices;
+using Shared.Messaging.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
