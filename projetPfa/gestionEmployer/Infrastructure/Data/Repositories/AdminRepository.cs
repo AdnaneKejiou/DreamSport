@@ -21,5 +21,22 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
         {
             return _context.Admins.FirstOrDefault(a => a.Id == tenantId);
         }
+        public Admin? AddAdmin(Admin admin)
+        {
+            // Ajouter l'administrateur à la base de données
+            _context.Admins.Add(admin);
+
+            // Sauvegarder les changements dans la base de données
+            _context.SaveChanges();
+
+            // Retourner l'objet Admin ajouté
+            return admin;
+        }
+        public bool AdminExists(string nom, string login, string phoneNumber)
+        {
+            // Vérifier si un administrateur existe déjà avec le même nom, login ou numéro de téléphone
+            return _context.Admins.Any(a => a.Nom == nom || a.Login == login || a.PhoneNumber == phoneNumber);
+        }
+
     }
 }

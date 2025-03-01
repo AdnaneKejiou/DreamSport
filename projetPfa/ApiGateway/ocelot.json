@@ -449,6 +449,18 @@
       "UpstreamPathTemplate": "/gateway/employee/{id}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
+    {
+      "DownstreamPathTemplate": "/api/admin/ajouter",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/ajouter",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
     // -------------------------------------------------------Mail Service----------------------------------
     {
       // Route pour supprimer un employé par ID (DELETE)
@@ -475,64 +487,46 @@
       ],
       "UpstreamPathTemplate": "/gateway/InvitationMember/send",
       "UpstreamHttpMethod": [ "POST" ]
-    }
-  ],
+    },
+
+    //---------------------------------------------------ChatEtInvitation---------------------------------------------------------
 
 
-  {
-    "Routes": [
-      // Route pour Refuser invitation
-      {
-        "DownstreamPathTemplate": "/api/InvitationMember/Refuser/{id}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "localhost",
-            "Port": 5270
-          }
-        ],
-        "UpstreamPathTemplate": "/gateway/InvitationMember/Refuser/{id}",
-        "UpstreamHttpMethod": [ "DELETE" ]
-      }
-    ]
-  },
-  {
-
-    "Routes": [
-      // Route pour Get invitation by Id
-      {
-        "DownstreamPathTemplate": "/api/InvitationMember/Get/{id}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "localhost",
-            "Port": 5270
-          }
-        ],
-        "UpstreamPathTemplate": "/gateway/InvitationMember/Get/{id}",
-        "UpstreamHttpMethod": [ "GET" ]
-      }
-    ],
-
-
+    // Route pour Refuser invitation
+    {
+      "DownstreamPathTemplate": "/api/InvitationMember/Refuser/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5270
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/InvitationMember/Refuser/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
     // Route pour accepter une invitation
-    "DownstreamPathTemplate": "/api/InvitationMember/Accepter/{invitationId}",
-    "DownstreamScheme": "http",
-    "DownstreamHostAndPorts": [
+    "DownstreamPathTemplate",
+    :,
+    "/api/InvitationMember/Accepter/{invitationId}",
+    "DownstreamScheme",
+    :,
+    "http",
+    "DownstreamHostAndPorts",
+    :,
+    [
       {
         "Host": "localhost", // Nom de l'hôte de votre API en local
         "Port": 5270 // Port où votre API est hébergée
       }
     ],
-    "UpstreamPathTemplate": "/gateway/InvitationMember/Accepter/{invitationId}", // URL pour accéder via le Gateway
-    "UpstreamHttpMethod": [ "POST" ] // Méthode HTTP pour cette route (POST)
-  },
-  ]
-},
-
-
-
-
+    "UpstreamPathTemplate",
+    :,
+    "/gateway/InvitationMember/Accepter/{invitationId}", // URL pour accéder via le Gateway
+    "UpstreamHtt
+  ],
+  
+  
 
 
 

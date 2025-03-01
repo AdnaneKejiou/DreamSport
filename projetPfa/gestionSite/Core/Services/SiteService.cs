@@ -1,5 +1,12 @@
 ﻿using gestionSite.Core.Interfaces.SiteInterfaces;
 using gestionSite.Core.Models;
+using RabbitMQModel = RabbitMQ.Client.IModel;
+using EntityFrameworkModel = Microsoft.EntityFrameworkCore.Metadata.IModel;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
+using Newtonsoft.Json;
+
 
 namespace gestionSite.Core.Services
 {
@@ -10,7 +17,11 @@ namespace gestionSite.Core.Services
         public SiteService(ISiteRepository siteRepository)
         {
             _siteRepository = siteRepository;
+           
         }
+
+
+       
 
         public async Task<IEnumerable<Site>> GetSiteByAdminAsync(int adminId)
         {

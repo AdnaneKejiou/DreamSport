@@ -6,5 +6,8 @@ namespace gestionEmployer.Core.Interfaces
     {
         bool IsTenantValid(int tenantId);
         Admin? GetAdminByTenantId(int tenantId);
+        Admin? AddAdmin(Admin admin);
+        bool AdminExists(string nom, string login, string phoneNumber);
+
     }
 }

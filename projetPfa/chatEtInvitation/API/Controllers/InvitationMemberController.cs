@@ -3,6 +3,7 @@ using chatEtInvitation.API.Exceptions;
 using chatEtInvitation.API.Mappers;
 using chatEtInvitation.Core.Interfaces.IServices;
 using chatEtInvitation.Core.Models;
+using chatEtInvitation.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +14,11 @@ namespace chatEtInvitation.API.Controllers
     public class InvitationMemberController : ControllerBase
     {
 
-        private readonly IMemberInvitationService _memberInvitationService ;
+        private readonly IMemberInvitationService _memberInvitationService;
         private readonly IInvitationService _invitationService;
 
 
-        public InvitationMemberController(IMemberInvitationService memberInvitationService , IInvitationService invitationService)
+        public InvitationMemberController(IMemberInvitationService memberInvitationService,IInvitationService invitationService)
         {
             _memberInvitationService = memberInvitationService;
             _invitationService = invitationService;
@@ -56,7 +57,7 @@ namespace chatEtInvitation.API.Controllers
             }
         }
 
-        
+      
 
         // Endpoint API pour refuser une invitation
         [HttpDelete("Refuser/{id}")]

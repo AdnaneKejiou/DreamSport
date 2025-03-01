@@ -1,4 +1,5 @@
-﻿using gestionEmployer.Core.Models;
+﻿using gestionEmployer.API.DTOs.AdminDTO;
+using gestionEmployer.Core.Models;
 
 namespace gestionEmployer.Core.Interfaces
 {
@@ -7,6 +8,6 @@ namespace gestionEmployer.Core.Interfaces
 
         bool ValidateTenant(int tenantId);
         Admin? GetAdmin(int tenantId);
-
+        AdminAddedDTO AjouterAdmin(Admin admin);
     }
 }
