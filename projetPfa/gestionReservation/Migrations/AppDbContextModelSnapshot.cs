@@ -47,9 +47,6 @@ namespace gestionReservation.Migrations
                     b.Property<int>("IdUtilisateur")
                         .HasColumnType("int");
 
-                    b.Property<int>("TerrainId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdStatus");

@@ -28,7 +28,7 @@ public class ReservationService : IReservationService
             throw new BadRequestException("The reservation date must be today or in the future.");
         }
         var user = await _userService.FetchUserAsync(reservation.IdUtilisateur);
-        if(user == null)
+        if(user == null )
         {
             throw new KeyNotFoundException("The user dont exist in our sytem");
         }
@@ -36,7 +36,7 @@ public class ReservationService : IReservationService
         {
             throw new UnauthorizedAccessException("You cant Reserve please talk to the support");
         }
-        var terrain = await _siteService.FetchTerrainAsync(reservation.IdUtilisateur);
+        var terrain = await _siteService.FetchTerrainAsync(reservation.IdTerrain);
         if(terrain == null)
         {
             throw new KeyNotFoundException("The terrain dont exist in our sytem");
@@ -52,6 +52,7 @@ public class ReservationService : IReservationService
         Status st = await _statusRepository.GetStatusByLibelle("en attente");
         int idStatus = st.Id;
         reservation.IdStatus = idStatus;
+        reservation.Status = st;
 
         await _reservationRepository.AddAsync(reservation);//add reservation
         
@@ -84,13 +85,17 @@ public class ReservationService : IReservationService
             }
             reservation.IdStatus = 3;
         }
-        else
+        else if(dto.Status == "refused")
         {
             if(!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
             {
                 throw new Exception("Failed to update the user compteur");
             }
             reservation.IdStatus = 2;
+        }
+        else
+        {
+            throw new BadRequestException("We dont have a status named : "+dto.Status);
         }
         Reservation res = await _reservationRepository.UpdateReservationAsync(reservation);
         return res;

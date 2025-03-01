@@ -11,7 +11,6 @@ namespace gestionReservation.API.DTOs
         [Required(ErrorMessage ="You need to choice a stadium")]
         public int IdTerrain { get; set; }
         [Required]
-        public int IdAdmin { get; set; }
-        public Dictionary<string,string> Errors { get; set; }=new Dictionary<string,string>();
+        public int AdminId { get; set; }
     }
 }

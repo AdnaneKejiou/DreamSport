@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace gestionReservation.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250219204003_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250301125552_inital")]
+    partial class inital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,9 +48,6 @@ namespace gestionReservation.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("IdUtilisateur")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TerrainId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

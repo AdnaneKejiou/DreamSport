@@ -13,9 +13,20 @@ public class ReservationRepository : IReservationRepository
     // Ajouter une réservation dans la base de données
     public async Task AddAsync(Reservation reservation)
     {
-        await _context.Reservations.AddAsync(reservation);
-        await _context.SaveChangesAsync();
+        try
+        {
+            await _context.Reservations.AddAsync(reservation);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            // Log the inner exception if it exists
+            Console.WriteLine($"Error: {ex.Message}");
+            Console.WriteLine($"Inner Exception: {ex.InnerException?.Message}");
+            throw;  // Rethrow the exception to preserve the stack trace
+        }
     }
+
 
     // Récupérer une réservation par son ID
     public async Task<Reservation> GetByIdAsync(int id)

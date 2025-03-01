@@ -12,7 +12,7 @@ namespace gestionReservation.API.Mappers
                 DateRes = reservation.DateRes,
                 IdUtilisateur = reservation.IdUtilisateur,
                 IdTerrain = reservation.IdTerrain,
-                IdAdmin = reservation.IdAdmin,
+                AdminId = reservation.IdAdmin,
             };
         }
 
@@ -21,7 +21,7 @@ namespace gestionReservation.API.Mappers
             return new Reservation
             {
                 DateRes = dto.DateRes,
-                IdAdmin = dto.IdAdmin,
+                IdAdmin = dto.AdminId,
                 IdTerrain = dto.IdTerrain,
                 IdUtilisateur = dto.IdUtilisateur,
 

@@ -340,7 +340,19 @@
       "UpstreamPathTemplate": "/gateway/terrain/{id}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
-
+    {
+      // Route pour Get terrain by id
+      "DownstreamPathTemplate": "/api/terrain/by-id/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5150
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
     //--------------------------------------------------------Gestion des Statuts de Terrains-------------------------------------------
 
     {
@@ -475,6 +487,43 @@
       ],
       "UpstreamPathTemplate": "/gateway/InvitationMember/send",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    //-------------------------------------------------------- reservation service ----------------------------------------
+    {
+      "DownstreamPathTemplate": "/api/reservation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5169
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/reservation",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/reservation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5169
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/reservation",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/reservation/update-status",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5169
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/reservation/update-status",
+      "UpstreamHttpMethod": [ "PUT" ]
     }
   ],
    

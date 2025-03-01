@@ -29,7 +29,7 @@ namespace gestionReservation.API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-            [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> AjouterReservationAsync([FromBody] AddReservationDto reservation)
         {
             try
@@ -84,6 +84,10 @@ namespace gestionReservation.API.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
+            }
+            catch (BadRequestException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

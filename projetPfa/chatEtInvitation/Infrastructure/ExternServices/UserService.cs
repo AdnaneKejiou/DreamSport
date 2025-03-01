@@ -30,8 +30,6 @@ namespace chatEtInvitation.Infrastructure.ExternServices
             if (!response.IsSuccessStatusCode)
             {
                 string errorMsg = $"❌ Error fetching user: {response.StatusCode}, URL: {requestUrl}";
-                Console.WriteLine(errorMsg);
-                throw new HttpRequestException(errorMsg);
             }
 
             return await response.Content.ReadFromJsonAsync<UserDTO>() ?? new UserDTO();

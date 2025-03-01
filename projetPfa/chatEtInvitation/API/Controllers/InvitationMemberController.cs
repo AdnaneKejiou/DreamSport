@@ -51,5 +51,6 @@ namespace chatEtInvitation.API.Controllers
                 return StatusCode(500, new { message = "An internal server error occurred.", error = ex.Message });
             }
         }
+
     }
 }

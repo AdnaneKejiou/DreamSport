@@ -92,7 +92,7 @@ namespace gestionUtilisateur.API.Controllers
         public async Task<IActionResult> GetUserAsync(int id)
         {
             User user = await _userService.GetUserAsync(id);
-            if(user == null) return NotFound();
+            if (user == null) { return NotFound(); }
             return Ok(user);
         }
         [HttpPut("ResetConteur/{id}")]
