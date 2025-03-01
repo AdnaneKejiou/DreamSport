@@ -505,46 +505,20 @@
       "UpstreamPathTemplate": "/gateway/InvitationMember/Refuser/{id}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
-    // Route pour accepter une invitation
-    "DownstreamPathTemplate",
-    :,
-    "/api/InvitationMember/Accepter/{invitationId}",
-    "DownstreamScheme",
-    :,
-    "http",
-    "DownstreamHostAndPorts",
-    :,
-    [
-      {
-        "Host": "localhost", // Nom de l'hôte de votre API en local
-        "Port": 5270 // Port où votre API est hébergée
-      }
-    ],
-    "UpstreamPathTemplate",
-    :,
-    "/gateway/InvitationMember/Accepter/{invitationId}", // URL pour accéder via le Gateway
-    "UpstreamHtt
+     // Route pour accepter une invitation
+    {
+      "DownstreamPathTemplate": "/api/InvitationMember/Accepter/{invitationId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5270
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/InvitationMember/Accepter/{invitationId}",
+      "UpstreamHttpMethod": [ "POST" ]
+    } 
   ],
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   "GlobalConfiguration": {
