@@ -1,4 +1,8 @@
-﻿using chatEtInvitation.Core.Interfaces.IServices;
+﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.API.Exceptions;
+using chatEtInvitation.API.Mappers;
+using chatEtInvitation.Core.Interfaces.IServices;
+using chatEtInvitation.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +13,15 @@ namespace chatEtInvitation.API.Controllers
     public class InvitationMemberController : ControllerBase
     {
 
-        private readonly IMemberInvitationService _memberInvitationService;
+        private readonly IMemberInvitationService _memberInvitationService ;
+        private readonly IInvitationService _invitationService;
 
-        public InvitationMemberController(IMemberInvitationService memberInvitationService)
+
+        public InvitationMemberController(IMemberInvitationService memberInvitationService , IInvitationService invitationService)
         {
             _memberInvitationService = memberInvitationService;
+            _invitationService = invitationService;
+
         }
 
 
@@ -47,49 +55,70 @@ namespace chatEtInvitation.API.Controllers
                 return StatusCode(500, new { message = "An internal server error occurred.", error = ex.Message });
             }
         }
-        private readonly IInvitationService _invitationService;
 
-        // Injection du service dans le contrôleur
-        public InvitationMemberController(IInvitationService invitationService)
-        {
-            _invitationService = invitationService;
-        }
+        
 
         // Endpoint API pour refuser une invitation
         [HttpDelete("Refuser/{id}")]
         public async Task<IActionResult> RefuserInvitation(int id)
         {
-            // Appel du service pour refuser l'invitation
-            var success = await _invitationService.RefuserInvitation(id);
-
-            if (success)
+            try
             {
-                return NoContent();
+                var success = await _invitationService.RefuserInvitation(id);
+
+                if (success)
+                {
+                    return NoContent();
+                }
+
             }
-
-            return StatusCode(500, new { message = "L'invitation n'a pas pu être refusée. Vérifiez l'ID de l'invitation ou l'ID de l'utilisateur." });
-        }
-        private readonly IInvitationService _invitationService;
-
-        // Injection du service dans le contrôleur
-        public InvitationMemberController(IInvitationService invitationService)
-        {
-            _invitationService = invitationService;
-        }
-
-        // Endpoint API pour refuser une invitation
-        [HttpDelete("Refuser/{id}")]
-        public async Task<IActionResult> RefuserInvitation(int id)
-        {
-            // Appel du service pour refuser l'invitation
-            var success = await _invitationService.RefuserInvitation(id);
-
-            if (success)
+            catch(KeyNotFoundException ex)
             {
-                return NoContent();
+                return NotFound(ex.Message);
             }
-
-            return StatusCode(500, new { message = "L'invitation n'a pas pu être refusée. Vérifiez l'ID de l'invitation ou l'ID de l'utilisateur." });
+            return BadRequest();
+            
         }
+
+        //Get invitation By Id
+        [HttpGet("Get/{id}")]
+
+        public async Task<IActionResult> GetInvitationByIdAsync(int id)
+        {
+            //Appel du service pour get Invitation 
+            var invitation = await _invitationService.GetInvitationByIdAsync(id);
+            if (invitation == null)
+            {
+                // si l'invitation ne se trouve pas return 404 not found avec le message 
+                return NotFound(new {message= "Invitation non trouvée" });
+            }
+            return Ok(invitation);
+        }
+
+        //Accepter invitation 
+
+
+        [HttpPost("accepter/{invitationId}")]
+        public async Task<IActionResult> AccepterInvitation(int invitationId)
+        {
+            try
+            {
+                var success = await _invitationService.AccepterInvitationAsync(invitationId);
+                if (!success)
+                {
+                    return StatusCode(500, "an error happen");
+                }
+                return Ok("Invitation acceptée et chat créé avec succès.");
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            
+        }
+
+
+
+
     }
 }

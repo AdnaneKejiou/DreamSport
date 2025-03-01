@@ -14,5 +14,16 @@ namespace chatEtInvitation.API.Mappers
                 Recerpteur = dto.Recerpteur,
             };
         }
+
+        // Mapper MemberInvitation en InvitationDto
+        public AddInvMemberDto ToDto(MemberInvitation invitation)
+        {
+            return new AddInvMemberDto
+            {
+                AdminId = invitation.AdminId,
+                Emetteur = invitation.Emetteur,
+                Recerpteur = invitation.Recerpteur,
+            };
+        }
     }
 }

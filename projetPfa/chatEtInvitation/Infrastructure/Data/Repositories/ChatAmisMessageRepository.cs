@@ -1,5 +1,7 @@
 ﻿using chatEtInvitation.Core.Interfaces.IRepositories;
+using chatEtInvitation.Core.Models;
 using gestionEmployer.Infrastructure.Data;
+using System;
 
 namespace chatEtInvitation.Infrastructure.Data.Repositories
 {
@@ -11,5 +13,8 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
         {
             _context = context;
         }
+
+
+       
     }
 }
