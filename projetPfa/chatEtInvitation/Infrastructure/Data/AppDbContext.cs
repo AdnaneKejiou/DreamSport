@@ -1,4 +1,5 @@
 ﻿using chatEtInvitation.Core.Models;
+using chatEtInvitation.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
@@ -19,6 +20,7 @@ namespace gestionEmployer.Infrastructure.Data
         public DbSet<MemberInvitation> MemberInvitations { get; set; }
         public DbSet<TeamInvitation> TeamInvitations { get; set; }
         public DbSet<TeamChat> TeamChats { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

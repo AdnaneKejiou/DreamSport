@@ -2,17 +2,28 @@
 
 using chatEtInvitation.API.Extentions;
 using chatEtInvitation.Infrastructure.ExternServices;
+using chatEtInvitation.Core.Interfaces.IRepositories;
+using chatEtInvitation.Core.Interfaces.IServices;
+using chatEtInvitation.Core.Services;
+using chatEtInvitation.Infrastructure.Data.Repositories;
 using gestionEmployer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+//builder interfaces services and repositories
+builder.Services.AddScoped<IInvitationService, InvitationService>();
+builder.Services.AddScoped<IMemberInvitationRepository, MemberInvitationRepository>();
+
+
+//builder interfaces services and repositories
+builder.Services.AddScoped<IInvitationService, InvitationService>();
+builder.Services.AddScoped<IMemberInvitationRepository, MemberInvitationRepository>();
+
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -22,12 +33,6 @@ builder.Services.addRepositoriesDependencies();
 builder.Services.addServicesDependencies();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 
 app.UseAuthorization();

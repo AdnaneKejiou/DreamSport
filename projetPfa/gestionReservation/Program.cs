@@ -29,18 +29,11 @@ builder.Services.AddControllers();
 //http client
 builder.Services.AddHttpClient();
 
-// Ajouter Swagger pour la documentation de l'API (si besoin)
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Utiliser Swagger si activé
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
 
 
 app.UseAuthorization();

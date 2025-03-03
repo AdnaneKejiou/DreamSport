@@ -3,6 +3,7 @@ using chatEtInvitation.API.Exceptions;
 using chatEtInvitation.API.Mappers;
 using chatEtInvitation.Core.Interfaces.IServices;
 using chatEtInvitation.Core.Models;
+using chatEtInvitation.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +15,14 @@ namespace chatEtInvitation.API.Controllers
     {
 
         private readonly IMemberInvitationService _memberInvitationService;
+        private readonly IInvitationService _invitationService;
 
-        public InvitationMemberController(IMemberInvitationService memberInvitationService)
+
+        public InvitationMemberController(IMemberInvitationService memberInvitationService,IInvitationService invitationService)
         {
             _memberInvitationService = memberInvitationService;
+            _invitationService = invitationService;
+
         }
 
 
@@ -52,5 +57,25 @@ namespace chatEtInvitation.API.Controllers
             }
         }
 
+      
+
+        // Endpoint API pour refuser une invitation
+        [HttpDelete("Refuser/{id}")]
+        public async Task<IActionResult> RefuserInvitation(int id)
+        {
+            // Appel du service pour refuser l'invitation
+            var success = await _invitationService.RefuserInvitation(id);
+
+            if (success)
+            {
+                return NoContent();
+            }
+
+            return StatusCode(500, new { message = "L'invitation n'a pas pu être refusée. Vérifiez l'ID de l'invitation ou l'ID de l'utilisateur." });
+        }
+
+       
+
+      
     }
 }

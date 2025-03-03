@@ -20,19 +20,14 @@ namespace gestionSite.Infrastructure.Data.Repositories
         }
         public async Task<Site?> AddSiteAsync(Site _site)
         {
-            try
-            {
+           
                 var result = await _context.Sites.AddAsync(_site);
                 await _context.SaveChangesAsync();
 
                 return result.Entity;
-            }
-            catch
-            {
-                // Handle exceptions as needed (e.g., log the error)
-                return null;
-            }
+           
         }
+
 
         public async Task<Site?> UpdateSiteAsync(Site _site)
         {
