@@ -1,0 +1,49 @@
+﻿using Auth.Dtos;
+using Auth.Interfaces;
+using Newtonsoft.Json;
+using System.Net;
+using System.Text;
+
+namespace Auth.Services
+{
+    public class UserService : IUserService
+    {
+        private readonly HttpClient _httpClient;
+        private readonly static string UserUrl = "http://localhost:5010/gateway";
+        public UserService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        public async Task<int> LoginUserAsync(UserLogin dto)
+        {
+            int adminId = dto.AdminId; 
+
+            // Construct the URL (only with idUser, as AdminId will be in headers)
+            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/validate";
+
+            // Create the request with headers
+            var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
+            request.Headers.Add("Tenant-ID", adminId.ToString()); // Add AdminId to headers
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(new { dto.Email, dto.Password }), Encoding.UTF8, "application/json");
+            request.Content = jsonContent;
+
+            var response = await _httpClient.SendAsync(request);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw new KeyNotFoundException("User with this Email not found");
+            }
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new UnauthorizedAccessException("Email or Password are incorrect");
+            }
+            if (!response.IsSuccessStatusCode)
+            {
+                return -1;
+            }
+
+            int id = await response.Content.ReadFromJsonAsync<int>();
+            return id;
+        }
+    }
+}

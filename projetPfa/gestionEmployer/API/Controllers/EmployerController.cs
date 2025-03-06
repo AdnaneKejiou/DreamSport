@@ -106,5 +106,27 @@ namespace gestionEmployer.API.Controllers
         }
 
 
+        [HttpPost("validate")]
+        public async Task<IActionResult> ValidateEmployer([FromBody] EmployerLoginDto dto)
+        {
+            try
+            {
+                int IsValid = await _employeeService.ValidateLogin(dto);
+                if (IsValid == -1)
+                {
+                    return Unauthorized("Email or password are incorrect");
+                }
+                return Ok(IsValid);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error");
+            }
+
+        }
     }
 }

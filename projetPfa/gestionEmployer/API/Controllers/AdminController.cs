@@ -1,7 +1,9 @@
 ﻿using gestionEmployer.API.DTOs.AdminDTO;
+using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.API.Mappers;
 using gestionEmployer.Core.Interfaces;
 using gestionEmployer.Core.Models;
+using gestionEmployer.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +64,30 @@ namespace gestionEmployer.API.Controllers
                 // En cas d'erreur générale, retourner une erreur interne avec le message d'exception
                 return StatusCode(500, $"Erreur interne du serveur : {ex.Message}");
             }
+        }
+
+
+        [HttpPost("validate")]
+        public async Task<IActionResult> ValidateAdmin([FromBody] AdminLoginDto dto)
+        {
+            try
+            {
+                int IsValid = await _adminService.ValidateLoginAsync(dto);
+                if (IsValid == -1)
+                {
+                    return Unauthorized("Login or password are incorrect");
+                }
+                return Ok(IsValid);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error");
+            }
+
         }
     }
 }

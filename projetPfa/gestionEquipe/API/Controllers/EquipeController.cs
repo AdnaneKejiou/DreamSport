@@ -3,6 +3,7 @@ using gestionEquipe.API.DTOs;
 using gestionEquipe.API.Mappers;
 using gestionEquipe.Core.Interfaces;
 using gestionEquipe.Core.Models;
+using gestionEquipe.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -100,7 +101,19 @@ namespace gestionEquipe.API.Controllers
             }
         }
 
-
+        [HttpGet("{teamId}")]
+        public async Task<IActionResult> GetTeamAsync(int teamId)
+        {
+            try
+            {
+                IEnumerable<int> MembersIds = await _equipeService.GetTeamAsync(teamId);
+                return Ok(MembersIds);
+            }
+            catch(KeyNotFoundException ex) 
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
 
 

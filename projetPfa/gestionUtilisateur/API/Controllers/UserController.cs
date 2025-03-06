@@ -76,16 +76,16 @@ namespace gestionUtilisateur.API.Controllers
         [ValidateModelAttribute]
         public async Task<IActionResult> RecupererPassword([FromBody] RecupererPasswordDTO dto)
         {
-            
-                // Appel au service
-                var userDto = await _userService.RecupererPasswodAsync(dto);
-                
-            if (userDto.error!=null)
+
+            // Appel au service
+            var userDto = await _userService.RecupererPasswodAsync(dto);
+
+            if (userDto.error != null)
             {
                 return BadRequest(userDto);
             }
-                return Ok(userDto);
-            
+            return Ok(userDto);
+
         }
 
         [HttpGet("{id}")]
@@ -121,6 +121,32 @@ namespace gestionUtilisateur.API.Controllers
                 return NotFound(new { message = "Une erreur interne s'est produite. Veuillez réessayer plus tard." });
             }
 
+        }
+
+        [HttpPost("validate")]
+        public async Task<IActionResult> ValidateUser([FromBody] LoginDto model)
+        {
+            try
+            {
+                int id = await _userService.Login(model);
+                if(id == -3)
+                {
+                    return Forbid("cant login please contact the support");
+                }
+                return Ok(id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { message = "Invalid credentials" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error ");
+            }
         }
     }
 }

@@ -16,5 +16,6 @@ namespace gestionEmployer.Core.Interfaces
         Task<Employer?> UpdateEmployeeAsync(Employer employee);
 
         Task<Employer> DeleteEmployeeAsync(int id);
+        Task<Employer> EmployerByEmailAsync(string email, int adminId);
     }
 }

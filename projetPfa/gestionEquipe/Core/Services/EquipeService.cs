@@ -208,5 +208,17 @@ namespace gestionEquipe.Core.Services
 
             return true;
         }
+
+        public async Task<IEnumerable<int>> GetTeamAsync(int teamId)
+        {
+            if(await _equipeRepository.ExistWithIdAsync(teamId) == null)
+            {
+                throw new KeyNotFoundException("Team dont exist");
+            }
+            IEnumerable<Members> list = await _membersRepository.GetTeamMembersAsync(teamId);
+            List<int> memberIds = list.Select(m => m.UserId).ToList();
+            return memberIds;
+        }
+
     }
 }

@@ -1,8 +1,10 @@
-﻿using chatEtInvitation.API.Exceptions;
+﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.API.Exceptions;
 using chatEtInvitation.Core.Interfaces.IExternServices;
 using chatEtInvitation.Core.Interfaces.IRepositories;
 using chatEtInvitation.Core.Interfaces.IServices;
 using chatEtInvitation.Core.Models;
+using chatEtInvitation.Infrastructure.Data.Repositories;
 using chatEtInvitation.Infrastructure.ExternServices.Extern_DTo;
 
 namespace chatEtInvitation.Core.Services
@@ -52,6 +54,16 @@ namespace chatEtInvitation.Core.Services
             await _memberInvitationRepository.AddInvitationAsync(invitation);
         }
 
-        
+        public async Task<List<MemberInvitationDTO>> GetUserInvitationsAsync(int userId)
+        {
+            var invitations = await _memberInvitationRepository.GetUserInvitationsAsync(userId);
+
+            return invitations.Select(inv => new MemberInvitationDTO
+            {
+                Id = inv.Id,
+                Emetteur = inv.Emetteur,
+                Recepteur = inv.Recerpteur,
+            }).ToList();
+        }
     }
 }

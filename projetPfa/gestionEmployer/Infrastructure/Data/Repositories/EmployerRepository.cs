@@ -16,6 +16,10 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
         }
 
       
+        public async Task<Employer> EmployerByEmailAsync(string email, int adminId)
+        {
+            return await _context.Employers.FirstOrDefaultAsync(e => e.AdminId == adminId && e.Email == email);
+        }
 
         public  async Task<Employer?> GetEmployeeByIdAsync(int id)
         {

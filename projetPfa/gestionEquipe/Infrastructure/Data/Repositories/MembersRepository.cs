@@ -78,9 +78,10 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
 
         public async Task<List<Members>> GetTeamMembersAsync(int equipeId)
         {
-            return await _context.Memberss
+            List<Members> ls =  await _context.Memberss
                 .Where(m => m.EquipeId == equipeId)
                 .ToListAsync();
+            return ls;
         }
     }
 }

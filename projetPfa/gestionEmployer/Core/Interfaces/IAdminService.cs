@@ -9,5 +9,6 @@ namespace gestionEmployer.Core.Interfaces
         bool ValidateTenant(int tenantId);
         Admin? GetAdmin(int tenantId);
         AdminAddedDTO AjouterAdmin(Admin admin);
+        Task<int> ValidateLoginAsync(AdminLoginDto dto);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using gestionEquipe.API.DTOs;
 using gestionEquipe.Core.Models;
+using System.Collections.Generic;
 
 namespace gestionEquipe.Core.Interfaces
 {
@@ -12,8 +13,6 @@ namespace gestionEquipe.Core.Interfaces
 
         // Méthode pour supprimer une équipe avec ses membres
         Task SupprimerEquipeAvecMembresAsync(int equipeId);
-
-        // Méthode pour obtenir une équipe par son ID
-
+        Task<IEnumerable<int>> GetTeamAsync(int teamId);
     }
 }

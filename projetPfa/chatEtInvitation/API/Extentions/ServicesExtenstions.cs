@@ -14,6 +14,7 @@ namespace chatEtInvitation.API.Extentions
             services.AddScoped<IMemberInvitationService, MemberInvitationService>();
             services.AddScoped<ITeamInvitationService, TeamInvitationService>();
 
+            services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IUserService, UserService>();
 
         }

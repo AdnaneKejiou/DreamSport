@@ -51,6 +51,20 @@ namespace gestionEmployer.Core.Services
 
             return _adminDTO;
         }
+
+        public async Task<int> ValidateLoginAsync(AdminLoginDto dto)
+        {
+            Admin admin = await _adminRepository.GetByLoginAsync(dto.Login);
+            if(admin == null)
+            {
+                throw new KeyNotFoundException("Tenant not Found");
+            }
+            if (!admin.Password.Equals(dto.Password))
+            {
+                return -1;
+            }
+            return admin.Id;
+        }
     }
 
 

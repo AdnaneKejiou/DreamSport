@@ -1,5 +1,6 @@
 ﻿using gestionEmployer.Core.Interfaces;
 using gestionEmployer.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace gestionEmployer.Infrastructure.Data.Repositories
 {
@@ -38,5 +39,9 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
             return _context.Admins.Any(a => a.Nom == nom || a.Login == login || a.PhoneNumber == phoneNumber);
         }
 
+        public async Task<Admin> GetByLoginAsync(string login)
+        {
+            return await _context.Admins.FirstOrDefaultAsync(a => a.Login == login);
+        }
     }
 }

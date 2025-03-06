@@ -3,6 +3,7 @@ using gestionUtilisateur.API.Mappers;
 using gestionUtilisateur.Core.Interfaces;
 using gestionUtilisateur.Core.Models;
 using gestionUtilisateur.Infrastructure.Extern_Services.Extern_DTOs;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System.Net.Http;
 using System.Text.Json;
 
@@ -157,6 +158,29 @@ namespace gestionUtilisateur.Core.Services
             }
             await _userRepository.UpdateAsync(user);
             return true;
+        }
+    
+        public async Task<int> Login(LoginDto login)
+        {
+            User user = await _userRepository.GetByEmailAsync(login.Email, login.AdminId);
+            if(user == null)
+            {
+                throw new KeyNotFoundException("User Not Found");
+            }
+            if(user.Tentatives >= 2)
+            {
+                return -3;
+            }
+            if(!user.Password.Equals(login.Password))
+            {
+                user.Tentatives = user.Tentatives + 1;
+                await _userRepository.UpdateAsync(user);
+                throw new UnauthorizedAccessException();
+            }
+            user.Tentatives = 0;
+            await _userRepository.UpdateAsync(user);
+            return user.Id;
+
         }
     }
 }

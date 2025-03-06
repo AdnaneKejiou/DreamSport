@@ -2,7 +2,7 @@
   "Routes": [
     {
       // Route pour gérer les équipes (POST)
-      "DownstreamPathTemplate": "/api/equipe",
+      "DownstreamPathTemplate": "/api/  ",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -64,6 +64,18 @@
       ],
       "UpstreamPathTemplate": "/gateway/members",
       "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/equipe/{teamId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5108
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/equipe/{teamId}",
+      "UpstreamHttpMethod": [ "GET" ]
     },
 
     //--------------------------------------------------------Gestion des Utilisateurs-------------------------------------------
@@ -145,6 +157,18 @@
       ],
       "UpstreamPathTemplate": "/gateway/users/{id}/{AdminId}",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user/validate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5255
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/users/validate",
+      "UpstreamHttpMethod": [ "POST" ]
     },
 
     //--------------------------------------------------------Gestion des Annonces-------------------------------------------
@@ -461,6 +485,32 @@
       "UpstreamPathTemplate": "/gateway/employee/{id}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
+    //Auth Employer
+    {
+      "DownstreamPathTemplate": "/api/employee/validate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/employee/validate",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    //Auth Admin
+    {
+      "DownstreamPathTemplate": "/api/Admin/validate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/admin/validate",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
     {
       "DownstreamPathTemplate": "/api/admin/ajouter",
       "DownstreamScheme": "http",
@@ -513,6 +563,31 @@
       "UpstreamPathTemplate": "/gateway/InvitationMember/Refuser/{id}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
+    // Route pour accepter une invitation
+    {
+      "DownstreamPathTemplate": "/api/InvitationMember/Accepter/{invitationId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5270
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/InvitationMember/Accepter/{invitationId}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/InvitationTeam",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5270
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/InvitationTeam",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
     //-------------------------------------------------------- reservation service ----------------------------------------
     {
       "DownstreamPathTemplate": "/api/reservation",
@@ -549,7 +624,45 @@
       ],
       "UpstreamPathTemplate": "/gateway/reservation/update-status",
       "UpstreamHttpMethod": [ "PUT" ]
+    },
+    //------------------------------------------------------- auth service ---------------------------------------------------------------
+    {
+      "DownstreamPathTemplate": "/api/Login/User",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5181
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Login/User",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Login/Admin",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5181
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Login/Admin",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Login/Employer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5181
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Login/Employer",
+      "UpstreamHttpMethod": [ "POST" ]
     }
+
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7000"

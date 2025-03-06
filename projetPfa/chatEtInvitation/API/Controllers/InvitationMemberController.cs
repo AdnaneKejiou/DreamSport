@@ -63,19 +63,73 @@ namespace chatEtInvitation.API.Controllers
         [HttpDelete("Refuser/{id}")]
         public async Task<IActionResult> RefuserInvitation(int id)
         {
-            // Appel du service pour refuser l'invitation
-            var success = await _invitationService.RefuserInvitation(id);
-
-            if (success)
+            try
             {
-                return NoContent();
-            }
+                var success = await _invitationService.RefuserInvitation(id);
 
-            return StatusCode(500, new { message = "L'invitation n'a pas pu être refusée. Vérifiez l'ID de l'invitation ou l'ID de l'utilisateur." });
+                if (success)
+                {
+                    return NoContent();
+                }
+
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            return BadRequest();
+            
         }
 
-       
+        //Get invitation By Id
+        [HttpGet("Get/{id}")]
 
-      
+        public async Task<IActionResult> GetInvitationByIdAsync(int id)
+        {
+            //Appel du service pour get Invitation 
+            var invitation = await _invitationService.GetInvitationByIdAsync(id);
+            if (invitation == null)
+            {
+                // si l'invitation ne se trouve pas return 404 not found avec le message 
+                return NotFound(new {message= "Invitation non trouvée" });
+            }
+            return Ok(invitation);
+        }
+
+        //Accepter invitation 
+
+
+        [HttpPost("accepter/{invitationId}")]
+        public async Task<IActionResult> AccepterInvitation(int invitationId)
+        {
+            try
+            {
+                var success = await _invitationService.AccepterInvitationAsync(invitationId);
+                if (!success)
+                {
+                    return StatusCode(500, "an error happen");
+                }
+                return Ok("Invitation acceptée et chat créé avec succès.");
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserInvitations(int userId)
+        {
+            var invitations = await _memberInvitationService.GetUserInvitationsAsync(userId);
+            if (invitations == null || invitations.Count == 0)
+            {
+                return NotFound(new { message = "Aucune invitation trouvée." });
+            }
+
+            return Ok(invitations);
+        }
+
+
     }
 }

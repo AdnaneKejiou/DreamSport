@@ -69,11 +69,6 @@ namespace gestionEmployer.Core.Services
 
         }
 
-       
-
-
-
-
 
         //Dans cette mettre on vas modifier l'employé en verifiant tous les attributs s'ils existent déja
         public async Task<ReturnUpdatedEmpDto?> UpdateEmployeeAsync( Employer updatedEmploye)
@@ -161,6 +156,18 @@ namespace gestionEmployer.Core.Services
         }
 
 
-
+        public async Task<int> ValidateLogin(EmployerLoginDto login)
+        {
+            Employer employer = await _employeeRepository.EmployerByEmailAsync(login.Email, login.AdminId);
+            if ( employer == null)
+            {
+                throw new KeyNotFoundException("The employee dont exist");
+            }
+            if (!employer.Password.Equals(login.Password))
+            {
+                return -1;
+            }
+            return employer.Id;
+        }
     }
 }
