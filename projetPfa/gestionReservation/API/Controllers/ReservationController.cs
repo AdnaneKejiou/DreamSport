@@ -16,7 +16,7 @@ namespace gestionReservation.API.Controllers
         {
             _reservationService = reservationService;
         }
-        [HttpGet]
+        [HttpGet("/{AdminId}")]
         public async Task<ActionResult<List<ReturnedListReservationsDTO>>> GetReservations( [FromQuery] GetReservationsDTO filter)
         {
             try

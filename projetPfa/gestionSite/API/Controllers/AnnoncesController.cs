@@ -51,7 +51,7 @@ namespace gestionSite.API.Controllers
             return Created("/api/annonces/" + result.IdAdmin, result);
         }
 
-        [HttpDelete("{annoncesId}")]
+        [HttpDelete("{annoncesId}/{AdminId}")]
         public async Task<ActionResult<Annonces>> DeleteAnnoncesAsync(int annoncesId)
         {
             if (annoncesId < 0)

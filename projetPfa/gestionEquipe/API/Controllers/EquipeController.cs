@@ -49,7 +49,7 @@ namespace gestionEquipe.API.Controllers
 
 
         //   supprimer une équipe avec ses membres
-        [HttpDelete("{equipeId}")]
+        [HttpDelete("{equipeId}/{AdminId}")]
         public async Task<IActionResult> SupprimerEquipe(int equipeId)
         {
             try
@@ -101,7 +101,7 @@ namespace gestionEquipe.API.Controllers
             }
         }
 
-        [HttpGet("{teamId}")]
+        [HttpGet("{teamId}/{AdminId}")]
         public async Task<IActionResult> GetTeamAsync(int teamId)
         {
             try

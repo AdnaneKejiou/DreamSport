@@ -84,7 +84,7 @@ namespace gestionSite.API.Controllers
         }
 
         // Supprimer un terrain
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/{AdminId}")]
         public async Task<ActionResult<Terrain>> DeleteTerrainAsync(int id)
         {
             if (id <= 0)
@@ -102,7 +102,7 @@ namespace gestionSite.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("by-id/{id}")]
+        [HttpGet("by-id/{id}/{AdminId}")]
         public async Task<IActionResult> GetTerrainByIdWithStatusAsync(int id)
         {
             var terrain = await _terrainService.GetTerrainByIdWithStatusAsync(id);

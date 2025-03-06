@@ -28,7 +28,7 @@
     },
     {
       // Route pour supprimer une équipe (DELETE)
-      "DownstreamPathTemplate": "/api/equipe/{equipeId}",
+      "DownstreamPathTemplate": "/api/equipe/{equipeId}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -36,7 +36,7 @@
           "Port": 5108
         }
       ],
-      "UpstreamPathTemplate": "/gateway/equipe/{equipeId}",
+      "UpstreamPathTemplate": "/gateway/equipe/{equipeId}/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     {
@@ -54,7 +54,7 @@
     },
     {
       // Route pour virer un membre d'une équipe (DELETE)
-      "DownstreamPathTemplate": "/api/members",
+      "DownstreamPathTemplate": "/api/members/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -62,11 +62,13 @@
           "Port": 5108
         }
       ],
-      "UpstreamPathTemplate": "/gateway/members",
+      "UpstreamPathTemplate": "/gateway/members/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
+
+    //Get Equipe
     {
-      "DownstreamPathTemplate": "/api/equipe/{teamId}",
+      "DownstreamPathTemplate": "/api/equipe/{teamId}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -74,7 +76,7 @@
           "Port": 5108
         }
       ],
-      "UpstreamPathTemplate": "/gateway/equipe/{teamId}",
+      "UpstreamPathTemplate": "/gateway/equipe/{teamId}/{AdminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
 
@@ -108,7 +110,7 @@
     },
     {
       // Route pour supprimer un utilisateur (DELETE)
-      "DownstreamPathTemplate": "/api/user/{id}",
+      "DownstreamPathTemplate": "/api/user/{id}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -116,7 +118,7 @@
           "Port": 5255
         }
       ],
-      "UpstreamPathTemplate": "/gateway/users/{id}",
+      "UpstreamPathTemplate": "/gateway/users/{id}/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     {
@@ -201,7 +203,7 @@
     },
     {
       // Route pour supprimer une annonce (DELETE)
-      "DownstreamPathTemplate": "/api/annonces/{annoncesId}",
+      "DownstreamPathTemplate": "/api/annonces/{annoncesId}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -209,7 +211,7 @@
           "Port": 5150
         }
       ],
-      "UpstreamPathTemplate": "/gateway/annonces/{annoncesId}",
+      "UpstreamPathTemplate": "/gateway/annonces/{annoncesId}/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
 
@@ -256,7 +258,7 @@
     },
     {
       // Route pour supprimer une FAQ (DELETE)
-      "DownstreamPathTemplate": "/api/faq/{faqId}",
+      "DownstreamPathTemplate": "/api/faq/{faqId}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -264,7 +266,7 @@
           "Port": 5150
         }
       ],
-      "UpstreamPathTemplate": "/gateway/faq/{faqId}",
+      "UpstreamPathTemplate": "/gateway/faq/{faqId}/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
 
@@ -353,7 +355,7 @@
     },
     {
       // Route pour supprimer un terrain (DELETE)
-      "DownstreamPathTemplate": "/api/terrain/{id}",
+      "DownstreamPathTemplate": "/api/terrain/{id}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -361,12 +363,12 @@
           "Port": 5150
         }
       ],
-      "UpstreamPathTemplate": "/gateway/terrain/{id}",
+      "UpstreamPathTemplate": "/gateway/terrain/{id}/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     {
       // Route pour Get terrain by id
-      "DownstreamPathTemplate": "/api/terrain/by-id/{id}",
+      "DownstreamPathTemplate": "/api/terrain/by-id/{id}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -374,14 +376,14 @@
           "Port": 5150
         }
       ],
-      "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}",
+      "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}/{AdminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
     //--------------------------------------------------------Gestion des Statuts de Terrains-------------------------------------------
 
     {
       // Route pour récupérer les statuts de terrains (GET)
-      "DownstreamPathTemplate": "/api/terrainstatus",
+      "DownstreamPathTemplate": "/api/terrainstatus/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -389,7 +391,7 @@
           "Port": 5150
         }
       ],
-      "UpstreamPathTemplate": "/gateway/terrainstatus",
+      "UpstreamPathTemplate": "/gateway/terrainstatus/{AdminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
@@ -407,7 +409,7 @@
     },
     {
       // Route pour supprimer un statut de terrain (DELETE)
-      "DownstreamPathTemplate": "/api/terrainstatus/{StatusId}",
+      "DownstreamPathTemplate": "/api/terrainstatus/{StatusId}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -415,14 +417,14 @@
           "Port": 5150
         }
       ],
-      "UpstreamPathTemplate": "/gateway/terrainstatus/{StatusId}",
+      "UpstreamPathTemplate": "/gateway/terrainstatus/{StatusId}/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     //--------------------------------------------------------Gestion des Employer-------------------------------------------
 
     {
       // Route pour récupérer un employé par ID
-      "DownstreamPathTemplate": "/api/employee/get/{id}",
+      "DownstreamPathTemplate": "/api/employee/get/{id}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -430,7 +432,7 @@
           "Port": 5097
         }
       ],
-      "UpstreamPathTemplate": "/gateway/employee/get/{id}",
+      "UpstreamPathTemplate": "/gateway/employee/get/{id}/{AdminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
@@ -474,7 +476,7 @@
     },
     {
       // Route pour supprimer un employé par ID (DELETE)
-      "DownstreamPathTemplate": "/api/employee/{id}",
+      "DownstreamPathTemplate": "/api/employee/{id}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -482,7 +484,7 @@
           "Port": 5097
         }
       ],
-      "UpstreamPathTemplate": "/gateway/employee/{id}",
+      "UpstreamPathTemplate": "/gateway/employee/{id}/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     //Auth Employer
@@ -525,7 +527,7 @@
     },
     // -------------------------------------------------------Mail Service----------------------------------
     {
-      // Route pour supprimer un employé par ID (DELETE)
+      // Route pour envoyer email
       "DownstreamPathTemplate": "/api/Mail/send",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -552,7 +554,7 @@
     },
     //---------------------------------------------------Chat et Invitation - Refuser Invitation---------------------------------------------------------
     {
-      "DownstreamPathTemplate": "/api/InvitationMember/Refuser/{id}",
+      "DownstreamPathTemplate": "/api/InvitationMember/Refuser/{id}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -560,7 +562,7 @@
           "Port": 5270
         }
       ],
-      "UpstreamPathTemplate": "/gateway/InvitationMember/Refuser/{id}",
+      "UpstreamPathTemplate": "/gateway/InvitationMember/Refuser/{id}/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     // Route pour accepter une invitation
@@ -590,7 +592,7 @@
     },
     //-------------------------------------------------------- reservation service ----------------------------------------
     {
-      "DownstreamPathTemplate": "/api/reservation",
+      "DownstreamPathTemplate": "/api/reservation/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -598,7 +600,7 @@
           "Port": 5169
         }
       ],
-      "UpstreamPathTemplate": "/gateway/reservation",
+      "UpstreamPathTemplate": "/gateway/reservation/{AdminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
     {

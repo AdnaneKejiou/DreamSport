@@ -23,7 +23,7 @@ namespace gestionEmployer.API.Controllers
        
 
         // GET: api/Employee/{id}
-        [HttpGet("get/{id}")]
+        [HttpGet("get/{id}/{AdminId}")]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
             if (id <= 0)
@@ -94,7 +94,7 @@ namespace gestionEmployer.API.Controllers
         }
 
         // DELETE: api/Employee/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/{AdminId}")]
         public IActionResult DeleteEmployee(int id)
         {
             var existingEmployee = _employeeService.GetEmployeeByIdAsync(id);

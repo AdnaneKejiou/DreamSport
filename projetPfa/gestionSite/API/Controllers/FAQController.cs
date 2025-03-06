@@ -66,7 +66,7 @@ namespace gestionSite.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{faqId}")]
+        [HttpDelete("{faqId}/{AdminId}")]
         public async Task<ActionResult<FAQ>> DeleteFAQAsync(int faqId)
         {
             if (faqId < 0)

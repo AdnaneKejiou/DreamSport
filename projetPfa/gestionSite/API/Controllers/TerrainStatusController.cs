@@ -20,7 +20,7 @@ namespace gestionSite.API.Controllers
             _statusService = statusService;
         }
 
-        [HttpGet]
+        [HttpGet("/{AdminId}")]
         public async Task<ActionResult<IEnumerable<TerrainStatus>>> GetTerrainStatusAsync()
         {
             // Validate the adminId parameter
@@ -53,7 +53,7 @@ namespace gestionSite.API.Controllers
             return Created("/api/TerrainStatus", result);
         }
 
-        [HttpDelete("{StatusId}")]
+        [HttpDelete("{StatusId}/{AdminId}")]
         public async Task<ActionResult<TerrainStatus>> DeleteTerrainStatusAsync(int StatusId)
         {
             if (StatusId < 0)

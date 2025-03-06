@@ -50,7 +50,7 @@ namespace gestionUtilisateur.API.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/{AdminId}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var result = await _userService.DeleteUserAsync(id);
@@ -88,7 +88,7 @@ namespace gestionUtilisateur.API.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}/{AdminId}")]
         public async Task<IActionResult> GetUserAsync(int id)
         {
             User user = await _userService.GetUserAsync(id);
