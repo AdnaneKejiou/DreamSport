@@ -2,9 +2,16 @@
 	39. Color
 -----------------------*/
 
-$__primarycolor:#097E52;
-$__secondarycolor:#192335;
-$__primarylight:#23B33A;
+:root {
+	--main-color:  #097E52; /* Valeur par défaut */
+	--sec-color: #192335; 
+	--main-light-color:#23B33A;
+	--success-color:#1BB333;
+  }
+
+$__primarycolor:var(--main-color);
+$__secondarycolor:var(--sec-color);
+$__primarylight:var(--main-light-color);
 $__success:#1BB333;
 $__darkgray:#6B7385;
 $__lightgray:#EAEDF0;
@@ -18,19 +25,19 @@ $__light__whitesmoke:#FAFAFA;
 $__dull__whitesmoke:#F9F9F6;
 $__white:#FFFFFF;
 $__darkblue:#1E3259;
-$__active_color: #AAF40C;
+$__active_color: var(--success-color);
 $__parrot_green: #19C83F;
 $__star__blue: #0CAEF4;
 $__secondary__dark__rgba:rgba(36, 29, 57, 0.8);
-$__gradient__color: linear-gradient(105.55deg, #085A6C -6.68%, #269089 43.13%, #7ABC82 96.15%);
-$__reverse__gradient__color: linear-gradient(105.55deg, #7ABC82 -6.68%, #269089 43.13%, #085A6C 96.15%);
+$__gradient__color: linear-gradient(105.55deg, var(--main-color) -6.68%, var(--main-light-color)43.13%, var(--success-color) 96.15%);
+$__reverse__gradient__color: linear-gradient(105.55deg, var(--success-color) -6.68%, var(--main-light-color) 43.13%,  var(--main-color) 96.15%);
 $__row__box__shadow: 0px 4px 44px rgba(211, 211, 211, 0.25);
 $__listing__box__shadow: 0px 4px 24px rgba(212, 212, 212, 0.25);
 $__warning__bg: rgba(245, 3, 3, 0.04);
-$__head__gray: linear-gradient(93.86deg, #006177 -2.6%, #269089 67.39%, #7ABC82 110.84%);
-$__bg__gray: linear-gradient(105.55deg, rgba(8, 90, 108, 0.9) -6.68%, rgba(38, 144, 137, 0.9) 43.13%, rgba(122, 188, 130, 0.9) 96.15%);
+$__head__gray: linear-gradient(93.86deg, var(--main-color) -2.6%, var(--main-light-color) 67.39%, var(--success-color) 110.84%);
+$__bg__gray: linear-gradient(105.55deg, var(--main-color) -6.68%, var(--main-light-color) 43.13%, var(--success-color) 96.15%);
 $__warning__bg: rgba(245, 3, 3, 0.04);
-$__footer__bg: #0A1A38;
+$__footer__bg: var(--sec-color);
 $__item__box__shadow: 0px 4px 24px rgba(201, 201, 201, 0.25);
 $__warning__text: #FF675B;
 $__input__group__border: #E2E7F1;

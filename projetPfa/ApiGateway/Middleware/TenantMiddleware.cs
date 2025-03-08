@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Text;
 using System.Text.Json;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ApiGateway.Middleware
 {

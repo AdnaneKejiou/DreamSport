@@ -173,7 +173,7 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
 
-    //--------------------------------------------------------Gestion des Annonces-------------------------------------------
+        //--------------------------------------------------------Gestion des Annonces-------------------------------------------
 
     {
       // Route pour récupérer les annonces par adminId (GET)
@@ -215,7 +215,7 @@
       "UpstreamHttpMethod": [ "DELETE" ]
     },
 
-    //--------------------------------------------------------Gestion des FAQs-------------------------------------------
+        //--------------------------------------------------------Gestion des FAQs-------------------------------------------
 
     {
       // Route pour récupérer les FAQs par adminId (GET)
@@ -270,49 +270,49 @@
       "UpstreamHttpMethod": [ "DELETE" ]
     },
 
-    //--------------------------------------------------------Gestion des Sites-------------------------------------------
+        //--------------------------------------------------------Gestion des Sites-------------------------------------------
 
-    {
-      // Route pour récupérer les informations du site par adminId (GET)
-      "DownstreamPathTemplate": "/api/site/{adminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/site/{adminId}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      // Route pour mettre à jour les informations du site (PUT)
-      "DownstreamPathTemplate": "/api/site",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour récupérer les informations du site par adminId (GET)
+            "DownstreamPathTemplate": "/api/site/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/site/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/site",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-    {
-      // Route pour ajouter un site (POST)
-      "DownstreamPathTemplate": "/api/site",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour mettre à jour les informations du site (PUT)
+            "DownstreamPathTemplate": "/api/site",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/site",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/site",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
+            // Route pour ajouter un site (POST)
+            "DownstreamPathTemplate": "/api/site",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/site",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
 
-    //--------------------------------------------------------Gestion des Terrains-------------------------------------------
+        //--------------------------------------------------------Gestion des Terrains-------------------------------------------
 
     {
       // Route pour récupérer les terrains d'un administrateur (GET)

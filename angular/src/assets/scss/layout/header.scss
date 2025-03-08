@@ -58,7 +58,7 @@
                     &:before {
                         content: "";
                         top: 16px;
-                        background-image: url(../../img/icons/menu-active.svg);
+                        background-image: url(../../img/icons/football.svg);
                         width: 17px;
                         height: 17px;
                         opacity: 0;
@@ -186,7 +186,7 @@
             overflow-x: $__hidden;
             overflow-y: $__auto;
             z-index: 11111;
-            background-color: #177c82;
+            background-color: var(--main-color);
             @include transform(translateX(-260px));
             @include transition(ease all 0.5s);
             margin: 0;

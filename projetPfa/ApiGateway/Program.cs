@@ -28,7 +28,6 @@ app.UseCors();
 
 
 
-app.UseHttpsRedirection();
 app.UseMiddleware<TenantMiddleware>();
 app.UseMiddleware<TenantMiddlewareHandler>();
 

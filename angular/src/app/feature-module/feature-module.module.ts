@@ -6,6 +6,7 @@ import { FeatureModuleComponent } from './feature-module.component';
 import { HeaderComponent } from './common-component/header/header.component';
 import { FooterComponent } from './common-component/footer/footer.component';
 import { sharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';  // Importation de FormsModule
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { sharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     FeatureModuleRoutingModule,
-    sharedModule
+    sharedModule,
+    FormsModule
   ]
 })
 export class FeatureModuleModule { }

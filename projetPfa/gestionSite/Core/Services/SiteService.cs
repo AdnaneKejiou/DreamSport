@@ -38,10 +38,10 @@ namespace gestionSite.Core.Services
                 Logo = "logo.png",                // Le logo du site
                 Description = GenerateLoremIpsum(200),
                 Email = "contact@exemple.com",    // Email de contact
-                PhoneNumber = "**********",       // Numéro de téléphone
+                PhoneNumber = "00000000000",       // Numéro de téléphone
                 AboutUs = GenerateLoremIpsum(150),
-                CouleurPrincipale = "#000000",    // Couleur principale
-                CouleurSecondaire = "#FFFFFF",    // Couleur secondaire
+                CouleurPrincipale = "#097E52",    // Couleur principale
+                CouleurSecondaire = "#192335",    // Couleur secondaire
                 Background = "background.jpg",    // Image de fond
                 Addresse = "123 Rue Exemple",     // Adresse
                 DomainName = "monsite.com",       // Domaine du site
