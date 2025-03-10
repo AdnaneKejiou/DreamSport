@@ -2,7 +2,7 @@
 <div *ngIf="tenantData$ | async as tenantData">
 
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section" *ngIf="imageUrl" [style.background-image]="'url(' + imageUrl + ')'">
   <div class="banner-cock-one">
     <img src="assets/img/icons/football.svg" alt="banner-img">
   </div>

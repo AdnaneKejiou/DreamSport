@@ -17,10 +17,17 @@ export class HomeComponent implements OnInit {
 
   public routes = routes; 
   tenantData$: Observable<any>;
+  imageUrl: string | null = null;
+
+
 
     constructor(private store: Store) {
       this.tenantData$ = this.store.select(selectTenantData);
-
+      this.tenantData$.subscribe(data => {
+        if (data && data.siteInfo && data.siteInfo.length > 0) {
+          this.imageUrl = data.siteInfo[0].background;
+        }
+      });     
     }
 
   

@@ -16,17 +16,17 @@
         </a>
         <a [routerLink]="routes.home" class="navbar-brand logo">
           @if (base === 'home') {
-          <img src="assets/img/logo.svg" class="img-fluid" alt="Logo" />
+          <img *ngIf="imageUrl" [src]="imageUrl" class="img-fluid" alt="Logo" />
           }
           @if (base !== 'home') {
-          <img src="assets/img/logo-black.svg" class="img-fluid" alt="Logo" />
+          <img *ngIf="imageUrl" [src]="imageUrl" class="img-fluid" alt="Logo" />
           }
         </a>
       </div>
       <div class="main-menu-wrapper">
         <div class="menu-header">
           <a [routerLink]="routes.home" class="menu-logo">
-            <img src="assets/img/logo-black.svg" class="img-fluid" alt="Logo" />
+            <img *ngIf="imageUrl" [src]="imageUrl" class="img-fluid" alt="Logo" />
           </a>
           <a id="menu_close" (click)="hideSidebar()" class="menu-close" href="javascript:void(0);">
             <i class="fas fa-times"></i></a>
