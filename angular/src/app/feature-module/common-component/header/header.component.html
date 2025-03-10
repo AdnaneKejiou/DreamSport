@@ -125,110 +125,12 @@
             / <a [routerLink]="routes.register">Register</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-secondary" [routerLink]="routes.listinglist"><span><i
-                class="feather icon-check-circle"></i></span>List Your
-            Court</a>
-        </li>
+       
       </ul>
       }
       @if (base === 'user' || base === 'blog' ) {
       <ul class="nav header-navbar-rht logged-in">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="routes.coachesGrid"><i class="feather icon-search"></i></a>
-        </li>
-        <!-- Notifications -->
-        <li class="nav-item dropdown noti-nav">
-          <a [routerLink]="routes.listingsgrid" class="dropdown-toggle nav-link position-relative"
-            data-bs-toggle="dropdown">
-            <i class="feather icon-bell"></i> <span class="alert-bg"></span>
-          </a>
-          <div class="dropdown-menu notifications dropdown-menu-end">
-            <div class="topnav-dropdown-header">
-              <span class="notification-title">Notifications</span>
-            </div>
-            <div class="noti-content">
-              <ul class="notification-list">
-                <li class="notification-message">
-                  <a href="javascript:void(0);">
-                    <div class="media d-flex">
-                      <span class="avatar">
-                        <img class="avatar-img" alt="" src="assets/img/profiles/avatar-01.jpg" />
-                      </span>
-                      <div class="media-body">
-                        <h6>
-                          Travis Tremble
-                          <span class="notification-time">18.30 PM</span>
-                        </h6>
-                        <p class="noti-details">
-                          Sent a amount of $210 for his Appointment
-                          <span class="noti-title">Mr.Ruby perin </span>
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="notification-message">
-                  <a href="javascript:void(0);">
-                    <div class="media d-flex">
-                      <span class="avatar">
-                        <img class="avatar-img" alt="" src="assets/img/profiles/avatar-02.jpg" />
-                      </span>
-                      <div class="media-body">
-                        <h6>
-                          Travis Tremble
-                          <span class="notification-time">12 Min Ago</span>
-                        </h6>
-                        <p class="noti-details">
-                          has booked her appointment to
-                          <span class="noti-title">Mr. Hendry Watt</span>
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="notification-message">
-                  <a href="javascript:void(0);">
-                    <div class="media d-flex">
-                      <div class="avatar">
-                        <img class="avatar-img" alt="" src="assets/img/profiles/avatar-03.jpg" />
-                      </div>
-                      <div class="media-body">
-                        <h6>
-                          Travis Tremble
-                          <span class="notification-time">6 Min Ago</span>
-                        </h6>
-                        <p class="noti-details">
-                          Sent a amount $210 for his Appointment
-                          <span class="noti-title">Mr.Maria Dyen</span>
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="notification-message">
-                  <a href="javascript:void(0);">
-                    <div class="media d-flex">
-                      <div class="avatar avatar-sm">
-                        <img class="avatar-img" alt="" src="assets/img/profiles/avatar-04.jpg" />
-                      </div>
-                      <div class="media-body">
-                        <h6>
-                          Travis Tremble
-                          <span class="notification-time">8.30 AM</span>
-                        </h6>
-                        <p class="noti-details">
-                          Send a message to his doctor
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </li>
-        <!-- /Notifications -->
+        
         <!-- User Menu -->
         <li class="nav-item dropdown has-arrow logged-item">
           <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
@@ -258,101 +160,7 @@
       }
       @if (page === 'lesson' || last === 'profile-settings' || page === 'court-booking' || page === 'booking-steps' || page === 'pages') {
         <ul class="nav header-navbar-rht logged-in">
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="routes.coachesGrid"><i class="feather icon-search"></i></a>
-          </li>
-          <!-- Notifications -->
-          <li class="nav-item dropdown noti-nav">
-            <a [routerLink]="routes.listingsgrid" class="dropdown-toggle nav-link position-relative"
-              data-bs-toggle="dropdown">
-              <i class="feather icon-bell"></i> <span class="alert-bg"></span>
-            </a>
-            <div class="dropdown-menu notifications dropdown-menu-end">
-              <div class="topnav-dropdown-header">
-                <span class="notification-title">Notifications</span>
-              </div>
-              <div class="noti-content">
-                <ul class="notification-list">
-                  <li class="notification-message">
-                    <a href="javascript:void(0);">
-                      <div class="media d-flex">
-                        <span class="avatar">
-                          <img class="avatar-img" alt="" src="assets/img/profiles/avatar-01.jpg" />
-                        </span>
-                        <div class="media-body">
-                          <h6>
-                            Travis Tremble
-                            <span class="notification-time">18.30 PM</span>
-                          </h6>
-                          <p class="noti-details">
-                            Sent a amount of $210 for his Appointment
-                            <span class="noti-title">Mr.Ruby perin </span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="notification-message">
-                    <a href="javascript:void(0);">
-                      <div class="media d-flex">
-                        <span class="avatar">
-                          <img class="avatar-img" alt="" src="assets/img/profiles/avatar-02.jpg" />
-                        </span>
-                        <div class="media-body">
-                          <h6>
-                            Travis Tremble
-                            <span class="notification-time">12 Min Ago</span>
-                          </h6>
-                          <p class="noti-details">
-                            has booked her appointment to
-                            <span class="noti-title">Mr. Hendry Watt</span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="notification-message">
-                    <a href="javascript:void(0);">
-                      <div class="media d-flex">
-                        <div class="avatar">
-                          <img class="avatar-img" alt="" src="assets/img/profiles/avatar-03.jpg" />
-                        </div>
-                        <div class="media-body">
-                          <h6>
-                            Travis Tremble
-                            <span class="notification-time">6 Min Ago</span>
-                          </h6>
-                          <p class="noti-details">
-                            Sent a amount $210 for his Appointment
-                            <span class="noti-title">Mr.Maria Dyen</span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="notification-message">
-                    <a href="javascript:void(0);">
-                      <div class="media d-flex">
-                        <div class="avatar avatar-sm">
-                          <img class="avatar-img" alt="" src="assets/img/profiles/avatar-04.jpg" />
-                        </div>
-                        <div class="media-body">
-                          <h6>
-                            Travis Tremble
-                            <span class="notification-time">8.30 AM</span>
-                          </h6>
-                          <p class="noti-details">
-                            Send a message to his doctor
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <!-- /Notifications -->
+         
           <!-- User Menu -->
           <li class="nav-item dropdown has-arrow logged-item">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
@@ -376,9 +184,7 @@
               <p><a class="dropdown-item" [routerLink]="routes.login">Logout</a></p>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-secondary" [routerLink]="routes.addCourt"><span><i class="feather-check-circle"></i></span>List Your Court</a>
-          </li>
+         
           <!-- /User Menu -->
         </ul>
         }

@@ -48,7 +48,7 @@ export class TenantGuard implements CanActivate {
     };
 
     if (window.location.hostname === 'localhost') {
-      return 24; // Retourne un tenantId par défaut en développement
+      return 22; // Retourne un tenantId par défaut en développement
     }
 
     return tenantMap[tenantSlug] || null; // Retourne le tenantId si trouvé, sinon null

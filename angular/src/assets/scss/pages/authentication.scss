@@ -270,7 +270,7 @@
 						border-radius: 5px;
 						&:hover {
 							color: $__secondarycolor;
-							border-color: $__green__light;
+							border-color: $__secondarycolor;
 						}
 						img {
 							margin-right: 5px;
@@ -313,7 +313,7 @@
 				a {
 					color: $__primarycolor;
 					&:hover {
-						color: $__parrot_green;
+						color: $__secondarycolor;
 					}
 				}
 			}

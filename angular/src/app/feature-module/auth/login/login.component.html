@@ -1,5 +1,5 @@
 <!-- Page Content -->
-<div class="content">
+<div class="content"  *ngIf="tenantData$ | async as tenantData">
   <div class="container wrapper no-padding">
     <div class="row no-margin vph-100">
       <div class="col-12 col-sm-12 col-lg-6 no-padding">
@@ -35,7 +35,8 @@
               <header class="text-center">
                 <a href="javascript:void(0)">
                   <img
-                    src="assets/img/logo-black.svg"
+                  *ngIf="imageUrl" 
+                  [src]="imageUrl" 
                     class="img-fluid"
                     alt="Logo"
                     />
