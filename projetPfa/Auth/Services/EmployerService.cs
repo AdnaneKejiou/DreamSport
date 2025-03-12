@@ -15,7 +15,7 @@ namespace Auth.Services
             _httpClient = httpClient;
         }
 
-        public async Task<int> LoginEmployerAsync(EmployerLoginDto userLogin)
+        public async Task<GetEmpLogin> LoginEmployerAsync(EmployerLoginDto userLogin)
         {
             int adminId = userLogin.AdminId; // Example Admin ID to be sent in the header
 
@@ -40,11 +40,11 @@ namespace Auth.Services
             if (!response.IsSuccessStatusCode)
             {
                 string errorMsg = $"❌ Error fetching user: {response.StatusCode}, URL: {requestUrl}";
-                return -1;
+                return null;
             }
 
-            int id = await response.Content.ReadFromJsonAsync<int>();
-            return id;
+            GetEmpLogin Emp = await response.Content.ReadFromJsonAsync<GetEmpLogin>();
+            return Emp;
         }
     }
 }

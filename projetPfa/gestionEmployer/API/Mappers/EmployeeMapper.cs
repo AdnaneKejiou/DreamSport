@@ -85,5 +85,15 @@ namespace gestionEmployer.API.Mappers
                 Id = _Employer.Id
             };
         }
+    
+        public static SendLoginEmployeeDto ModelToLogin(Employer _Employer)
+        {
+            return new SendLoginEmployeeDto
+            {
+                Id = _Employer.Id,
+                Nom = _Employer.Nom,
+                Prenom = _Employer.Prenom,
+            };
+        }
     }
 }

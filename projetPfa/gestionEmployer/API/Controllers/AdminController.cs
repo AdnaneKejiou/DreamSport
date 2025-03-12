@@ -72,12 +72,12 @@ namespace gestionEmployer.API.Controllers
         {
             try
             {
-                int IsValid = await _adminService.ValidateLoginAsync(dto);
-                if (IsValid == -1)
+                SendLoginEmployeeDto admin = await _adminService.ValidateLoginAsync(dto);
+                if (admin == null)
                 {
                     return Unauthorized("Login or password are incorrect");
                 }
-                return Ok(IsValid);
+                return Ok(admin);
             }
             catch (KeyNotFoundException ex)
             {

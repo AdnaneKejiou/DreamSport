@@ -4,6 +4,6 @@ namespace Auth.Interfaces
 {
     public interface IAdminService
     {
-        Task<int> LoginAdminAsync(AdminLoginDto userLogin);
+        Task<GetEmpLogin> LoginAdminAsync(AdminLoginDto userLogin);
     }
 }

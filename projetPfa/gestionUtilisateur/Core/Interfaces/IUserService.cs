@@ -13,7 +13,7 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<User> GetUserAsync(int userId);
         Task<bool> ResetConteurResAnnulerAsync(int userId);
         Task<bool> CheckAndIncrementReservationAnnuleAsync(int userId);
-        Task<int> Login(LoginDto login);
+        Task<ReturnedLoginDto> Login(LoginDto login);
         
 
     }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Auth.Services
 {
-    public class UserService : IUserService
+    public class UserService : ILoginService, IUserService
     {
         private readonly HttpClient _httpClient;
         private readonly static string UserUrl = "http://localhost:5010/gateway";
@@ -15,7 +15,7 @@ namespace Auth.Services
             _httpClient = httpClient;
         }
 
-        public async Task<int> LoginUserAsync(UserLogin dto)
+        public async Task<GetUserDto?> ValidateUserAsync(UserLogin dto)
         {
             int adminId = dto.AdminId; 
 
@@ -39,11 +39,21 @@ namespace Auth.Services
             }
             if (!response.IsSuccessStatusCode)
             {
-                return -1;
+                return null;
             }
 
-            int id = await response.Content.ReadFromJsonAsync<int>();
-            return id;
+            GetUserDto comingUser = await response.Content.ReadFromJsonAsync<GetUserDto>();
+            return comingUser;
+        }
+
+        public Task<GetUserDto?> GetUserByEmailAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<GetUserDto?> GetUserByFacebookIdAsync(string facebookId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

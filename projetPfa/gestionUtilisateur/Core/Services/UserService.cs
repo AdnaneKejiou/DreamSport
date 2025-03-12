@@ -160,7 +160,7 @@ namespace gestionUtilisateur.Core.Services
             return true;
         }
     
-        public async Task<int> Login(LoginDto login)
+        public async Task<ReturnedLoginDto> Login(LoginDto login)
         {
             User user = await _userRepository.GetByEmailAsync(login.Email, login.AdminId);
             if(user == null)
@@ -169,7 +169,7 @@ namespace gestionUtilisateur.Core.Services
             }
             if(user.Tentatives >= 2)
             {
-                return -3;
+                return null;
             }
             if(!user.Password.Equals(login.Password))
             {
@@ -179,7 +179,7 @@ namespace gestionUtilisateur.Core.Services
             }
             user.Tentatives = 0;
             await _userRepository.UpdateAsync(user);
-            return user.Id;
+            return UserMapper.ModelToLoginDto(user);
 
         }
     }

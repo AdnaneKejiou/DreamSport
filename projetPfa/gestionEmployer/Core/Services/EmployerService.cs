@@ -156,7 +156,7 @@ namespace gestionEmployer.Core.Services
         }
 
 
-        public async Task<int> ValidateLogin(EmployerLoginDto login)
+        public async Task<SendLoginEmployeeDto> ValidateLogin(EmployerLoginDto login)
         {
             Employer employer = await _employeeRepository.EmployerByEmailAsync(login.Email, login.AdminId);
             if ( employer == null)
@@ -165,9 +165,9 @@ namespace gestionEmployer.Core.Services
             }
             if (!employer.Password.Equals(login.Password))
             {
-                return -1;
+                return null;
             }
-            return employer.Id;
+            return EmployeeMapper.ModelToLogin(employer);
         }
     }
 }

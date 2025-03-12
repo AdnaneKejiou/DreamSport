@@ -1,4 +1,5 @@
 ﻿using gestionEmployer.API.DTOs.AdminDTO;
+using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.API.Mappers;
 using gestionEmployer.Core.Interfaces;
 using gestionEmployer.Core.Models;
@@ -52,7 +53,7 @@ namespace gestionEmployer.Core.Services
             return _adminDTO;
         }
 
-        public async Task<int> ValidateLoginAsync(AdminLoginDto dto)
+        public async Task<SendLoginEmployeeDto> ValidateLoginAsync(AdminLoginDto dto)
         {
             Admin admin = await _adminRepository.GetByLoginAsync(dto.Login);
             if(admin == null)
@@ -61,9 +62,9 @@ namespace gestionEmployer.Core.Services
             }
             if (!admin.Password.Equals(dto.Password))
             {
-                return -1;
+                return null;
             }
-            return admin.Id;
+            return AdminMapper.ModelToLogin(admin);
         }
     }
 

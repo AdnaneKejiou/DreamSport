@@ -4,6 +4,6 @@ namespace Auth.Interfaces
 {
     public interface IEmployerService
     {
-        Task<int> LoginEmployerAsync(EmployerLoginDto userLogin);
+        Task<GetEmpLogin> LoginEmployerAsync(EmployerLoginDto userLogin);
     }
 }

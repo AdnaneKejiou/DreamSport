@@ -15,69 +15,77 @@ namespace Auth.Services
         private readonly string _issuer;
         private readonly string _audience;
 
-        public JwtService(IConfiguration configuration)
+        private readonly ITokenRepository _tokenRepository;
+
+        public JwtService(IConfiguration configuration, ITokenRepository tokenRepository)
         {
             _secretKey = configuration["Jwt:Secret"];
             _tokenExpirationMinutes = int.Parse(configuration["Jwt:ExpirationMinutes"] ?? "60");
             _refreshTokenExpirationDays = int.Parse(configuration["Jwt:RefreshTokenExpirationDays"] ?? "30");  // Refresh token expiration time
             _issuer = configuration["Jwt:Issuer"];
             _audience = configuration["Jwt:Audience"];
+            _tokenRepository = tokenRepository;
         }
 
         // Generate Access Token (Short-lived)
-        public string GenerateAccessToken(int userId, string role, int AdminId)
+        public string GenerateAccessToken(int userId, string role, int AdminId, string Nom, string Prenom, string imageUrl)
         {
-            var claims = GetClaims(userId, role, AdminId);
+            var claims = GetClaims(userId, role, AdminId, Nom, Prenom, imageUrl);
             var key = GetSigningKey();
             var tokenDescriptor = GetTokenDescriptor(claims, key);
-
+            
             return CreateToken(tokenDescriptor);
         }
 
         // Generate Refresh Token (Long-lived)
-        public string GenerateRefreshToken()
+        public async Task<string> GenerateRefreshToken()
         {
-            // Generate a random byte array and convert it to a base64 string for security
-            var randomNumber = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
+            int maxAttempts = 10; // Limit the number of attempts to avoid infinite loops
+            int attempts = 0;
+            string token;
+            do
             {
-                rng.GetBytes(randomNumber);
-            }
-            return Convert.ToBase64String(randomNumber);
-        }
-
-        // Validate Refresh Token
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_secretKey);
-            try
-            {
-                var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                var randomNumber = new byte[32];
+                using (var rng = RandomNumberGenerator.Create())
                 {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = false, // Don't validate lifetime for refresh tokens
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
-                }, out var validatedToken);
+                    rng.GetBytes(randomNumber);
+                }
+                token = Convert.ToBase64String(randomNumber);
 
-                return principal;
-            }
-            catch
-            {
-                return null;
-            }
+                attempts++;
+                if (attempts >= maxAttempts)
+                {
+                    return null;
+                }
+
+            } while (await _tokenRepository.GetValidateTokenAsync(token) != null); 
+            return token;
         }
 
         // Generate the claims for the token
-        private Claim[] GetClaims(int userId, string role, int AdminId)
+        private Claim[] GetClaims(int userId, string role, int AdminId, string Nom, string Prenom, string imageUrl)
         {
-            return new[]
+            if (imageUrl == null)
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),  // User ID
-                new Claim(ClaimTypes.Role, role),                         // User's Role (e.g., "Admin", "User")
-                new Claim("AdminId", AdminId.ToString())                  // Custom claim for AdminId
+                return new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                    new Claim(ClaimTypes.Role, role),
+                    new Claim("AdminId", AdminId.ToString()),
+                    new Claim("Nom", Nom),
+                    new Claim("Prenom", Prenom)
+                };
+            }
+            return new[]
+           {
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.Role, role),
+                new Claim("AdminId", AdminId.ToString()),
+                new Claim("Nom", Nom),
+                new Claim("Prenom", Prenom),
+                new Claim("ImageUrl", imageUrl)
             };
+
         }
 
         // Create a signing key from the secret key

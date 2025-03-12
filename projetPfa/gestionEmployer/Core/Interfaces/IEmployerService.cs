@@ -12,6 +12,6 @@ namespace gestionEmployer.Core.Interfaces
         Task<ReturnUpdatedEmpDto?> UpdateEmployeeAsync(Employer employee);
         Task<Employer> DeleteEmployeeAsync(int id);
         Task<Employer> ModifyProfileAsync(Employer employer);
-        Task<int> ValidateLogin(EmployerLoginDto login);
+        Task<SendLoginEmployeeDto> ValidateLogin(EmployerLoginDto login);
     }
 }

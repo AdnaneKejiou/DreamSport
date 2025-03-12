@@ -73,5 +73,16 @@ namespace gestionUtilisateur.API.Mappers
             };
         }
 
+
+        public static ReturnedLoginDto ModelToLoginDto(User user)
+        {
+            return new ReturnedLoginDto
+            {
+                Id = user.Id,
+                Nom = user.Nom,
+                Prenom = user.Prenom,
+                Image = user.ImageUrl
+            };
+        }
     }
 }

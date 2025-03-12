@@ -111,12 +111,12 @@ namespace gestionEmployer.API.Controllers
         {
             try
             {
-                int IsValid = await _employeeService.ValidateLogin(dto);
-                if (IsValid == -1)
+                SendLoginEmployeeDto employee = await _employeeService.ValidateLogin(dto);
+                if (employee == null)
                 {
                     return Unauthorized("Email or password are incorrect");
                 }
-                return Ok(IsValid);
+                return Ok(employee);
             }
             catch (KeyNotFoundException ex)
             {

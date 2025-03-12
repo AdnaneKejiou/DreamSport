@@ -4,8 +4,7 @@ namespace Auth.Interfaces
 {
     public interface IJwtService
     {
-        string GenerateAccessToken(int userId, string role, int AdminId);
-        string GenerateRefreshToken();
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+        string GenerateAccessToken(int userId, string role, int AdminId, string Nom, string Prenom, string imageUrl);
+        Task<string> GenerateRefreshToken();
     }
 }

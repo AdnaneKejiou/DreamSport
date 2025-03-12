@@ -128,12 +128,12 @@ namespace gestionUtilisateur.API.Controllers
         {
             try
             {
-                int id = await _userService.Login(model);
-                if(id == -3)
+                ReturnedLoginDto dto = await _userService.Login(model);
+                if(dto == null)
                 {
                     return Forbid("cant login please contact the support");
                 }
-                return Ok(id);
+                return Ok(dto);
             }
             catch (KeyNotFoundException ex)
             {

@@ -1,4 +1,5 @@
 ﻿using gestionEmployer.API.DTOs.AdminDTO;
+using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.Core.Models;
 
 namespace gestionEmployer.API.Mappers
@@ -25,6 +26,16 @@ namespace gestionEmployer.API.Mappers
                 Nom = admin.Nom,
                 Prenom = admin.Prenom,
                 Login = admin.Login
+            };
+        }
+
+        public static SendLoginEmployeeDto ModelToLogin(Admin _Employer)
+        {
+            return new SendLoginEmployeeDto
+            {
+                Id = _Employer.Id,
+                Nom = _Employer.Nom,
+                Prenom = _Employer.Prenom,
             };
         }
     }
