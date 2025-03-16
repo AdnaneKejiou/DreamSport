@@ -7,23 +7,7 @@
         "Action": "Start"
       },
       {
-        "Path": "gestionUtilisateur\\gestionUtilisateur.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "chatEtInvitation\\chatEtInvitation.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "gestionEquipe\\gestionEquipe.csproj",
-        "Action": "Start"
-      },
-      {
         "Path": "ApiGateway\\ApiGateway.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "gestionReservation\\gestionReservation.csproj",
         "Action": "Start"
       },
       {

@@ -46,14 +46,48 @@ namespace Auth.Services
             return comingUser;
         }
 
-        public Task<GetUserDto?> GetUserByEmailAsync(string email)
+        
+
+        public async Task<GetUserDto?> GetUserByFacebookIdAsync(string facebookId, int AdminId)
         {
-            throw new NotImplementedException();
+            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/facebook-validate/{facebookId}/{AdminId}";
+            var request = new HttpRequestMessage(HttpMethod.Post, requestUrl); // Change to POST
+            request.Headers.Add("Tenant-ID", AdminId.ToString()); // Add AdminId to headers
+            string h = "";
+            request.Content = new StringContent(JsonConvert.SerializeObject(new {  }), System.Text.Encoding.UTF8, "application/json"); // Empty body with 'application/json' content type
+
+            var response = await _httpClient.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            GetUserDto comingUser = await response.Content.ReadFromJsonAsync<GetUserDto>();
+            return comingUser;
         }
 
-        public Task<GetUserDto?> GetUserByFacebookIdAsync(string facebookId)
+        public async Task<GetUserDto?> AddUserAsync(FacebookUserDto user, int AdminId)
         {
-            throw new NotImplementedException();
+            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/Register-facebook";
+
+            var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
+            request.Headers.Add("Tenant-ID", AdminId.ToString()); // Add AdminId to headers
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+            request.Content = jsonContent;
+
+            var response = await _httpClient.SendAsync(request);
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new ArgumentException("The request was malformed or invalid.");
+            }
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            GetUserDto comingUser = await response.Content.ReadFromJsonAsync<GetUserDto>();
+            return comingUser;
         }
     }
 }

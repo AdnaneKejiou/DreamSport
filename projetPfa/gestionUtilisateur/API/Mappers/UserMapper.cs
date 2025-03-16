@@ -84,5 +84,30 @@ namespace gestionUtilisateur.API.Mappers
                 Image = user.ImageUrl
             };
         }
+
+        public static User FacebookToUser(FacebookUserDto dto)
+        {
+            
+            string gender = "male";
+            if (dto.Gender == null)
+            {
+
+            }
+            else if (dto.Gender.Equals("female"))
+            {
+                 gender = "female";
+            }
+
+            return new User
+            {
+                FacebookId = dto.FacebookId,
+                Nom = dto.LastName,
+                Prenom = dto.FirstName,
+                Genre = gender,
+                Email = dto.Email,
+                ImageUrl = dto.PictureUrl,
+                IdAdmin = dto.AdminId
+            };
+        }
     }
 }

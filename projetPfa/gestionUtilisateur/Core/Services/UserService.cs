@@ -23,18 +23,35 @@ namespace gestionUtilisateur.Core.Services
         public async Task<ReturnAddedUserManualy> AddUserManualyAsync(User _user)
         {
             var Errors = new Dictionary<string, string>();
-            if (await _userRepository.DoesUserWithPhoneExist(_user.PhoneNumber, _user.IdAdmin))
+            if (_user.PhoneNumber != null)
             {
-                Errors.Add("PhoneNumber", "User with that Number already exist");
+                if (await _userRepository.DoesUserWithPhoneExist(_user.PhoneNumber, _user.IdAdmin))
+                {
+                    Errors.Add("PhoneNumber", "User with that Number already exist");
+                }
             }
-            if (await _userRepository.DoesUserWithEmailExist(_user.Email, _user.IdAdmin))
+            if(_user.Email != null)
             {
-                Errors.Add("Email", "User with that Email already exist");
+                if (await _userRepository.DoesUserWithEmailExist(_user.Email, _user.IdAdmin))
+                {
+                    Errors.Add("Email", "User with that Email already exist");
+                }
             }
-            if (await _userRepository.DoesUserWithUsernameExist(_user.Username, _user.IdAdmin))
+            if(_user.Username != null)
             {
-                Errors.Add("Username", "User with that Username already exist");
+                if (await _userRepository.DoesUserWithUsernameExist(_user.Username, _user.IdAdmin))
+                {
+                    Errors.Add("Username", "User with that Username already exist");
+                }
             }
+            if(_user.FacebookId != null)
+            {
+                if (await _userRepository.DoesUserWithFacebookExist(_user.FacebookId, _user.IdAdmin)!=null)
+                {
+                    Errors.Add("Facebook", "User with that Id already exist");
+                }
+            }
+
             if (Errors.Count == 0)
             {
                 var user = await _userRepository.AddUserManualyAsync(_user);
@@ -181,6 +198,16 @@ namespace gestionUtilisateur.Core.Services
             await _userRepository.UpdateAsync(user);
             return UserMapper.ModelToLoginDto(user);
 
+        }
+
+        public async Task<ReturnedLoginDto> FacebookLoginAsync(string Id, int adminId)
+        {
+            User user =await _userRepository.DoesUserWithFacebookExist(Id, adminId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User Not Found");
+            }
+            return UserMapper.ModelToLoginDto(user);
         }
     }
 }

@@ -16,11 +16,17 @@ namespace Auth.Services
 
         public async Task<GetUserDto?> ValidateUserAsync(UserLogin model)
         {
-            var facebookUser = await _facebookAuthService.ValidateFacebookTokenAsync(model.FacebookToken);
+            FacebookUserDto facebookUser = await _facebookAuthService.ValidateFacebookTokenAsync(model.FacebookToken);
             if (facebookUser == null)
                 throw new UnauthorizedAccessException("Invalid Facebook token.");
-
-            return await _userService.GetUserByEmailAsync(facebookUser.Email);
+            //hna triguel
+           
+            GetUserDto dto = await _userService.GetUserByFacebookIdAsync(facebookUser.FacebookId, model.AdminId);
+            if(dto == null)
+            {
+                return await _userService.AddUserAsync(facebookUser, model.AdminId);
+            }
+            return dto;
         }
     }
 }

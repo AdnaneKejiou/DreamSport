@@ -16,7 +16,7 @@ namespace gestionSite.API.Controllers
             _service = servicee;
         }
 
-        [HttpGet("execute")]
+        [HttpGet("execute/{AdminId}")]
         public async Task<ActionResult<IEnumerable<Sport_Categorie>>> GetSportsAsync()
         {
             var sportss = await _service.GetSportsAsync();

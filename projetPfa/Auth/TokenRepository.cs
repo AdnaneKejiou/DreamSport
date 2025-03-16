@@ -25,5 +25,10 @@ namespace Auth
 
             return token;
         }
-     }
+
+        public async Task<ValidateToken> GetFacebookTokenAsync(string id)
+        {
+            return await context.validateTokens.FirstOrDefaultAsync(v => v.facebookId == id);
+        }
+    }
 }

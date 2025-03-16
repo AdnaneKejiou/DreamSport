@@ -16,7 +16,7 @@ namespace gestionReservation.API.Controllers
         {
             _reservationService = reservationService;
         }
-        [HttpGet]
+        [HttpGet("/{AdminId}")]
         public async Task<ActionResult<List<ReturnedListReservationsDTO>>> GetReservations( [FromQuery] GetReservationsDTO filter)
         {
             try
@@ -48,11 +48,11 @@ namespace gestionReservation.API.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(new
+                return StatusCode(403, new
                 {
                     message = ex.Message,
                     reservation = reservation
-                }); // HTTP 401
+                });
             }
             catch (KeyNotFoundException ex)
             {

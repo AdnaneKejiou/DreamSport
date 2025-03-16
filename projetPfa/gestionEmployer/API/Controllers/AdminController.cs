@@ -29,7 +29,7 @@ namespace gestionEmployer.API.Controllers
                 return NotFound(); // 404 si le Tenant-ID n'existe pas
             }
 
-            return Ok(); // 200 OK si le Tenant-ID est valide
+            return Ok(AdminId); // 200 OK si le Tenant-ID est valide
         }
 
         // Action pour ajouter un administrateur

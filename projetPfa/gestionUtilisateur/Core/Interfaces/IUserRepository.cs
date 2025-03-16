@@ -12,6 +12,7 @@ namespace gestionUtilisateur.Core.Interfaces
         Task UpdateAsync(User user);
         Task DeleteAsync(User user);
         Task<User?> GetByEmailAsync(string email, int id);
+        Task<User?> DoesUserWithFacebookExist(string id, int admin);
         
     }
 }

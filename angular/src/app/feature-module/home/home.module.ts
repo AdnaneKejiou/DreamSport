@@ -5,6 +5,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { sharedModule} from 'src/app/shared/shared.index';
 import { FeatherIconModule } from 'src/app/shared/model/feather.module';
+import { TenantModule } from 'src/app/store/tenant/tenant.module';  // Ajouter le store Tenant
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FeatherIconModule } from 'src/app/shared/model/feather.module';
     CommonModule,
     HomeRoutingModule,
     sharedModule,
-    FeatherIconModule
+    FeatherIconModule,
+    TenantModule
   ]
 })
 export class HomeModule { }

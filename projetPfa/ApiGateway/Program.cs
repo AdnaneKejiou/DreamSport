@@ -12,13 +12,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddOcelot();
-builder.Services.AddCors(Options =>
+builder.Services.AddCors(options =>
 {
-    Options.AddDefaultPolicy(builder =>
+    options.AddDefaultPolicy(builder =>
     {
-        builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+        builder.WithOrigins("https://localhost:4200")  // Allow your Angular app's origin
+               .AllowAnyHeader()                   // Allow any headers
+               .AllowAnyMethod()                   // Allow any HTTP methods
+               .AllowCredentials();                // Allow credentials (cookies, Authorization headers)
     });
-});
+}); 
 builder.Services.AddHttpClient<TenantMiddleware>();
 
 var app = builder.Build();
@@ -28,7 +31,6 @@ app.UseCors();
 
 
 
-app.UseHttpsRedirection();
 app.UseMiddleware<TenantMiddleware>();
 app.UseMiddleware<TenantMiddlewareHandler>();
 

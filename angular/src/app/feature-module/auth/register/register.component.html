@@ -32,14 +32,18 @@
               <header class="text-center">
                 <a href="javascript:void(0)">
                   <img
-                    src="assets/img/logo-black.svg"
+                  *ngIf="imageUrl" 
+                  [src]="imageUrl" 
                     class="img-fluid"
                     alt="Logo"
                     />
                   </a>
                 </header>
-                <div class="shadow-card">
-                  <h2>Get Started With Dreamsports</h2>
+                <div class="shadow-card" *ngIf="tenantData$ | async as tenantData">
+
+                  
+      
+                  <h2 *ngIf="tenantData.siteInfo && tenantData.siteInfo.length > 0">Get Started With  {{ tenantData.siteInfo[0].name }}</h2>
                   <p>Ignite your sports journey with DreamSports and get started now.</p>
 
                   <ul class="nav nav-tabs" id="myTab" role="tablist">

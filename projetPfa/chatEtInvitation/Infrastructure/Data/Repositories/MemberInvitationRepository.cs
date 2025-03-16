@@ -30,7 +30,7 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
         // Méthode pour refuser (supprimer) une invitation
         public async Task<bool> RefuserInvitation(MemberInvitation inv)
         {
-           
+
             _context.MemberInvitations.Remove(inv);
             await _context.SaveChangesAsync(); // Sauvegarder les changements dans la base de données
 
@@ -52,7 +52,7 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
         public async Task<MemberInvitation> AccepterInvitationAsync(int invitationId)
         {
             // Récupérer l'invitation par ID
-            var invitation = await GetInvitationByIdAsync(invitationId); 
+            var invitation = await GetInvitationByIdAsync(invitationId);
 
             _context.MemberInvitations.Remove(invitation);
             await _context.SaveChangesAsync();
@@ -69,5 +69,5 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
         }
 
     }
-
 }
+

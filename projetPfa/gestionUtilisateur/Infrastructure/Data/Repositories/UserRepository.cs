@@ -65,7 +65,10 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.IdAdmin == id);
         }
 
-        
+        public async Task<User?> DoesUserWithFacebookExist(string id, int admin)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.FacebookId == id && u.IdAdmin == admin);
+        }
 
     }
 }

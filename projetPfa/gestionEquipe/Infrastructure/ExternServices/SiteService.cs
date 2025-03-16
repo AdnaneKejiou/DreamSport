@@ -34,11 +34,20 @@ namespace gestionEquipe.Infrastructure.ExternServices
             return result;
         }
 
-        private async Task<List<SportCategorieDTO>> FetchSportsAsync() // communiquer avec  gestion SIte
+        private async Task<List<SportCategorieDTO>> FetchSportsAsync()
         {
-            var response = await _httpClient.GetAsync("http://localhost:5150/api/SportCategorie/execute");
+            int adminId = 1;
+            string requestUrl = "http://localhost:5010/gateway/SportCategorie/execute";
+
+            // Create request message for GET
+            using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+            request.Headers.Add("Tenant-ID", adminId.ToString()); // Add AdminId to headers
+
+            // Send the request
+            using var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
 
+            // Deserialize the response content
             return await response.Content.ReadFromJsonAsync<List<SportCategorieDTO>>() ?? new List<SportCategorieDTO>();
         }
 

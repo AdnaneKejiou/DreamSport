@@ -29,12 +29,12 @@ namespace gestionEquipe.Core.Services
         public async Task<AddedEquipeDTO> AddEquipeAsync(Equipe _equipe)
         {
      
-            int c = await _equipeRepository.CountEquipesBySportAndUser(_equipe.CaptainId, _equipe.SportId);
+            int c = await _membersRepository.CountTeamsForMemberAsync(_equipe.CaptainId);
             
             var ReturningEquipe = EquipeMapper.ModelToAdded(_equipe);
             if(c > 1)
             {
-                ReturningEquipe.Errors.Add("Count", "This user had more than one team in that sport");
+                ReturningEquipe.Errors.Add("Count", "This user had more than one team");
             }
             if(await _equipeRepository.ExistWithName(_equipe.Name, _equipe.AdminId))
             {
@@ -45,10 +45,7 @@ namespace gestionEquipe.Core.Services
             {
                 ReturningEquipe.Errors.Add("Sport", "Sport with this id dont exist");
             }
-            if (_equipe.AdminId == 0 || _equipe.AdminId < 0)
-            {
-                ReturningEquipe.Errors.Add("Admin", "Admin invalid");
-            }
+            
 
             if (ReturningEquipe.Errors.Count > 0)
             {

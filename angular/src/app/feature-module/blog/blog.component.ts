@@ -14,7 +14,12 @@ export class BlogComponent {
   page ="";
   last ="";
   end ="";
+
+  
   constructor(private common: CommonService,) {
+
+
+
     this.common.base.subscribe((res: string) => {
       this.base = res?.replaceAll('-', ' ');
     });
@@ -37,6 +42,8 @@ export class BlogComponent {
       this.breadcrum = true;
     }
   }
+
+ 
   
 
 }

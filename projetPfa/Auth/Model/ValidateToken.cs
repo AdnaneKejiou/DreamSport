@@ -11,6 +11,7 @@
         public string? ImageUrl { get; set; }
         public string Token { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string? facebookId { get; set; }
 
     }
 }

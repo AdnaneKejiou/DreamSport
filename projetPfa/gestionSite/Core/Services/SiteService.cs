@@ -35,14 +35,14 @@ namespace gestionSite.Core.Services
             var site = new Site
             {
                 Name = "Mon Site Web",            // Par exemple, le nom du site
-                Logo = "logo.png",                // Le logo du site
+                Logo = "https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/logo.svg",                // Le logo du site
                 Description = GenerateLoremIpsum(200),
                 Email = "contact@exemple.com",    // Email de contact
-                PhoneNumber = "**********",       // Numéro de téléphone
+                PhoneNumber = "+212-614329800",       // Numéro de téléphone
                 AboutUs = GenerateLoremIpsum(150),
-                CouleurPrincipale = "#000000",    // Couleur principale
-                CouleurSecondaire = "#FFFFFF",    // Couleur secondaire
-                Background = "background.jpg",    // Image de fond
+                CouleurPrincipale = "#097E52",    // Couleur principale
+                CouleurSecondaire = "#192335",    // Couleur secondaire
+                Background = "https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/banner.jpg",    // Image de fond
                 Addresse = "123 Rue Exemple",     // Adresse
                 DomainName = "monsite.com",       // Domaine du site
                 IdAdmin = adminId                       // ID de l'administrateur

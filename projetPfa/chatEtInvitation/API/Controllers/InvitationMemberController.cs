@@ -60,7 +60,7 @@ namespace chatEtInvitation.API.Controllers
       
 
         // Endpoint API pour refuser une invitation
-        [HttpDelete("Refuser/{id}")]
+        [HttpDelete("Refuser/{id}/{AdminId}")]
         public async Task<IActionResult> RefuserInvitation(int id)
         {
             try

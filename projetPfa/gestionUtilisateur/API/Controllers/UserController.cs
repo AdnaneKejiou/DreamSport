@@ -50,7 +50,7 @@ namespace gestionUtilisateur.API.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/{AdminId}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var result = await _userService.DeleteUserAsync(id);
@@ -88,7 +88,7 @@ namespace gestionUtilisateur.API.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}/{AdminId}")]
         public async Task<IActionResult> GetUserAsync(int id)
         {
             User user = await _userService.GetUserAsync(id);
@@ -142,6 +142,39 @@ namespace gestionUtilisateur.API.Controllers
             catch (UnauthorizedAccessException ex)
             {
                 return Unauthorized(new { message = "Invalid credentials" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error ");
+            }
+        }
+
+        [HttpPost("Register-facebook")]
+        public async Task<IActionResult> AddFacebookUserAsync([FromBody] FacebookUserDto dto)
+        {
+            User user = UserMapper.FacebookToUser(dto);
+            var result = await _userService.AddUserManualyAsync(user);
+            if (result.errors.Count == 0)
+            {
+                ReturnedLoginDto dtoo = await _userService.FacebookLoginAsync(dto.FacebookId, dto.AdminId);
+                return Ok(dtoo);
+
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("facebook-validate/{id}/{AdminId}")]
+        public async Task<IActionResult> GetUserByFacebookAsync(string id, int AdminId)
+        {
+            try
+            {
+                ReturnedLoginDto dto = await _userService.FacebookLoginAsync(id, AdminId);
+                
+                return Ok(dto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

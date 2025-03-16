@@ -14,6 +14,7 @@ namespace gestionEquipe.Core.Interfaces
         Task<bool> ExistInTeamWithIdAsync(int IdMembre,int IdEquipe); 
         Task<int> CountTeamMembersAsync(int EquipeId);
         Task<List<Members>> GetTeamMembersAsync(int equipeId);
+        Task<int> CountTeamsForMemberAsync(int MemberId);   
         
     }
 }

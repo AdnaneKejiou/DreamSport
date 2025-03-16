@@ -17,22 +17,25 @@ namespace Auth.Services
             _facebookAppSecret = configuration["FacebookAuth:AppSecret"];
         }
 
-        public async Task<FacebookUserInfo> ValidateFacebookTokenAsync(string facebookToken)
+        public async Task<FacebookUserDto> ValidateFacebookTokenAsync(string facebookToken)
         {
             try
             {
                 var fbClient = new FacebookClient(facebookToken);
 
                 // Make the request to get the user info
-                dynamic user = await fbClient.GetTaskAsync("me?fields=id,name,email,picture");
+                dynamic user = await fbClient.GetTaskAsync("me?fields=id,first_name,last_name,email,gender,picture.type(large)");
 
-                return new FacebookUserInfo
+                var xd = new FacebookUserDto
                 {
                     FacebookId = user.id,
+                    FirstName = user.first_name,
+                    LastName = user.last_name,
                     Email = user.email,
-                    Name = user.name,
-                    Picture = user.picture.data.url
+                    Gender = user.gender,
+                    PictureUrl = user.picture?.data?.url // Only the URL of the profile picture
                 };
+                return xd;
             }
             catch (Exception)
             {
@@ -40,5 +43,6 @@ namespace Auth.Services
                 return null;
             }
         }
+
     }
 }

@@ -28,7 +28,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IEmployerService, EmployerService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IFacebookAuthService, FacebookAuthService>();
-
+builder.Services.AddScoped<FacebookLoginAdapter>();
 // Registering services for Google Auth, User Service, and Login Service
 builder.Services.AddScoped<IUserService, UserService>(); // Your existing UserService
 
@@ -51,7 +51,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
-builder.Services.AddScoped<IJwtService, JwtService>(); 
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<ILoginService, FacebookLoginAdapter>();  // For Facebook login
+builder.Services.AddScoped<ILoginService, UserService>();  // Default login (normal)
 
 var app = builder.Build();
 
@@ -62,7 +64,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

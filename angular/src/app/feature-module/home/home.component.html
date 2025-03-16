@@ -1,14 +1,17 @@
+
+<div *ngIf="tenantData$ | async as tenantData">
+
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section" *ngIf="imageUrl" [style.background-image]="'url(' + imageUrl + ')'">
   <div class="banner-cock-one">
-    <img src="assets/img/icons/banner-cock1.svg" alt="banner-img">
+    <img src="assets/img/icons/football.svg" alt="banner-img">
   </div>
   <div class="banner-shapes">
     <div class="banner-dot-one">
       <span></span>
     </div>
     <div class="banner-cock-two">
-      <img src="assets/img/icons/banner-cock2.svg" alt="banner-img">
+      <img src="assets/img/icons/football.svg" alt="banner-img">
       <span></span>
     </div>
     <div class="banner-dot-two">
@@ -20,55 +23,14 @@
       <div class="row align-items-center w-100">
         <div class="col-lg-7 col-md-10 mx-auto">
           <div class="section-search aos" data-aos="fade-up">
-            <h4>World Class Coaching & Premium Courts</h4>
-            <h1>Choose Your <span>Coaches</span> and Start Your Training</h1>
-            <p class="sub-info">Unleash Your Athletic Potential with Expert Coaching, State-of-the-Art Facilities, and
-              Personalized Training Programs.</p>
-            <div class="search-box">
-              <form action="coaches-grid.html">
-                <div class="search-input line">
-                  <div class="form-group mb-0">
-                    <label>Search for</label>
-
-                    <mat-select   [(ngModel)]="selectedValue1"
-                       [ngModelOptions]="{standalone: true}" class="select"
-                       placeholder="Courts">
-                      @for (data of selectedList1; track data) {
-                      <mat-option [value]="data.value">
-                        {{data.value}}
-                      </mat-option>
-                      }
-                    </mat-select>
-                  </div>
-                </div>
-                <div class="search-input">
-                  <div class="form-group mb-0">
-                    <label>Where </label>
-                    <mat-select   [(ngModel)]="selectedValue2"
-                       [ngModelOptions]="{standalone: true}" class="select "
-                       placeholder="Choose Location">
-                      @for (data of selectedList2; track data) {
-                      <mat-option [value]="data.value">
-                        {{data.value}}
-                      </mat-option>
-                      }
-                    </mat-select>
-
-                  </div>
-                </div>
-                <div class="search-btn">
-                  <button class="btn" type="submit"><i class="feather icon-search"></i><span
-                      class="search-text">Search</span></button>
-                </div>
-              </form>
-            </div>
+            <h4 *ngIf="tenantData.siteInfo && tenantData.siteInfo.length > 0">
+              {{ tenantData.siteInfo[0].name }}</h4>
+              <h1 >Book Your <span>Match Now</span> and Get Started!</h1>
+            <p class="sub-info">Reserve Your Match and Connect with Your Team or Friends for an Unforgettable Experience!</p>
+           
           </div>
         </div>
-        <div class="col-lg-5">
-          <div class="banner-imgs text-center aos" data-aos="fade-up">
-            <img class="img-fluid" alt="banner-img" src="assets/img/bg/banner-right.png">
-          </div>
-        </div>
+       
       </div>
     </div>
   </div>
@@ -78,17 +40,17 @@
 <!-- How It Works -->
 <section class="section work-section">
   <div class="work-cock-img">
-    <img src="assets/img/icons/work-cock.svg" alt="work-cock">
+    <img src="assets/img/icons/football.svg" alt="work-cock">
   </div>
   <div class="work-img">
     <div class="work-img-right">
-      <img src="assets/img/bg/work-bg.png" alt="work-cock">
+      <img src="assets/img/bg/soccer.png" alt="work-cock">
     </div>
   </div>
   <div class="container">
     <div class="section-heading aos" data-aos="fade-up">
       <h2>How It <span>Works</span></h2>
-      <p class="sub-title">Simplifying the booking process for coaches, venues, and athletes.</p>
+      <p class="sub-title">Easily book matches, connect with your team, and enjoy the game!</p>
     </div>
     <div class="row justify-content-center ">
       <div class="col-lg-4 col-md-6 d-flex">
@@ -110,303 +72,32 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6 d-flex">
-        <div class="work-grid w-100 aos" data-aos="fade-up">
-          <div class="work-icon">
-            <div class="work-icon-inner">
-              <img src="assets/img/icons/work-icon2.svg" alt="work-img">
-            </div>
-          </div>
-          <div class="work-content">
-            <h5>
-              <a [routerLink]="routes.coachesList">Select Coaches/Venues</a>
-            </h5>
-            <p>Book Badminton coaches and venues for expert guidance and premium facilities.</p>
-            <a class="btn" [routerLink]="routes.coachesList">
-              Go To Coaches <i class="feather icon-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 d-flex">
-        <div class="work-grid w-100 aos" data-aos="fade-up">
-          <div class="work-icon">
-            <div class="work-icon-inner">
-              <img src="assets/img/icons/work-icon3.svg" alt="work-img">
-            </div>
-          </div>
-          <div class="work-content">
-            <h5>
-              <a [routerLink]="routes.coachDetails">Booking Process</a>
-            </h5>
-            <p>Easily book, pay, and enjoy a seamless experience on our user-friendly platform.</p>
-            <a class="btn" [routerLink]="routes.coachDetails">
-              Book Now <i class="feather icon-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+     
+      
     </div>
   </div>
 </section>
 <!-- /How It Works -->
 
-<!-- Rental Deals -->
-<section class="section featured-venues">
-  <div class="container">
-    <div class="section-heading aos" data-aos="fade-up">
-      <h2>Featured <span>Venues</span></h2>
-      <p class="sub-title">Advanced sports venues offer the latest facilities, dynamic and unique environments for
-        enhanced badminton performance.</p>
-    </div>
-    <div class="row">
-      <div class="featured-slider-group ">
-        <owl-carousel-o class=" featured-venues-slider aos" data-aos="fade-up" data-aos-delay="500"
-          [options]="topVenueOwlOptions">
-          @for (slide of venueCarouselList; track slide) {
-          <ng-template class="item" carouselSlide>
-            <!-- Featured Item -->
-            <div class="featured-venues-item aos" data-aos="fade-up">
-              <div class="listing-item mb-0">
-                <div class="listing-img">
-                  <a [routerLink]="routes.venueDetails">
-                    <img [src]="slide.img2" alt="venue-img">
-                  </a>
-                  <div class="fav-item-venues">
-                    <span
-                      [style.display]="slide.badge === 'Featured'&& slide.status === 'active'? 'inline-flex' : 'none'"
-                      class="tag tag-blue">Featured</span>
-                    <span
-                      [style.display]="slide.badge === 'Featured'&& slide.status === 'inactive'? 'inline-flex' : 'none'"
-                      class="tag tag-primary">Featured</span>
-                    <span [style.display]="slide.badge === 'Top Rated'? 'inline-flex' : 'none'" class="tag tag-blue">Top
-                      Rated</span>
-                    <span [style.display]="slide.badge === ''? 'inline-flex' : 'none'" class="tag tag-blue">Top
-                      Rated</span>
-                    <h5 class="tag tag-primary">${{slide.rate}}<span>/hr</span></h5>
-                  </div>
-                </div>
-                <div class="listing-content">
-                  <div class="list-reviews">
-                    <div class="d-flex align-items-center">
-                      <span class="rating-bg">{{slide.rating}}</span><span>{{slide.reviews}} Reviews</span>
-                    </div>
-                    <a href="javascript:void(0)" class="fav-icon" (click)="fav(slide)"
-                      [ngClass]="{'selected': slide.favourite}">
-                      <i class="feather icon-heart"></i>
-                    </a>
-                  </div>
-                  <h3 class="listing-title">
-                    <a [routerLink]="routes.venueDetails">{{slide.title}}</a>
-                  </h3>
-                  <div class="listing-details-group">
-                    <p>{{slide.content}}</p>
-                    <ul>
-                      <li>
-                        <span>
-                          <i class="feather icon-map-pin me-1" ></i>{{slide.address}}
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <i class="feather icon-calendar me-1" ></i>Next availablity : <span
-                            class="primary-text">{{slide.date}}</span>
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="listing-button">
-                    <div class="listing-venue-owner">
-                      <a class="navigation" [routerLink]="routes.coachDetail">
-                        <img [src]="slide.img" alt="venue-img">{{slide.name}}
-                      </a>
-                    </div>
-                    <a [routerLink]="routes.venueDetails" class="btn btn-secondary"><span><i class="feather icon-calendar"
-                          class="me-2"></i></span>Book Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /Featured Item -->
-          </ng-template>
-          }
-        </owl-carousel-o>
 
-      </div>
-    </div>
-
-    <!-- View More -->
-    <div class="view-all text-center aos" data-aos="fade-up">
-      <a [routerLink]="routes.listingsgrid" class="btn btn-secondary d-inline-flex align-items-center">View All
-        Featured<span class="lh-1"><i class="feather icon-arrow-right-circle ms-2" ></i></span></a>
-    </div>
-    <!-- View More -->
-
-  </div>
-</section>
-<!-- /Rental Deals -->
-
-<!-- Services -->
-<section class="section service-section">
-  <div class="work-cock-img">
-    <img src="assets/img/icons/work-cock.svg" alt="service-img">
-  </div>
-  <div class="container">
-    <div class="section-heading aos" data-aos="fade-up">
-      <h2>Explore Our <span>Services</span></h2>
-      <p class="sub-title">Fostering excellence and empowering sports growth through tailored services for athletes,
-        coaches, and enthusiasts.</p>
-    </div>
-    <div class="row">
-      <div class="col-lg-3 col-md-6 d-flex">
-        <div class="service-grid w-100 aos" data-aos="fade-up">
-          <div class="service-img">
-            <a [routerLink]="routes.servicedetail">
-              <img src="assets/img/services/service-01.jpg" class="img-fluid" alt="service-img">
-            </a>
-          </div>
-          <div class="service-content">
-            <h4><a [routerLink]="routes.servicedetail">Court Rent</a></h4>
-            <a [routerLink]="routes.servicedetail">Learn More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 d-flex">
-        <div class="service-grid w-100 aos" data-aos="fade-up">
-          <div class="service-img">
-            <a [routerLink]="routes.servicedetail">
-              <img src="assets/img/services/service-02.jpg" class="img-fluid" alt="service-img">
-            </a>
-          </div>
-          <div class="service-content">
-            <h4><a [routerLink]="routes.servicedetail">Group Lesson</a></h4>
-            <a [routerLink]="routes.servicedetail">Learn More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 d-flex">
-        <div class="service-grid w-100 aos" data-aos="fade-up">
-          <div class="service-img">
-            <a [routerLink]="routes.servicedetail">
-              <img src="assets/img/services/service-03.jpg" class="img-fluid" alt="service-img">
-            </a>
-          </div>
-          <div class="service-content">
-            <h4><a [routerLink]="routes.servicedetail">Training Program</a></h4>
-            <a [routerLink]="routes.servicedetail">Learn More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 d-flex">
-        <div class="service-grid w-100 aos" data-aos="fade-up">
-          <div class="service-img">
-            <a [routerLink]="routes.servicedetail">
-              <img src="assets/img/services/service-04.jpg" class="img-fluid" alt="service-img">
-            </a>
-          </div>
-          <div class="service-content">
-            <h4><a [routerLink]="routes.servicedetail">Private Lessons</a></h4>
-            <a [routerLink]="routes.servicedetail">Learn More</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="view-all text-center aos" data-aos="fade-up">
-      <a [routerLink]="routes.services" class="btn btn-secondary d-inline-flex align-items-center">
-        View All Services <span class="lh-1"><i class="feather icon-arrow-right-circle ms-2" ></i></span>
-      </a>
-    </div>
-  </div>
-</section>
-<!-- /Services -->
 
 <!-- Convenient -->
 <section class="section convenient-section">
-  <div class="cock-img">
-    <div class="cock-img-one">
-      <img src="assets/img/icons/cock-01.svg" alt="cock-img">
-    </div>
-    <div class="cock-img-two">
-      <img src="assets/img/icons/cock-02.svg" alt="cock-img">
-    </div>
-    <div class="cock-circle">
-      <img src="assets/img/bg/cock-shape.png" alt="cock-img">
-    </div>
-  </div>
   <div class="container">
     <div class="convenient-content aos" data-aos="fade-up">
-      <h2>Convenient & Flexible Scheduling</h2>
-      <p>Find and book coaches conveniently with our online system that matches your schedule and location.</p>
+      <h2>Easy & Flexible Booking Options</h2>
+      <p>Book Your Field Now – Day or Night, Play Anytime!</p>
     </div>
     <div class="convenient-btns aos" data-aos="fade-up">
       <a [routerLink]="routes.coachDetails" class="btn btn-primary d-inline-flex align-items-center">
-        Book a Training <span class="lh-1"><i class="feather icon-arrow-right-circle ms-2" ></i></span>
+        Book Now <span class="lh-1"><i class="feather icon-arrow-right-circle ms-2" ></i></span>
       </a>
-      <a [routerLink]="routes.pricing" class="btn btn-secondary d-inline-flex align-items-center">
-        View Pricing Plan <span class="lh-1"><i class="feather icon-arrow-right-circle ms-2" ></i></span>
-      </a>
+  
     </div>
   </div>
 </section>
 <!-- /Convenient -->
 
-<!-- Featured Coaches -->
-<section class="section featured-section">
-  <div class="container">
-    <div class="section-heading aos" data-aos="fade-up">
-      <h2>Featured <span>Coaches</span></h2>
-      <p class="sub-title">Uplift your badminton game with our featured coaches, personalized instruction, and expertise
-        to achieve your goals.</p>
-    </div>
-    <div class="row">
-      <div class="featured-slider-group aos" data-aos="fade-up">
-        <owl-carousel-o class=" featured-coache-slider aos" data-aos="fade-up" data-aos-delay="500"
-          [options]="coachOwlOptions">
-          @for (slide of coaches; track slide) {
-          <ng-template class="item" carouselSlide>
-            <!-- Featured Item -->
-            <div class="featured-venues-item">
-              <div class="listing-item mb-0">
-                <div class="listing-img">
-                  <a [routerLink]="routes.coachDetail">
-                    <img [src]="slide.img" alt="use-img">
-                  </a>
-                  <div class="fav-item-venues">
-                    <span class="tag tag-blue">{{slide.badge}}</span>
-                    <div class="list-reviews coche-star">
-                      <a href="javascript:void(0)" class="fav-icon" (click)="fav(slide)"
-                        [ngClass]="{'selected': slide.favourite}">
-                        <i class="feather icon-heart"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="hour-list">
-                    <h5 class="tag tag-primary">From ${{slide.rate}} <span>/hr</span></h5>
-                  </div>
-                </div>
-                <div class="listing-content list-coche-content">
-                  <span>{{slide.lesson}} Lessons</span>
-                  <h3><a [routerLink]="routes.coachDetail">{{slide.name}}</a></h3>
-                  <a [routerLink]="routes.coachDetails"><i class="feather icon-arrow-right"></i></a>
-                  <a [routerLink]="routes.coachDetails" class="icon-hover"><i class="feather icon-calendar"></i></a>
-                </div>
-              </div>
-            </div>
-            <!-- /Featured Item -->
-          </ng-template>
-          }
-        </owl-carousel-o>
-
-      </div>
-    </div>
-    <div class="view-all text-center aos" data-aos="fade-up">
-      <a [routerLink]="routes.coachesList" class="btn btn-secondary d-inline-flex align-items-center">
-        View All Coaches <span class="lh-1"><i class="feather icon-arrow-right-circle ms-2" ></i></span>
-      </a>
-    </div>
-  </div>
-</section>
-<!-- /Featured Coaches -->
 
 <!-- Journey -->
 <section class="section journey-section">
@@ -414,37 +105,29 @@
     <div class="row">
       <div class="col-lg-6 d-flex align-items-center">
         <div class="start-your-journey aos" data-aos="fade-up">
-          <h2>Start Your Journey With <span class="active-sport">Dreamsports</span> Badminton today.</h2>
-          <p>At DreamSports Badminton, we prioritize your satisfaction and value your feedback as we continuously
-            improve and evolve our learning experiences.</p>
-          <p>Our instructors utilize modern methods for effective badminton lessons, offering introductory sessions for
-            beginners and personalized development plans to foster individual growth.</p>
-          <span class="stay-approach">Stay Ahead With Our Innovative Approach:</span>
+          <h2>Start Your Journey With <span class="active-sport" *ngIf="tenantData.siteInfo && tenantData.siteInfo.length > 0">
+            {{ tenantData.siteInfo[0].name }}</span> today.</h2>
+          <p *ngIf="tenantData.siteInfo && tenantData.siteInfo.length > 0">At {{ tenantData.siteInfo[0].name }}, we prioritize your satisfaction and continuously improve our platform to enhance your football experience.</p>
+          <p>Our system allows you to create and manage your team, connect with other players, and book matches easily. Whether you're looking for a friendly game or a competitive challenge, our platform helps you find the perfect match.</p>
+          <span class="stay-approach">Build Your Team & Compete!          </span>
           <div class="journey-list">
             <ul>
-              <li><i class="fa-solid fa-circle-check"></i>Skilled Professionals</li>
-              <li><i class="fa-solid fa-circle-check"></i>Modern Techniques</li>
-              <li><i class="fa-solid fa-circle-check"></i>Intro Lesson</li>
+              <li><i class="fa-solid fa-circle-check"></i>Expert Coaches</li>
+              <li><i class="fa-solid fa-circle-check"></i>Cutting-Edge Training Methods</li>
+              <li><i class="fa-solid fa-circle-check"></i>Create & Manage Your Team</li>
             </ul>
             <ul>
-              <li><i class="fa-solid fa-circle-check"></i>Personal Development</li>
-              <li><i class="fa-solid fa-circle-check"></i>Advanced Equipment</li>
-              <li><i class="fa-solid fa-circle-check"></i>Interactive Classes For Easy Learning.</li>
+              <li><i class="fa-solid fa-circle-check"></i>Connect with Other Teams & Players</li>
+              <li><i class="fa-solid fa-circle-check"></i>Easy Match Booking</li>
+              <li><i class="fa-solid fa-circle-check"></i>Interactive & Engaging Training Sessions.</li>
             </ul>
           </div>
-          <div class="convenient-btns">
-            <a [routerLink]="routes.register" class="btn btn-primary d-inline-flex align-items-center">
-              <span><i class="feather icon-user-plus me-2"></i></span>Join With Us
-            </a>
-            <a [routerLink]="routes.aboutus" class="btn btn-secondary d-inline-flex align-items-center">
-              <span><i class="feather icon-align-justify me-2"></i></span>Learn More
-            </a>
-          </div>
+     
         </div>
       </div>
       <div class="col-lg-6">
         <div class="journey-img aos" data-aos="fade-up">
-          <img src="assets/img/journey-01.png" class="img-fluid" alt="use-img">
+          <img src="assets/img/bg/football-stade.jpg" class="img-fluid" alt="use-img">
         </div>
       </div>
     </div>
@@ -457,58 +140,9 @@
   <div class="container">
     <div class="section-heading aos" data-aos="fade-up">
       <h2>Our <span>Features</span></h2>
-      <p class="sub-title">Discover your potential with our comprehensive training, expert trainers, and advanced
-        facilities. Join us to improve your athletic career.</p>
+      <p class="sub-title">Train with expert coaches, access state-of-the-art facilities, and take your game to the next level. Create your team, connect with other players, and book matches effortlessly.</p>
     </div>
     <div class="row justify-content-center">
-      <div class="col-lg-4 col-md-6 d-flex">
-        <div class="work-grid coaching-grid w-100 aos" data-aos="fade-up">
-          <div class="work-icon">
-            <div class="work-icon-inner">
-              <img src="assets/img/icons/coache-icon-01.svg" alt="coache-icon">
-            </div>
-          </div>
-          <div class="work-content">
-            <h3>Group Coaching</h3>
-            <p>Accelerate your skills with tailored group coaching sessions for badminton players game.</p>
-            <a href="javascript:void(0);">
-              Learn More
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 d-flex">
-        <div class="work-grid coaching-grid w-100 aos" data-aos="fade-up">
-          <div class="work-icon">
-            <div class="work-icon-inner">
-              <img src="assets/img/icons/coache-icon-02.svg" alt="coache-icon">
-            </div>
-          </div>
-          <div class="work-content">
-            <h3>Private Coaching</h3>
-            <p>Find private badminton coaches and academies for a personalized approach to skill enhancement.</p>
-            <a href="javascript:void(0);">
-              Learn More
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 d-flex">
-        <div class="work-grid coaching-grid w-100 aos" data-aos="fade-up">
-          <div class="work-icon">
-            <div class="work-icon-inner">
-              <img src="assets/img/icons/coache-icon-03.svg" alt="coache-icon">
-            </div>
-          </div>
-          <div class="work-content">
-            <h3>Equipment Store</h3>
-            <p>Your one-stop shop for high-quality badminton equipment, enhancing your on-court performance.</p>
-            <a href="javascript:void(0);">
-              Learn More
-            </a>
-          </div>
-        </div>
-      </div>
       <div class="col-lg-4 col-md-6 d-flex">
         <div class="work-grid coaching-grid w-100 aos" data-aos="fade-up">
           <div class="work-icon">
@@ -518,11 +152,9 @@
           </div>
           <div class="work-content">
             <h3>Innovative Lessons</h3>
-            <p>Enhance your badminton skills with innovative lessons, combining modern techniques and training methods
+            <p>Boost your football skills with cutting-edge training, combining modern techniques and advanced coaching methods.
             </p>
-            <a href="javascript:void(0);">
-              Learn More
-            </a>
+           
           </div>
         </div>
       </div>
@@ -534,13 +166,10 @@
             </div>
           </div>
           <div class="work-content">
-            <h3>Badminton Community</h3>
-            <p>Upraise your game with engaging lessons and a supportive community. Join us now and take your skills to
-              new heights.
+            <h3>Football Community</h3>
+            <p>Elevate your game with engaging training sessions and a thriving football community. Connect, compete, and improve together!
             </p>
-            <a href="javascript:void(0);">
-              Learn More
-            </a>
+           
           </div>
         </div>
       </div>
@@ -552,11 +181,10 @@
             </div>
           </div>
           <div class="work-content">
-            <h3>Court Rental</h3>
-            <p>Enjoy uninterrupted badminton sessions at DreamSports with our premium court rental services.</p>
-            <a href="javascript:void(0);">
-              Learn More
-            </a>
+            <h3>Field Rental
+            </h3>
+            <p *ngIf="tenantData.siteInfo && tenantData.siteInfo.length > 0">Play anytime with premium football field rentals at {{ tenantData.siteInfo[0].name }}. Book your field now for an uninterrupted game!</p>
+           
           </div>
         </div>
       </div>
@@ -568,48 +196,31 @@
 <!-- Earn Money -->
 <section class="section earn-money">
   <div class="cock-img cock-position">
-    <div class="cock-img-one ">
-      <img src="assets/img/icons/cock-01.svg" alt="cock-img">
-    </div>
-    <div class="cock-img-two">
-      <img src="assets/img/icons/cock-02.svg" alt="cock-img">
-    </div>
     <div class="cock-circle">
-      <img src="assets/img/bg/cock-shape.png" alt="cock-img">
+      <img src="assets/img/bg/soccer.png" alt="soccer-img">
     </div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-md-6">
         <div class="private-venue aos" data-aos="fade-up">
-          <div class="convenient-btns become-owner " role="tablist">
-            <a href="javascript:void(0);"
-              class="btn btn-secondary become-venue d-inline-flex align-items-center nav-link active"
-              id="nav-Recent-tab" data-bs-toggle="tab" data-bs-target="#nav-Recent" role="tab"
-              aria-controls="nav-Recent" aria-selected="true">
-              Become A Venue Member
-            </a>
-            <a href="javascript:void(0);" class="btn btn-primary become-coche d-inline-flex align-items-center nav-link"
-              id="nav-RecentCoaching-tab" data-bs-toggle="tab" data-bs-target="#nav-RecentCoaching" role="tab"
-              aria-controls="nav-RecentCoaching" aria-selected="false">
-              Become A Coach
-            </a>
-          </div>
+         
           <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-Recent" role="tabpanel" aria-labelledby="nav-Recent-tab"
               tabindex="0">
-              <h2>Earn Money Renting Out Your Private Coaches On Dreamsports</h2>
-              <p>Join our network of private facility owners, offering rentals to local players, coaches, and teams.</p>
+              <h2>Find the Perfect Place to Play!
+              </h2>
+              <p>Looking for a top-quality field for your next match or training session? Book premium sports facilities easily and enjoy a safe, professional environment for your game.</p>
               <div class="earn-list">
                 <ul>
-                  <li><i class="fa-solid fa-circle-check "></i>$1,000,000 liability insurance </li>
-                  <li><i class="fa-solid fa-circle-check "></i>Build of Trust</li>
-                  <li><i class="fa-solid fa-circle-check "></i>Protected Environment for Your Activities </li>
+                  <li><i class="fa-solid fa-circle-check "></i>High-Quality Fields & Venues </li>
+                  <li><i class="fa-solid fa-circle-check "></i>Secure & Well-Maintained Facilities</li>
+                  <li><i class="fa-solid fa-circle-check "></i>Easy & Instant Booking </li>
                 </ul>
               </div>
               <div class="convenient-btns">
                 <a [routerLink]="routes.register" class="btn btn-secondary d-inline-flex align-items-center">
-                  <span class="lh-1"><i class="feather icon-user-plus me-2"></i></span>Join With Us
+                  <span class="lh-1"><i class="feather icon-user-plus me-2"></i></span>Join Now & Reserve Your Field Today!
                 </a>
               </div>
             </div>
@@ -617,18 +228,18 @@
           <div class="tab-content">
             <div class="tab-pane fade show " id="nav-RecentCoaching" role="tabpanel" aria-labelledby="nav-Recent-tab"
               tabindex="0">
-              <h2>Earn Money Renting Out Your Private Coaches On Dreamsports</h2>
-              <p>Join thousands of privates owners renting their facilities to local players, coaches, and teams.</p>
+              <h2>Find the Perfect Place to Play!</h2>
+              <p>Looking for a top-quality field for your next match or training session? Book premium sports facilities easily and enjoy a safe, professional environment for your game.</p>
               <div class="earn-list">
                 <ul>
-                  <li><i class="fa-solid fa-circle-check "></i>$1,000,000 liability insurance </li>
-                  <li><i class="fa-solid fa-circle-check "></i>Build of Trust</li>
-                  <li><i class="fa-solid fa-circle-check "></i>$1,000,000 liability insurance </li>
+                  <li><i class="fa-solid fa-circle-check "></i>High-Quality Fields & Venues </li>
+                  <li><i class="fa-solid fa-circle-check "></i>Secure & Well-Maintained Facilities</li>
+                  <li><i class="fa-solid fa-circle-check "></i>Easy & Instant Booking  </li>
                 </ul>
               </div>
               <div class="convenient-btns">
                 <a [routerLink]="routes.register" class="btn btn-secondary d-inline-flex align-items-center">
-                  <span class="lh-1"><i class="feather icon-user-plus me-2"></i></span>Join With Us
+                  <span class="lh-1"><i class="feather icon-user-plus me-2"></i></span>Join Now & Reserve Your Field Today!
                 </a>
               </div>
             </div>
@@ -646,7 +257,7 @@
   <div class="container">
     <div class="section-heading aos" data-aos="fade-up">
       <h2>Extra Benefits, Unmatched <span>Service Excellence</span></h2>
-      <p class="sub-title">Advance your badminton journey with DreamSports: Exclusive perks, exceptional service.</p>
+      <p class="sub-title">Take your football experience to the next level with DreamSports: Exclusive perks, top-tier facilities, and outstanding service.</p>
     </div>
     <div class="row">
       <div class="col-lg-6">
@@ -656,12 +267,12 @@
             <div class="coach-count">
               <h3>Coaches</h3>
               <h2><span class="counter-up" [countUp]="88" [options]="{ enableScrollSpy: true }">88</span>+</h2>
-              <h4>Highly skilled badminton coaches with extensive expertise in the sport.</h4>
+              <h4>Highly skilled football coaches who bring extensive expertise and professional experience to help you excel.</h4>
             </div>
             <div class="coach-count coart-count">
               <h3>Courts</h3>
               <h2><span class="counter-up" [countUp]="59" [options]="{ enableScrollSpy: true }">59</span>+</h2>
-              <h4>Well-maintained courts for optimal badminton experiences.</h4>
+              <h4>Well-maintained courts for optimal football experiences.</h4>
             </div>
           </div>
         </div>
@@ -669,496 +280,100 @@
       <div class="col-lg-6">
         <div class="ask-questions aos" data-aos="fade-up">
           <h3>Frequently Asked Questions</h3>
-          <p>Here are some frequently asked questions about badminton at DreamSports:</p>
+          
+          <p *ngIf="tenantData.siteInfo && tenantData.siteInfo.length > 0">
+            Here are some frequently asked questions about football at {{ tenantData.siteInfo[0].name }}:
+          </p>
+          
           <div class="faq-info">
             <div class="accordion" id="accordionExample">
-
-              <!-- FAQ Item -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                  <a href="javascript:void(0);" class="accordion-button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    How can I book a badminton court at DreamSports?
-                  </a>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="accordion-content">
-                      <p>Book your DreamSports badminton court online or contact our customer service for seamless
-                        reservations. </p>
+      
+              <!-- Vérification des FAQ -->
+              <ng-container *ngIf="tenantData.faq && tenantData.faq.length > 0; else noFaqMessage">
+      
+                <!-- FAQ Item -->
+                <div class="accordion-item" *ngFor="let faq of tenantData.faq">
+                  <h2 class="accordion-header" [id]="'heading' + faq.id">
+                    <a href="javascript:void(0);" class="accordion-button" data-bs-toggle="collapse"
+                      [attr.data-bs-target]="'#collapse' + faq.id" 
+                      [attr.aria-expanded]="faq.isOpen ? 'true' : 'false'" 
+                      [attr.aria-controls]="'collapse' + faq.id">
+                      {{ faq.question }}
+                    </a>
+                  </h2>
+                  <div [id]="'collapse' + faq.id" class="accordion-collapse collapse" [ngClass]="{'show': faq.isOpen}" 
+                       [attr.aria-labelledby]="'heading' + faq.id" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <p>{{ faq.response }}</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- /FAQ Item -->
-
-              <!-- FAQ Item -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                  <a href="javascript:void(0);" class="accordion-button collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    What is the duration of a badminton court booking?
-                  </a>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="accordion-content">
-                      <p>Book your DreamSports badminton court online or contact our customer service for seamless
-                        reservations. </p>
-                    </div>
-                  </div>
+                <!-- /FAQ Item -->
+      
+              </ng-container>
+      
+              <!-- Message si aucune FAQ n'existe -->
+              <ng-template #noFaqMessage>
+                <div class="alert alert-info" role="alert">
+                  No FAQs available at the moment. Please check back later.
                 </div>
-              </div>
-              <!-- /FAQ Item -->
-
-              <!-- FAQ Item -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                  <a href="javascript:void(0);" class="accordion-button collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Can I rent badminton equipment at DreamSports?
-                  </a>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="accordion-content">
-                      <p>Book your DreamSports badminton court online or contact our customer service for seamless
-                        reservations.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /FAQ Item -->
-
-              <!-- FAQ Item -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingFour">
-                  <a href="javascript:void(0);" class="accordion-button collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    Are there any coaching services available at DreamSports?
-                  </a>
-                </h2>
-                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="accordion-content">
-                      <p>Book your DreamSports badminton court online or contact our customer service for seamless
-                        reservations.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /FAQ Item -->
-
-              <!-- FAQ Item -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingFive">
-                  <a href="javascript:void(0);" class="accordion-button collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                    Can I join badminton leagues or tournaments at DreamSports?
-                  </a>
-                </h2>
-                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="accordion-content">
-                      <p>Book your DreamSports badminton court online or contact our customer service for seamless
-                        reservations.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /FAQ Item -->
-
+              </ng-template>
+      
             </div>
           </div>
         </div>
       </div>
+      
+      
     </div>
   </div>
 </section>
 <!-- /Best Services -->
-
-<!-- Courts Near -->
-<section class="section court-near">
-  <div class="container">
-    <div class="section-heading aos" data-aos="fade-up">
-      <h2>Find Courts <span>Near You</span></h2>
-      <p class="sub-title">Discover nearby badminton courts for convenient and accessible gameplay.</p>
-    </div>
-    <div class="row">
-      <div class="featured-slider-group aos" data-aos="fade-up">
-        <owl-carousel-o class=" featured-venues-slider aos" data-aos="fade-up" data-aos-delay="500"
-          [options]="topVenueOwlOptions">
-          @for (slide of courts; track slide) {
-          <ng-template class="item" carouselSlide>
-            <!-- Courts Item -->
-            <div class="featured-venues-item court-near-item">
-              <div class="listing-item mb-0">
-                <div class="listing-img">
-                  <a [routerLink]="routes.venueDetails">
-                    <img [src]="slide.img" alt="venues-img">
-                  </a>
-                  <div class="fav-item-venues">
-                    <div class="list-reviews coche-star">
-                      <a href="javascript:void(0)" class="fav-icon" (click)="fav(slide)"
-                        [ngClass]="{'selected': slide.favourite}">
-                        <i class="feather icon-heart"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="listing-content ">
-                  <h3 class="listing-title">
-                    <a [routerLink]="routes.venueDetails">{{slide.title}}</a>
-                  </h3>
-                  <div class="listing-details-group">
-                    <ul>
-                      <li>
-                        <span>
-                          <i class="feather icon-map-pin me-1" ></i>{{slide.address}}
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="list-reviews near-review">
-                    <div class="d-flex align-items-center">
-                      <span class="rating-bg">{{slide.rating}}</span><span>{{slide.review}} Reviews</span>
-                    </div>
-                    <span class="mile-away d-flex"><i class="feather icon-zap me-1" ></i>{{slide.distance}}
-                      Miles Away</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /Courts Item -->
-          </ng-template>
-          }
-        </owl-carousel-o>
-
-      </div>
-    </div>
-
-    <!-- View More -->
-    <div class="view-all text-center aos" data-aos="fade-up">
-      <a [routerLink]="routes.listingsgrid" class="btn btn-secondary d-inline-flex align-items-center">View All Services
-        <span class="lh-1"><i class="feather icon-arrow-right-circle ms-2" ></i></span></a>
-    </div>
-    <!-- View More -->
-
-  </div>
-</section>
-<!-- /Courts Near -->
-
-<!-- Testimonials -->
-<section class="section our-testimonials">
-  <div class="container">
-    <div class="section-heading aos" data-aos="fade-up">
-      <h2>Our <span>Testimonials</span></h2>
-      <p class="sub-title">Glowing testimonials from passionate badminton enthusiasts worldwide, showcasing our
-        exceptional services.</p>
-    </div>
-    <div class="row">
-      <div class="featured-slider-group aos" data-aos="fade-up">
-        <owl-carousel-o class=" testimonial-slide featured-venues-slider aos" data-aos="fade-up" data-aos-delay="500"
-          [options]="topVenueOwlOptions">
-          @for (slide of testimonal; track slide) {
-          <ng-template class="item" carouselSlide>
-            <!-- Testimonials Item -->
-            <div class="testimonial-group">
-              <div class="testimonial-review">
-                <div class="rating-point">
-                  <i class="fas fa-star filled"></i>
-                  <i class="fas fa-star filled"></i>
-                  <i class="fas fa-star filled"></i>
-                  <i class="fas fa-star filled"></i>
-                  <i class="fas fa-star filled"></i>
-                  <span> 5.0</span>
-                </div>
-                <h5>{{slide.heading}}</h5>
-                <p>{{slide.para}}</p>
-              </div>
-              <div class="listing-venue-owner">
-                <a class="navigation">
-                  <img [src]="slide.img" alt="avatar">
-                </a>
-                <div class="testimonial-content">
-                  <h5><a href="javascript:void(0);">{{slide.name}}</a></h5>
-                  <a href="javascript:void(0);" class="btn btn-primary ">
-                    {{slide.badge}}
-                  </a>
-                </div>
-              </div>
-            </div>
-            <!-- /Testimonials Item -->
-          </ng-template>
-          }
-        </owl-carousel-o>
-
-      </div>
-
-      <!-- Testimonials Slide -->
-      <div class="brand-slider-group aos" data-aos="fade-up">
-        <owl-carousel-o class=" testimonial-brand-slider aos" data-aos="fade-up" data-aos-delay="500"
-          [options]="universitiesCompaniesOwlOptions">
-          @for (slide of company; track slide) {
-          <ng-template class="item" carouselSlide>
-            <div class="brand-logos">
-              <img [src]="slide.img" alt="testimonial-brand">
-            </div>
-          </ng-template>
-          }
-        </owl-carousel-o>
-
-      </div>
-      <!-- /Testimonials Slide -->
-
-    </div>
-  </div>
-</section>
-<!-- /Testimonials -->
-
-<!-- Featured Plans -->
-<section class="section featured-plan">
-  <div class="work-img ">
-    <div class="work-img-right">
-      <img src="assets/img/bg/work-bg.png" alt="featured-img">
-    </div>
-  </div>
-  <div class="container">
-    <div class="section-heading aos" data-aos="fade-up">
-      <h2>We Have Excellent <span>Plans For You</span></h2>
-      <p class="sub-title">Choose monthly or yearly plans for uninterrupted access to our premium badminton facilities.
-        Join us and experience convenient excellence.</p>
-    </div>
-    <div class="interset-btn aos" data-aos="fade-up">
-      <div class="status-toggle d-inline-flex align-items-center">
-        Monthly
-        <input type="checkbox" id="status_1" class="check">
-        <label for="status_1" class="checktoggle">checkbox</label>
-        Yearly
-      </div>
-    </div>
-    <div class="price-wrap aos" data-aos="fade-up">
-      <div class="row justify-content-center">
-        <div class="col-lg-4 d-flex col-md-6">
-
-          <!-- Price Card -->
-          <div class="price-card flex-fill ">
-            <div class="price-head">
-              <img src="assets/img/icons/price-01.svg" alt="price-img">
-              <h3>Professoinal</h3>
-            </div>
-            <div class="price-body">
-              <div class="per-month">
-                <h2><sup>$</sup><span>60.00</span></h2>
-                <span>Per Month</span>
-              </div>
-              <div class="features-price-list">
-                <h5>Features</h5>
-                <p>Everything in our free Upto 10 users. </p>
-                <ul>
-                  <li class="active"><i class="feather icon-check-circle"></i>Included : Quality checked by envato</li>
-                  <li class="active"><i class="feather icon-check-circle"></i>Included : Future updates</li>
-                  <li class="active"><i class="feather icon-check-circle"></i>Technical Support</li>
-                  <li class="inactive"><i class="feather icon-x-circle"></i>Add Listing </li>
-                  <li class="inactive"><i class="feather icon-x-circle"></i>Approval of Listing</li>
-                </ul>
-              </div>
-              <div class="price-choose">
-                <a href="javascript:void(0);" class="btn viewdetails-btn">Choose Plan</a>
-              </div>
-              <div class="price-footer">
-                <p>Use, by you or one client, in a single end product which end users. charged for. The total price
-                  includes the item price and a buyer fee.</p>
-              </div>
-            </div>
-          </div>
-          <!-- /Price Card -->
-
-        </div>
-        <div class="col-lg-4 d-flex col-md-6">
-
-          <!-- Price Card -->
-          <div class="price-card flex-fill">
-            <div class="price-head expert-price">
-              <img src="assets/img/icons/price-02.svg" alt="price-img">
-              <h3>Expert</h3>
-              <span>Recommended</span>
-            </div>
-            <div class="price-body">
-              <div class="per-month">
-                <h2><sup>$</sup><span>60.00</span></h2>
-                <span>Per Month</span>
-              </div>
-              <div class="features-price-list">
-                <h5>Features</h5>
-                <p>Everything in our free Upto 10 users. </p>
-                <ul>
-                  <li class="active"><i class="feather icon-check-circle"></i>Included : Quality checked by envato</li>
-                  <li class="active"><i class="feather icon-check-circle"></i>Included : Future updates</li>
-                  <li class="active"><i class="feather icon-check-circle"></i>Technical Support</li>
-                  <li class="inactive"><i class="feather icon-x-circle"></i>Add Listing </li>
-                  <li class="inactive"><i class="feather icon-x-circle"></i>Approval of Listing</li>
-                </ul>
-              </div>
-              <div class="price-choose active-price">
-                <a href="javascript:void(0);" class="btn viewdetails-btn">Choose Plan</a>
-              </div>
-              <div class="price-footer">
-                <p>Use, by you or one client, in a single end product which end users. charged for. The total price
-                  includes the item price and a buyer fee.</p>
-              </div>
-            </div>
-          </div>
-          <!-- /Price Card -->
-
-        </div>
-        <div class="col-lg-4 d-flex col-md-6">
-
-          <!-- Price Card -->
-          <div class="price-card flex-fill">
-            <div class="price-head">
-              <img src="assets/img/icons/price-03.svg" alt="price-img">
-              <h3>Enterprise</h3>
-            </div>
-            <div class="price-body">
-              <div class="per-month">
-                <h2><sup>$</sup><span>990.00</span></h2>
-                <span>Per Month</span>
-              </div>
-              <div class="features-price-list">
-                <h5>Features</h5>
-                <p>Everything in our free Upto 10 users. </p>
-                <ul>
-                  <li class="active"><i class="feather icon-check-circle"></i>Included : Quality checked by envato</li>
-                  <li class="active"><i class="feather icon-check-circle"></i>Included : Future updates</li>
-                  <li class="active"><i class="feather icon-check-circle"></i>Technical Support</li>
-                  <li class="active"><i class="feather icon-check-circle"></i>Add Listing </li>
-                  <li class="active"><i class="feather icon-check-circle"></i>Approval of Listing</li>
-                </ul>
-              </div>
-              <div class="price-choose">
-                <a href="javascript:void(0);" class="btn viewdetails-btn">Choose Plan</a>
-              </div>
-              <div class="price-footer">
-                <p>Use, by you or one client, in a single end product which end users. charged for. The total price
-                  includes the item price and a buyer fee.</p>
-              </div>
-            </div>
-          </div>
-          <!-- /Price Card -->
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- /Featured Plans -->
 
 <!-- Latest News -->
 <section class="section featured-venues latest-news">
   <div class="container">
     <div class="section-heading aos" data-aos="fade-up">
       <h2>The Latest <span>News</span></h2>
-      <p class="sub-title">Get the latest buzz from the badminton world- stay informed and inspired by the thrilling
-        updates and remarkable achievements in the sport.</p>
+      <p class="sub-title">Get the latest buzz from the badminton world- stay informed and inspired by the thrilling updates and remarkable achievements in the sport.</p>
     </div>
     <div class="row">
-      <div class="featured-slider-group ">
-        <owl-carousel-o [options]="topVenueOwlOptions" class="featured-venues-slider">
-          @for (slide of badmintonList; track slide) {
-          <ng-template carouselSlide>
-            <!-- Blog -->
-            <div class="featured-venues-item">
-              <div class="listing-item">
-                <div class="listing-img">
-                  <a href="javascript:void(0);">
-                    <img [src]="slide.img1" alt="" />
-                  </a>
-                  <div class="fav-item-venues news-sports">
-                    <span class="tag tag-blue">{{ slide.title }}</span>
-                    <div class="list-reviews coche-star">
-                      <a href="javascript:void(0)" class="fav-icon" (click)="fav(slide)"
-                      [ngClass]="{'selected': slide.favourite}">
-                        <i class="feather icon-heart"></i>
-                      </a>
-                    </div>
+      <owl-carousel-o *ngIf="tenantData?.annonces?.length > 0" [options]="topVenueOwlOptions" class="featured-venues-slider">
+        <ng-template carouselSlide *ngFor="let slide of tenantData.annonces">
+          <div class="featured-venues-item">
+            <div class="listing-item">
+              <div class="listing-img">
+                <!-- Image ici -->
+              </div>
+              <div class="listing-content news-content">
+                <div class="listing-venue-owner">
+                  <div class="navigation">
+                    <a *ngIf="tenantData.siteInfo && tenantData.siteInfo.length > 0">
+                      {{ tenantData.siteInfo[0].name }}
+                    </a>
+                    <span class="d-flex">
+                      <i class="feather icon-calendar"></i>{{ formatDate(slide.launchedAt) }}
+                    </span>
                   </div>
                 </div>
-                <div class="listing-content news-content">
-                  <div class="listing-venue-owner">
-                    <div class="navigation">
-                      <a href="javascript:void(0)"><img [src]="slide.img2" alt="" />{{ slide.name }}</a>
-                      <span class="d-flex"><i class="feather icon-calendar"></i>{{ slide.year }}</span>
-                    </div>
-                  </div>
-                  <h3 class="listing-title">
-                    <a href="javascript:void(0);">{{ slide.para }} </a>
-                  </h3>
-                  <div class="listing-button read-new">
-                    <ul class="nav">
-                      <li>
-                        <a href="javascript:void(0);"><i class="feather icon-heart me-1" ></i>{{ slide.feedback
-                          }}</a>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0);"><i class="feather icon-message-square me-1" ></i>{{
-                          slide.command }}</a>
-                      </li>
-                    </ul>
-                    <span><img [src]="slide.img3" alt="" />{{ slide.time }}</span>
-                  </div>
-                </div>
+                <h3 class="listing-title">
+                  <a href="javascript:void(0);">{{ slide.description }}</a>
+                </h3>
               </div>
             </div>
-            <!-- /Blog -->
-          </ng-template>
-          }
-        </owl-carousel-o>
-
-      </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+      <ng-template #noNews>
+        <p>No news available.</p>
+      </ng-template>
+      
     </div>
-
-    <!-- View More -->
-    <div class="view-all text-center aos" data-aos="fade-up">
-      <a [routerLink]="routes.bloggrid" class="btn btn-secondary d-inline-flex align-items-center">View All News <span
-          class="lh-1"><i class="feather icon-arrow-right-circle ms-2" ></i> </span></a>
-    </div>
-    <!-- View More -->
-
+    
   </div>
 </section>
+
 <!-- /Latest News -->
-<!-- Newsletter -->
-<section class="section newsletter-sport">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="subscribe-style aos" data-aos="fade-up">
-          <div class="banner-blk">
-            <img src="assets/img/subscribe-bg.jpg" class="img-fluid" alt="subscribe">
-          </div>
-          <div class="banner-info ">
-            <img src="assets/img/icons/subscribe.svg" class="img-fluid" alt="subscribe">
-            <h2>Subscribe to Newsletter</h2>
-            <p>Sign up and we'll send the best deals to you</p>
-            <div class="subscribe-blk bg-white">
-              <div class="input-group align-items-center">
-                <i class="feather icon-mail"></i>
-                <input type="email" class="form-control" placeholder="Enter Email Address" aria-label="email">
-                <div class="subscribe-btn-grp">
-                  <input type="submit" class="btn btn-secondary" value="Subscribe">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- /Newsletter -->
+
+
+</div>

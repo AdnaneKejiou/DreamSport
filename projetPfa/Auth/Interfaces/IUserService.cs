@@ -4,7 +4,8 @@ namespace Auth.Interfaces
 {
     public interface IUserService
     {
-        Task<GetUserDto?> GetUserByEmailAsync(string email); 
-        Task<GetUserDto?> GetUserByFacebookIdAsync(string facebookId);
+        
+        Task<GetUserDto?> GetUserByFacebookIdAsync(string facebookId, int AdminId);
+        Task<GetUserDto?> AddUserAsync(FacebookUserDto user, int AdminId);
     }
 }

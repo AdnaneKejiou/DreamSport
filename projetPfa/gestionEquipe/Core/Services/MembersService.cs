@@ -48,7 +48,7 @@ namespace gestionEquipe.Core.Services
             {
                 throw new BadRequestException("Member is already part of this team.");
             }
-            int CountTeams = await _equipeRepository.CountEquipesBySportAndUser(member.UserId, equipe.SportId);
+            int CountTeams = await _membersRepository.CountTeamsForMemberAsync(member.UserId);
             if (CountTeams >=2 )
             {
                 throw new InvalidOperationException("Member is already in another team.");
