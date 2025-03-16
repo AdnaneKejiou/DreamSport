@@ -10,6 +10,8 @@ namespace chatEtInvitation.Core.Interfaces.IRepositories
         Task<MemberInvitation> GetInvitationByIdAsync(int id);
         Task<MemberInvitation> AccepterInvitationAsync(int invitationId);
         Task<List<MemberInvitation>> GetUserInvitationsAsync(int userId);
+        Task<int> GetUserInvitationsCountAsync(int userId, int adminId);
+
 
 
 

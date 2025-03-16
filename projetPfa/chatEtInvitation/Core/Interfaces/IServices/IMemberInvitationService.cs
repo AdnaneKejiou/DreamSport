@@ -7,5 +7,8 @@ namespace chatEtInvitation.Core.Interfaces.IServices
     {
         Task SendMemberInvitationAsync(MemberInvitation invitation);
         Task<List<MemberInvitationDTO>> GetUserInvitationsAsync(int userId);
+        Task<UserInvitationsResponseDto> GetUserInvitationsNbrAsync(int userId, int adminId);
+
+
     }
 }
