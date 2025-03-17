@@ -616,9 +616,27 @@
           "Port": 5270
         }
       ],
-      "UpstreamPathTemplate": "/gateway/InvitationMember/user-invitations",
+      "UpstreamPathTemplate": "/gateway/InvitationMember/user-invitations/{userId}/{adminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
+
+
+    //nbr invitation equipe to member  GET
+
+    {
+      "DownstreamPathTemplate": "/api/InvitationTeam/team-invitations/{userId}/{adminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5270
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/InvitationTeam/team-invitations/{userId}/{adminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+
     //-------------------------------------------------------- reservation service ----------------------------------------
     {
       "DownstreamPathTemplate": "/api/reservation/{AdminId}",

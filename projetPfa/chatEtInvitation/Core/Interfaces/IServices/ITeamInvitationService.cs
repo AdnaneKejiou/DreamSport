@@ -6,5 +6,9 @@ namespace chatEtInvitation.Core.Interfaces.IServices
     {
         Task<string> SendInvitationAsync(TeamInvitationDTO invitationDto);
         Task AccepteInvitationAsync(int invId);
+        Task<List<MemberTeamInvitationDTOO>> GetUserTeamInvitationsAsync(int userId);
+        Task<UserTeamInvitationsResponseDto> GetUserTeamInvitationsNbrAsync(int userId, int adminId);
+
+
     }
 }

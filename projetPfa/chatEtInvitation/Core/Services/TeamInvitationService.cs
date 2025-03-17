@@ -5,6 +5,7 @@ using System.Net.Http;
 using chatEtInvitation.Core.Interfaces.IExternServices;
 using chatEtInvitation.API.Mappers;
 using chatEtInvitation.Core.Models;
+using chatEtInvitation.Infrastructure.Data.Repositories;
 
 namespace chatEtInvitation.Core.Services
 {
@@ -56,6 +57,50 @@ namespace chatEtInvitation.Core.Services
             await _TeamInvitationRepository.AddInvitationAsync(invitation);
 
             return "SUCCESS";
+        }
+
+              //---------------------------------
+
+        public async Task<List<MemberTeamInvitationDTOO>> GetUserTeamInvitationsAsync(int userId)
+        {
+            var invitations = await _TeamInvitationRepository.GetUserTeamInvitationsAsync(userId);
+
+            return invitations.Select(inv => new MemberTeamInvitationDTOO
+            {
+                Id = inv.Id,
+                Emetteur = inv.Emetteur,
+                Recerpteur = inv.Recerpteur,
+                AdminId = inv.AdminId,
+            }).ToList();
+        }
+
+
+
+
+        // Méthode pour récupérer les invitations team et le nombre total
+        public async Task<UserTeamInvitationsResponseDto> GetUserTeamInvitationsNbrAsync(int userId, int adminId)
+        {
+            // Récupérer les invitations
+            var invitations = await _TeamInvitationRepository.GetUserTeamInvitationsAsync(userId);
+
+            // Récupérer le nombre total d'invitations
+            var totalData = await _TeamInvitationRepository.GetUserTeamInvitationsCountAsync(userId, adminId);
+
+            // Mapper les entités vers les DTOs
+            var invitationDtos = invitations.Select(inv => new MemberTeamInvitationDTOO
+            {
+                Id= inv.Id,
+                Emetteur = inv.Emetteur,
+                Recerpteur = inv.Recerpteur,
+                AdminId = inv.AdminId,
+            }).ToList();
+
+            // Retourner la réponseMemberTeamInvitationDTOO
+            return new UserTeamInvitationsResponseDto
+            {
+                Invitations = invitationDtos,
+                TotalData = totalData
+            };
         }
     }
 }
