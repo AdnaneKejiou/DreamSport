@@ -65,7 +65,17 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.IdAdmin == id);
         }
 
-        
+
+        //---- search user 
+
+        public async Task<List<User>> SearchUsersAsync(string searchTerm)
+        {
+            return await _context.Users
+                .Where(u => u.Username.Contains(searchTerm) || u.Nom.Contains(searchTerm) || u.Prenom.Contains(searchTerm))
+                .ToListAsync();
+        }
+
+
 
     }
 }

@@ -148,5 +148,14 @@ namespace gestionUtilisateur.API.Controllers
                 return StatusCode(500, "Error ");
             }
         }
+
+        //--search user
+
+        [HttpGet("search/{searchTerm}")]
+        public async Task<ActionResult<List<UserDto>>> SearchUsersAsync(string searchTerm)
+        {
+            var result = await _userService.SearchUsersAsync(searchTerm);
+            return Ok(result);
+        }
     }
 }

@@ -182,5 +182,24 @@ namespace gestionUtilisateur.Core.Services
             return user.Id;
 
         }
+
+        //----------- search user
+
+        public async Task<List<UserDto>> SearchUsersAsync(string searchTerm)
+        {
+            var users = await _userRepository.SearchUsersAsync(searchTerm);
+
+            // Mapper manuellement les entités vers les DTOs
+            return users.Select(u => new UserDto
+            {
+                Id = u.Id,
+                Nom = u.Nom,
+                Prenom = u.Prenom,
+                Username = u.Username,
+                Email = u.Email,
+                ImageUrl = u.ImageUrl,
+                Bio = u.Bio
+            }).ToList();
+        }
     }
 }

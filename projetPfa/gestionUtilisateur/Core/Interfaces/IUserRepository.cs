@@ -12,6 +12,8 @@ namespace gestionUtilisateur.Core.Interfaces
         Task UpdateAsync(User user);
         Task DeleteAsync(User user);
         Task<User?> GetByEmailAsync(string email, int id);
-        
+        Task<List<User>> SearchUsersAsync(string searchTerm);
+
+
     }
 }

@@ -14,7 +14,9 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<bool> ResetConteurResAnnulerAsync(int userId);
         Task<bool> CheckAndIncrementReservationAnnuleAsync(int userId);
         Task<int> Login(LoginDto login);
-        
+        Task<List<UserDto>> SearchUsersAsync(string searchTerm);
+
+
 
     }
 }

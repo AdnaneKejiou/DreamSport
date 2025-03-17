@@ -189,6 +189,21 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
 
+    //Route pour chercher un utilisateur search GET
+
+    {
+      "DownstreamPathTemplate": "/api/user/search/{searchTerm}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5255
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/users/search/{searchTerm}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
     //--------------------------------------------------------Gestion des Annonces-------------------------------------------
 
     {
