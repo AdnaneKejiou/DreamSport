@@ -220,5 +220,28 @@ namespace gestionEquipe.Core.Services
             return memberIds;
         }
 
+        //----------------
+        public async Task<UserTeamMembershipResponseDto> CheckUserTeamMembershipAsync(int userId, int adminId)
+        {
+            var membre = await _equipeRepository.GetUserTeamMembershipAsync(userId, adminId);
+
+            if (membre == null)
+            {
+                return new UserTeamMembershipResponseDto
+                {
+                    IsMember = false,
+                    EquipeId = null,
+                    EquipeNom = null
+                };
+            }
+
+            return new UserTeamMembershipResponseDto
+            {
+                IsMember = true,
+                EquipeId = membre.EquipeId,
+                EquipeNom = membre.Equipe.Name
+            };
+        }
+
     }
 }

@@ -80,6 +80,22 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
+
+
+    //verification si le membre exist dans l'equipe
+    {
+      "DownstreamPathTemplate": "/api/equipe/check-membership/{userId}/{adminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5108
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/equipe/check-membership/{userId}/{adminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
     //--------------------------------------------------------Gestion des Utilisateurs-------------------------------------------
 
     {
