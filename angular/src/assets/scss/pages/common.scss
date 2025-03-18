@@ -1,7 +1,26 @@
 /*-----------------
     14. Common
 -----------------------*/
+.btn-custom-outline {
+    border: 1px solid $__primarycolor;
+    color: $__primarycolor;
+    transition: background-color 0.3s ease, color 0.3s ease;
 
+    &:hover {
+        background-color: $__primarycolor;
+        color: white;
+        border-color: $__primarycolor;
+    }
+
+    &.active {
+        background-color: $__primarycolor;
+        color: white;
+    }
+}
+
+.tag-blue {
+    background-color: $__primarycolor; /* Couleur principale */
+}
 .pagination-group {
     @extend %display-flex-center;
     @extend %justify-content-center;

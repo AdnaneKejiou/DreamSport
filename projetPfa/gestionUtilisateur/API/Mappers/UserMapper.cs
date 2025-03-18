@@ -7,18 +7,24 @@ namespace gestionUtilisateur.API.Mappers
     {
         public static User AddUserToUser(AddUserManualyDTO dto)  //to pass data from controller to service layer
         {
-            return new User
+
+            User user = new User();
+
+            user.Nom = dto.Nom;
+            user.Prenom = dto.Prenom;
+            user.Email = dto.Email;
+            user.Password = dto.Password;
+            user.PhoneNumber = dto.PhoneNumber;
+            user.Username = dto.Username;
+            if (dto.Birthday!=null)
             {
-                Nom = dto.Nom,
-                Prenom = dto.Prenom,
-                Email = dto.Email,
-                Password = dto.Password,
-                PhoneNumber = dto.PhoneNumber,
-                Username = dto.Username,
-                Birthday = dto.Birthday,
-                Genre = dto.Genre,
-                IdAdmin = dto.AdminId,
-            };
+                user.Birthday = dto.Birthday;
+
+            }
+            user.Genre = dto.Genre;
+            user.IdAdmin = dto.AdminId;
+
+            return user;
         }
 
         public static ReturnAddedUserManualy UserToAddedUser(User user) {
@@ -37,20 +43,52 @@ namespace gestionUtilisateur.API.Mappers
         }
         public static void UpdateUser(User user, UpdateUserDto dto)
         {
-            user.Nom = user.Nom;
-            user.Prenom = user.Prenom;
-            user.Email = user.Email;
-            user.Password =  user.Password;
-            user.PhoneNumber = user.PhoneNumber;
-            user.Username = user.Username;
-            user.Birthday = user.Birthday;
-            user.Genre =  user.Genre;
+            if (dto.Nom != null)
+            {
+                user.Nom = dto.Nom;
+            }
+
+            if (dto.Prenom != null)
+            {
+                user.Prenom = dto.Prenom;
+            }
+
+            if (dto.Email != null)
+            {
+                user.Email = dto.Email;
+            }
+
+            if (dto.Password != null)
+            {
+                user.Password = dto.Password;
+            }
+            if (dto.Birthday != null)
+            {
+                user.Birthday = dto.Birthday;
+            }
+
+            if (dto.PhoneNumber != null)
+            {
+                user.PhoneNumber = dto.PhoneNumber;
+            }
+
+            if (dto.Username != null)
+            {
+                user.Username = dto.Username;
+            }
+
         }
         public static void UpdateSportData(User user, UpdateSportDataDTO dto)
         {
-           
-            user.Bio = dto.Bio;
-            user.ImageUrl = dto.ImageUrl;
+            if (dto.Bio != null)
+            {
+                user.Bio = dto.Bio;
+            }
+
+            if (dto.ImageUrl != null)
+            {
+                user.ImageUrl = dto.ImageUrl;
+            }
 
         }
 

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CommonService, DataService, SidebarService } from 'src/app/core/core.index';
 import { routes } from 'src/app/core/helpers/routes';
 import { sideBar } from 'src/app/shared/model/header.model';
-import { selectTenantData } from 'src/app/store/tenant/tenant.selectors';
+import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
 
 @Component({
   selector: 'app-header',

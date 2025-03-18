@@ -1,0 +1,61 @@
+<!-- Page Content -->
+<div class="content">
+  <div class="container">
+    <section class="card mb-40">
+      <div class="text-center mb-40">
+        <h3 class="mb-1">Book A Coach</h3>
+        <p class="sub-title">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      </div>
+  
+    </section>
+    <div class="row text-center">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+        <div class="card">
+          <section class="booking-date">
+            <div class="list-unstyled date-slider owl-theme mb-40">
+              <owl-carousel-o [options]="coachTimeDateOptions">
+                @for (date of dates; track date) {
+                  <ng-template carouselSlide>
+                    <div class="booking-date-item" (click)="selectDate(date)">
+                      <h6>{{date.date}}</h6>
+                      <p>{{date.day}}</p>
+                    </div>
+                  </ng-template>
+                }
+              </owl-carousel-o>
+            </div>
+            <div class="row">
+              @for (time of selectedTimes; track time) {
+                <div class="col-12 col-sm-4 col-md-3">
+                  <div class="time-slot" [ngClass]="{'active': time === selectedTime, 'checked': time === selectedTime}" (click)="selectTime(time)">
+                    <span>{{time}}</span><i class="fa-regular fa-check-circle"></i>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+        <aside class="card booking-details">
+          <h3 class="border-bottom">Booking Details</h3>
+          <ul>
+            <li><i class="feather icon-calendar me-2"></i>{{selectedDate?.date}}</li>
+            <li><i class="feather icon-clock me-2"></i>{{selectedTime}} to {{endTime}}</li>
+            <li><i class="feather icon-clock me-2"></i>Total Hour : {{totalHours}} Hrs</li>
+          </ul>
+          <div class="d-grid btn-block">
+            <button type="button" class="btn btn-primary">Subtotal : ${{subtotal}}</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <div class="text-center btn-row">
+      <a class="btn btn-primary me-3 btn-icon" [routerLink]="routes.userBookings"><i
+      class="feather icon-arrow-left-circle me-1"></i> Back</a>
+    </div>
+  </div>
+  <!-- /Container -->
+</div>
+<!-- /Page Content -->

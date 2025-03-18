@@ -14,7 +14,8 @@ namespace gestionSite.Infrastructure.Mappers
                 Description = addTerrainDto.Description,
                 Image = addTerrainDto.Image,
                 TerrainStatusId = addTerrainDto.TerrainStatusId,
-                IdAdmin = addTerrainDto.AdminId,
+                IdSport_Categorie = addTerrainDto.IdSport_Categorie,
+                IdAdmin = addTerrainDto.AdminId
             };
         }
 

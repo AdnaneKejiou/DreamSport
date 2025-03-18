@@ -30,10 +30,17 @@ namespace gestionSite.Infrastructure.Repositories
                                   .FirstOrDefaultAsync(ts => ts.Id == terrain.TerrainStatusId);
             if (__terrainStatus != null)
             {
+                try
+                {
                 terrain.TerrainStatusId = __terrainStatus.Id;
                 await _context.Terrains.AddAsync(terrain);
                 await _context.SaveChangesAsync();
                 return terrain;
+                }
+                catch
+                {
+                    return null;
+                }
             }
             return null;
         }

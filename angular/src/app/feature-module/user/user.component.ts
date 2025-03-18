@@ -65,8 +65,8 @@ export class UserComponent {
     if (this.page === 'dashboard') {
       this.courtBg = false;
     }
-    if (this.currentUrl == routes.userCoaches) {
-      this.page = 'invoice';
+    if (this.currentUrl == routes.teamInvitation) {
+      this.page = 'Invitation';
     }
     if (this.currentUrl == routes.userOthersettings) {
       this.page = 'user profile';

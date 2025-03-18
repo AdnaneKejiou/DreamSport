@@ -75,7 +75,7 @@
                     </div>
                   </div>
                   <div class="col-lg-7">
-                    <div class="table-search-top invoice-search-top">
+                    <div class="table-search-top Invitation-search-top">
                       <div id="tablefilter">
                         <div class="dataTables_filter">
                           <label>
@@ -88,7 +88,7 @@
                             </label>
                           </div>
                         </div>
-                        <div class="sortby-section invoice-sort">
+                        <div class="sortby-section Invitation-sort">
                           <div class="sorting-info">
                             <div class="sortby-filter-group court-sortby">
                               <div class="sortbyset week-bg me-0">
@@ -139,7 +139,7 @@
                     <tbody>
                       @for (data of tableData; track data) {
                         <tr>
-                          <td><a [routerLink] = "routes.coachesInvoice" class="text-primary">{{data.refID}}</a></td>
+                          <td><a [routerLink] = "routes.coachesInvitation" class="text-primary">{{data.refID}}</a></td>
                           <td>
                             <h2 class="table-avatar">
                               <a href="javascript:void(0);" class="avatar avatar-sm flex-shrink-0"><img class="avatar-img" [src]="data.img" alt="User Image"></a>

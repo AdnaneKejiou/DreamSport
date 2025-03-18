@@ -1006,7 +1006,7 @@
 			margin-top: 15px;
 		}
 	}
-	&.invoice-search-top{
+	&.Invitation-search-top{
 		#tablefilter{
 			.form-control {
 				padding: 10px;
@@ -1016,7 +1016,7 @@
 				}
 			}
 		}
-		.invoice-sort {
+		.Invitation-sort {
 			margin-right: 15px;
 			@include respond-below(custom767) {
 				margin-right: 0px;
@@ -1079,7 +1079,7 @@
 	}
 }
 .sortby-section {
-	&.invoice-sort {
+	&.Invitation-sort {
 		.sorting-info {
 			padding: 0;
 			margin: 0;

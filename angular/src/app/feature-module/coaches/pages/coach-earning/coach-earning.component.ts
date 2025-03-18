@@ -86,7 +86,7 @@ export class CoachEarningComponent{
 
   selectedList1: data[] = [{ value: 'Relevance' }, { value: 'Price' }];
   selectedList2: data[] = [{ value: 'This Week' }, { value: 'One Day' }];
-  selectedList3: data[] = [{ value: 'All Invoices' }, { value: 'Completed' }, { value: 'Inprogress' }];
+  selectedList3: data[] = [{ value: 'All Invitations' }, { value: 'Completed' }, { value: 'Inprogress' }];
 
   constructor(
     public data: DataService,

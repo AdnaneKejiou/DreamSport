@@ -4,7 +4,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { routes } from 'src/app/core/helpers/routes';
 import { Store} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectTenantData } from '../../store/tenant/tenant.selectors';
+import { selectTenantData } from '../../core/store/tenant/tenant.selectors';
 
 @Component({
   selector: 'app-home',
@@ -33,8 +33,6 @@ export class HomeComponent implements OnInit {
   
     ngOnInit() {
       AOS.init({ duration: 1200, once: true });
-
-      //this.changeTenant(1); 
       
     }
 

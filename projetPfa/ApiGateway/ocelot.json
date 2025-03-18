@@ -164,17 +164,17 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
     {
-      // Route pour récupérer le mot de passe d'un utilisateur (PUT)
-      "DownstreamPathTemplate": "/api/user/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/{id}/{AdminId}",
-      "UpstreamHttpMethod": [ "Get" ]
+        // Route pour récupérer un utilisateur (get)
+        "DownstreamPathTemplate": "/api/user/get/{id}/{AdminId}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 5255
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/users/get/{id}/{AdminId}",
+        "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/user/validate",
@@ -192,16 +192,16 @@
     //Route pour chercher un utilisateur search GET
 
     {
-      "DownstreamPathTemplate": "/api/user/search/{searchTerm}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/search/{searchTerm}",
-      "UpstreamHttpMethod": [ "GET" ]
+        "DownstreamPathTemplate": "/api/user/search/{searchTerm}/{AdminId}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 5255
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/users/search/{searchTerm}/{AdminId}",
+        "UpstreamHttpMethod": [ "GET" ]
     },
 
     //--------------------------------------------------------Gestion des Annonces-------------------------------------------
@@ -412,46 +412,63 @@
     },
     //--------------------------------------------------------Gestion des Statuts de Terrains-------------------------------------------
 
-    {
-      // Route pour récupérer les statuts de terrains (GET)
-      "DownstreamPathTemplate": "/api/terrainstatus/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrainstatus/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      // Route pour ajouter un statut de terrain (POST)
-      "DownstreamPathTemplate": "/api/terrainstatus",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour récupérer les statuts de terrains (GET)
+            "DownstreamPathTemplate": "/api/terrainstatus/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrainstatus/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrainstatus",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      // Route pour supprimer un statut de terrain (DELETE)
-      "DownstreamPathTemplate": "/api/terrainstatus/{StatusId}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour ajouter un statut de terrain (POST)
+            "DownstreamPathTemplate": "/api/terrainstatus",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrainstatus",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrainstatus/{StatusId}/{AdminId}",
-      "UpstreamHttpMethod": [ "DELETE" ]
-    },
-    //--------------------------------------------------------Gestion des Employer-------------------------------------------
+            // Route pour supprimer un statut de terrain (DELETE)
+            "DownstreamPathTemplate": "/api/terrainstatus/{StatusId}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrainstatus/{StatusId}/{AdminId}",
+            "UpstreamHttpMethod": [ "DELETE" ]
+        },
+        {
+            // Route pour récupérer les SportCategories (GET)
+            "DownstreamPathTemplate": "/api/SportCategorie/execute/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/SportCategorie/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
+
+
+
+
+        //--------------------------------------------------------Gestion des Employer-------------------------------------------
 
     {
       // Route pour récupérer un employé par ID

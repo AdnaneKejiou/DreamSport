@@ -99,7 +99,7 @@ export class EarningCoachingComponent {
     {value: 'One Day'}
   ];
   selectedList3: data[] = [
-    {value: 'All Invoices'},
+    {value: 'All Invitations'},
     {value: 'Completed'},
     {value: 'Inprogress'}
   ];

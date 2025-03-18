@@ -88,7 +88,7 @@ namespace gestionUtilisateur.API.Controllers
 
         }
 
-        [HttpGet("{id}/{AdminId}")]
+        [HttpGet("get/{id}/{AdminId}")]
         public async Task<IActionResult> GetUserAsync(int id)
         {
             User user = await _userService.GetUserAsync(id);
@@ -151,7 +151,7 @@ namespace gestionUtilisateur.API.Controllers
 
         //--search user
 
-        [HttpGet("search/{searchTerm}")]
+        [HttpGet("search/{searchTerm}/{AdminId}")]
         public async Task<ActionResult<List<UserDto>>> SearchUsersAsync(string searchTerm)
         {
             var result = await _userService.SearchUsersAsync(searchTerm);

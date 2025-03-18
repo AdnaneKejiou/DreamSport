@@ -10,11 +10,10 @@ namespace gestionUtilisateur.API.DTOs
         public string Prenom { get; set; }
         [Required(ErrorMessage = "The username is required")]
         public string Username { get; set; }
-        [Required(ErrorMessage ="The birthday is required")]
-        public DateTime Birthday { get; set; }
-        [Required(ErrorMessage = "The birthday is required")]
-        public string Genre { get; set; }
+        public DateTime? Birthday { get; set; }
         [Required(ErrorMessage = "The Sexe is required")]
+        public string? Genre { get; set; }
+        [Required(ErrorMessage = "PhoneNumber is required")]
         public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "The Email is required")]
         public string Email { get; set; }

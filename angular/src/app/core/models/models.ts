@@ -56,7 +56,8 @@ export interface usermenu {
   page1?: string
   route?: string,
   page2?: string,
-  page3?: string
+  page3?: string,
+
 }
 export interface coachPages {
   title?: string,
@@ -250,7 +251,7 @@ export interface sports {
   select: string;
   favourite?: boolean;
 }
-export interface invoice {
+export interface Invitation {
   id: number;
   image: string;
   image2?: string;

@@ -169,29 +169,27 @@ export class routes {
   public static get userDashboard(): string {
     return this.user + '/user-dashboard';
   }
+
   public static get userBookings(): string {
-    return this.user + '/user-bookings/bookings';
+    return this.user + '/user-bookings/details';
   }
-  public static get userCompleted(): string {
-    return this.user + '/user-bookings/completed';
-  }
-  public static get userOngoing(): string {
-    return this.user + '/user-bookings/ongoing';
-  }
-  public static get userCancelled(): string {
-    return this.user + '/user-bookings/cancelled';
+  public static get usertimedate(): string {
+    return this.user + '/user-bookings/timedate';
   }
   public static get userChat(): string {
     return this.user + '/chat';
   }
-  public static get userInvoice(): string {
-    return this.user + '/invoice';
+  public static get userInvitation(): string {
+    return this.user + '/invitation';
   }
-  public static get userCoaches(): string {
-    return this.user + '/coaches';
+  public static get teamInvitation(): string {
+    return this.user + '/team-invitation';
   }
   public static get userWallet(): string {
     return this.user + '/wallet';
+  }
+  public static get bookingDetails(): string {
+    return this.user + '/user-booking/details';
   }
   public static get userProfile(): string {
     return this.user + '/user-profile';
@@ -288,8 +286,8 @@ export class routes {
   public static get coachesMap(): string {
     return this.coach + 'pages/coaches-map';
   }
-  public static get coachesInvoice(): string {
-    return this.coach + 'pages/invoice';
+  public static get coachesInvitation(): string {
+    return this.coach + 'pages/Invitation';
   }
   public static get coachesMapSidebar(): string {
     return this.coach + 'pages/coaches-map-sidebar';
