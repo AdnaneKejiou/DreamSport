@@ -48,9 +48,9 @@ namespace Auth.Services
 
         
 
-        public async Task<GetUserDto?> GetUserByFacebookIdAsync(string facebookId, int AdminId)
+        public async Task<GetUserDto?> GetUserByFacebookIdAsync(string facebookId, int AdminId, string type)
         {
-            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/facebook-validate/{facebookId}/{AdminId}";
+            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/facebook-validate/{facebookId}/{AdminId}/{type}";
             var request = new HttpRequestMessage(HttpMethod.Post, requestUrl); // Change to POST
             request.Headers.Add("Tenant-ID", AdminId.ToString()); // Add AdminId to headers
             string h = "";
@@ -66,13 +66,13 @@ namespace Auth.Services
             return comingUser;
         }
 
-        public async Task<GetUserDto?> AddUserAsync(FacebookUserDto user, int AdminId)
+        public async Task<GetUserDto?> AddUserAsync(FacebookUserDto user, int AdminId, string type)
         {
             string requestUrl = $"{UserUrl.TrimEnd('/')}/users/Register-facebook";
 
             var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
             request.Headers.Add("Tenant-ID", AdminId.ToString()); // Add AdminId to headers
-            var jsonContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(new {user.FacebookId,user.Email,user.PictureUrl,user.FirstName, user.LastName, user.Gender,type}), Encoding.UTF8, "application/json");
             request.Content = jsonContent;
 
             var response = await _httpClient.SendAsync(request);

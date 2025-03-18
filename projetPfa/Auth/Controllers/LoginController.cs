@@ -38,7 +38,8 @@ namespace Auth.Controllers
             try
             {
                 // Determine login type: Normal, Facebook, or Google
-                string loginType = !string.IsNullOrEmpty(model.FacebookToken) ? "facebook" : "normal";
+                string loginType = !string.IsNullOrEmpty(model.FacebookToken) ? "facebook" :
+                           !string.IsNullOrEmpty(model.GoogleToken) ? "google" : "normal";
 
                 // Get the correct login service
                 var loginService = loginServiceFactory(loginType);

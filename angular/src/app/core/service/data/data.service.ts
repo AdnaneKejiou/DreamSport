@@ -71,8 +71,8 @@ export class DataService {
         })
       );
   }
-  public getuserInvoice() {
-    return this.http.get<apiResultFormat>('assets/json/user-invoice.json').pipe(
+  public getuserInvitation() {
+    return this.http.get<apiResultFormat>('assets/json/user-Invitation.json').pipe(
       map((res: apiResultFormat) => {
         return res;
       })
@@ -663,31 +663,36 @@ export class DataService {
       img: 'assets/img/icons/dashboard-icon.svg',
       page: 'dashboard',
       route: routes.userDashboard,
+
     },
     {
-      title: 'My Bookings',
+      title: 'Book Now',
       img: 'assets/img/icons/booking-icon.svg',
       page: 'bookings',
       page2: 'user bookings',
       route: routes.userBookings,
+
     },
     {
       title: 'Chat',
       img: 'assets/img/icons/chat-icon.svg',
       page: 'chat',
       route: routes.userChat,
+
     },
     {
-      title: 'Invoices',
-      img: 'assets/img/icons/invoice-icon.svg',
-      page: 'invoice',
-      route: routes.userInvoice,
+      title: 'Invitation',
+      img: 'assets/img/icons/Invitation-icon.svg',
+      page: 'Invitation',
+      route: routes.userInvitation,
+
     },
     {
-      title: 'Wallet',
-      img: 'assets/img/icons/wallet-icon.svg',
+      title: 'Team',
+      img: 'assets/img/icons/team.svg',
       page: 'wallet',
       route: routes.userWallet,
+
     },
     {
       title: 'Profile Setting',
@@ -696,6 +701,7 @@ export class DataService {
       page2: 'change password',
       page3: 'user profile',
       route: routes.userProfile,
+
     },
   ];
   public getuserMenus: BehaviorSubject<Array<usermenu>> = new BehaviorSubject<
@@ -739,7 +745,7 @@ export class DataService {
     },
     {
       title: 'Earnings',
-      img: 'assets/img/icons/invoice-icon.svg',
+      img: 'assets/img/icons/Invitation-icon.svg',
       route: routes.coachEarning,
       page: 'earnings',
       span: false,

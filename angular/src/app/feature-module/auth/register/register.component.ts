@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes';
 import { AuthService } from 'src/app/core/service/auth/authservice';
-import { selectTenantData } from 'src/app/store/tenant/tenant.selectors';
+import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
 
 @Component({
   selector: 'app-register',
@@ -23,14 +23,24 @@ export class RegisterComponent {
   tenantData$: Observable<any>;
     imageUrl: string | null = null;
     
+  errors: Record<string, string> = {};
+    
   form = new FormGroup({
-    Username: new FormControl('', [Validators.required]),
+    nom: new FormControl('', Validators.required),
+    prenom: new FormControl('', Validators.required),
+    username: new FormControl('', [Validators.required]),
+    birthday: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)  // Ensures the date format is YYYY-MM-DD
+    ]),
+    genre: new FormControl('', Validators.required),
+    phoneNumber: new FormControl('', Validators.required),
     email: new FormControl('', [
       Validators.required,
       Validators.email,
     ]),
     password: new FormControl('', [Validators.required]),
-    confirmpassword: new FormControl('', [Validators.required]),
+    passwordConfirmed: new FormControl('', [Validators.required]),
   });
 
   get f() {
@@ -45,14 +55,27 @@ export class RegisterComponent {
         }
       });     
     }
+
+   
+   
   signup() {
    
     if (
-      this.form.value.password === this.form.value.confirmpassword &&
+      this.form.value.password === this.form.value.passwordConfirmed &&
       this.form.valid
     ) {
       this.confirmPassword = true;
-      this.auth.signup();
+      this.auth.manualSignup(this.form.value).subscribe(
+        (response) => {
+          console.log('Signup successful:', response);
+          // Handle successful signup (redirect to login or home page)
+        },
+        (error) => {
+          this.errors = error;
+          console.error('Signup error:', error);
+          // Handle error (e.g., show error message to the user)
+        }
+      );
     } else{
       this.form.markAllAsTouched();
     }

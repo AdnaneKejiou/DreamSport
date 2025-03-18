@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes';
-import { selectTenantData } from 'src/app/store/tenant/tenant.selectors';
+import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
 
 @Component({
   selector: 'app-faq',

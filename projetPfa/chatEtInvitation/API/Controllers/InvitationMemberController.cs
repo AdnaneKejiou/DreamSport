@@ -131,5 +131,15 @@ namespace chatEtInvitation.API.Controllers
         }
 
 
+        // GET api/memberinvitations/{userId}
+
+        [HttpGet("user-invitations/{userId}/{adminId}")]
+        public async Task<ActionResult<UserInvitationsResponseDto>> GetUserInvitationsNbrAsync(int userId, int adminId)
+        {
+            var result = await _memberInvitationService.GetUserInvitationsNbrAsync(userId, adminId);
+            return Ok(result);
+        }
+
+
     }
 }

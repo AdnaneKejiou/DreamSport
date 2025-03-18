@@ -88,7 +88,7 @@ namespace gestionUtilisateur.API.Controllers
 
         }
 
-        [HttpGet("{id}/{AdminId}")]
+        [HttpGet("get/{id}/{AdminId}")]
         public async Task<IActionResult> GetUserAsync(int id)
         {
             User user = await _userService.GetUserAsync(id);
@@ -156,20 +156,30 @@ namespace gestionUtilisateur.API.Controllers
             var result = await _userService.AddUserManualyAsync(user);
             if (result.errors.Count == 0)
             {
-                ReturnedLoginDto dtoo = await _userService.FacebookLoginAsync(dto.FacebookId, dto.AdminId);
-                return Ok(dtoo);
+                if (dto.type.Equals("facebook"))
+                {
+                    ReturnedLoginDto dtoo = await _userService.FacebookLoginAsync(dto.FacebookId, dto.AdminId);
+                    return Ok(dtoo);
+                }
+                ReturnedLoginDto dtoa = await _userService.GoogleLoginAsync(dto.FacebookId, dto.AdminId);
+                return Ok(dtoa);
 
             }
             return BadRequest(result);
         }
 
-        [HttpPost("facebook-validate/{id}/{AdminId}")]
-        public async Task<IActionResult> GetUserByFacebookAsync(string id, int AdminId)
+        [HttpPost("facebook-validate/{id}/{AdminId}/{type}")]
+        public async Task<IActionResult> GetUserByFacebookAsync(string id, int AdminId, string type )
         {
             try
             {
-                ReturnedLoginDto dto = await _userService.FacebookLoginAsync(id, AdminId);
-                
+                if (type.Equals("facebook"))
+                {
+                    ReturnedLoginDto dtoo = await _userService.FacebookLoginAsync(id, AdminId);
+                    return Ok(dtoo);
+                }
+
+                ReturnedLoginDto dto = await _userService.GoogleLoginAsync(id, AdminId);
                 return Ok(dto);
             }
             catch (KeyNotFoundException ex)
@@ -180,6 +190,15 @@ namespace gestionUtilisateur.API.Controllers
             {
                 return StatusCode(500, "Error ");
             }
+        }
+
+        //--search user
+
+        [HttpGet("search/{searchTerm}/{AdminId}")]
+        public async Task<ActionResult<List<UserDto>>> SearchUsersAsync(string searchTerm)
+        {
+            var result = await _userService.SearchUsersAsync(searchTerm);
+            return Ok(result);
         }
     }
 }

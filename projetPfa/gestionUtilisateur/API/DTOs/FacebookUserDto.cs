@@ -9,5 +9,6 @@
         public string? Gender { get; set; }
         public string? PictureUrl { get; set; }
         public int AdminId { get; set; }
+        public string type { get; set; }
     }
 }

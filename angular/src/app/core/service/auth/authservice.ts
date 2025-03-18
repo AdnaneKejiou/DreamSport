@@ -9,8 +9,7 @@ import { UserType, LOGIN_ENDPOINTS } from '../../contantes/UserType';
 import { jwtDecode } from 'jwt-decode';
 import { DecodedToken } from '../../models/decoded-token.model';
 
-declare var gapi: any;
-import { loadGapiInsideDOM } from 'gapi-script';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,12 +19,20 @@ export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
   private Tenant =11;
   private userKey = 'user_data';
-  private GoogleClientId: string = '783212430758-tu7hekssgqrbcmldctchgi7ruasi25rk.apps.googleusercontent.com';
+  private GoogleClientId: string = '39053290852-ol06nn3fdpl6cbs2eobh3toc44dbb8kr.apps.googleusercontent.com';
 
   constructor(private router: Router, private http: HttpClient) {}
 
-  signup(){
-    this.router.navigate(['/login']);
+  manualSignup(userData: any): Observable<any> {
+    const endpoint= `${environment.apiUrl}/users`;
+    console.log(userData);  
+    return this.http.post(endpoint, userData).pipe(
+      catchError((errorResponse) => {
+        // Extract nested "errors" object
+        const backendErrors = errorResponse.error?.errors || {};
+        return throwError(() => backendErrors);
+      })
+    ); 
   }
 
   login(email: string, password: string, userType: UserType): Observable<any> {
@@ -74,10 +81,13 @@ export class AuthService {
     const decodedToken: DecodedToken | null = userData ? JSON.parse(userData) as DecodedToken : null;
     if(decodedToken && decodedToken.role === UserType.ADMIN){
       this.router.navigate(['/admin/dashboard']);
+      return;
     }else if( decodedToken && decodedToken.role === UserType.CLIENT){
       this.router.navigate(['/user/user-dashboard']);
+      return;
     }else if( decodedToken && decodedToken.role === UserType.EMPLOYEE){
       this.router.navigate(['/employee/dashboard']);
+      return;
     }
   }
   // ✅ Store only the access token
@@ -154,25 +164,63 @@ export class AuthService {
     );
   }
 
-  public initializeGoogleSDK() {
-    gapi.load('auth2', () => {
-      gapi.auth2.init({
-        client_id: this.GoogleClientId
-      });
+  initializeGoogleSignIn(): void {
+    window.google.accounts.id.initialize({
+      client_id: this.GoogleClientId,  // Use the correct Google Client ID
+      callback: this.handleCredentialResponse.bind(this) // Bind the context for 'this'
     });
+    
+  }
+  
+  GoogleSignIn(): void {
+    // Clear any existing login state (if needed)
+    window.google.accounts.id.disableAutoSelect();
+  
+    // Trigger the Google login prompt
+    window.google.accounts.id.prompt();
   }
 
-  public GoogleSignIn(): Promise<any> {
-    const auth2 = gapi.auth2.getAuthInstance();
-    return new Promise((resolve, reject) => {
-      auth2.signIn().then((googleUser: any) => {
-        const profile = googleUser.getBasicProfile();
-        const idToken = googleUser.getAuthResponse().id_token;
-        resolve({ idToken, profile });
-      }).catch((error: any) => {
-        reject(error);
+  handleCredentialResponse(response: any): void {
+    if (response && response.credential) {
+      this.verifyToken(response.credential).subscribe({
+        next: (data) => {
+          console.log('Successfully logged in with Google');
+        },
+        error: (err) => {
+          console.error('Error during Google login:', err);
+        }
       });
-    });
+    } else {
+      console.error('Google login failed: No credential returned');
+    }
+  }
+
+  verifyToken(token: string) {
+    const endpoint = environment.apiUrl + LOGIN_ENDPOINTS["User"];
+    const body = {
+      'email': null,
+      'password': null,
+      'adminId': this.Tenant,  
+      'facebookToken': null, 
+      'googleToken': token 
+    };
+    const headers = {
+      'Tenant-ID': this.Tenant.toString(),
+      'Content-Type': 'application/json'
+    };
+  
+    console.log("📢 Sending request with body:", body);  // Log the body being sent
+  
+    return this.http.post(endpoint, body, { headers, withCredentials: true }).pipe(
+      tap((response: any) => {
+        this.storeAccessToken(response.token);
+        this.isAuthenticatedSubject.next(true);
+        this.RedirectDashboard();
+      }),
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    );
   }
 }
 

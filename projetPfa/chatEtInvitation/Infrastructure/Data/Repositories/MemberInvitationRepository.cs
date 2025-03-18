@@ -68,6 +68,16 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
                 .ToListAsync();
         }
 
+
+        //Methode pour lister les invitation d'un membre avec le nombre 
+
+        public async Task<int> GetUserInvitationsCountAsync(int userId, int adminId)
+        {
+            return await _context.MemberInvitations
+                .Where(inv => inv.Recerpteur == userId && inv.AdminId == adminId)
+                .CountAsync();
+        }
+
     }
 }
 

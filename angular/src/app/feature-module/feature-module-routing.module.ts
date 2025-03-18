@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FeatureModuleComponent } from './feature-module.component';
-import { TenantGuard } from 'src/app/guards/tenant.guard'; // Importer le TenantGuard
+import { TenantGuard } from 'src/app/core/guard/tenant/tenant.guard'; // Importer le TenantGuard
 
 const routes: Routes = [
   {

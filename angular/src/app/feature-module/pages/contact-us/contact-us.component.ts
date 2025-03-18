@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes';
-import { selectTenantData, selectTenantId } from 'src/app/store/tenant/tenant.selectors';
+import { selectTenantData, selectTenantId } from 'src/app/core/store/tenant/tenant.selectors';
 import { MailServiceService } from 'src/app/core/service/Mail/mail-service.service'; // Assurez-vous que le chemin est correct
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

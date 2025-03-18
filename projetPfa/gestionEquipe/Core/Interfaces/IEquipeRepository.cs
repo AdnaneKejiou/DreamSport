@@ -14,6 +14,8 @@ namespace gestionEquipe.Core.Interfaces
         //supprimer equipe with members by id
         // Méthode pour supprimer une équipe et ses membres
         Task SupprimerEquipeAvecMembresAsync(int equipeId);
+        Task<Members> GetUserTeamMembershipAsync(int userId, int adminId);
+
 
     }
 }

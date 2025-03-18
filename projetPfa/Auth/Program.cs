@@ -37,10 +37,13 @@ builder.Services.AddScoped<Func<string, ILoginService>>(serviceProvider => key =
     return key switch
     {
         "facebook" => serviceProvider.GetRequiredService<FacebookLoginAdapter>(),
+        "google" => serviceProvider.GetRequiredService<GoogleLoginAdapter>(),
         _ => serviceProvider.GetRequiredService<UserService>(), // Default login method
     };
 });
+builder.Services.AddScoped<GoogleLoginAdapter>();
 
+builder.Services.AddScoped<IGoogleAuthService, GoogleAuthService>();
 // JWT Authentication setup (this part may already be in your `Program.cs` file)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

@@ -77,12 +77,7 @@ export class LoginComponent implements OnInit {
     this.show_password = !this.show_password;
     this.show_password1 =!this.show_password1;
   }
-  ngOnInit(): void {
-    if (localStorage.getItem('authenticated')) {
-      localStorage.removeItem('authenticated');
-    }// need to be removed
-    this.auth.initializeGoogleSDK();
-  }
+  
 
  
   async facebookLogin() {
@@ -106,13 +101,15 @@ export class LoginComponent implements OnInit {
       }
     }, { scope: 'email' });
   }
-  
-  Googlelogin() {
-    this.auth.GoogleSignIn().then((data) => {
-      console.log('Google user info:', data);
-      // Here you can send the idToken to your server to authenticate
-    }).catch((error) => {
-      console.error('Login failed', error);
-    });
+  ngOnInit(): void {
+    if (localStorage.getItem('authenticated')) {
+      localStorage.removeItem('authenticated');
+    }// need to be removed
+    this.auth.initializeGoogleSignIn();
   }
+  
+  Googlelogin(): void {
+    this.auth.GoogleSignIn();
+  }
+  
 }

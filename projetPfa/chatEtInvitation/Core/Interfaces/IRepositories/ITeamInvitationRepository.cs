@@ -9,6 +9,10 @@ namespace chatEtInvitation.Core.Interfaces.IRepositories
         Task AddInvitationAsync(TeamInvitation invitation);
         Task<TeamInvitation> GetInvitationByIdAsync(int invId);
         Task DeleteInvitationAsync(TeamInvitation invitation);
+        Task<List<TeamInvitation>> GetUserTeamInvitationsAsync(int userId);
+        Task<int> GetUserTeamInvitationsCountAsync(int userId, int adminId);
+
+
 
 
     }

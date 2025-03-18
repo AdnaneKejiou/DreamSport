@@ -91,6 +91,54 @@
                           >
                           <!-- Register Form -->
                           <form [formGroup]="form" (ngSubmit)="signup()">
+                            <!-- Nom field -->
+                            <div class="form-group">
+                              <div class="group-img">
+                                <i class="feather icon-user"></i>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Nom"
+                                  formControlName="nom"
+                                  [ngClass]="{
+                                    'is-invalid': form.get('nom')?.touched && form.get('nom')?.invalid
+                                  }"
+                                />
+                                <div *ngIf="form.get('nom')?.touched && form.get('nom ')?.invalid" class="invalid-feedback">
+                                  <div *ngIf="form.get('nom')?.hasError('required')">
+                                    Nom is required.
+                                  </div>
+                                  <div class="invalid-feedback" *ngIf="errors['Nom']" style="display: block;">
+                                    {{ errors['Nom'] }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Prenom field -->
+                            <div class="form-group">
+                              <div class="group-img">
+                                <i class="feather icon-user"></i>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Prenom"
+                                  formControlName="prenom"
+                                  [ngClass]="{
+                                    'is-invalid': form.get('prenom')?.touched && form.get('prenom')?.invalid
+                                  }"
+                                />
+                                <div *ngIf="form.get('prenom')?.touched && form.get('prenom')?.invalid" class="invalid-feedback">
+                                  <div *ngIf="form.get('prenom')?.hasError('required')">
+                                    Prenom is required.
+                                  </div>
+                                  <div class="invalid-feedback" *ngIf="errors['Prenom']" style="display: block;">
+                                    {{ errors['Prenom'] }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Username field -->
                             <div class="form-group">
                               <div class="group-img">
                                 <i class="feather icon-user"></i>
@@ -98,15 +146,15 @@
                                   type="text"
                                   class="form-control"
                                   placeholder="Username"
-                                  formControlName="Username"
+                                  formControlName="username"
                             [ngClass]="{
-                            'is-invalid': f['Username'].touched && f['Username'].invalid
+                            'is-invalid': f['username'].touched && f['username'].invalid
                             }" />
-                                  @if (f['Username'].touched && f['Username'].invalid) {
+                                  @if (f['username'].touched && f['username'].invalid) {
                                     <div
                                       class="invalid-feedback"
                                       >
-                                      @if (f['Username'].errors && f['Username'].errors['required']) {
+                                      @if (f['username'].errors && f['username'].errors['required']) {
                                         <div
                                           >
                                           UserName is required.
@@ -119,8 +167,83 @@
                                       {{ CustomControler }}
                                     </div>
                                   }
+                                  <div class="invalid-feedback" *ngIf="errors['Username']" style="display: block;">
+                                    {{ errors['Username'] }}
+                                  </div>
                                 </div>
                               </div>
+                             <!-- Birthday field -->
+                            <div class="form-group">
+                              <div class="group-img">
+                                <i class="feather icon-calendar"></i>
+                                <input
+                                  type="date"
+                                  class="form-control"
+                                  formControlName="birthday"
+                                  [ngClass]="{
+                                    'is-invalid': form.get('birthday')?.touched && form.get('birthday')?.invalid
+                                  }"
+                                />
+                                <div *ngIf="form.get('birthday')?.touched && form.get('birthday')?.invalid" class="invalid-feedback">
+                                  <div *ngIf="form.get('birthday')?.hasError('required')">
+                                    Birthday is required.
+                                  </div>
+                                  <div *ngIf="form.get('birthday')?.hasError('pattern')">
+                                    Invalid date format. Please use yyyy-MM-dd.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Genre field -->
+                            <div class="form-group">
+                              <div class="group-img">
+                                <i class="feather icon-male"></i>
+                                <select
+                                  class="form-control"
+                                  formControlName="genre"
+                                  [ngClass]="{
+                                    'is-invalid': form.get('genre')?.touched && form.get('genre')?.invalid
+                                  }"
+                                >
+                                  <option value="">Select Gender</option>
+                                  <option value="male">Male</option>
+                                  <option value="female">Female</option>
+                                </select>
+                                <div *ngIf="form.get('genre')?.touched && form.get('genre')?.invalid" class="invalid-feedback">
+                                  <div *ngIf="form.get('genre')?.hasError('required')">
+                                    Gender is required.
+                                  </div>
+                                  <div *ngIf="form.get('genre')?.hasError('invalidGenre')">
+                                    Genre must be either "male" or "female".
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- PhoneNumber field -->
+                            <div class="form-group">
+                              <div class="group-img">
+                                <i class="feather icon-phone"></i>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Phone Number"
+                                  formControlName="phoneNumber"
+                                  [ngClass]="{
+                                    'is-invalid': form.get('phoneNumber')?.touched && form.get('phoneNumber')?.invalid
+                                  }"
+                                />
+                                <div *ngIf="form.get('phoneNumber')?.touched && form.get('phoneNumber')?.invalid" class="invalid-feedback">
+                                  <div *ngIf="form.get('phoneNumber')?.hasError('required')">
+                                    Phone Number is required.
+                                  </div>
+                                  <div class="invalid-feedback" *ngIf="errors['PhoneNumber']" style="display: block;">
+                                    {{ errors['PhoneNumber'] }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Email field -->
                               <div class="form-group">
                                 <div class="group-img">
                                   <i class="feather icon-mail"></i>
@@ -154,8 +277,13 @@
                                         }
                                       </div>
                                     }
+                                    <div class="invalid-feedback" *ngIf="errors?.['Email']" style="display: block;">
+                                      {{ errors['Email'] }}
                                   </div>
+                                    </div>
+                                    
                                 </div>
+                                <!-- Password field -->
                                 <div class="form-group">
                                   <div class="pass-group group-img">
                                     <i
@@ -191,6 +319,7 @@
                                       }
                                     </div>
                                   </div>
+                                  <!-- Confirmation field -->
                                   <div class="form-group">
                                     <div class="pass-group group-img">
                                       <i
@@ -205,21 +334,21 @@
                                         class="form-control pass-confirm"
                                         placeholder="Confirm Password"
                                         [type]="show_password1 ? 'password' : 'text'"
-                                        formControlName="confirmpassword"
+                                        formControlName="passwordConfirmed"
                             [ngClass]="{
                             'is-invalid':
-                            f['confirmpassword'].touched && f['confirmpassword'].invalid
+                            f['passwordConfirmed'].touched && f['passwordConfirmed'].invalid
                             }"
                                         />
                                         @if (
-                                          f['confirmpassword'].touched && f['confirmpassword'].invalid
+                                          f['passwordConfirmed'].touched && f['passwordConfirmed'].invalid
                                           ) {
                                           <div
                                             class="invalid-feedback"
                                             >
                                             @if (
-                                              f['confirmpassword'].errors &&
-                                              f['confirmpassword'].errors['required']
+                                              f['passwordConfirmed'].errors &&
+                                              f['passwordConfirmed'].errors['required']
                                               ) {
                                               <div
                                                 >
@@ -313,15 +442,15 @@
                                                   type="text"
                                                   class="form-control"
                                                   placeholder="Username"
-                                                  formControlName="Username"
+                                                  formControlName="username"
                             [ngClass]="{
-                            'is-invalid': f['Username'].touched && f['Username'].invalid
+                            'is-invalid': f['username'].touched && f['username'].invalid
                             }" />
-                                                  @if (f['Username'].touched && f['Username'].invalid) {
+                                                  @if (f['username'].touched && f['username'].invalid) {
                                                     <div
                                                       class="invalid-feedback"
                                                       >
-                                                      @if (f['Username'].errors && f['Username'].errors['required']) {
+                                                      @if (f['username'].errors && f['username'].errors['required']) {
                                                         <div
                                                           >
                                                           UserName is required.
@@ -421,21 +550,21 @@
                                                         class="form-control pass-confirm"
                                                         placeholder="Confirm Password"
                                                         [type]="show_password4 ? 'password' : 'text'"
-                                                        formControlName="confirmpassword"
+                                                        formControlName="passwordConfirmed"
                             [ngClass]="{
                             'is-invalid':
-                            f['confirmpassword'].touched && f['confirmpassword'].invalid
+                            f['passwordConfirmed'].touched && f['passwordConfirmed'].invalid
                             }"
                                                         />
                                                         @if (
-                                                          f['confirmpassword'].touched && f['confirmpassword'].invalid
+                                                          f['passwordConfirmed'].touched && f['passwordConfirmed'].invalid
                                                           ) {
                                                           <div
                                                             class="invalid-feedback"
                                                             >
                                                             @if (
-                                                              f['confirmpassword'].errors &&
-                                                              f['confirmpassword'].errors['required']
+                                                              f['passwordConfirmed'].errors &&
+                                                              f['passwordConfirmed'].errors['required']
                                                               ) {
                                                               <div
                                                                 >

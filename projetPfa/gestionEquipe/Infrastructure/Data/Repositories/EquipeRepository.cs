@@ -92,6 +92,14 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
            
         }
 
+        //-------------
+        public async Task<Members> GetUserTeamMembershipAsync(int userId, int adminId)
+        {
+            return await _context.Memberss
+                .Include(m => m.Equipe) // Inclure les détails de l'équipe
+                .FirstOrDefaultAsync(m => m.UserId == userId && m.Equipe.AdminId == adminId);
+        }
+
 
     }
 

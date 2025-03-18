@@ -51,12 +51,12 @@
             <div class="row align-items-center">
               <div class="col-md-6">
                 <div class="court-table-head">
-                  <h4>Invoices</h4>
+                  <h4>Invitations</h4>
                   <p>Lorem Ipsum is simply dummy text of the printing</p>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="sortby-section invoice-sort">
+                <div class="sortby-section Invitation-sort">
                   <div class="sorting-info">
                     <div class="sortby-filter-group court-sortby">
                       <div class="sortbyset week-bg me-0">
@@ -103,12 +103,12 @@
                 <div class="row align-items-center">
                   <div class="col-md-5">
                     <div class="court-table-head">
-                      <h4>Invoices</h4>
+                      <h4>Invitations</h4>
                       <p>Lorem Ipsum is simply dummy text of the printing</p>
                     </div>
                   </div>
                   <div class="col-md-7">
-                    <div class="table-search-top invoice-search-top">
+                    <div class="table-search-top Invitation-search-top">
                       <div class="dataTables_filter">
                         <label>
                           <input
@@ -126,7 +126,7 @@
                                 <mat-select  
                                   [(ngModel)]="selectedValue3"
                                   [ngModelOptions]="{standalone: true}" class="select"
-                                  placeholder="All Invoices">
+                                  placeholder="All Invitations">
                                   @for (data of selectedList3; track data) {
                                     <mat-option
                                       [value]="data.value">

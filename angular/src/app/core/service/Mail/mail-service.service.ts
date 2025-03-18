@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { selectTenantData } from 'src/app/store/tenant/tenant.selectors';
+import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
 import { Store } from '@ngrx/store';
 @Injectable({
   providedIn: 'root'

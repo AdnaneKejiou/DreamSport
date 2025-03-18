@@ -10,6 +10,7 @@ children : [
       import('./coach-details/coach-details.module').then(
         (m) => (m).CoachDetailsModule
       ),
+      
   },
   {
     path: 'coach-order-confirm',

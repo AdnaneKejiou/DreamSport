@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes';
 import { bloggrid, ourteams } from 'src/app/core/models/models';
 import { DataService } from 'src/app/core/service/data/data.service';
-import { selectTenantData } from 'src/app/store/tenant/tenant.selectors';
+import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
 
 @Component({
   selector: 'app-about-us',

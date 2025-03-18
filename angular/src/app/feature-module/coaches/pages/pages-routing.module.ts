@@ -63,9 +63,9 @@ const routes: Routes = [
           import('./booking/booking.module').then((m) => m.BookingModule),
       },
       {
-        path: 'invoice',
+        path: 'Invitation',
         loadChildren: () =>
-          import('./invoice/invoice.module').then((m) => m.InvoiceModule),
+          import('./Invitation/Invitation.module').then((m) => m.InvitationModule),
       },
       {
         path: 'coaches-grid-sidebar',

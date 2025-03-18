@@ -21,10 +21,10 @@ namespace Auth.Services
                 throw new UnauthorizedAccessException("Invalid Facebook token.");
             //hna triguel
            
-            GetUserDto dto = await _userService.GetUserByFacebookIdAsync(facebookUser.FacebookId, model.AdminId);
+            GetUserDto dto = await _userService.GetUserByFacebookIdAsync(facebookUser.FacebookId, model.AdminId, "facebook");
             if(dto == null)
             {
-                return await _userService.AddUserAsync(facebookUser, model.AdminId);
+                return await _userService.AddUserAsync(facebookUser, model.AdminId, "facebook");
             }
             return dto;
         }

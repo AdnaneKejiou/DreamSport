@@ -51,7 +51,7 @@
             </li>
             <li>
               <a [routerLink] = "routes.coachEarning" class="active">
-                <img src="assets/img/icons/invoice-icon.svg" alt="Icon">
+                <img src="assets/img/icons/Invitation-icon.svg" alt="Icon">
                 <span>Earnings</span>
               </a>
             </li>
@@ -126,12 +126,12 @@
             <div class="row align-items-center">
               <div class="col-xl-6 col-md-6">
                 <div class="court-table-head">
-                  <h4>Invoices</h4>
+                  <h4>Invitations</h4>
                   <p>Lorem Ipsum is simply dummy text of the printing</p>
                 </div>
               </div>
               <div class="col-xl-6 col-md-6">
-                <div class="sortby-section invoice-sort">
+                <div class="sortby-section Invitation-sort">
                   <div class="sorting-info">
                     <div class="sortby-filter-group court-sortby">
                       <div class="sortbyset week-bg me-0">
@@ -173,12 +173,12 @@
                 <div class="row align-items-center">
                   <div class="col-md-5">
                     <div class="court-table-head">
-                      <h4>Invoices</h4>
+                      <h4>Invitations</h4>
                       <p>Lorem Ipsum is simply dummy text of the printing</p>
                     </div>
                   </div>
                   <div class="col-md-7">
-                    <div class="table-search-top invoice-search-top">
+                    <div class="table-search-top Invitation-search-top">
                       <div id="tablefilter">
                         <div class="dataTables_filter">
                           <label>
@@ -195,7 +195,7 @@
                           <div class="sortby-filter-group court-sortby">
                             <div class="sortbyset m-0">
                               <div class="sorting-select">
-                                <mat-select   [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}" class="select"  placeholder="All Invoices">
+                                <mat-select   [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}" class="select"  placeholder="All Invitations">
                                   @for (data of selectedList1; track data) {
                                     <mat-option [value]="data.value">
                                       {{data.value}}

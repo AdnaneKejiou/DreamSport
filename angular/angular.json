@@ -42,10 +42,9 @@
              
             ],
             "scripts": [
-              "node_modules/aos/dist/aos.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/gapi-script/dist/gapi.min.js"
-            ]
+            "node_modules/aos/dist/aos.js",
+            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+          ]
           },
           "configurations": {
             "production": {

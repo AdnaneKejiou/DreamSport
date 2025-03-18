@@ -5,31 +5,25 @@ import { UserBookingsComponent } from './user-bookings.component';
 const routes: Routes = [{ path: '', component: UserBookingsComponent,
 children: [
   {
-    path: 'bookings',
+    path: 'details',
     loadChildren: () =>
-      import('../user-bookings/bookings/bookings.module').then(
-        (m) => m.BookingsModule
+      import('./details/details.module').then(
+        (m) => (m).DetailsModule
       ),
+      
   },
   {
-    path: 'completed',
+    path: 'timedate/:id',
     loadChildren: () =>
-      import('../user-bookings/completed/completed.module').then(
-        (m) => m.CompletedModule
+      import('./timedate/timedate.module').then(
+        (m) => (m).CoachTimedateModule
       ),
   },
-  {
-    path: 'ongoing',
-    loadChildren: () =>
-      import('./ongoing/ongoing.module').then((m) => m.OngoingModule),
-  },
-  {
-    path: 'cancelled',
-    loadChildren: () =>
-      import('../user-bookings/cancelled/cancelled.module').then(
-        (m) => m.CancelledModule
-      ),
-  },
+  { path: 'timedate',
+     redirectTo: 'details',
+      pathMatch: 'full' }
+
+
 ]
 }];
 

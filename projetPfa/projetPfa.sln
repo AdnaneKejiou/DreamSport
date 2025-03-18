@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "serviceMail", "serviceMail\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Messaging", "Shared.Messaging\Shared.Messaging.csproj", "{AB2BCA1E-0A02-4C48-89C6-CEA5E6C4479E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth", "Auth\Auth.csproj", "{8ABCEE06-D8B3-4DBE-B6D5-D29347FEEA48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth", "Auth\Auth.csproj", "{8ABCEE06-D8B3-4DBE-B6D5-D29347FEEA48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

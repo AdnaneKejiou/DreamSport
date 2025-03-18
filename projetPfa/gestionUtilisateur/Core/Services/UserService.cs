@@ -48,10 +48,16 @@ namespace gestionUtilisateur.Core.Services
             {
                 if (await _userRepository.DoesUserWithFacebookExist(_user.FacebookId, _user.IdAdmin)!=null)
                 {
-                    Errors.Add("Facebook", "User with that Id already exist");
+                    Errors.Add("Facebook", "User with that FacebookId already exist");
                 }
             }
-
+            if(_user.GoogleId != null)
+            {
+                if (await _userRepository.DoesUserWithGoogleExist(_user.GoogleId, _user.IdAdmin) != null)
+                {
+                    Errors.Add("Google", "User with that GoogleId already exist");
+                }
+            }
             if (Errors.Count == 0)
             {
                 var user = await _userRepository.AddUserManualyAsync(_user);
@@ -209,5 +215,37 @@ namespace gestionUtilisateur.Core.Services
             }
             return UserMapper.ModelToLoginDto(user);
         }
+
+<<<<<<< Updated upstream
+        //----------- search user
+
+        public async Task<List<UserDto>> SearchUsersAsync(string searchTerm)
+        {
+            var users = await _userRepository.SearchUsersAsync(searchTerm);
+
+            // Mapper manuellement les entités vers les DTOs
+            return users.Select(u => new UserDto
+            {
+                Id = u.Id,
+                Nom = u.Nom,
+                Prenom = u.Prenom,
+                Username = u.Username,
+                Email = u.Email,
+                ImageUrl = u.ImageUrl,
+                Bio = u.Bio
+            }).ToList();
+        }
+=======
+        public async Task<ReturnedLoginDto> GoogleLoginAsync(string Id, int adminId)
+        {
+            User user = await _userRepository.DoesUserWithGoogleExist(Id, adminId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User Not Found");
+            }
+            return UserMapper.ModelToLoginDto(user);
+        }
+
+>>>>>>> Stashed changes
     }
 }

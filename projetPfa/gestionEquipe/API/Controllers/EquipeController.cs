@@ -18,7 +18,7 @@ namespace gestionEquipe.API.Controllers
 
         public EquipeController(IEquipeService equipeService)
         {
-            _equipeService= equipeService;
+            _equipeService = equipeService;
         }
 
         [HttpPost]
@@ -37,9 +37,9 @@ namespace gestionEquipe.API.Controllers
         [HttpPut]
         public async Task<ActionResult<UpdatedEquipeDTO>> UpdateEquipeAsync([FromBody] UpdateEquipeDTO UpdateEquipe)
         {
-          var equipe = EquipeMapper.UpdateEquipDTOtoEquipe(UpdateEquipe);
+            var equipe = EquipeMapper.UpdateEquipDTOtoEquipe(UpdateEquipe);
             UpdatedEquipeDTO result = await _equipeService.UpdateEquipeAsync(equipe);
-           if (result.Errors.Count() > 0)
+            if (result.Errors.Count() > 0)
             {
                 return BadRequest(result);
             }
@@ -109,14 +109,19 @@ namespace gestionEquipe.API.Controllers
                 IEnumerable<int> MembersIds = await _equipeService.GetTeamAsync(teamId);
                 return Ok(MembersIds);
             }
-            catch(KeyNotFoundException ex) 
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
         }
 
 
-
-
+        //--------------
+        [HttpGet("check-membership/{userId}/{adminId}")]
+        public async Task<ActionResult<UserTeamMembershipResponseDto>> CheckUserTeamMembershipAsync(int userId, int adminId)
+        {
+            var result = await _equipeService.CheckUserTeamMembershipAsync(userId, adminId);
+            return Ok(result);
+        }
     }
 }

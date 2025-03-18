@@ -20,20 +20,16 @@ const routes: Routes = [
           import('./chat/chat.module').then((m) => m.ChatModule),
       },
       {
-        path: 'invoice',
+        path: 'invitation',
         loadChildren: () =>
-          import('./invoice/invoice.module').then((m) => m.InvoiceModule),
+          import('./Invitation/Invitation.module').then((m) => m.InvitationModule),
       },
       {
-        path: 'coaches',
+        path: 'team-invitation',
         loadChildren: () =>
-          import('./coaches/coaches.module').then((m) => m.CoachesModule),
+          import('./team/team.module').then((m) => m.TeamModule),
       },
-      {
-        path: 'wallet',
-        loadChildren: () =>
-          import('./wallet/wallet.module').then((m) => m.WalletModule),
-      },
+      
       {
         path: 'user-profile',
         loadChildren: () =>

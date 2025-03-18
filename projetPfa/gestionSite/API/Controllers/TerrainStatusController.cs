@@ -20,7 +20,7 @@ namespace gestionSite.API.Controllers
             _statusService = statusService;
         }
 
-        [HttpGet("/{AdminId}")]
+        [HttpGet("{AdminId}")]
         public async Task<ActionResult<IEnumerable<TerrainStatus>>> GetTerrainStatusAsync()
         {
             // Validate the adminId parameter

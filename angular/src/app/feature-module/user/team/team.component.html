@@ -1,0 +1,85 @@
+<!-- Sort By -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="sortby-section court-sortby-section">
+      <div class="sorting-info">
+        <div class="row d-flex align-items-center">
+          <div class="col-xl-6 col-lg-6 col-sm-12 col-12">
+            <div class="coach-court-list">
+              <ul class="nav">
+                <li><a [routerLink]="routes.userInvitation">Users</a></li>
+                <li><a class="active" [routerLink]="routes.teamInvitation">Teams</a></li>
+                <li><a [routerLink]="routes.userInvitation">Send Invitation</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Sort By -->
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="court-tab-content">
+      <div class="card card-tableset">
+        <div class="card-body">
+          <div class="coache-head-blk">
+            <div class="row align-items-center">
+              <div class="col-md-5">
+                <div class="court-table-head">
+                  <h4>Invitation</h4>
+                  <p>Easy Access to Your Billing History</p>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="table-search-top Invitation-search-top">
+                  <div id="tablefilter">
+                    <div class="dataTables_filter">
+                      <label>
+                        <input [(ngModel)]="searchDataValue" (ngModelChange)="searchData(searchDataValue)"
+                          class="form-control" placeholder="Search..." />
+                      </label>
+                    </div>
+                  </div>
+   
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive table-datatble">
+            <div class="card dashboard-card upcoming-card">
+            
+              <div class="notification-coach">
+                <ng-container *ngFor="let coach of tableData">
+                  <div class="notify-box">
+                    <div class="avatar flex-shrink-0">
+                      <a href="javascript:void(0);"><img [src]="coach.image2" alt="image"></a>
+                    </div>
+                    <div class="notify-detail flex-grow-1">
+                      <h5>{{ coach.name }} <span> a réservé un match le {{ coach.date }}</span></h5>
+                      <span class="hour-notify">{{ coach.time }}</span>
+                      <div class="notify-btn-group">
+                        <a href="javascript:void(0);" class="btn btn-primary">Accepter</a>
+                        <a href="javascript:void(0);" class="btn btn-secondary">Refuser</a>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+            
+                <!-- Si aucune notification -->
+                <div *ngIf="tableData.length === 0">
+                  <h5 class="no-record">Aucune notification disponible</h5>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <app-custom-pagination></app-custom-pagination>
+    </div>
+  </div>
+</div>

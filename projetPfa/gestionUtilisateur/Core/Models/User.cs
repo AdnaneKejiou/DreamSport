@@ -22,5 +22,6 @@
         public Boolean IsReservationBlocked { get; set; }
         public int IdAdmin { get; set; }
         public string? FacebookId { get; set; }
+        public string? GoogleId { get; set; }
     }
 }
