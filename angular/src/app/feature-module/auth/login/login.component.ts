@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes';
 import { AuthService } from 'src/app/core/service/auth/authservice';
-import { selectTenantData } from 'src/app/store/tenant/tenant.selectors';
+import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
 import { UserType } from '../../../core/contantes/UserType';
 import { Router } from '@angular/router';
 
