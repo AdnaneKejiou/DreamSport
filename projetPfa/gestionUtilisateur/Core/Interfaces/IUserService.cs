@@ -15,11 +15,9 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<bool> CheckAndIncrementReservationAnnuleAsync(int userId);
         Task<ReturnedLoginDto> Login(LoginDto login);
         Task<ReturnedLoginDto> FacebookLoginAsync(string Id, int AdminId);
-<<<<<<< Updated upstream
         Task<List<UserDto>> SearchUsersAsync(string searchTerm);
-=======
+
         Task<ReturnedLoginDto> GoogleLoginAsync(string Id, int adminId);
->>>>>>> Stashed changes
 
     }
 }

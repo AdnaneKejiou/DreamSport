@@ -12,4 +12,6 @@ public interface IReservationRepository
     Task<List<Reservation>> GetReservationsAsync(DateTime? startDate, DateTime? endDate);
 
     Task<Reservation> UpdateReservationAsync(Reservation reservation);
+    Task<List<Reservation>> GetReservationsAsync(DateTime startDate, DateTime endDate, int idTerrain);
+
 }

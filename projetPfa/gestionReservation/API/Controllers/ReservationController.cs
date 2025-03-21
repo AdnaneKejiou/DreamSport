@@ -16,7 +16,7 @@ namespace gestionReservation.API.Controllers
         {
             _reservationService = reservationService;
         }
-        [HttpGet("/{AdminId}")]
+        [HttpGet("{AdminId}")]
         public async Task<ActionResult<List<ReturnedListReservationsDTO>>> GetReservations( [FromQuery] GetReservationsDTO filter)
         {
             try
@@ -93,6 +93,17 @@ namespace gestionReservation.API.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        //---------------
+        [HttpGet("upcoming/{idTerrain}/{AdminId}")]
+        public async Task<ActionResult<List<ReservationDto>>> GetUpcomingReservationsByTerrainAsync(int idTerrain)
+        {
+            var startDate = DateTime.Now;
+            var endDate = startDate.AddDays(7);
+
+            var result = await _reservationService.GetReservationsAsync(startDate, endDate, idTerrain);
+            return Ok(result);
         }
 
     }

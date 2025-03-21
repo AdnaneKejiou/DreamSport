@@ -746,6 +746,22 @@
       "UpstreamPathTemplate": "/gateway/reservation/update-status",
       "UpstreamHttpMethod": [ "PUT" ]
     },
+
+
+    // Get all reservation DateTime
+    {
+      "DownstreamPathTemplate": "/api/reservation/upcoming/{idTerrain}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5169
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/reservation/upcoming/{idTerrain}/{AdminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
     //------------------------------------------------------- auth service ---------------------------------------------------------------
     {
       "DownstreamPathTemplate": "/api/Login/User",

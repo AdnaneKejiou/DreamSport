@@ -102,6 +102,37 @@ public class ReservationService : IReservationService
 
     }
 
+    //---------------
+    public async Task<List<ReservationDto>> GetReservationsAsync(DateTime startDate, DateTime endDate, int idTerrain)
+    {
+        var reservations = await _reservationRepository.GetReservationsAsync(startDate, endDate, idTerrain);
+
+        var reservationDtos = new List<ReservationDto>();
+
+        foreach (var reservation in reservations)
+        {
+            var terrain = await _siteService.FetchTerrainAsync(reservation.IdTerrain);
+            if (terrain == null)
+            {
+                throw new KeyNotFoundException($"The terrain with ID {reservation.IdTerrain} does not exist in our system.");
+            }
+
+            reservationDtos.Add(new ReservationDto
+            {
+                Id = reservation.Id,
+                DateRes = reservation.DateRes,
+                IdUtilisateur = reservation.IdUtilisateur,
+                IdTerrain = reservation.IdTerrain,
+                IdEmploye = reservation.IdEmploye,
+                IdAdmin = reservation.IdAdmin,
+                StatusLibelle = reservation.Status?.Libelle // Inclure le libellé du statut
+            });
+        }
+
+        return reservationDtos;
+    }
+
+
 
 
 }

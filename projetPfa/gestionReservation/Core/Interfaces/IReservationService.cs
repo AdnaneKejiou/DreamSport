@@ -7,5 +7,7 @@ public interface IReservationService
     Task<AddReservationDto> AjouterReservationAsync(Reservation reservation);
     Task<Reservation> ReservationStatusUpdateAsync(UpdateStatusDTO dto);
     Task<List<ReturnedListReservationsDTO>> GetReservationsAsync( GetReservationsDTO filter);
+    Task<List<ReservationDto>> GetReservationsAsync(DateTime startDate, DateTime endDate, int idTerrain);
+
 
 }

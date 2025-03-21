@@ -74,4 +74,14 @@ public class ReservationRepository : IReservationRepository
         return changes > 0 ? reservation : null;
     }
 
+    //--------------------
+    public async Task<List<Reservation>> GetReservationsAsync(DateTime startDate, DateTime endDate, int idTerrain)
+    {
+        return await _context.Reservations
+            .Include(r => r.Status) // Inclure le statut
+            .Where(r => r.DateRes >= startDate && r.DateRes <= endDate && r.IdTerrain == idTerrain)
+            .ToListAsync();
+    }
+
+
 }

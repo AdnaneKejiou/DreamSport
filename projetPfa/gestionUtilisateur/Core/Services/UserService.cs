@@ -216,8 +216,6 @@ namespace gestionUtilisateur.Core.Services
             return UserMapper.ModelToLoginDto(user);
         }
 
-<<<<<<< Updated upstream
-        //----------- search user
 
         public async Task<List<UserDto>> SearchUsersAsync(string searchTerm)
         {
@@ -235,7 +233,6 @@ namespace gestionUtilisateur.Core.Services
                 Bio = u.Bio
             }).ToList();
         }
-=======
         public async Task<ReturnedLoginDto> GoogleLoginAsync(string Id, int adminId)
         {
             User user = await _userRepository.DoesUserWithGoogleExist(Id, adminId);
@@ -246,6 +243,5 @@ namespace gestionUtilisateur.Core.Services
             return UserMapper.ModelToLoginDto(user);
         }
 
->>>>>>> Stashed changes
     }
 }

@@ -70,8 +70,7 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
             return await _context.Users.FirstOrDefaultAsync(u => u.FacebookId == id && u.IdAdmin == admin);
         }
 
-<<<<<<< Updated upstream
-        //---- search user 
+
 
         public async Task<List<User>> SearchUsersAsync(string searchTerm)
         {
@@ -82,11 +81,9 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
 
 
 
-=======
         public async Task<User?> DoesUserWithGoogleExist(string id, int admin)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.GoogleId == id && u.IdAdmin == admin);
         }
->>>>>>> Stashed changes
     }
 }
