@@ -29,6 +29,7 @@ $dreamsports-angular-theme: mat.m2-define-light-theme((color: (primary: $dreamsp
 @import "/src/assets/scss/main.scss";
 @import "ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
 @import "ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
+@import 'ngx-toastr/toastr';
 
 html,
 body {

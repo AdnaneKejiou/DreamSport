@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private Tenant = 11;
+  private Tenant = 28;
   private excludedRoutes: string[] = [
     '/auth/register',
     '/auth/forgot-password'

@@ -1,47 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { routes } from 'src/app/core/core.index'; // Importez routes
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OwlOptions, CarouselComponent } from 'ngx-owl-carousel-o';
+import { routes } from 'src/app/core/core.index';
 import { TerrainService } from 'src/app/core/service/terrain/terrain.service';
+import { ReservationService } from 'src/app/core/service/reservation/reservation.service';
+import { format, parseISO, isSameDay } from 'date-fns';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-timedate',
   templateUrl: './timedate.component.html',
-  styleUrls: ['./timedate.component.scss']
+  styleUrls: ['./timedate.component.scss'],
 })
-export class TimedateComponent implements OnInit {
-  public routes = routes; 
+export class TimedateComponent implements OnInit, AfterViewInit {
+  @ViewChild('carousel') carousel!: CarouselComponent;
 
-  public dates: { date: string, day: string }[] = [];
-  public selectedDate: { date: string, day: string } | null = null;
+  public routes = routes;
+  public dates: { date: string; day: string; fullDate: Date }[] = [];
+  public selectedDate: { date: string; day: string; fullDate: Date } | null = null;
   public selectedTime: string | null = null;
   public selectedTimes: string[] = [];
   public endTime: string = '';
   public totalHours: number = 0;
   public subtotal: number = 0;
   public terrainId: number | null = null;
-
-
-  // Static list of available times for demonstration
-  private availableTimes: string[] = ['2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm', '7:00pm'];
-
-  constructor(
-    private route: ActivatedRoute,
-    private terrainService: TerrainService
-  ) {}
-
-  ngOnInit(): void {
-    
-    this.generateDates();
-
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        this.terrainId = +id;
-      }
-      
-    });
-  }
+  public reservations: any[] = [];
+  public availableTimes: string[] = [];
+  public disabledTimes: string[] = [];
+  public errorMessage: string | null = null;
+  public userId: string | null = null;
 
   public coachTimeDateOptions: OwlOptions = {
     loop: true,
@@ -53,17 +40,62 @@ export class TimedateComponent implements OnInit {
     navText: ["<i class='feather icon-chevron-left'></i>", "<i class='feather icon-chevron-right'></i>"],
     responsive: {
       0: {
-        items: 1
-      },
-      500: {
-        items: 4
+        items: 1,
       },
       768: {
-        items: 3
+        items: 1,
       },
       1000: {
-        items: 4
+        items: 1,
+      },
+    },
+  };
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private terrainService: TerrainService,
+    private reservationService: ReservationService,
+    private toastr: ToastrService
+  ) {}
+
+  ngOnInit(): void {
+    const userString = localStorage.getItem('user_data');
+    if (userString) {
+      const user = JSON.parse(userString);
+      this.userId = user.nameid;
+    } else {
+      console.warn('No user found in localStorage');
+    }
+
+    this.generateDates();
+    this.generateAvailableTimes();
+    this.selectTodayDate();
+
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.terrainId = +id;
+        this.loadReservations();
       }
+    });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.carousel) {
+      this.carousel.translated.subscribe((event) => {
+        if (event.startPosition !== undefined) {
+          const activeSlideIndex = event.startPosition;
+          if (activeSlideIndex >= 0 && activeSlideIndex < this.dates.length) {
+            const selectedDate = this.dates[activeSlideIndex];
+            if (selectedDate) {
+              this.selectDate(selectedDate);
+            }
+          }
+        }
+      });
+    } else {
+      console.error('Carousel is not defined');
     }
   }
 
@@ -74,14 +106,106 @@ export class TimedateComponent implements OnInit {
       date.setDate(today.getDate() + i);
       this.dates.push({
         date: date.toLocaleDateString('en-US', { day: 'numeric', month: 'short' }),
-        day: date.toLocaleDateString('en-US', { weekday: 'long' })
+        day: date.toLocaleDateString('en-US', { weekday: 'long' }),
+        fullDate: date,
       });
     }
   }
 
-  selectDate(date: { date: string, day: string }): void {
+  generateAvailableTimes(): void {
+    for (let hour = 10; hour <= 24; hour++) {
+
+      if(hour===24){
+        this.availableTimes.push(`00:00`);
+        return;
+      }
+      this.availableTimes.push(`${hour}:00`);
+    }
+  }
+
+  selectTodayDate(): void {
+    const today = new Date();
+    const todayDate = this.dates.find((d) => isSameDay(d.fullDate, today));
+    if (todayDate) {
+      this.selectDate(todayDate);
+    } else {
+      console.warn('Today\'s date not found in the dates array');
+    }
+  }
+
+  updateDisabledTimes(): void {
+    this.disabledTimes = [];
+
+    if (!this.selectedDate) {
+      console.log('No date selected');
+      return;
+    }
+
+    const selectedDateISO = format(this.selectedDate.fullDate, 'yyyy-MM-dd');
+
+    this.reservations.forEach((reservation) => {
+      const reservationDateISO = format(parseISO(reservation.dateRes), 'yyyy-MM-dd');
+      if (reservationDateISO === selectedDateISO) {
+        const reservationTime = format(parseISO(reservation.dateRes), 'HH:mm');
+        console.log('Reservation time for selected date:', reservationTime);
+        this.disabledTimes.push(reservationTime);
+      }
+    });
+
+    console.log('Disabled times for selected date:', this.disabledTimes);
+  }
+
+  loadReservations(): void {
+    if (this.terrainId) {
+      this.terrainService.getReservationsForTerrain(this.terrainId).subscribe(
+        (reservations) => {
+          this.reservations = reservations;
+          this.updateDisabledTimes();
+        },
+        (error) => {
+          console.error('Error loading reservations:', error);
+        }
+      );
+    } else {
+      console.error('Terrain ID is not defined');
+    }
+  }
+
+  isTimeDisabled(time: string): boolean {
+    // Vérifier si l'heure est déjà passée
+    const isPastTime = this.isPast(time);
+
+    // Vérifier si l'heure est déjà réservée
+    const isReserved = this.disabledTimes.includes(time);
+
+    // Désactiver l'heure si elle est passée ou déjà réservée
+    return isPastTime || isReserved;
+  }
+
+  isPast(time: string): boolean {
+    if (!this.selectedDate) {
+      return false; // Si aucune date n'est sélectionnée, ne pas désactiver
+    }
+
+    // Convertir l'heure sélectionnée en objet Date
+    const selectedDateTime = new Date(this.selectedDate.fullDate);
+    const [hours, minutes] = time.split(':').map(Number);
+    selectedDateTime.setHours(hours, minutes, 0, 0); // Définir l'heure et les minutes
+
+    // Comparer avec l'heure actuelle
+    const now = new Date();
+    return selectedDateTime < now;
+  }
+
+  selectDate(date: { date: string; day: string; fullDate: Date }): void {
+    if (this.selectedDate && this.selectedDate.fullDate.getTime() === date.fullDate.getTime()) {
+      return;
+    }
+
     this.selectedDate = date;
-    this.selectedTimes = this.availableTimes; // Assign available times to selectedTimes
+    console.log('Selected date:', date.fullDate);
+    this.updateDisabledTimes();
+    this.selectedTimes = this.availableTimes;
     this.selectedTime = null;
     this.endTime = '';
     this.totalHours = 0;
@@ -89,10 +213,40 @@ export class TimedateComponent implements OnInit {
   }
 
   selectTime(time: string): void {
-    this.selectedTime = time;
-    const timeIndex = this.selectedTimes.indexOf(time);
-    this.endTime = this.selectedTimes[timeIndex + 1] || '';
-    this.totalHours = 1; // Assuming each slot is 1 hour
-    this.subtotal = this.totalHours * 100; // Assuming $100 per hour
+    if (!this.isTimeDisabled(time)) {
+      this.selectedTime = time;
+      const timeIndex = this.selectedTimes.indexOf(time);
+      this.endTime = this.selectedTimes[timeIndex + 1] || '01:00';
+      this.totalHours = 1;
+      this.subtotal = this.totalHours * 100;
+    }
+  }
+
+  bookReservation(): void {
+    if (!this.selectedDate || !this.selectedTime || !this.terrainId) {
+      this.errorMessage = 'Please select a date and time before booking.';
+      return;
+    }
+
+    const userIdNumber = Number(this.userId);
+
+    const reservationData = {
+      dateRes: `${this.selectedDate.fullDate.toISOString().split('T')[0]}T${this.selectedTime}:00`,
+      idUtilisateur: userIdNumber,
+      idTerrain: this.terrainId,
+    };
+
+    this.reservationService.createReservation(reservationData).subscribe(
+      (response) => {
+        console.log('Reservation successful! Response:', response);
+        this.toastr.success('Reservation successful!').onHidden.subscribe(() => {
+          this.router.navigate([routes.userBookings]);
+        });
+      },
+      (error) => {
+        console.error('Error during reservation:', error);
+        this.toastr.error(error.error.message || 'An error occurred while booking.');
+      }
+    );
   }
 }

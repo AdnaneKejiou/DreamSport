@@ -13,9 +13,8 @@ namespace gestionReservation.Infrastructure.ExternServices
             _httpClient = httpClient;
         }
 
-        public async Task<TerrainDTO> FetchTerrainAsync(int idTerrain) // communiquer avec  gestion SIte
+        public async Task<TerrainDTO> FetchTerrainAsync(int idTerrain, int adminId) // communiquer avec  gestion SIte
         {
-            int adminId = 1;
 
             string requestUrl = $"{SiteUrl.TrimEnd('/')}/Terrain/by-id/{idTerrain}";
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, requestUrl);

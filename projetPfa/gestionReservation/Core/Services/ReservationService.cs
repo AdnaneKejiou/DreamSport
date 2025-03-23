@@ -27,7 +27,7 @@ public class ReservationService : IReservationService
         {
             throw new BadRequestException("The reservation date must be today or in the future.");
         }
-        var user = await _userService.FetchUserAsync(reservation.IdUtilisateur);
+        var user = await _userService.FetchUserAsync(reservation.IdUtilisateur ,reservation.IdAdmin);
         if(user == null )
         {
             throw new KeyNotFoundException("The user dont exist in our sytem");
@@ -36,12 +36,12 @@ public class ReservationService : IReservationService
         {
             throw new UnauthorizedAccessException("You cant Reserve please talk to the support");
         }
-        var terrain = await _siteService.FetchTerrainAsync(reservation.IdTerrain);
+        var terrain = await _siteService.FetchTerrainAsync(reservation.IdTerrain,reservation.IdAdmin);
         if(terrain == null)
         {
             throw new KeyNotFoundException("The terrain dont exist in our sytem");
         }
-        if(terrain.terrainStatus.Libelle!= "Disponible")
+        if(terrain.terrainStatus.Libelle!= "Field ready for reservation")
         {
             throw new BadRequestException("This terrain cant be reserved at the moment");
         }
@@ -49,7 +49,7 @@ public class ReservationService : IReservationService
         {
             throw new BadRequestException("This terrain is reserved at the date provided");
         }
-        Status st = await _statusRepository.GetStatusByLibelle("en attente");
+        Status st = await _statusRepository.GetStatusByLibelle("Pending");
         int idStatus = st.Id;
         reservation.IdStatus = idStatus;
         reservation.Status = st;
@@ -111,7 +111,7 @@ public class ReservationService : IReservationService
 
         foreach (var reservation in reservations)
         {
-            var terrain = await _siteService.FetchTerrainAsync(reservation.IdTerrain);
+            var terrain = await _siteService.FetchTerrainAsync(reservation.IdTerrain, reservation.IdAdmin);
             if (terrain == null)
             {
                 throw new KeyNotFoundException($"The terrain with ID {reservation.IdTerrain} does not exist in our system.");

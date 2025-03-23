@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserBookingsRoutingModule } from './user-bookings-routing.module';
 import { UserBookingsComponent } from './user-bookings.component';
 
-
 @NgModule({
-  declarations: [
-    UserBookingsComponent
-  ],
+  declarations: [UserBookingsComponent],
   imports: [
     CommonModule,
-    UserBookingsRoutingModule
-  ]
+    UserBookingsRoutingModule,
+  ],
 })
-export class UserBookingsModule { }
+export class UserBookingsModule {}

@@ -41,38 +41,26 @@ export class TerrainService {
   }
 
   getTerrains(): Observable<Terrain[]> {
-    if (!this.tenantId) {
-      throw new Error('Tenant ID non défini');
-    }
+   
 
-    const headers = new HttpHeaders({
-      'tenant-Id': this.tenantId.toString(),
-    });
-
-    return this.http.get<Terrain[]>(`${this.apiUrl}`, { headers });
+    return this.http.get<Terrain[]>(`${this.apiUrl}`);
   }
 
   getTerrainStatuses(): Observable<TerrainStatus[]> {
-    if (!this.tenantId) {
-      throw new Error('Tenant ID non défini');
-    }
+    
+   return this.http.get<TerrainStatus[]>('http://localhost:5010/gateway/terrainstatus');
 
-    const headers = new HttpHeaders({
-      'tenant-Id': this.tenantId.toString(),
-    });
-
-    return this.http.get<TerrainStatus[]>('http://localhost:5010/gateway/terrainstatus', { headers });
   }
 
   getSportCategories(): Observable<SportCategory[]> {
-    if (!this.tenantId) {
-      throw new Error('Tenant ID non défini');
-    }
-
-    const headers = new HttpHeaders({
-      'tenant-Id': this.tenantId.toString(),
-    });
-
-    return this.http.get<SportCategory[]>('http://localhost:5010/gateway/SportCategorie', { headers });
+  
+    return this.http.get<SportCategory[]>('http://localhost:5010/gateway/SportCategorie');
   }
+
+  // Dans TerrainService
+getReservationsForTerrain(terrainId: number): Observable<any[]> {
+ 
+  return this.http.get<any[]>(`http://localhost:5010/gateway/reservation/upcoming/${terrainId}`);
+}
+
 }

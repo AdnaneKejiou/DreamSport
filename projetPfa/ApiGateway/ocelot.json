@@ -164,7 +164,7 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
     {
-      // Route pour récupérer le mot de passe d'un utilisateur (PUT)
+      // Route pour récupérer le mot de passe d'un utilisateur (get)
       "DownstreamPathTemplate": "/api/user/get/{id}/{AdminId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -826,7 +826,6 @@
     }
   ],
 
-  ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7000"
   }
