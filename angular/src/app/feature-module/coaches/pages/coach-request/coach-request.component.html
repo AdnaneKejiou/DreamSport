@@ -99,9 +99,7 @@
                             <th mat-sort-header="courtName">Court Name</th>
                             <th mat-sort-header="playerName">Player name</th>
                             <th mat-sort-header="date">Date & Time </th>
-                            <th mat-sort-header="additionalGuests">Additional Guests</th>
-                            <th mat-sort-header="payment">Payment</th>
-                            <th mat-sort-header="status">Status</th>
+                            
                             <th mat-sort-header="action"></th>
                           </tr>
                         </thead>
@@ -131,10 +129,8 @@
                                 <td class="table-date-time">
                                   <h4>{{data.date}}<span>{{data.time}}</span></h4>
                                 </td>
-                                <td>2</td>
-                                <td><span class="pay-dark">{{data.payment}}</span></td>
-                                <td class="paid-edit"><span><i class="feather icon-edit"></i>{{data.status1}}</span>
-                              </td>
+                                
+                                
                               <td class="table-accept-btn text-end">
                                 <a href="javascript:void(0);" class="btn accept-btn"><i class="feather icon-check-circle"></i>{{data.status2}}</a>
                                 <a href="javascript:void(0);" class="btn cancel-table-btn" data-bs-toggle="modal" data-bs-target="#request-reject"><i class="feather icon-x-circle"></i>{{data.status3}}</a>

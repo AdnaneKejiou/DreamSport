@@ -55,6 +55,12 @@ const routes: Routes = [
           import('./listings/listings.module').then((m) => m.ListingsModule),
         canActivate: [TenantGuard], // Appliquer le Guard ici aussi
       },
+      {
+        path: 'admin',
+        loadChildren: () =>
+          import('./admin/admin.module').then((m) => m.AdminModule),
+        canActivate: [TenantGuard], // Appliquer le Guard ici aussi
+      },
     ],
   },
   {

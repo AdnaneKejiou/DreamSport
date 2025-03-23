@@ -13,12 +13,11 @@ namespace gestionUtilisateur.Core.Interfaces
         Task DeleteAsync(User user);
         Task<User?> GetByEmailAsync(string email, int id);
         Task<User?> DoesUserWithFacebookExist(string id, int admin);
-
         
         Task<List<User>> SearchUsersAsync(string searchTerm);
 
-
         Task<User?> DoesUserWithGoogleExist(string id, int admin);
+
 
     }
 }

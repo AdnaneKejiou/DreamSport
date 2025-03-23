@@ -58,7 +58,7 @@ public class ReservationRepository : IReservationRepository
         else
         {
             if (startDate.HasValue)
-                query = query.Where(r => r.DateRes >= startDate.Value);
+                query = query.Where(r => r.DateRes >= startDate.Value && r.Status.Libelle != "Canceled");
             if (endDate.HasValue)
                 query = query.Where(r => r.DateRes <= endDate.Value);
         }

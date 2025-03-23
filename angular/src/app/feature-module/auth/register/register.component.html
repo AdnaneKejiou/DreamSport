@@ -174,23 +174,28 @@
                               </div>
                              <!-- Birthday field -->
                             <div class="form-group">
-                              <div class="group-img">
-                                <i class="feather icon-calendar"></i>
+                              <div class="group-img" style="display: flex; align-items: center;">
+                                
                                 <input
-                                  type="date"
+                                  matInput
+                                  [matDatepicker]="birthdayPicker"
+                                  placeholder="Birthday"
                                   class="form-control"
                                   formControlName="birthday"
                                   [ngClass]="{
                                     'is-invalid': form.get('birthday')?.touched && form.get('birthday')?.invalid
                                   }"
+                                  style="flex: 1; margin-right: 8px;" 
                                 />
-                                <div *ngIf="form.get('birthday')?.touched && form.get('birthday')?.invalid" class="invalid-feedback">
-                                  <div *ngIf="form.get('birthday')?.hasError('required')">
-                                    Birthday is required.
-                                  </div>
-                                  <div *ngIf="form.get('birthday')?.hasError('pattern')">
-                                    Invalid date format. Please use yyyy-MM-dd.
-                                  </div>
+                                <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #birthdayPicker></mat-datepicker>
+                              </div>
+                              <div *ngIf="form.get('birthday')?.touched && form.get('birthday')?.invalid" class="invalid-feedback">
+                                <div *ngIf="form.get('birthday')?.hasError('required')">
+                                  Birthday is required.
+                                </div>
+                                <div *ngIf="form.get('birthday')?.hasError('matDatepickerParse')">
+                                  Invalid date format. Please use yyyy-MM-dd.
                                 </div>
                               </div>
                             </div>
@@ -237,9 +242,9 @@
                                   <div *ngIf="form.get('phoneNumber')?.hasError('required')">
                                     Phone Number is required.
                                   </div>
-                                  <div class="invalid-feedback" *ngIf="errors['PhoneNumber']" style="display: block;">
-                                    {{ errors['PhoneNumber'] }}
-                                  </div>
+                                </div>
+                                <div class="invalid-feedback" *ngIf="errors['PhoneNumber']" style="display: block;">
+                                  {{ errors['PhoneNumber'] }}
                                 </div>
                               </div>
                             </div>
@@ -287,12 +292,12 @@
                                 <div class="form-group">
                                   <div class="pass-group group-img">
                                     <i
-                              [ngClass]="
-                              show_password1 === true
-                              ? 'toggle-password-confirm feather icon-eye-off'
-                              : 'toggle-password-confirm feather icon-eye'"
-                                      (click)="show_password1 = !show_password1"
-                                    ></i>
+                            [ngClass]="
+                            show_password1 === true
+                            ? 'toggle-password-confirm feather icon-eye-off'
+                            : 'toggle-password-confirm feather icon-eye'"
+                                                      (click)="show_password1= !show_password1"
+                                                    ></i>
                                     <input
                                       type="password"
                                       class="form-control pass-input"
@@ -323,17 +328,17 @@
                                   <div class="form-group">
                                     <div class="pass-group group-img">
                                       <i
-                              [ngClass]="
-                              show_password2 === true
-                              ? 'toggle-password-confirm feather icon-eye-off'
-                              : 'toggle-password-confirm feather icon-eye'"
-                                        (click)="show_password2 = !show_password2"
-                                      ></i>
+                            [ngClass]="
+                            show_password2 === true
+                            ? 'toggle-password-confirm feather icon-eye-off'
+                            : 'toggle-password-confirm feather icon-eye'"
+                                                      (click)="show_password2 = !show_password2"
+                                                    ></i>
                                       <input
                                         type="password"
                                         class="form-control pass-confirm"
                                         placeholder="Confirm Password"
-                                        [type]="show_password1 ? 'password' : 'text'"
+                                        [type]="show_password2 ? 'password' : 'text'"
                                         formControlName="passwordConfirmed"
                             [ngClass]="{
                             'is-invalid':

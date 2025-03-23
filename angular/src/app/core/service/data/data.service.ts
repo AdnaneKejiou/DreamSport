@@ -737,13 +737,6 @@ export class DataService {
       span: false,
     },
     {
-      title: 'Chat',
-      img: 'assets/img/icons/chat-icon.svg',
-      route: routes.coachChat,
-      page: 'chat',
-      span: false,
-    },
-    {
       title: 'Earnings',
       img: 'assets/img/icons/Invitation-icon.svg',
       route: routes.coachEarning,
@@ -751,10 +744,10 @@ export class DataService {
       span: false,
     },
     {
-      title: 'Wallet',
-      img: 'assets/img/icons/wallet-icon.svg',
-      route: routes.coachWallet,
-      page: 'wallet',
+      title: 'Users',
+      img: 'assets/img/icons/profile-icon.svg',
+      page: 'Users',
+      route: routes.coachUsers,
       span: false,
     },
     {
@@ -764,6 +757,7 @@ export class DataService {
       route: routes.coachProfile,
       span: false,
     },
+    
   ];
   public getCoachPages: BehaviorSubject<Array<coachPages>> =
     new BehaviorSubject<Array<coachPages>>(this.coachPages);

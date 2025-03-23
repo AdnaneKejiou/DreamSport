@@ -94,6 +94,9 @@
                             <div class="form-group">
                               <div class="group-img">
                                 <i class="feather icon-user"></i>
+                                <div class="invalid-feedback" *ngIf="user_error" style="display: block;">
+                                  {{ user_error }}
+                                </div>
                                 <input
                                   type="text"
                                   class="form-control"

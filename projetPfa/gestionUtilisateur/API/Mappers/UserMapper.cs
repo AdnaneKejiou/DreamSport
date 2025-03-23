@@ -28,18 +28,34 @@ namespace gestionUtilisateur.API.Mappers
         }
 
         public static ReturnAddedUserManualy UserToAddedUser(User user) {
-            return new ReturnAddedUserManualy
+            ReturnAddedUserManualy usr = new  ReturnAddedUserManualy
             {
                 Nom = user.Nom,
                 Prenom = user.Prenom,
-                Email = user.Email,
-                Password = user.Password,
-                PhoneNumber = user.PhoneNumber,
-                Username = user.Username,
-                Birthday = user.Birthday,
-                Genre = user.Genre,
                 AdminId = user.IdAdmin,
+                Birthday = user.Birthday,
             };
+            if (user.Email != null)
+            {
+                usr.Email = user.Email;
+            }
+            if (user.Password != null)
+            {
+                usr.Password = user.Password;
+            }
+            if (user.PhoneNumber != null)
+            {
+                usr.PhoneNumber = user.PhoneNumber;
+            }
+            if (user.Username != null)
+            {
+                usr.Username = user.Username;
+            }
+            if (user.Genre != null)
+            {
+                usr.Genre = user.Genre;
+            }
+            return usr;
         }
         public static void UpdateUser(User user, UpdateUserDto dto)
         {

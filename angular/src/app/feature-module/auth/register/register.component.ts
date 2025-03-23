@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes';
 import { AuthService } from 'src/app/core/service/auth/authservice';
 import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register',
@@ -47,7 +49,7 @@ export class RegisterComponent {
     return this.form.controls;
   }
 
-    constructor(private auth: AuthService ,private store: Store) {
+    constructor(private auth: AuthService ,private store: Store, private router: Router) {
       this.tenantData$ = this.store.select(selectTenantData);
       this.tenantData$.subscribe(data => {
         if (data && data.siteInfo && data.siteInfo.length > 0) {
@@ -69,6 +71,7 @@ export class RegisterComponent {
         (response) => {
           console.log('Signup successful:', response);
           // Handle successful signup (redirect to login or home page)
+          this.router.navigate(['/auth/login']);
         },
         (error) => {
           this.errors = error;

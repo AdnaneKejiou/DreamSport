@@ -38,13 +38,6 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'booking-steps',
-    loadChildren: () =>
-      import('./booking-steps/booking-steps.module').then(
-        (m) => m.BookingStepsModule
-      ),
-  },
-  {
     path: 'lesson',
     loadChildren: () =>
       import('./lesson/lesson.module').then((m) => m.LessonModule),

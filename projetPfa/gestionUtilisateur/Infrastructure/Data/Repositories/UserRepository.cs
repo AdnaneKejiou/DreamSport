@@ -36,12 +36,12 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
 
         public async Task<bool> DoesUserWithPhoneExist(string phone, int id)
         {
-            return await _context.Users.AnyAsync(u => u.Email == phone && u.IdAdmin == id);
+            return await _context.Users.AnyAsync(u => u.PhoneNumber == phone && u.IdAdmin == id);
         }
 
         public async Task<bool> DoesUserWithUsernameExist(string username, int id)
         {
-            return await _context.Users.AnyAsync(u => u.Email == username && u.IdAdmin==id);
+            return await _context.Users.AnyAsync(u => u.Username == username && u.IdAdmin==id);
         }
         public async Task<User?> GetByIdAsync(int id)
         {
@@ -71,6 +71,7 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
         }
 
 
+        //---- search user 
 
         public async Task<List<User>> SearchUsersAsync(string searchTerm)
         {
@@ -85,5 +86,6 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.GoogleId == id && u.IdAdmin == admin);
         }
+
     }
 }

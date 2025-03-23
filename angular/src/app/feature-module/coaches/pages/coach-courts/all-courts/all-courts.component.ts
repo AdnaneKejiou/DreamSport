@@ -19,9 +19,10 @@ export class AllCourtsComponent {
   checked!: boolean;
   public selectedValue1 = '';
   public selectedValue2 = '';
-  
+  selectedTab: string = 'all';
   initChecked = false;
   public tableData: Array<allcourts> = [];
+  public tableShowed: Array<allcourts> = [];
   public routes = routes;
   // pagination variables
   public pageSize = 10;
@@ -63,6 +64,7 @@ export class AllCourtsComponent {
         if (index >= pageOption.skip && serialNumber <= pageOption.limit) {
           res.id = serialNumber;
           this.tableData.push(res);
+          this.tableShowed=this.tableData;
           this.serialNumberArray.push(serialNumber);
         }
       });
@@ -96,5 +98,19 @@ export class AllCourtsComponent {
         return (aValue < bValue ? -1 : 1) * (sort.direction === 'asc' ? 1 : -1);
       });
     }
+  }
+
+  public activateCourts() {
+    this.tableShowed = this.tableData.filter(item => item.status === true);
+    this.selectedTab = 'active';
+  }
+
+  public inactiveCourts() {
+    this.tableShowed = this.tableData.filter(item => item.status === false);
+    this.selectedTab = 'inactive';
+  } 
+  public allCourts(){
+    this.tableShowed = this.tableData;
+    this.selectedTab = 'all';
   }
 }

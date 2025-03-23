@@ -18,7 +18,8 @@ declare const FB: any;
 export class LoginComponent implements OnInit {
   public routes = routes;
   public show_password = true;
-  public show_password1 =true
+  public show_password1 =true;
+  public user_error = null;
 
   tenantData$: Observable<any>;
   imageUrl: string | null = null;
@@ -55,7 +56,8 @@ export class LoginComponent implements OnInit {
           console.log("Login Successful", response);
         },
         (error) => {
-          console.error("Login Failed", error);
+          this.user_error=error.error;
+          console.warn("hsant", error.error);
         }
       );;  // Example API call
     } else {

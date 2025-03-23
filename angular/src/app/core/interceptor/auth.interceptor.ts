@@ -9,17 +9,29 @@ import {
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../service/auth/authservice';
 import { Router } from '@angular/router';
+import { selectTenantId } from '../../core/store/tenant/tenant.selectors';
+import { Store} from '@ngrx/store';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private Tenant = 28;
+
+  Tenant$: Observable<string | number | null>; // Observable for tenantId
+  Tenant: string | number | null = null; // Raw value for tenantId
   private excludedRoutes: string[] = [
     '/auth/register',
     '/auth/forgot-password'
   ];
 
-  constructor(private authService: AuthService,private router: Router) {}
+  constructor(private authService: AuthService,private router: Router,private store: Store) {
+    this.Tenant$ = this.store.select(selectTenantId);
+
+    // Subscribe to the observable to get the tenantId value
+    this.Tenant$.subscribe((tenantId) => {
+      console.log('Tenant ID:', tenantId);
+      this.Tenant = tenantId; // Assign the value to the Tenant property
+    });
+  } 
 
   private isExcluded(url: string): boolean {
     return this.excludedRoutes.some((excludedRoute) => url.includes(excludedRoute));

@@ -238,14 +238,14 @@ export class routes {
   public static get coachChat(): string {
     return this.coach + 'pages/chat';
   }
+  public static get coachUsers(): string {
+    return this.coach + 'pages/users';
+  }
   public static get coachDashboard(): string {
     return this.coach + 'pages/dashboard';
   }
   public static get coachDetail(): string {
     return this.coach + 'coach-detail';
-  }
-  public static get coachDetails(): string {
-    return this.coach + 'booking-steps/coach-details';
   }
   public static get coachEarning(): string {
     return this.coach + 'pages/earnings';

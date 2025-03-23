@@ -5,7 +5,7 @@ import { Lightbox } from 'ngx-lightbox';
 
 @Component({
   selector: 'app-venue-details',
-  templateUrl: './venue-details.component.html',
+  templateUrl: './venue-details.component.html',  
   styleUrls: ['./venue-details.component.scss'],
 })
 export class VenueDetailsComponent {

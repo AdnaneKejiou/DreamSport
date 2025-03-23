@@ -48,7 +48,7 @@ namespace Auth.Controllers
                 GetUserDto? user = await loginService.ValidateUserAsync(model);
                 if (user == null)
                 {
-                    return Unauthorized("Invalid login credentials.");
+                    return StatusCode(403, "Invalid login credentials.");
                 }
 
                 string refreshToken = await _jwtService.GenerateRefreshToken();

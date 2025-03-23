@@ -7,13 +7,7 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      {
-        path: 'chat',
-        loadChildren: () =>
-          import('./coach-chat/coach-chat.module').then(
-            (m) => m.CoachChatModule
-          ),
-      },
+
       {
         path: 'dashboard',
         loadChildren: () =>
@@ -26,14 +20,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./coach-request/coach-request.module').then(
             (m) => m.CoachRequestModule
-          ),
-      },
-
-      {
-        path: 'wallet',
-        loadChildren: () =>
-          import('./coach-wallet/coach-wallet.module').then(
-            (m) => m.CoachWalletModule
           ),
       },
       {
@@ -50,6 +36,7 @@ const routes: Routes = [
             (m) => m.CoachCourtsModule
           ),
       },
+      
       {
         path: 'profile-settings',
         loadChildren: () =>
@@ -107,6 +94,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./coaches-map/coaches-map.module').then(
             (m) => m.CoachesMapModule
+          ),
+      },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./users/users.module').then(
+            (m) => m.UsersModule
           ),
       },
     ],

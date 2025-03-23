@@ -60,6 +60,10 @@ namespace gestionUtilisateur.Core.Services
             }
             if (Errors.Count == 0)
             {
+                if (_user.ImageUrl == null)
+                {
+                    _user.ImageUrl = "https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/avatar-01.jpg";
+                }
                 var user = await _userRepository.AddUserManualyAsync(_user);
                 var AddedUsers = UserMapper.UserToAddedUser(user);
                 if (user == null)
@@ -217,6 +221,8 @@ namespace gestionUtilisateur.Core.Services
         }
 
 
+        //----------- search user
+
         public async Task<List<UserDto>> SearchUsersAsync(string searchTerm)
         {
             var users = await _userRepository.SearchUsersAsync(searchTerm);
@@ -233,6 +239,7 @@ namespace gestionUtilisateur.Core.Services
                 Bio = u.Bio
             }).ToList();
         }
+
         public async Task<ReturnedLoginDto> GoogleLoginAsync(string Id, int adminId)
         {
             User user = await _userRepository.DoesUserWithGoogleExist(Id, adminId);
@@ -242,6 +249,7 @@ namespace gestionUtilisateur.Core.Services
             }
             return UserMapper.ModelToLoginDto(user);
         }
+
 
     }
 }

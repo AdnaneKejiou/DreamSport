@@ -29,26 +29,12 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'availability',
-        loadChildren: () =>
-          import('./setting-availability/setting-availability.module').then(
-            (m) => m.SettingAvailabilityModule
-          ),
-      },
-      {
         path: 'setting-password',
         loadChildren: () =>
           import('./setting-password/setting-password.module').then(
             (m) => m.SettingPasswordModule
           ),
-      },
-      {
-        path: 'setting-lesson',
-        loadChildren: () =>
-          import('./setting-lesson/setting-lesson.module').then(
-            (m) => m.SettingLessonModule
-          ),
-      },
+      },     
       {
         path: 'myprofile',
         loadChildren: () =>

@@ -14,20 +14,6 @@ const routes: Routes = [
             (m) => m.AllCourtsModule
           ),
       },
-      {
-        path: 'court-active',
-        loadChildren: () =>
-          import('./court-active/court-active.module').then(
-            (m) => m.CourtActiveModule
-          ),
-      },
-      {
-        path: 'court-inactive',
-        loadChildren: () =>
-          import('./court-inactive/court-inactive.module').then(
-            (m) => m.CourtInactiveModule
-          ),
-      }
      
     ],
   },
