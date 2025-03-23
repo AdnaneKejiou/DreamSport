@@ -135,22 +135,20 @@
         <li class="nav-item dropdown has-arrow logged-item">
           <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
             <span class="user-img">
-              <img class="rounded-circle" src="assets/img/profiles/avatar-05.jpg" width="31" alt="Darren Elder" />
+              <img class="rounded-circle" [src]="imageUser" width="31" alt="Darren Elder" />
             </span>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
             <div class="user-header">
               <div class="avatar avatar-sm">
-                <img src="assets/img/profiles/avatar-05.jpg" alt="User Image" class="avatar-img rounded-circle" />
+                <img [src]="imageUser" alt="User Image" class="avatar-img rounded-circle" />
               </div>
               <div class="user-text">
-                <h6>Henriques</h6>
+                <h6>{{Usernam}}</h6>
                 <a [routerLink]="routes.userProfile" class="text-profile mb-0">Go to Profile</a>
               </div>
             </div>
-            <p>
-              <a class="dropdown-item" [routerLink]="routes.coach_profile_edit">Settings</a>
-            </p>
+            
             <p><a class="dropdown-item" [routerLink]="routes.login">Logout</a></p>
           </div>
         </li>
@@ -165,22 +163,19 @@
           <li class="nav-item dropdown has-arrow logged-item">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
               <span class="user-img">
-                <img class="rounded-circle" src="assets/img/profiles/avatar-05.jpg" width="31" alt="Darren Elder" />
+                <img class="rounded-circle" [src]="imageUser" width="31" alt="Darren Elder" />
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
               <div class="user-header">
                 <div class="avatar avatar-sm">
-                  <img src="assets/img/profiles/avatar-05.jpg" alt="User Image" class="avatar-img rounded-circle" />
+                  <img [src]="imageUser" alt="User Image" class="avatar-img rounded-circle" />
                 </div>
                 <div class="user-text">
-                  <h6>Henriques</h6>
+                  <h6>{{Usernam}}</h6>
                   <a [routerLink]="routes.userProfile" class="text-profile mb-0">Go to Profile</a>
                 </div>
               </div>
-              <p>
-                <a class="dropdown-item" [routerLink]="routes.coach_profile_edit">Settings</a>
-              </p>
               <p><a class="dropdown-item" [routerLink]="routes.login">Logout</a></p>
             </div>
           </li>

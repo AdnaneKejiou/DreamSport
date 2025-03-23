@@ -91,6 +91,11 @@
 			color: $__dullgray;
 			font-size: $__font__size__14;
 		}
+		.reserved{
+          
+			color:$__secondarycolor !important;
+		}
+		
 		i {
 			display: $__none;
 			margin-left: 7px;
@@ -128,6 +133,9 @@
 		}
 	}
 }
+
+
+
 .coach {
 	ul {
 		&.booking-info {

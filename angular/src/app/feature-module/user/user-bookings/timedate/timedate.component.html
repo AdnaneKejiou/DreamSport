@@ -1,13 +1,6 @@
 <!-- Page Content -->
 <div class="content">
   <div class="container">
-    <section class="card mb-40">
-      <div class="text-center mb-40">
-        <h3 class="mb-1">Book A Coach</h3>
-        <p class="sub-title">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-      </div>
-    </section>
-
     <div class="row text-center">
       <!-- Section des dates et heures -->
       <div class="col-12 col-sm-12 col-md-12 col-lg-8">
@@ -36,7 +29,11 @@
                     [ngClass]="{'active': time === selectedTime, 'checked': time === selectedTime, 'disabled': isTimeDisabled(time)}"
                     (click)="!isTimeDisabled(time) && selectTime(time)"
                   >
-                    <span>{{ time }}</span>
+                    @if (isTimeDisabled(time)) {
+                      <span class="reserved">Not Available</span>
+                    } @else {
+                      <span>{{ time }}</span>
+                    }
                     <i class="fa-regular fa-check-circle"></i>
                   </div>
                 </div>
@@ -57,7 +54,7 @@
             </li>
             <li>
               <i class="feather icon-clock me-2"></i>
-              {{ selectedTime }} to {{ endTime }}
+              {{ selectedTime }} - {{ endTime }}
             </li>
             <li>
               <i class="feather icon-clock me-2"></i>

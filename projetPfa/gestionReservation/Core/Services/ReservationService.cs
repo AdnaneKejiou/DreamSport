@@ -72,36 +72,37 @@ public class ReservationService : IReservationService
     public async Task<Reservation> ReservationStatusUpdateAsync(UpdateStatusDTO dto)
     {
         Reservation reservation = await _reservationRepository.GetByIdAsync(dto.Id);
-        if(reservation == null)
+        if (reservation == null)
         {
             throw new KeyNotFoundException("The reservation not found ");
         }
         reservation.IdEmploye = dto.EmployeeId;
-        if(dto.Status == "accepted")
+        if (dto.Status == "Confirmed")
         {
-            if(!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
+            if (!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
             {
                 throw new Exception("Failed to reset compteur");
             }
-            reservation.IdStatus = 3;
+            Status st = await _statusRepository.GetStatusByLibelle("Confirmed");
+            reservation.IdStatus = st.Id;
         }
-        else if(dto.Status == "refused")
+        else if (dto.Status == "Canceled")
         {
-            if(!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
+            if (!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
             {
                 throw new Exception("Failed to update the user compteur");
             }
-            reservation.IdStatus = 2;
+            Status st = await _statusRepository.GetStatusByLibelle("Canceled");
+            reservation.IdStatus = st.Id;
         }
         else
         {
-            throw new BadRequestException("We dont have a status named : "+dto.Status);
+            throw new BadRequestException("We dont have a status named : " + dto.Status);
         }
         Reservation res = await _reservationRepository.UpdateReservationAsync(reservation);
         return res;
 
     }
-
     //---------------
     public async Task<List<ReservationDto>> GetReservationsAsync(DateTime startDate, DateTime endDate, int idTerrain)
     {
@@ -117,16 +118,20 @@ public class ReservationService : IReservationService
                 throw new KeyNotFoundException($"The terrain with ID {reservation.IdTerrain} does not exist in our system.");
             }
 
-            reservationDtos.Add(new ReservationDto
-            {
-                Id = reservation.Id,
-                DateRes = reservation.DateRes,
-                IdUtilisateur = reservation.IdUtilisateur,
-                IdTerrain = reservation.IdTerrain,
-                IdEmploye = reservation.IdEmploye,
-                IdAdmin = reservation.IdAdmin,
-                StatusLibelle = reservation.Status?.Libelle // Inclure le libellé du statut
-            });
+        
+                reservationDtos.Add(new ReservationDto
+                {
+                    Id = reservation.Id,
+                    DateRes = reservation.DateRes,
+                    IdUtilisateur = reservation.IdUtilisateur,
+                    IdTerrain = reservation.IdTerrain,
+                    IdEmploye = reservation.IdEmploye,
+                    IdAdmin = reservation.IdAdmin,
+                    StatusLibelle = reservation.Status?.Libelle // Inclure le libellé du statut
+                });
+            
+
+         
         }
 
         return reservationDtos;

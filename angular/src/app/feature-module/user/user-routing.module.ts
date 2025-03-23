@@ -56,6 +56,7 @@ const routes: Routes = [
             (m) => m.UserBookingsModule
           ),
       },
+      
     ],
   },
 ];

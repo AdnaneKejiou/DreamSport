@@ -24,7 +24,8 @@ export class HeaderComponent {
   page = '';
   last = '';
   headerMenuactive = '';
-
+  imageUser='';
+  Usernam='';
   tenantData$: Observable<any>;
   imageUrl: string | null = null;
 
@@ -39,6 +40,16 @@ export class HeaderComponent {
     private sidebarService: SidebarService,
     private store: Store
   ){
+
+
+    const userString = localStorage.getItem('user_data');
+    if (userString) {
+      const user = JSON.parse(userString);
+      this.imageUser = user.ImageUrl;
+      this.Usernam=user.Nom +' '+user.Prenom;
+    } else {
+      console.warn('No user found in localStorage');
+    }
 
      this.tenantData$ = this.store.select(selectTenantData);
           this.tenantData$.subscribe(data => {

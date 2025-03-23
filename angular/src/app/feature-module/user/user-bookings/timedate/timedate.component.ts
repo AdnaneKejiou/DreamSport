@@ -172,27 +172,22 @@ export class TimedateComponent implements OnInit, AfterViewInit {
   }
 
   isTimeDisabled(time: string): boolean {
-    // Vérifier si l'heure est déjà passée
     const isPastTime = this.isPast(time);
 
-    // Vérifier si l'heure est déjà réservée
     const isReserved = this.disabledTimes.includes(time);
 
-    // Désactiver l'heure si elle est passée ou déjà réservée
     return isPastTime || isReserved;
   }
 
   isPast(time: string): boolean {
     if (!this.selectedDate) {
-      return false; // Si aucune date n'est sélectionnée, ne pas désactiver
+      return false; 
     }
 
-    // Convertir l'heure sélectionnée en objet Date
     const selectedDateTime = new Date(this.selectedDate.fullDate);
     const [hours, minutes] = time.split(':').map(Number);
-    selectedDateTime.setHours(hours, minutes, 0, 0); // Définir l'heure et les minutes
+    selectedDateTime.setHours(hours, minutes, 0, 0); 
 
-    // Comparer avec l'heure actuelle
     const now = new Date();
     return selectedDateTime < now;
   }
@@ -209,7 +204,6 @@ export class TimedateComponent implements OnInit, AfterViewInit {
     this.selectedTime = null;
     this.endTime = '';
     this.totalHours = 0;
-    this.subtotal = 0;
   }
 
   selectTime(time: string): void {

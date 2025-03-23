@@ -40,7 +40,7 @@ public class ReservationRepository : IReservationRepository
             .Include(r => r.Status) // Join with Status
             .Where(r => r.IdTerrain == terrainId
                         && r.DateRes == dateRes
-                        && r.Status.Libelle != "annule") // Filter by Status Libelle
+                        && r.Status.Libelle != "Canceled") // Filter by Status Libelle
             .CountAsync();
 
         return count;
@@ -79,7 +79,7 @@ public class ReservationRepository : IReservationRepository
     {
         return await _context.Reservations
             .Include(r => r.Status) // Inclure le statut
-            .Where(r => r.DateRes >= startDate && r.DateRes <= endDate && r.IdTerrain == idTerrain)
+            .Where(r => r.DateRes >= startDate && r.DateRes <= endDate && r.IdTerrain == idTerrain && r.Status.Libelle!= "Canceled")
             .ToListAsync();
     }
 
