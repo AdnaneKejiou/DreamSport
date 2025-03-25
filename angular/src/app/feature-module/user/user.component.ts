@@ -71,6 +71,9 @@ export class UserComponent {
     if (this.currentUrl == routes.userOthersettings) {
       this.page = 'user profile';
     }
+    if (this.currentUrl == routes.sendInvitation) {
+      this.page = 'Invitation';
+    }
   }
   setActive(menu: string) {
     sessionStorage.setItem('title', menu);

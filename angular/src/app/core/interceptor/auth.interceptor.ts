@@ -28,7 +28,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // Subscribe to the observable to get the tenantId value
     this.Tenant$.subscribe((tenantId) => {
-      console.log('Tenant ID:', tenantId);
       this.Tenant = tenantId; // Assign the value to the Tenant property
     });
   } 
@@ -50,6 +49,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (this.Tenant) {
       headers = headers.set('Tenant-ID', this.Tenant.toString());
     }
+    
     
     const modifiedReq = req.clone({ headers });
     
