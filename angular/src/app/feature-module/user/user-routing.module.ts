@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'team-invitation',
         loadChildren: () =>
-          import('./team/team.module').then((m) => m.TeamModule),
+          import('./team-invitation/team.module').then((m) => m.TeamModule),
       },
       
       {
@@ -56,7 +56,13 @@ const routes: Routes = [
             (m) => m.UserBookingsModule
           ),
       },
-      
+      {
+        path: 'send-invitation',
+        loadChildren: () =>
+          import('./send-invitation/send-invitation.module').then(
+            (m) => m.SendInvitationModule
+          ),
+      },
     ],
   },
 ];

@@ -182,6 +182,9 @@ export class routes {
   public static get userInvitation(): string {
     return this.user + '/invitation';
   }
+  public static get sendInvitation(): string {
+    return this.user + '/send-invitation';
+  }
   public static get teamInvitation(): string {
     return this.user + '/team-invitation';
   }

@@ -68,19 +68,17 @@
 
     //Get Equipe
     {
-      "DownstreamPathTemplate": "/api/equipe/{teamId}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5108
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/equipe/{teamId}/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
+        "DownstreamPathTemplate": "/api/equipe/{teamId}/{AdminId}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 5108
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/equipe/{teamId}/{AdminId}",
+        "UpstreamHttpMethod": [ "GET" ]
     },
-
-
 
     //verification si le membre exist dans l'equipe
     {
