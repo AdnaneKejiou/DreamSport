@@ -59,7 +59,7 @@ namespace gestionEmployer.API.Controllers
         public async Task<ActionResult<ReturnAddedEmployee>> AddEmployee([FromBody] AddEmployeeDTO employee)
         {
             
-            var employerr = EmployeeMapper.AddEmployeeDTOToEmployer(employee);
+            Employer employerr = EmployeeMapper.AddEmployeeDTOToEmployer(employee);
 
             var employeeAjoute = await _employeeService.AddEmployeeAsync(employerr);
             if (employeeAjoute.errors.Count()>0)
@@ -128,5 +128,17 @@ namespace gestionEmployer.API.Controllers
             }
 
         }
+
+        [HttpGet("search/{searchTerm}/{AdminId}")]
+        public async Task<ActionResult<IEnumerable<GetEmployeeDTO>>> SearchUsersAsync(string searchTerm)
+        {
+            var result = await _employeeService.SearchEmployeesAsync(searchTerm);
+            if(result == null)
+            {
+                return NotFound("No employee found with this pattern");
+            }
+            return Ok(result);
+        }
+
     }
 }

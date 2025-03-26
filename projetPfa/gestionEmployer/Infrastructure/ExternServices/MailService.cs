@@ -15,13 +15,21 @@ namespace gestionEmployer.Infrastructure.ExternServices
             _httpClient = new HttpClient();
         }
 
-        public async Task<bool> NewEmployeeMail(EmailRequest request)
-        {
-            var jsonContent = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+            public async Task<bool> NewEmployeeMail(EmailRequest request, int adminId)
+            {
+                var req = new HttpRequestMessage(HttpMethod.Post, SiteUrl);
+                req.Headers.Add("Tenant-ID", adminId.ToString());
+
+                // Create JSON content and set it as the request body
+                var jsonContent = new StringContent(
+                    JsonSerializer.Serialize(request),
+                    Encoding.UTF8,
+                    "application/json");
+                req.Content = jsonContent;
 
 
-            HttpResponseMessage response = await _httpClient.PostAsync(SiteUrl, jsonContent);
+            var response = await _httpClient.SendAsync(req);
             return response.IsSuccessStatusCode;
-        }
+            }
     }
 }

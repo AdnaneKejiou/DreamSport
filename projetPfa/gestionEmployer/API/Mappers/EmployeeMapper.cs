@@ -19,7 +19,7 @@ namespace gestionEmployer.API.Mappers
                 Email = _AddEmployeeDTO.Email,
                 Username = _AddEmployeeDTO.Username,
                 Salaire = _AddEmployeeDTO.Salaire,
-                Password = _AddEmployeeDTO.Password,
+                
             };
         }
         public static Employer UpdateEmployeeDTOToEmployer(UpdateEmployeeDTO _UpdateEmployeeDTO)
@@ -34,8 +34,45 @@ namespace gestionEmployer.API.Mappers
                 Email = _UpdateEmployeeDTO.Email,
                 Username = _UpdateEmployeeDTO.Username,
                 Salaire = _UpdateEmployeeDTO.Salaire,
-
+                imageUrl = _UpdateEmployeeDTO.imageUrl,
+                AdminId = _UpdateEmployeeDTO.AdminId,
             };
+        }
+
+        public static void updateToModel(Employer existingEmploye, Employer updatedEmploye)
+        {
+            if (!string.IsNullOrEmpty(updatedEmploye.Email))
+            {
+                existingEmploye.Email = updatedEmploye.Email;
+            }
+            if (!string.IsNullOrEmpty(updatedEmploye.Username))
+            {
+                existingEmploye.Username = updatedEmploye.Username;
+            }
+            if (!string.IsNullOrEmpty(updatedEmploye.Nom))
+            {
+                existingEmploye.Nom = updatedEmploye.Nom;
+            }
+            if (!string.IsNullOrEmpty(updatedEmploye.Prenom))
+            {
+                existingEmploye.Prenom = updatedEmploye.Prenom;
+            }
+            if (!string.IsNullOrEmpty(updatedEmploye.PhoneNumber))
+            {
+                existingEmploye.PhoneNumber = updatedEmploye.PhoneNumber;
+            }
+            if (!string.IsNullOrEmpty(updatedEmploye.imageUrl))
+            {
+                existingEmploye.PhoneNumber = updatedEmploye.PhoneNumber;
+            }
+            if (updatedEmploye.Salaire != null && updatedEmploye.Salaire != 0.0)
+            {
+                existingEmploye.Salaire = updatedEmploye.Salaire;
+            }
+            if (updatedEmploye.Birthday != null && updatedEmploye.Birthday != default(DateTime))
+            {
+                existingEmploye.Birthday = updatedEmploye.Birthday;
+            }
         }
 
         public static ReturnAddedEmployee EmployeeToRTE(Employer _Employer)
@@ -51,7 +88,6 @@ namespace gestionEmployer.API.Mappers
                 Username = _Employer.Username,
                 Salaire = _Employer.Salaire,
                 AdminId = _Employer.AdminId,
-                errors = new List<string>()
             };
         }
 
@@ -59,6 +95,7 @@ namespace gestionEmployer.API.Mappers
         {
             return new GetEmployeeDTO
             {
+                Id = _Employer.Id,
                 AdminId = _Employer.AdminId,
                 Nom = _Employer.Nom,
                 Prenom = _Employer.Prenom,
@@ -67,7 +104,8 @@ namespace gestionEmployer.API.Mappers
                 Birthday = _Employer.Birthday,
                 PhoneNumber = _Employer.PhoneNumber,
                 Salaire = _Employer.Salaire,
-                Username = _Employer.Username
+                Username = _Employer.Username,
+                imageUrl = _Employer.imageUrl, 
             };
         }
 

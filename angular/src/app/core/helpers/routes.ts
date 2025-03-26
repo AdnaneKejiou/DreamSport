@@ -201,6 +201,28 @@ export class routes {
     return this.user + '/user-profile-setting';
   }
 
+  // admin routes
+  public static get admin(): string {
+    return this.baseUrl + '/admin/';
+  }
+  public static get adminDashboard(): string {
+    return this.admin + '/dashboard';
+  }
+  public static get admin_annonces(): string {
+    return this.admin + '/annonces';
+  }
+  public static get admin_site(): string {
+    return this.admin + '/site';
+  }
+  public static get admin_faqs(): string {
+    return this.admin + '/faqs';
+  }
+  public static get admin_employees(): string {
+    return this.admin + '/employees';
+  }
+  public static get admin_profile_settings(): string {
+    return this.admin + '/profile-settings';
+  }
   // coaches routes start
   public static get coach(): string {
     return this.baseUrl + '/coaches/';

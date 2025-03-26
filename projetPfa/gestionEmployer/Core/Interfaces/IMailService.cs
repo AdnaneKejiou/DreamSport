@@ -4,6 +4,6 @@ namespace gestionEmployer.Core.Interfaces
 {
     public interface IMailService
     {
-        Task<bool> NewEmployeeMail(EmailRequest request);
+        Task<bool> NewEmployeeMail(EmailRequest requestn ,int adminId);
     }
 }

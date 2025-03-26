@@ -20,6 +20,18 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
         {
             return await _context.Employers.FirstOrDefaultAsync(e => e.AdminId == adminId && e.Email == email);
         }
+        public async Task<Employer> EmployerByCINAsync(string cin, int adminId)
+        {
+            return await _context.Employers.FirstOrDefaultAsync(e => e.AdminId == adminId && e.CIN == cin);
+        }
+        public async Task<Employer> EmployerByUsernameAsync(string username, int adminId)
+        {
+            return await _context.Employers.FirstOrDefaultAsync(e => e.AdminId == adminId && e.Username == username);
+        }
+        public async Task<Employer> EmployerByPhoneAsync(string phone, int adminId)
+        {
+            return await _context.Employers.FirstOrDefaultAsync(e => e.AdminId == adminId && e.PhoneNumber == phone);
+        }
 
         public  async Task<Employer?> GetEmployeeByIdAsync(int id)
         {
@@ -75,6 +87,22 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
             return employee;
         }
 
-        
+        public async Task<List<Employer>> SearchEmployeesAsync(string searchTerm)
+        {
+            var terms = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            return await _context.Employers
+                .Where(u =>
+                    terms.All(term =>
+                        u.Username.Contains(term) ||
+                        u.Nom.Contains(term) ||
+                        u.Prenom.Contains(term) 
+                        
+                    )
+                )
+                .ToListAsync();
+        }
+
+
     }
 }

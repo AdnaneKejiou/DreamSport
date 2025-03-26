@@ -6,6 +6,7 @@ using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.API.Mappers;
 using gestionEmployer.Infrastructure.ExternServices.ExternDTOs;
 using System.Collections.Generic;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace gestionEmployer.Core.Services
@@ -40,20 +41,28 @@ namespace gestionEmployer.Core.Services
 
         }
 
-
-
+        private string GenererNouveauMotDePasse()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, 10)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
 
         public async Task<ReturnAddedEmployee> AddEmployeeAsync(Employer employee)
         {
             ReturnAddedEmployee _ReturnAddedEmployee = EmployeeMapper.EmployeeToRTE(employee);
             if (_employeeRepository.Exists(e => e.CIN == employee.CIN && e.AdminId == employee.AdminId))
-                _ReturnAddedEmployee.errors.Add("Cin deja utilise");
+                _ReturnAddedEmployee.errors.Add("CIN","CIN already exists");
 
             if (_employeeRepository.Exists(e => e.Email == employee.Email && e.AdminId == employee.AdminId))
-                _ReturnAddedEmployee.errors.Add("email deja utilise");
+                _ReturnAddedEmployee.errors.Add("Email", "Email already exists");
 
             if (_employeeRepository.Exists(e => e.Username == employee.Username && e.AdminId == employee.AdminId))
-                _ReturnAddedEmployee.errors.Add("username deja utilise");
+                _ReturnAddedEmployee.errors.Add("Username", "Username already exists");
+
+            if (_employeeRepository.Exists(e => e.PhoneNumber == employee.PhoneNumber && e.AdminId == employee.AdminId))
+                _ReturnAddedEmployee.errors.Add("PhoneNumber", "PhoneNumber already exists");
 
             if (_ReturnAddedEmployee.errors.Count>0)
             {
@@ -61,10 +70,10 @@ namespace gestionEmployer.Core.Services
             }
 
             // si toutes les attributs ne se répete pas enregistre l'employé 
-
+            employee.Password = GenererNouveauMotDePasse();
             Employer emp = await _employeeRepository.AddEmployeeAsync(employee);
             EmailRequest emailRequest = new EmailRequest(employee.Email, employee.Nom + " " + employee.Prenom, employee.Password);
-            var xd = await _mailService.NewEmployeeMail(emailRequest);
+            var xd = await _mailService.NewEmployeeMail(emailRequest,emp.AdminId);
             return _ReturnAddedEmployee;
 
         }
@@ -81,42 +90,46 @@ namespace gestionEmployer.Core.Services
             ReturnUpdatedEmpDto dto = EmployeeMapper.ModelToUpdate(updatedEmploye);
 
             // Vérification de l'unicité seulement si l'attribut est modifié
-            if (updatedEmploye.CIN != existingEmploye.CIN &&
-                _employeeRepository.Exists(e => e.CIN == updatedEmploye.CIN && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
+            if (updatedEmploye.CIN !=null && !updatedEmploye.CIN.Equals(existingEmploye.CIN) )
             {
-                dto.Errors.Add("CIN", "CIN déjà utilisé.");
+                if(await _employeeRepository.EmployerByCINAsync(updatedEmploye.CIN, updatedEmploye.Id)!=null)
+                {
+                    {
+                        dto.Errors.Add("CIN", "CIN already exist.");
+                    }
+                }
             }
-
-            if (updatedEmploye.Email != existingEmploye.Email &&
-                _employeeRepository.Exists(e => e.Email == updatedEmploye.Email && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
+            if (updatedEmploye.Email != null && !updatedEmploye.Email.Equals(existingEmploye.Email))
             {
-                dto.Errors.Add("Email","Email déjà utilisé.");
+                if (await _employeeRepository.EmployerByEmailAsync(updatedEmploye.Email, updatedEmploye.AdminId) != null)
+                {
+                    dto.Errors.Add("Email", "Email already exist..");
+                }
+            }   
+            if (updatedEmploye.Username != null && !updatedEmploye.Username.Equals(existingEmploye.Username))
+            {
+                if (await _employeeRepository.EmployerByUsernameAsync(updatedEmploye.Username, updatedEmploye.AdminId) != null)
+                {
+                    dto.Errors.Add("Username", "Username already exist.");
+                }
             }
-
-            if (updatedEmploye.Username != existingEmploye.Username &&
-                _employeeRepository.Exists(e => e.Username == updatedEmploye.Username && e.Id != updatedEmploye.Id && e.AdminId == updatedEmploye.AdminId))
+            if (updatedEmploye.PhoneNumber != null && !updatedEmploye.PhoneNumber.Equals(existingEmploye.PhoneNumber))
             {
-                dto.Errors.Add("Username","Username déjà utilisé.");
+                if (await _employeeRepository.EmployerByPhoneAsync(updatedEmploye.PhoneNumber, updatedEmploye.AdminId) != null)
+                {
+                    dto.Errors.Add("PhoneNumber", "PhoneNumber already exist.");
+                }
             }
 
             if (dto.Errors.Count() == 0)
             {
-                existingEmploye.Email = updatedEmploye.Email;
-                existingEmploye.Username = updatedEmploye.Username;
-                existingEmploye.Nom = updatedEmploye.Nom;
-                existingEmploye.Prenom = updatedEmploye.Prenom;
-                existingEmploye.PhoneNumber = updatedEmploye.PhoneNumber;
-                existingEmploye.Salaire = updatedEmploye.Salaire;
-                existingEmploye.Birthday = updatedEmploye.Birthday; 
-
+                EmployeeMapper.updateToModel(existingEmploye, updatedEmploye);
                 // Sauvegarder les changements dans la base de données
                 var empp = await _employeeRepository.UpdateEmployeeAsync(existingEmploye);
             }
 
             return dto;
         }
-
-
 
 
         public async Task<Employer> DeleteEmployeeAsync(int id)
@@ -169,5 +182,15 @@ namespace gestionEmployer.Core.Services
             }
             return EmployeeMapper.ModelToLogin(employer);
         }
+
+        public async Task<IEnumerable<GetEmployeeDTO>> SearchEmployeesAsync(string searchTerm)
+        {
+            List<Employer> empList = await _employeeRepository.SearchEmployeesAsync(searchTerm);
+            IEnumerable<GetEmployeeDTO> dtoList = empList.Select(e => EmployeeMapper.ModelToGetEmployee(e));
+
+            // Mapper manuellement les entités vers les DTOs
+            return dtoList;
+        }
+
     }
 }

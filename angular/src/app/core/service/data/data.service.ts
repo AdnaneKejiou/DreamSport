@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
+  adminPages,
   apiResultFormat,
   coachPages,
   coaches,
@@ -761,6 +762,56 @@ export class DataService {
   ];
   public getCoachPages: BehaviorSubject<Array<coachPages>> =
     new BehaviorSubject<Array<coachPages>>(this.coachPages);
+    
+    
+    public adminPages: Array<adminPages> =  [
+      {
+        title: 'Dashboard',
+        img: 'assets/img/icons/dashboard-icon.svg',
+        route: routes.adminDashboard,
+        page: 'dashboard',
+        span: false,
+      },
+      {
+        title: 'Employees',
+        img: 'assets/img/icons/court-icon.svg',
+        route: routes.admin_employees,
+        page: 'employees',
+        span: false,
+      },
+      {
+        title: 'Site',
+        img: 'assets/img/icons/request-icon.svg',
+        route: routes.admin_site,
+        page: 'site',
+        span: false,
+      },
+      {
+        title: 'Annonces',
+        img: 'assets/img/icons/booking-icon.svg',
+        route: routes.admin_annonces,
+        page: 'annonces',
+        span: false,
+      },
+      {
+        title: 'FAQs',
+        img: 'assets/img/icons/Invitation-icon.svg',
+        route: routes.admin_faqs,
+        page: 'FAQs',
+        span: false,
+      },
+      {
+        title: 'Profile Setting',
+        img: 'assets/img/icons/profile-icon.svg',
+        page: 'profile settings',
+        route: routes.admin_profile_settings,
+        span: false,
+      },
+      
+    ];
+    public getAdminPages: BehaviorSubject<Array<adminPages>> =
+    new BehaviorSubject<Array<adminPages>>(this.adminPages);
+
 
   userDashboard: Array<coaches> = [
     {

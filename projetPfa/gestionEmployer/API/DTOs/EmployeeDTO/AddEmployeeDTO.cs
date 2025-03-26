@@ -27,8 +27,6 @@ namespace gestionEmployer.API.DTOs.DTOs
 
         [Required(ErrorMessage = "Username obligatoire")]
         public string Username { get; set; }
-        [Required]
-        public string Password { get; set; }
 
         public double Salaire { get; set; }
         // Le mot de passe ne doit normalement pas être exposé dans les API, on ne l'inclut pas dans le DTO.

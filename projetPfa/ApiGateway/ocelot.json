@@ -586,6 +586,18 @@
       "UpstreamPathTemplate": "/gateway/employee/validate",
       "UpstreamHttpMethod": [ "POST" ]
     },
+    {
+      "DownstreamPathTemplate": "/api/employee/search/{searchTerm}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/employee/search/{searchTerm}/{AdminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
     //Auth Admin
     {
       "DownstreamPathTemplate": "/api/Admin/validate",

@@ -1,0 +1,237 @@
+<h2 mat-dialog-title class="text-2xl font-bold mb-4">Add Employee</h2>
+
+<mat-dialog-content class="!pb-6">
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="form-container">
+    <!-- Personal Information Section -->
+    <div class="form-section">
+      <h4 class="section-title">Personal Information</h4>
+      
+      <div class="form-group">
+        <div class="group-img">
+          <i class="feather icon-user"></i>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="First Name"
+            formControlName="prenom"
+            [ngClass]="{'is-invalid': addForm.get('prenom')?.touched && addForm.get('prenom')?.invalid}"
+          />
+          
+        </div>
+        <div *ngIf="addForm.get('prenom')?.touched && addForm.get('prenom')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="addForm.get('prenom')?.hasError('required')">
+            First name is required
+          </div>
+        </div>
+        <div *ngIf="apiErrors['Prenom']">
+          {{ apiErrors['Prenom'] }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="group-img">
+          <i class="feather icon-user"></i>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Last Name"
+            formControlName="nom"
+            [ngClass]="{'is-invalid': addForm.get('nom')?.touched && addForm.get('nom')?.invalid}"
+          />
+          
+        </div>
+        <div *ngIf="addForm.get('nom')?.touched && addForm.get('nom')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="addForm.get('nom')?.hasError('required')">
+            Last name is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="group-img">
+          <i class="feather icon-calendar"></i>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Birthday"
+            class="form-control"
+            formControlName="birthday"
+            [ngClass]="{'is-invalid': addForm.get('birthday')?.touched && addForm.get('birthday')?.invalid}"
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          
+        </div>
+        <div *ngIf="addForm.get('birthday')?.touched && addForm.get('birthday')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="addForm.get('birthday')?.hasError('required')">
+            Birthday is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="group-img">
+          <i class="feather icon-credit-card"></i>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="CIN"
+            formControlName="cin"
+            [ngClass]="{'is-invalid': addForm.get('cin')?.touched && addForm.get('cin')?.invalid}"
+          />
+          
+        </div>
+        <div *ngIf="addForm.get('cin')?.touched && addForm.get('cin')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="addForm.get('cin')?.hasError('required')">
+            CIN is required
+          </div>
+        </div>
+        <div *ngIf="apiErrors['CIN']" class="invalid-feedback d-block">
+          <div class="d-flex align-items-center">
+            <i class="feather icon-alert-circle me-2"></i>
+            <span>{{ apiErrors['CIN'] }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Information Section -->
+    <div class="form-section">
+      <h4 class="section-title">Contact Information</h4>
+      
+      <div class="form-group">
+        <div class="group-img">
+          <i class="feather icon-mail"></i>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Email"
+            formControlName="email"
+            [ngClass]="{'is-invalid': addForm.get('email')?.touched && addForm.get('email')?.invalid}"
+          />
+          
+        </div>
+        <div *ngIf="addForm.get('email')?.touched && addForm.get('email')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="addForm.get('email')?.hasError('required')">
+            Email is required
+          </div>
+          <div *ngIf="addForm.get('email')?.hasError('email')">
+            Please enter a valid email
+          </div>
+        </div>
+        <div *ngIf="apiErrors['Email']" class="invalid-feedback d-block">
+          <div class="d-flex align-items-center">
+            <i class="feather icon-alert-circle me-2"></i>
+            <span>{{ apiErrors['Email'] }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="group-img">
+          <i class="feather icon-phone"></i>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Phone Number"
+            formControlName="phoneNumber"
+            [ngClass]="{'is-invalid': addForm.get('phoneNumber')?.touched && addForm.get('phoneNumber')?.invalid}"
+          />
+          
+        </div>
+        <div *ngIf="addForm.get('phoneNumber')?.touched && addForm.get('phoneNumber')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="addForm.get('phoneNumber')?.hasError('required')">
+            Phone number is required
+          </div>
+        </div>
+        <div *ngIf="apiErrors['PhoneNumber']" class="invalid-feedback d-block">
+          <div class="d-flex align-items-center">
+            <i class="feather icon-alert-circle me-2"></i>
+            <span>{{ apiErrors['PhoneNumber'] }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Professional Information Section -->
+    <div class="form-section">
+      <h4 class="section-title">Professional Information</h4>
+      
+      <div class="form-group">
+        <div class="group-img">
+          <i class="feather icon-user"></i>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Username"
+            formControlName="username"
+            [ngClass]="{'is-invalid': addForm.get('username')?.touched && addForm.get('username')?.invalid}"
+          />
+          
+        </div>
+        <div *ngIf="addForm.get('username')?.touched && addForm.get('username')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="addForm.get('username')?.hasError('required')">
+            Username is required
+          </div>
+        </div>
+        <div *ngIf="apiErrors['Username']" class="invalid-feedback d-block">
+          <div class="d-flex align-items-center">
+            <i class="feather icon-alert-circle me-2"></i>
+            <span>{{ apiErrors['Username'] }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="group-img">
+          <i class="feather icon-dollar-sign"></i>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Salary"
+            formControlName="salaire"
+            [ngClass]="{'is-invalid': addForm.get('salaire')?.touched && addForm.get('salaire')?.invalid}"
+          />
+          
+        </div>
+        <div *ngIf="addForm.get('salaire')?.touched && addForm.get('salaire')?.invalid" class="invalid-feedback d-block">
+          <div *ngIf="addForm.get('salaire')?.hasError('required')">
+            Salary is required
+          </div>
+          <div *ngIf="addForm.get('salaire')?.hasError('min')">
+            Must be positive value
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="button"
+        mat-stroked-button
+        mat-dialog-close
+        class="cancel-btn"
+      >
+        <i class="feather icon-x"></i> Cancel
+      </button>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        class="btn btn-secondary register-btn d-inline-flex justify-content-center align-items-center w-100 btn-block"
+        [disabled]="addForm.invalid || isSubmitting"
+      >
+        <span *ngIf="!isSubmitting">
+          <i class="feather icon-save"></i> Add Employee
+        </span>
+        <span *ngIf="isSubmitting">
+          <i class="fa fa-spinner fa-spin"></i> Adding...
+        </span>
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>

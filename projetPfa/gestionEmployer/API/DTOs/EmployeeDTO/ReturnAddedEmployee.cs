@@ -4,6 +4,6 @@ namespace gestionEmployer.API.DTOs.EmployeeDTO
 {
     public class ReturnAddedEmployee : Employer
     {
-        public List<string> errors {  get; set; }
+        public Dictionary<string,string> errors { get; set; }= new Dictionary<string,string>();
     }
 }

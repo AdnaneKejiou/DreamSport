@@ -67,6 +67,14 @@ export interface coachPages {
   route?: string,
   span : boolean
 }
+export interface adminPages {
+  title?: string,
+  img?: string,
+  page?: string,
+  page1?: string
+  route?: string,
+  span : boolean
+}
 export interface blogmenu {
   title?: string;
   img?: string;

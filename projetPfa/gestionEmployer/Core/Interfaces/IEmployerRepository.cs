@@ -9,7 +9,10 @@ namespace gestionEmployer.Core.Interfaces
     {
         bool Exists(Expression<Func<Employer, bool>> predicate);
         Task<Employer> GetEmployeeByIdAsync(int id);
-        //fontion pour récuperer tous les employe by idAdmin
+        Task<Employer> EmployerByCINAsync(string cin, int adminId);
+        Task<Employer> EmployerByUsernameAsync(string username, int adminId);
+        Task<Employer> EmployerByPhoneAsync(string phone, int adminId);
+
         Task<IEnumerable<Employer>> GetEmployesByAdminIdAsync(int idAdmin);
 
         Task<Employer> AddEmployeeAsync(Employer employee);
@@ -17,5 +20,6 @@ namespace gestionEmployer.Core.Interfaces
 
         Task<Employer> DeleteEmployeeAsync(int id);
         Task<Employer> EmployerByEmailAsync(string email, int adminId);
+        Task<List<Employer>> SearchEmployeesAsync(string searchTerm);
     }
 }
