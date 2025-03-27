@@ -226,6 +226,21 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
+    //change password
+    {
+      
+      "DownstreamPathTemplate": "/api/user/changePassworduser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5255
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/users/changePassworduser",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
     //--------------------------------------------------------Gestion des Annonces-------------------------------------------
 
     {

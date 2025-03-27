@@ -14,10 +14,12 @@ namespace gestionUtilisateur.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IPasswordUserService _passwordUserService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IPasswordUserService passwordUserService)
         {
             _userService = userService;
+            _passwordUserService = passwordUserService;
         }
 
         [HttpPost]
@@ -199,6 +201,37 @@ namespace gestionUtilisateur.API.Controllers
         {
             var result = await _userService.SearchUsersAsync(searchTerm);
             return Ok(result);
+        }
+
+        //change password
+        [HttpPut("changePassworduser")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordUserDto ChangePasswordUserDto)
+        {
+            try
+            {
+                // Vérification de l'ancien mot de passe
+                var isValid = await _passwordUserService.VerifyOldUserPassword(ChangePasswordUserDto.AdminId, ChangePasswordUserDto.UserId, ChangePasswordUserDto.OldPassword);
+
+                if (!isValid)
+                    return BadRequest("Ancien mot de passe incorrect");
+
+                // Changement du mot de passe
+                await _passwordUserService.ChangeUserPassword(ChangePasswordUserDto.AdminId, ChangePasswordUserDto.UserId, ChangePasswordUserDto.NewPassword);
+
+                return Ok("Mot de passe mis à jour avec succès");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur interne: {ex.Message}");
+            }
         }
     }
 }

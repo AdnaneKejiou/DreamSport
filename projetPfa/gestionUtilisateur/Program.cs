@@ -12,6 +12,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMailService,MailService>();
+builder.Services.AddScoped<IPasswordUserService, PasswordUserService>();
+
 
 
 
