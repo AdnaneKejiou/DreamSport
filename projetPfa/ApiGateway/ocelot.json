@@ -68,16 +68,16 @@
 
     //Get Equipe
     {
-        "DownstreamPathTemplate": "/api/equipe/{teamId}/{AdminId}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-            {
-                "Host": "localhost",
-                "Port": 5108
-            }
-        ],
-        "UpstreamPathTemplate": "/gateway/equipe/{teamId}/{AdminId}",
-        "UpstreamHttpMethod": [ "GET" ]
+      "DownstreamPathTemplate": "/api/equipe/{teamId}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5108
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/equipe/{teamId}/{AdminId}",
+      "UpstreamHttpMethod": [ "GET" ]
     },
 
     //verification si le membre exist dans l'equipe
@@ -621,6 +621,20 @@
       ],
       "UpstreamPathTemplate": "/gateway/ajouter",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    //route change password
+    {
+      // Route pour supprimer un employé par ID (DELETE)
+      "DownstreamPathTemplate": "/api/employee/changePassword",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/employee/changePassword",
+      "UpstreamHttpMethod": [ "PUT" ]
     },
     // -------------------------------------------------------Mail Service----------------------------------
     {

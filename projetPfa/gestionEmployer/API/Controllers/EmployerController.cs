@@ -15,12 +15,16 @@ namespace gestionEmployer.API.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IPasswordService _passwordService;
 
-        public EmployeeController(IEmployeeService employeeService)
+
+        public EmployeeController(IEmployeeService employeeService, IPasswordService passwordService)
         {
             _employeeService = employeeService;
+            _passwordService = passwordService;
+
         }
-       
+
 
         // GET: api/Employee/{id}
         [HttpGet("get/{id}/{AdminId}")]
@@ -138,6 +142,37 @@ namespace gestionEmployer.API.Controllers
                 return NotFound("No employee found with this pattern");
             }
             return Ok(result);
+        }
+
+        //change password
+        [HttpPut ("changePassword")]
+        public async Task<IActionResult> ChangePassword( [FromBody] ChangePasswordDto ChangePasswordDto )
+        {
+            try
+            {
+                // Vérification de l'ancien mot de passe
+                var isValid = await _passwordService.VerifyOldPassword(ChangePasswordDto.AdminId, ChangePasswordDto.EmployerId, ChangePasswordDto.OldPassword);
+
+                if (!isValid)
+                    return BadRequest("Ancien mot de passe incorrect");
+
+                // Changement du mot de passe
+                await _passwordService.ChangePassword(ChangePasswordDto.AdminId, ChangePasswordDto.EmployerId, ChangePasswordDto.NewPassword);
+
+                return Ok("Mot de passe mis à jour avec succès");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur interne: {ex.Message}");
+            }
         }
 
     }

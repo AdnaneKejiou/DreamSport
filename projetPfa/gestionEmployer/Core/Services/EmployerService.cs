@@ -7,6 +7,7 @@ using gestionEmployer.API.Mappers;
 using gestionEmployer.Infrastructure.ExternServices.ExternDTOs;
 using System.Collections.Generic;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace gestionEmployer.Core.Services
@@ -17,16 +18,18 @@ namespace gestionEmployer.Core.Services
         private readonly IMailService _mailService;
         private readonly IAdminRepository _adminRepository;
 
+
         public EmployeeService(IEmployeeRepository employeeRepository, IMailService mailService, IAdminRepository adminRepository)
         {
             _employeeRepository = employeeRepository;
             _mailService = mailService;
             _adminRepository = adminRepository;
+
         }
 
         public async Task<Employer> GetEmployeeByIdAsync(int id)
         {
-             var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
+            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
             return employee;
         }
 
@@ -53,7 +56,7 @@ namespace gestionEmployer.Core.Services
         {
             ReturnAddedEmployee _ReturnAddedEmployee = EmployeeMapper.EmployeeToRTE(employee);
             if (_employeeRepository.Exists(e => e.CIN == employee.CIN && e.AdminId == employee.AdminId))
-                _ReturnAddedEmployee.errors.Add("CIN","CIN already exists");
+                _ReturnAddedEmployee.errors.Add("CIN", "CIN already exists");
 
             if (_employeeRepository.Exists(e => e.Email == employee.Email && e.AdminId == employee.AdminId))
                 _ReturnAddedEmployee.errors.Add("Email", "Email already exists");
@@ -64,7 +67,7 @@ namespace gestionEmployer.Core.Services
             if (_employeeRepository.Exists(e => e.PhoneNumber == employee.PhoneNumber && e.AdminId == employee.AdminId))
                 _ReturnAddedEmployee.errors.Add("PhoneNumber", "PhoneNumber already exists");
 
-            if (_ReturnAddedEmployee.errors.Count>0)
+            if (_ReturnAddedEmployee.errors.Count > 0)
             {
                 return _ReturnAddedEmployee;
             }
@@ -73,26 +76,26 @@ namespace gestionEmployer.Core.Services
             employee.Password = GenererNouveauMotDePasse();
             Employer emp = await _employeeRepository.AddEmployeeAsync(employee);
             EmailRequest emailRequest = new EmailRequest(employee.Email, employee.Nom + " " + employee.Prenom, employee.Password);
-            var xd = await _mailService.NewEmployeeMail(emailRequest,emp.AdminId);
+            var xd = await _mailService.NewEmployeeMail(emailRequest, emp.AdminId);
             return _ReturnAddedEmployee;
 
         }
 
 
         //Dans cette mettre on vas modifier l'employé en verifiant tous les attributs s'ils existent déja
-        public async Task<ReturnUpdatedEmpDto?> UpdateEmployeeAsync( Employer updatedEmploye)
+        public async Task<ReturnUpdatedEmpDto?> UpdateEmployeeAsync(Employer updatedEmploye)
         {
             // Récupérer l'employé existant
             Employer existingEmploye = await _employeeRepository.GetEmployeeByIdAsync(updatedEmploye.Id)
                                     ?? throw new KeyNotFoundException("Employé non trouvé.");
- 
+
             // Liste pour stocker les erreurs trouvées
             ReturnUpdatedEmpDto dto = EmployeeMapper.ModelToUpdate(updatedEmploye);
 
             // Vérification de l'unicité seulement si l'attribut est modifié
-            if (updatedEmploye.CIN !=null && !updatedEmploye.CIN.Equals(existingEmploye.CIN) )
+            if (updatedEmploye.CIN != null && !updatedEmploye.CIN.Equals(existingEmploye.CIN))
             {
-                if(await _employeeRepository.EmployerByCINAsync(updatedEmploye.CIN, updatedEmploye.Id)!=null)
+                if (await _employeeRepository.EmployerByCINAsync(updatedEmploye.CIN, updatedEmploye.Id) != null)
                 {
                     {
                         dto.Errors.Add("CIN", "CIN already exist.");
@@ -105,7 +108,7 @@ namespace gestionEmployer.Core.Services
                 {
                     dto.Errors.Add("Email", "Email already exist..");
                 }
-            }   
+            }
             if (updatedEmploye.Username != null && !updatedEmploye.Username.Equals(existingEmploye.Username))
             {
                 if (await _employeeRepository.EmployerByUsernameAsync(updatedEmploye.Username, updatedEmploye.AdminId) != null)
@@ -139,7 +142,7 @@ namespace gestionEmployer.Core.Services
                                       ?? throw new KeyNotFoundException("Employé non trouvé.");
 
             //Suppression de l'employé qui a id entré
-           return await _employeeRepository.DeleteEmployeeAsync(id);
+            return await _employeeRepository.DeleteEmployeeAsync(id);
         }
 
 
@@ -172,7 +175,7 @@ namespace gestionEmployer.Core.Services
         public async Task<SendLoginEmployeeDto> ValidateLogin(EmployerLoginDto login)
         {
             Employer employer = await _employeeRepository.EmployerByEmailAsync(login.Email, login.AdminId);
-            if ( employer == null)
+            if (employer == null)
             {
                 throw new KeyNotFoundException("The employee dont exist");
             }
@@ -192,5 +195,18 @@ namespace gestionEmployer.Core.Services
             return dtoList;
         }
 
+        // change password 
+        public async Task<bool> VerifyOldPassword(int adminId, int employerId, string oldPassword)
+        {
+            var employer = await _employeeRepository.GetEmployeeByIdAsync(employerId);
+
+            if (employer == null || employer.AdminId != adminId)
+            {
+                throw new UnauthorizedAccessException("Droits insuffisants ou employé introuvable");
+            }
+
+            // ATTENTION: Comparaison directe (non sécurisée)
+            return employer.Password == oldPassword;
+        }
     }
 }
