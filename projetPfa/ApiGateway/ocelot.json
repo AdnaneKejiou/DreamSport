@@ -228,7 +228,7 @@
 
     //change password
     {
-      
+
       "DownstreamPathTemplate": "/api/user/changePassworduser",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -637,7 +637,7 @@
       "UpstreamPathTemplate": "/gateway/ajouter",
       "UpstreamHttpMethod": [ "POST" ]
     },
-    //route change password
+    //route change password employee
     {
       // Route pour supprimer un employé par ID (DELETE)
       "DownstreamPathTemplate": "/api/employee/changePassword",
@@ -649,6 +649,21 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee/changePassword",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    //route change password admin
+    {
+
+      "DownstreamPathTemplate": "/api/admin/changeAdminPassword",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/admin/changeAdminPassword",
       "UpstreamHttpMethod": [ "PUT" ]
     },
     // -------------------------------------------------------Mail Service----------------------------------

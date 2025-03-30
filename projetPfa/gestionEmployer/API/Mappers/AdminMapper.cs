@@ -1,4 +1,5 @@
 ﻿using gestionEmployer.API.DTOs.AdminDTO;
+using gestionEmployer.API.DTOs.DTOs;
 using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.Core.Models;
 
@@ -36,6 +37,53 @@ namespace gestionEmployer.API.Mappers
                 Id = _Employer.Id,
                 Nom = _Employer.Nom,
                 Prenom = _Employer.Prenom,
+            };
+        }
+
+        public static Admin UpdateAdminDTOToAdmin(UpdateAdminDTO _UpdateAdminDTO)
+        {
+            return new Admin
+            {
+                Id = _UpdateAdminDTO.Id,
+                Nom = _UpdateAdminDTO.Nom,
+                Prenom = _UpdateAdminDTO.Prenom,
+                Login = _UpdateAdminDTO.Login,
+                PhoneNumber = _UpdateAdminDTO.PhoneNumber,
+                
+            };
+        }
+
+        public static void updateToModel(Admin existingAdmin, Admin updatedAdmin)
+        {
+            if (!string.IsNullOrEmpty(updatedAdmin.Nom))
+            {
+                existingAdmin.Nom = updatedAdmin.Nom;
+            }
+            if (!string.IsNullOrEmpty(updatedAdmin.Prenom))
+            {
+                existingAdmin.Prenom = updatedAdmin.Prenom;
+            }
+            if (!string.IsNullOrEmpty(updatedAdmin.Login))
+            {
+                existingAdmin.Login = updatedAdmin.Login;
+            }
+            if (!string.IsNullOrEmpty(updatedAdmin.PhoneNumber))
+            {
+                existingAdmin.PhoneNumber = updatedAdmin.PhoneNumber;
+            }
+
+        }
+
+
+        public static ReturnUpdatedAdminDto ModelToUpdate(Admin _Admin)
+        {
+            return new ReturnUpdatedAdminDto
+            {
+                Nom = _Admin.Nom,
+                Prenom = _Admin.Prenom,
+                PhoneNumber = _Admin.PhoneNumber,
+                Login = _Admin.Login,
+                Id = _Admin.Id
             };
         }
     }
