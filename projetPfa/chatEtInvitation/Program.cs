@@ -1,5 +1,3 @@
-
-
 using chatEtInvitation.API.Extentions;
 using chatEtInvitation.Infrastructure.ExternServices;
 using chatEtInvitation.Core.Interfaces.IRepositories;
@@ -20,19 +18,35 @@ builder.Services.AddScoped<IInvitationService, InvitationService>();
 builder.Services.AddScoped<IMemberInvitationRepository, MemberInvitationRepository>();
 
 
-//builder interfaces services and repositories
-builder.Services.AddScoped<IInvitationService, InvitationService>();
-builder.Services.AddScoped<IMemberInvitationRepository, MemberInvitationRepository>();
 
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddHttpClient<UserService>();
+// In Program.cs or Startup.cs
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 builder.Services.addRepositoriesDependencies();
 builder.Services.addServicesDependencies();
+builder.Services.AddSignalR()
+    .AddJsonProtocol(options => {
+        options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+    });
 var app = builder.Build();
 
+app.UseCors("AllowAll");
+
+app.MapHub<InvitationHub>("/invitationHub");
 
 
 app.UseAuthorization();

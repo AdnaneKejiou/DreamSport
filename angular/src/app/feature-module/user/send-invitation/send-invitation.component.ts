@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { routes } from 'src/app/core/core.index';
 import { UserService, User } from 'src/app/core/service/user/user.service';
+import { AuthService } from 'src/app/core/service/auth/authservice';
+import { InvitationService } from 'src/app/core/service/invitation/invitation-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-send-invitation',
@@ -18,7 +21,10 @@ export class SendInvitationComponent {
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private authservice: AuthService,
+    private invitationService: InvitationService,
+    private toastr: ToastrService
   ) {
     this.setupSearchDebounce();
   }
@@ -45,13 +51,10 @@ export class SendInvitationComponent {
     }
 
     this.isLoading = true;
-    
-    // Encode le terme de recherche pour les espaces
     const encodedSearchTerm = encodeURIComponent(trimmedTerm);
     
-    this.userService.searchUsers(encodedSearchTerm).subscribe({
+    this.userService.searchUsers(encodedSearchTerm, this.authservice.getUserId()).subscribe({
       next: (users) => {
-        // Filtrage supplémentaire côté client si nécessaire
         if (trimmedTerm.includes(' ')) {
           const terms = trimmedTerm.toLowerCase().split(' ');
           this.filteredUsers = users.filter(user => 
@@ -85,13 +88,23 @@ export class SendInvitationComponent {
   }
 
   sendInvitation(user: User): void {
-    this.userService.sendInvitation(user.id).subscribe({
+    user.sending = true;
+    const invitationData = {
+      emetteur: this.authservice.getUserId(),
+      recerpteur: user.id,
+      adminId: this.authservice.getUserId()
+    };
+
+    this.invitationService.sendInvitation(invitationData).subscribe({
       next: () => {
-        console.log(`Invitation envoyée à ${user.nom} ${user.prenom}`);
+        this.toastr.success('Invitation sent successfully!', 'Success');
+        user.sending = false;
         this.filteredUsers = this.filteredUsers.filter(u => u.id !== user.id);
       },
       error: (err) => {
-        console.error('Erreur lors de l\'envoi de l\'invitation', err);
+        console.error('Error sending invitation', err);
+        this.toastr.error('Failed to send invitation', 'Error');
+        user.sending = false;
       }
     });
   }

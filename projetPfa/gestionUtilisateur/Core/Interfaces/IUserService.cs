@@ -16,7 +16,7 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<ReturnedLoginDto> Login(LoginDto login);
         Task<ReturnedLoginDto> FacebookLoginAsync(string Id, int AdminId);
 
-        Task<List<UserDto>> SearchUsersAsync(string searchTerm);
+        Task<List<UserDto>> SearchUsersAsync(string searchTerm ,int id, int AdminId);
 
         Task<ReturnedLoginDto> GoogleLoginAsync(string Id, int adminId);
 

@@ -14,7 +14,7 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<User?> GetByEmailAsync(string email, int id);
         Task<User?> DoesUserWithFacebookExist(string id, int admin);
         
-        Task<List<User>> SearchUsersAsync(string searchTerm);
+        Task<List<User>> SearchUsersAsync(string searchTerm, int id, int AdminId);
 
         Task<User?> DoesUserWithGoogleExist(string id, int admin);
 

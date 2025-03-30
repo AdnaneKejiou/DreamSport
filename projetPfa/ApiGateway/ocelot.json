@@ -214,16 +214,16 @@
     //Route pour chercher un utilisateur search GET
 
     {
-      "DownstreamPathTemplate": "/api/user/search/{searchTerm}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/search/{searchTerm}/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
+        "DownstreamPathTemplate": "/api/user/search/{searchTerm}/{id}/{AdminId}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 5255
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/users/search/{searchTerm}/{id}/{AdminId}",
+        "UpstreamHttpMethod": [ "GET" ]
     },
 
     //change password
@@ -745,7 +745,20 @@
       "UpstreamPathTemplate": "/gateway/InvitationMember/user-invitations/{userId}/{adminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
-
+     //route pour envoyer invitation avec signalR
+    //{
+    //    "DownstreamPathTemplate": "/invitationHub",
+    //    "DownstreamScheme": "http",
+    //    "DownstreamHostAndPorts": [
+    //        {
+    //            "Host": "localhost",
+    //            "Port": 5270
+    //        }
+    //    ],
+    //    "UpstreamPathTemplate": "/invitationHub",
+    //    "UpstreamHttpMethod": [ "GET", "POST" ]
+    //},
+ 
 
     //nbr invitation equipe to member  GET
 

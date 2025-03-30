@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './user.component';
+import { TenantGuard } from 'src/app/core/guard/tenant/tenant.guard';
 
 const routes: Routes = [
   {
@@ -12,28 +13,33 @@ const routes: Routes = [
         path: 'user-dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+         canActivate: [TenantGuard]
       },
 
       {
         path: 'chat',
         loadChildren: () =>
           import('./chat/chat.module').then((m) => m.ChatModule),
+        canActivate: [TenantGuard]
       },
       {
         path: 'invitation',
         loadChildren: () =>
           import('./Invitation/Invitation.module').then((m) => m.InvitationModule),
+        canActivate: [TenantGuard]
       },
       {
         path: 'team-invitation',
         loadChildren: () =>
           import('./team-invitation/team.module').then((m) => m.TeamModule),
+        canActivate: [TenantGuard]
       },
       
       {
         path: 'user-profile',
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
+        canActivate: [TenantGuard]
       },
       {
         path: 'change-password',
@@ -41,6 +47,7 @@ const routes: Routes = [
           import('./change-password/change-password.module').then(
             (m) => m.ChangePasswordModule
           ),
+          canActivate: [TenantGuard]
       },
       {
         path: 'user-profile-setting',
@@ -48,6 +55,7 @@ const routes: Routes = [
           import('./other-settings/other-settings.module').then(
             (m) => m.OtherSettingsModule
           ),
+          canActivate: [TenantGuard]
       },
       {
         path: 'user-bookings',
@@ -55,6 +63,7 @@ const routes: Routes = [
           import('./user-bookings/user-bookings.module').then(
             (m) => m.UserBookingsModule
           ),
+          canActivate: [TenantGuard]
       },
       {
         path: 'send-invitation',
@@ -62,6 +71,7 @@ const routes: Routes = [
           import('./send-invitation/send-invitation.module').then(
             (m) => m.SendInvitationModule
           ),
+          canActivate: [TenantGuard]
       },
     ],
   },

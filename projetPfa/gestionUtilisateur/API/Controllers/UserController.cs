@@ -196,10 +196,10 @@ namespace gestionUtilisateur.API.Controllers
 
         //--search user
 
-        [HttpGet("search/{searchTerm}/{AdminId}")]
-        public async Task<ActionResult<List<UserDto>>> SearchUsersAsync(string searchTerm)
+        [HttpGet("search/{searchTerm}/{id}/{AdminId}")]
+        public async Task<ActionResult<List<UserDto>>> SearchUsersAsync(string searchTerm,int id,int AdminId)
         {
-            var result = await _userService.SearchUsersAsync(searchTerm);
+            var result = await _userService.SearchUsersAsync(searchTerm, id, AdminId );
             return Ok(result);
         }
 

@@ -12,12 +12,11 @@ namespace chatEtInvitation.Infrastructure.ExternServices
             _httpClient = httpClient;
         }
 
-        public async Task<UserDTO> FetchUserAsync(int idUser)
+        public async Task<UserDTO> FetchUserAsync(int idUser,int adminId)
         {
-            int adminId = 1; // Example Admin ID to be sent in the header
 
             // Construct the URL (only with idUser, as AdminId will be in headers)
-            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/{idUser}";
+            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/get/{idUser}";
 
             // Create the request with headers
             var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);

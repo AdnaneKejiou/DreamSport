@@ -4,6 +4,6 @@ namespace chatEtInvitation.Core.Interfaces.IExternServices
 {
     public interface IUserService
     {
-        Task<UserDTO> FetchUserAsync(int idUser);
+        Task<UserDTO> FetchUserAsync(int idUser, int adminId);
     }
 }
