@@ -3,6 +3,7 @@ using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.API.Mappers;
 using gestionEmployer.Core.Interfaces;
 using gestionEmployer.Core.Models;
+using gestionEmployer.Infrastructure.Data.Repositories;
 using Shared.Messaging.Services;
 
 namespace gestionEmployer.Core.Services
@@ -66,6 +67,43 @@ namespace gestionEmployer.Core.Services
             }
             return AdminMapper.ModelToLogin(admin);
         }
+
+       //public async Task<ReturnUpdatedAdminDto?> UpdateAdminAsync(Admin updatedAdmin)
+       // {
+       //     // Récupérer l'employé existant
+       //     Admin existingAdmin = _adminRepository.GetAdminByTenantId(updatedAdmin.Id)
+       //                             ?? throw new KeyNotFoundException("Admin non trouvé.");
+
+       //     // Liste pour stocker les erreurs trouvées
+       //     ReturnUpdatedAdminDto dto = AdminMapper.ModelToUpdate(updatedAdmin);
+
+       //     // Vérification de l'unicité seulement si l'attribut est modifié
+       //     if (updatedAdmin.Login != null && !updatedAdmin.Login.Equals(existingAdmin.Login))
+       //     {
+       //         if (await _adminRepository.GetByLoginAsync(updatedAdmin.Login, updatedAdmin.Id) != null)
+       //         {
+       //             {
+       //                 dto.Errors.Add("Login", "Login already exist.");
+       //             }
+       //         }
+       //     }
+       //     if (updatedAdmin.PhoneNumber != null && !updatedAdmin.PhoneNumber.Equals(existingAdmin.PhoneNumber))
+       //     {
+       //         if (await _adminRepository.EmployerByPhoneAsync(updatedAdmin.PhoneNumber, updatedAdmin.Id) != null)
+       //         {
+       //             dto.Errors.Add("PhoneNumber", "PhoneNumber already exist.");
+       //         }
+       //     }
+
+       //     if (dto.Errors.Count() == 0)
+       //     {
+       //         EmployeeMapper.updateToModel(existingEmploye, updatedEmploye);
+       //         // Sauvegarder les changements dans la base de données
+       //         var empp = await _employeeRepository.UpdateEmployeeAsync(existingEmploye);
+       //     }
+
+       //     return dto;
+       // }
     }
 
 

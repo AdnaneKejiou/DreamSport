@@ -35,6 +35,37 @@ export class AuthService {
     ); 
   }
 
+  getUserId(): number {
+    const userString = localStorage.getItem('user_data');
+    
+    if (!userString) {
+      console.warn('No user data found in localStorage');
+      return 0; // ou throw new Error('User not authenticated');
+    }
+  
+    try {
+      const user = JSON.parse(userString);
+      
+      if (!user || !user.nameid) {
+        console.warn('User ID not found in user data');
+        return 0;
+      }
+      
+      const userId = Number(user.nameid);
+      
+      if (isNaN(userId)) {
+        console.error('User ID is not a valid number');
+        return 0;
+      }
+      
+      return userId;
+      
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      return 0;
+    }
+  }
+
   login(email: string, password: string, userType: UserType): Observable<any> {
     const endpoint = environment.apiUrl + LOGIN_ENDPOINTS[userType];  // Ensure this resolves to the correct endpoint
     console.warn("📢 Login endpoint:", endpoint);  // Log the endpoint URL

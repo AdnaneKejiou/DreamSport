@@ -14,7 +14,9 @@ namespace gestionUtilisateur.Core.Interfaces
         Task DeleteAsync(User user);
         Task<User?> GetByEmailAsync(string email, int id);
         Task<User?> DoesUserWithFacebookExist(string id, int admin);
-        Task<List<User>> SearchUsersAsync(string searchTerm);
+        
+        Task<List<User>> SearchUsersAsync(string searchTerm, int id, int AdminId);
+
         Task<User?> DoesUserWithGoogleExist(string id, int admin);
         Task<PaginatedResponse<paginationUser>> GetUsersAsync(int skip, int limit, int adminId, bool? isBlocked = null, string searchTerm = null);
         Task<int> GetTotalCountAsync(bool? isBlocked = null);

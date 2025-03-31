@@ -9,6 +9,8 @@ namespace gestionEmployer.Core.Interfaces
         Admin? AddAdmin(Admin admin);
         bool AdminExists(string nom, string login, string phoneNumber);
         Task<Admin> GetByLoginAsync(string login);
+        Task<Admin?> UpdateAdminAsync(Admin admin);
+
 
     }
 }

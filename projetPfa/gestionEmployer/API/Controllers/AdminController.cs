@@ -15,10 +15,13 @@ namespace gestionEmployer.API.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
+        private readonly IPasswordServiceAdmin _passwordServiceadmin;
 
-        public AdminController(IAdminService adminService)
+
+        public AdminController(IAdminService adminService, IPasswordServiceAdmin passwordServiceadmin)
         {
             _adminService = adminService;
+            _passwordServiceadmin = passwordServiceadmin;
         }
 
         [HttpGet("validate/{AdminId}")]
@@ -88,6 +91,37 @@ namespace gestionEmployer.API.Controllers
                 return StatusCode(500, "Error");
             }
 
+        }
+
+        //change password
+        [HttpPut("changeAdminPassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeAdminPasswordDto ChangeAdminPasswordDto)
+        {
+            try
+            {
+                // Vérification de l'ancien mot de passe
+                var isValid = await _passwordServiceadmin.VerifyOldPasswordAdmin(ChangeAdminPasswordDto.AdminId, ChangeAdminPasswordDto.OldPassword);
+
+                if (!isValid)
+                    return BadRequest("Ancien mot de passe incorrect");
+
+                // Changement du mot de passe
+                await _passwordServiceadmin.ChangePasswordAdmin(ChangeAdminPasswordDto.AdminId, ChangeAdminPasswordDto.NewPassword);
+
+                return Ok("Mot de passe mis à jour avec succès");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur interne: {ex.Message}");
+            }
         }
     }
 }

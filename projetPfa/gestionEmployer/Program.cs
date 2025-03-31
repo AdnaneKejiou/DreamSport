@@ -18,6 +18,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IPasswordServiceAdmin, PasswordServiceAdmin>();
 
 
 var app = builder.Build();

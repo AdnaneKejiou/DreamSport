@@ -6,6 +6,7 @@ const routes: Routes = [{ path: '', component: SendInvitationComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  
 })
 export class SendInvitationRoutingModule { }

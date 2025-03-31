@@ -660,13 +660,6 @@ export class DataService {
 
   public userMenus: Array<usermenu> = [
     {
-      title: 'Dashboard',
-      img: 'assets/img/icons/dashboard-icon.svg',
-      page: 'dashboard',
-      route: routes.userDashboard,
-
-    },
-    {
       title: 'Book Now',
       img: 'assets/img/icons/booking-icon.svg',
       page: 'bookings',

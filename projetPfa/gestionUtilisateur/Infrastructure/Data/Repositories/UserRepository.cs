@@ -75,20 +75,23 @@ namespace gestionUtilisateur.Infrastructure.Data.Repositories
 
         //---- search user 
 
-        public async Task<List<User>> SearchUsersAsync(string searchTerm)
+        public async Task<List<User>> SearchUsersAsync(string searchTerm, int id, int adminId)
         {
-            var terms = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var query = _context.Users
+                .Where(u => u.IdAdmin == adminId && u.Id != id);
 
-            return await _context.Users
-                .Where(u =>
-                    terms.All(term =>
-                        u.Username.Contains(term) ||
-                        u.Nom.Contains(term) ||
-                        u.Prenom.Contains(term) ||
-                        u.Bio.Contains(term)
-                    )
-                )
-                .ToListAsync();
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var terms = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                query = query.Where(u => terms.All(term =>
+                    u.Username.Contains(term) ||
+                    u.Nom.Contains(term) ||
+                    u.Prenom.Contains(term) ||
+                    u.Bio.Contains(term)
+                ));
+            }
+
+            return await query.ToListAsync();
         }
 
 

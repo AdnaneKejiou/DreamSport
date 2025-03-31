@@ -278,7 +278,22 @@
     //Route pour chercher un utilisateur search GET
 
     {
-      "DownstreamPathTemplate": "/api/user/search/{searchTerm}/{AdminId}",
+        "DownstreamPathTemplate": "/api/user/search/{searchTerm}/{id}/{AdminId}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 5255
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/users/search/{searchTerm}/{id}/{AdminId}",
+        "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    //change password
+    {
+
+      "DownstreamPathTemplate": "/api/user/changePassworduser",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -286,8 +301,8 @@
           "Port": 5255
         }
       ],
-      "UpstreamPathTemplate": "/gateway/users/search/{searchTerm}/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamPathTemplate": "/gateway/users/changePassworduser",
+      "UpstreamHttpMethod": [ "PUT" ]
     },
 
     //--------------------------------------------------------Gestion des Annonces-------------------------------------------
@@ -699,6 +714,35 @@
       "UpstreamPathTemplate": "/gateway/ajouter",
       "UpstreamHttpMethod": [ "POST" ]
     },
+    //route change password employee
+    {
+      // Route pour supprimer un employé par ID (DELETE)
+      "DownstreamPathTemplate": "/api/employee/changePassword",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/employee/changePassword",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    //route change password admin
+    {
+
+      "DownstreamPathTemplate": "/api/admin/changeAdminPassword",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/admin/changeAdminPassword",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
     // -------------------------------------------------------Mail Service----------------------------------
     {
       // Route pour envoyer email
@@ -778,7 +822,20 @@
       "UpstreamPathTemplate": "/gateway/InvitationMember/user-invitations/{userId}/{adminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
-
+     //route pour envoyer invitation avec signalR
+    //{
+    //    "DownstreamPathTemplate": "/invitationHub",
+    //    "DownstreamScheme": "http",
+    //    "DownstreamHostAndPorts": [
+    //        {
+    //            "Host": "localhost",
+    //            "Port": 5270
+    //        }
+    //    ],
+    //    "UpstreamPathTemplate": "/invitationHub",
+    //    "UpstreamHttpMethod": [ "GET", "POST" ]
+    //},
+ 
 
     //nbr invitation equipe to member  GET
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserBookingsComponent } from './user-bookings.component';
+import { TenantGuard } from 'src/app/core/guard/tenant/tenant.guard';
 
 const routes: Routes = [{ path: '', component: UserBookingsComponent,
 children: [
@@ -10,6 +11,7 @@ children: [
       import('./details/details.module').then(
         (m) => (m).DetailsModule
       ),
+      canActivate: [TenantGuard]
       
   },
   {
@@ -18,11 +20,8 @@ children: [
       import('./timedate/timedate.module').then(
         (m) => (m).CoachTimedateModule
       ),
-  },
-  { path: 'timedate',
-     redirectTo: 'details',
-      pathMatch: 'full' }
-
+      canActivate: [TenantGuard]
+  }
 
 ]
 }];

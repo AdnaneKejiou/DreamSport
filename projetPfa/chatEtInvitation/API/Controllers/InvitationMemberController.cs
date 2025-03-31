@@ -6,6 +6,7 @@ using chatEtInvitation.Core.Models;
 using chatEtInvitation.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace chatEtInvitation.API.Controllers
 {
@@ -16,40 +17,45 @@ namespace chatEtInvitation.API.Controllers
 
         private readonly IMemberInvitationService _memberInvitationService;
         private readonly IInvitationService _invitationService;
+        private readonly IHubContext<InvitationHub> _hubContext;
 
 
-        public InvitationMemberController(IMemberInvitationService memberInvitationService,IInvitationService invitationService)
+        public InvitationMemberController(IMemberInvitationService memberInvitationService,IInvitationService invitationService, IHubContext<InvitationHub> hubContext)
         {
             _memberInvitationService = memberInvitationService;
             _invitationService = invitationService;
+            _hubContext = hubContext;
 
         }
+
+        
 
 
         [HttpPost("send")]
         public async Task<IActionResult> SendMemberInvitation([FromBody] AddInvMemberDto dto)
         {
-            if(dto.Recerpteur == dto.Emetteur)
+            if (dto.Recerpteur == dto.Emetteur)
             {
-                return BadRequest();
+                return BadRequest("You cannot send an invitation to yourself");
             }
-            MemberInvitation invitation = MemberInvitationMapper.AddDtoToModel(dto);
+
             try
             {
-                await _memberInvitationService.SendMemberInvitationAsync(invitation);
-                return Ok(new { message = "Invitation sent successfully!" });
+                // Sauvegarder l'invitation en base de données
+                MemberInvitation invitation = MemberInvitationMapper.AddDtoToModel(dto);
+
+                 await _memberInvitationService.SendMemberInvitationAsync(invitation);
+
+
+                // Envoyer via SignalR
+                await _hubContext.Clients.Group(dto.Recerpteur.ToString())
+                    .SendAsync("ReceiveInvitation", invitation);
+
+                return Ok(new { message = "Invitation sent successfully!", invitation = invitation });
             }
             catch (ConflictException ex)
             {
-                return Conflict(new { message = ex.Message }); // 409 Conflict
-            }
-            catch (ForbiddenException ex)
-            {
-                return StatusCode(403, new { message = ex.Message }); // 403 Forbidden
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(new { message = ex.Message }); // 404 Not Found
+                return Conflict(new { message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -57,7 +63,7 @@ namespace chatEtInvitation.API.Controllers
             }
         }
 
-      
+
 
         // Endpoint API pour refuser une invitation
         [HttpDelete("Refuser/{id}/{AdminId}")]
@@ -100,22 +106,25 @@ namespace chatEtInvitation.API.Controllers
 
 
         [HttpPost("accepter/{invitationId}")]
-        public async Task<IActionResult> AccepterInvitation(int invitationId)
+        public IActionResult AccepterInvitation(int invitationId)
         {
             try
             {
-                var success = await _invitationService.AccepterInvitationAsync(invitationId);
-                if (!success)
+                if (_invitationService.AccepterInvitationAsync(invitationId).Result==false)
                 {
-                    return StatusCode(500, "an error happen");
+                    return StatusCode(500, new { message = "An error occurred while processing your request" });
                 }
-                return Ok("Invitation acceptée et chat créé avec succès.");
+                return Ok(new
+                {
+                    success = true,
+                    message = "Invitation accepted successfully",
+                    data = new { invitationId }
+                });
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { message = ex.Message });
             }
-            
         }
 
         [HttpGet("{userId}")]
@@ -136,6 +145,7 @@ namespace chatEtInvitation.API.Controllers
         [HttpGet("user-invitations/{userId}/{adminId}")]
         public async Task<ActionResult<UserInvitationsResponseDto>> GetUserInvitationsNbrAsync(int userId, int adminId)
         {
+
             var result = await _memberInvitationService.GetUserInvitationsNbrAsync(userId, adminId);
             return Ok(result);
         }

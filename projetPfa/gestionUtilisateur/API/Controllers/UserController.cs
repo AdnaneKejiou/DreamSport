@@ -14,10 +14,12 @@ namespace gestionUtilisateur.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IPasswordUserService _passwordUserService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IPasswordUserService passwordUserService)
         {
             _userService = userService;
+            _passwordUserService = passwordUserService;
         }
 
         [HttpPost]
@@ -97,20 +99,22 @@ namespace gestionUtilisateur.API.Controllers
         }
 
         [HttpGet("get-right/{id}/{AdminId}")]
-        public async Task<IActionResult> GetUserConfAsync(int id,int AdminId)
+        public async Task<IActionResult> GetUserConfAsync(int id, int AdminId)
         {
             try
             {
                 ReturnedLoginDto dto = await _userService.GetUserConfAsync(id);
-                if(dto == null)
+                if (dto == null)
                 {
                     return StatusCode(500, "An error happen while handling your request");
                 }
                 return Ok(dto);
-            }catch(KeyNotFoundException ex)
+            }
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(new { errorMessage = ex.Message });
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, "An error happen while handling your request");
             }
@@ -150,7 +154,7 @@ namespace gestionUtilisateur.API.Controllers
             try
             {
                 ReturnedLoginDto dto = await _userService.Login(model);
-                if(dto == null)
+                if (dto == null)
                 {
                     return Forbid("cant login please contact the support");
                 }
@@ -190,7 +194,7 @@ namespace gestionUtilisateur.API.Controllers
         }
 
         [HttpPost("facebook-validate/{id}/{AdminId}/{type}")]
-        public async Task<IActionResult> GetUserByFacebookAsync(string id, int AdminId, string type )
+        public async Task<IActionResult> GetUserByFacebookAsync(string id, int AdminId, string type)
         {
             try
             {
@@ -215,12 +219,45 @@ namespace gestionUtilisateur.API.Controllers
 
         //--search user
 
-        [HttpGet("search/{searchTerm}/{AdminId}")]
-        public async Task<ActionResult<List<UserDto>>> SearchUsersAsync(string searchTerm)
+        [HttpGet("search/{searchTerm}/{id}/{AdminId}")]
+        public async Task<ActionResult<List<UserDto>>> SearchUsersAsync(string searchTerm, int id, int AdminId)
         {
-            var result = await _userService.SearchUsersAsync(searchTerm);
+            var result = await _userService.SearchUsersAsync(searchTerm, id, AdminId);
             return Ok(result);
         }
+
+        //change password
+        [HttpPut("changePassworduser")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordUserDto ChangePasswordUserDto)
+        {
+            try
+            {
+                // Vérification de l'ancien mot de passe
+                var isValid = await _passwordUserService.VerifyOldUserPassword(ChangePasswordUserDto.AdminId, ChangePasswordUserDto.UserId, ChangePasswordUserDto.OldPassword);
+
+                if (!isValid)
+                    return BadRequest("Ancien mot de passe incorrect");
+
+                // Changement du mot de passe
+                await _passwordUserService.ChangeUserPassword(ChangePasswordUserDto.AdminId, ChangePasswordUserDto.UserId, ChangePasswordUserDto.NewPassword);
+
+                return Ok("Mot de passe mis à jour avec succès");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur interne: {ex.Message}");
+            }
+        }
+
+
 
         [HttpPost("pagination")]
         public async Task<ActionResult<PaginatedResponse<paginationUser>>> GetUsers([FromBody] paginationParams dto)
@@ -232,7 +269,7 @@ namespace gestionUtilisateur.API.Controllers
                     dto.limit,
                     dto.AdminId,
                     dto.isBlocked,
-                    dto.searchTerm 
+                    dto.searchTerm
                 );
                 return Ok(result);
             }
@@ -244,7 +281,7 @@ namespace gestionUtilisateur.API.Controllers
 
         [HttpPut("{userId}/status")]
         public async Task<IActionResult> UpdateUserStatus(int userId, [FromBody] UpdateStatusDto dto)
-            {
+        {
             try
             {
                 var result = await _userService.UpdateUserStatusAsync(userId, dto.isBlocked);

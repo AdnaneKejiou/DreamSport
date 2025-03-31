@@ -11,35 +11,34 @@ import * as TenantActions from '../../store/tenant/tenant.actions';
 })
 export class TenantGuard implements CanActivate {
   constructor(
-    private store: Store,
+    private store: Store<any>, // Utilisez 'any' pour éviter les erreurs de type
     private router: Router,
     private http: HttpClient
   ) {}
 
   canActivate(): Observable<boolean> {
-    const tenantId = this.getTenantIdFromUrl(); // 🔥 Récupérer tenant depuis l'URL
+    const tenantId = this.getTenantIdFromUrl();
 
     if (!tenantId) {
       this.router.navigate(['error/error404']);
       return of(false);
     }
 
-    this.changeTenant(tenantId); // Met à jour le tenant
+    this.changeTenant(tenantId);
 
-    // Vérification du tenant dans le backend
     return this.checkTenantExistence(tenantId).pipe(
       tap((exists) => {
         if (!exists) {
-          this.router.navigate(['error/error404']); // Redirection vers la page d'erreur
+          this.router.navigate(['error/error404']);
         }
       }),
-      map((exists) => exists) // Retourner true si le tenant existe, sinon false
+      map((exists) => exists)
     );
   }
 
   private getTenantIdFromUrl(): number | null {
     const urlParts = window.location.pathname.split('/');
-    const tenantSlug = urlParts[1]; // Par exemple, '/club1/home' => 'club1'
+    const tenantSlug = urlParts[1];
 
     const tenantMap: { [key: string]: number } = {
       'club1': 1,
@@ -53,87 +52,69 @@ export class TenantGuard implements CanActivate {
       return 11;
     }
 
-    return tenantMap[tenantSlug] || null; // Retourne le tenantId si trouvé, sinon null
+    return tenantMap[tenantSlug] || null;
   }
 
   private changeTenant(tenantId: number) {
     this.store.dispatch(TenantActions.loadTenantData({ tenantId }));
   
-    // Abonnement au store pour surveiller les changements
+    // Solution simple avec 'any' pour éviter l'erreur
     this.store.subscribe((state: any) => {
-      if (state.tenant && state.tenant.siteInfo && state.tenant.siteInfo[0]) {
+      if (state?.tenant?.siteInfo?.[0]) {
         const site = state.tenant.siteInfo[0];
-  
-        // Vérifier et appliquer les couleurs si présentes
         if (site.couleurPrincipale && site.couleurSecondaire) {
           this.applyMainColor(site.couleurPrincipale, site.couleurSecondaire);
         }
       }
     });
   }
-  
-  
-  
-  private applyMainColor(color: string , color2 :string) {
+
+  private applyMainColor(color: string, color2: string) {
     document.documentElement.style.setProperty('--main-color', color);
     document.documentElement.style.setProperty('--sec-color', color2);
-    const lightColor =this.primarylight(color);
-    document.documentElement.style.setProperty('--main-light-color',lightColor );
-    const successtColor =this.sucessColor(lightColor);
-    document.documentElement.style.setProperty('--success-color',successtColor );
-
+    const lightColor = this.primarylight(color);
+    document.documentElement.style.setProperty('--main-light-color', lightColor);
+    const successColor = this.sucessColor(lightColor);
+    document.documentElement.style.setProperty('--success-color', successColor);
   }
 
   private primarylight(baseColor: string): string {
-    const diff = { r: 26, g: 53, b: 24 }; // La différence calculée entre #097E52 et #23B33A
-    
-    // Convertir la couleur de base en RGB
     const r = parseInt(baseColor.slice(1, 3), 16);
     const g = parseInt(baseColor.slice(3, 5), 16);
     const b = parseInt(baseColor.slice(5, 7), 16);
     
-    // Appliquer la différence à chaque composant et s'assurer que la nouvelle couleur est dans les limites (0-255)
-    const newR = Math.min(255, Math.max(0, r + diff.r));
-    const newG = Math.min(255, Math.max(0, g + diff.g));
-    const newB = Math.min(255, Math.max(0, b + diff.b));
+    const newR = Math.min(255, Math.max(0, r + 26));
+    const newG = Math.min(255, Math.max(0, g + 53));
+    const newB = Math.min(255, Math.max(0, b + 24));
     
-    // Convertir de nouveau en format hexadécimal
     return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
-}
- private sucessColor(baseColor: string): string {
-  const diff = { r: 2, g: 6, b: 3 }; // La différence calculée entre #23B33A et #1BB333
-  
-  // Convertir la couleur de base en RGB
-  const r = parseInt(baseColor.slice(1, 3), 16);
-  const g = parseInt(baseColor.slice(3, 5), 16);
-  const b = parseInt(baseColor.slice(5, 7), 16);
-  
-  // Appliquer la différence à chaque composant et s'assurer que la nouvelle couleur est dans les limites (0-255)
-  const newR = Math.min(255, Math.max(0, r + diff.r));
-  const newG = Math.min(255, Math.max(0, g + diff.g));
-  const newB = Math.min(255, Math.max(0, b + diff.b));
-  
-  // Convertir de nouveau en format hexadécimal
-  return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
-}
+  }
+
+  private sucessColor(baseColor: string): string {
+    const r = parseInt(baseColor.slice(1, 3), 16);
+    const g = parseInt(baseColor.slice(3, 5), 16);
+    const b = parseInt(baseColor.slice(5, 7), 16);
+    
+    const newR = Math.min(255, Math.max(0, r + 2));
+    const newG = Math.min(255, Math.max(0, g + 6));
+    const newB = Math.min(255, Math.max(0, b + 3));
+    
+    return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+  }
 
   private checkTenantExistence(tenantId: number): Observable<boolean> {
     const headers = new HttpHeaders().set('Tenant-ID', tenantId.toString());
   
-    // Effectuer une requête HTTP pour vérifier l'existence du tenant
-    const url = `http://localhost:5010/gateway/Admin/validate`;
-    return this.http.get<any>(url, { headers }).pipe(
+    return this.http.get<any>('http://localhost:5010/gateway/Admin/validate', { headers }).pipe(
       catchError((error) => {
         if (error.status === 404) {
           return of(false);
         }
-        return of(false); // Retourner false en cas d'erreur serveur ou réseau
+        return of(false);
       }),
       map((response) => {
-        return response ? true : false; // Retourner true si AdminId est retourné
+        return response ? true : false;
       })
     );
   }
-  
-  
 }

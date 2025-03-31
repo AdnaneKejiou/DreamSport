@@ -48,7 +48,7 @@ namespace chatEtInvitation.Core.Services
             {
                 throw new ForbiddenException("You need to debloque the user first");
             }
-            UserDTO Receiver = await _userService.FetchUserAsync(invitation.Recerpteur);
+            UserDTO Receiver = await _userService.FetchUserAsync(invitation.Recerpteur,invitation.AdminId);
             if (Receiver == null || Receiver.IdAdmin != invitation.AdminId)
             {
                 throw new KeyNotFoundException("The Receiver not Found");

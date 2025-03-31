@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
                .AllowAnyMethod()                   // Allow any HTTP methods
                .AllowCredentials();                // Allow credentials (cookies, Authorization headers)
     });
-}); 
+});
 builder.Services.AddHttpClient<TenantMiddleware>();
 
 var app = builder.Build();

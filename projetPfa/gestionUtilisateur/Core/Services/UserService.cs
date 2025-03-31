@@ -223,9 +223,9 @@ namespace gestionUtilisateur.Core.Services
 
         //----------- search user
 
-        public async Task<List<UserDto>> SearchUsersAsync(string searchTerm)
+        public async Task<List<UserDto>> SearchUsersAsync(string searchTerm,int id ,int AdminId)
         {
-            var users = await _userRepository.SearchUsersAsync(searchTerm);
+            var users = await _userRepository.SearchUsersAsync(searchTerm,id ,AdminId);
 
             // Mapper manuellement les entités vers les DTOs
             return users.Select(u => new UserDto
