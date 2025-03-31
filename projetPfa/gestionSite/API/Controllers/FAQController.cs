@@ -46,7 +46,7 @@ namespace gestionSite.API.Controllers
             var result = await _faqService.AddFAQAsync(faq);
             if (result == null)
             {
-                return BadRequest("An error occurred while adding the FAQ");
+                return BadRequest(error:"This question already exists");
             }
             return Ok(result);
             //return Created("/api/faq/" + result.IdAdmin, result);

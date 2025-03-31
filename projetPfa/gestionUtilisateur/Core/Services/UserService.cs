@@ -250,6 +250,27 @@ namespace gestionUtilisateur.Core.Services
             return UserMapper.ModelToLoginDto(user);
         }
 
+        public async Task<ReturnedLoginDto> GetUserConfAsync(int Id)
+        {
+            User user = await _userRepository.GetByIdAsync(Id);
+            if(user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+            return UserMapper.ModelToLoginDto(user);
+        }
 
+        public async Task<PaginatedResponse<paginationUser>> GetUsersPaginatedAsync(int skip, int limit, int adminId, bool? isBlocked = null, string searchTerm = null)
+        {
+            return await _userRepository.GetUsersAsync(skip, limit, adminId, isBlocked, searchTerm);
+        }
+
+        public async Task<bool> UpdateUserStatusAsync(int userId, bool isBlocked)
+        {
+            // Additional business logic can be added here
+            var result = await _userRepository.UpdateUserStatusAsync(userId, isBlocked);
+
+            return result;
+        }
     }
 }

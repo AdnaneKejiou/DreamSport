@@ -32,8 +32,7 @@ export class RegisterComponent {
     prenom: new FormControl('', Validators.required),
     username: new FormControl('', [Validators.required]),
     birthday: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)  // Ensures the date format is YYYY-MM-DD
+      Validators.required // Ensures the date format is YYYY-MM-DD
     ]),
     genre: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
@@ -61,7 +60,7 @@ export class RegisterComponent {
    
    
   signup() {
-   
+   console.error("haha ",this.form.value.password, " haha ",this.form.value.passwordConfirmed, "haha ",this.form);
     if (
       this.form.value.password === this.form.value.passwordConfirmed &&
       this.form.valid

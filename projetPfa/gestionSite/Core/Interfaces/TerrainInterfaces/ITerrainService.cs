@@ -1,3 +1,4 @@
+using gestionSite.API.DTOs.TerrainDtos;
 using gestionSite.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace gestionSite.Core.Interfaces.TerrainInterfaces
         Task<bool> ExistsAsync(string name, int idAdmin);
         Task<Terrain?> GetTerrainByIdAsync(int id);
         Task<Terrain?> GetTerrainByIdWithStatusAsync(int id);
+        Task<Terrain?> UpdateTerrainStatusAsync(UpdateStatusDto dto);
     }
 }

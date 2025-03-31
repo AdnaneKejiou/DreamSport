@@ -1,6 +1,7 @@
 ﻿using gestionReservation.Core.Interfaces;
 using gestionReservation.Infrastructure.ExternServices.Extern_DTo;
 using System.Net;
+using System.Text;
 
 namespace gestionReservation.Infrastructure.ExternServices
 {
@@ -36,10 +37,13 @@ namespace gestionReservation.Infrastructure.ExternServices
             return await response.Content.ReadFromJsonAsync<UserDTO>();
         }
 
-        public async Task<bool> ResetConteurResAnnulerAsync(int id)
+        public async Task<bool> ResetConteurResAnnulerAsync(int id, int adminId)
         {
-            var response = await _httpClient.PutAsync($"{UserUrl}/User/check-reservation-annule/{id}", null);
-
+            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/ResetConteur/{id}";
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, requestUrl); // or HttpMethod.Put
+            request.Headers.Add("Tenant-ID", adminId.ToString());
+            request.Content = new StringContent("{}", Encoding.UTF8, "application/json");
+            var response = await _httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
             {
                 return true; // Successfully reset
@@ -53,10 +57,13 @@ namespace gestionReservation.Infrastructure.ExternServices
             return false;
         }
 
-        public async Task<bool> CheckAndIncrementReservationAnnuleAsync(int userId)
+        public async Task<bool> CheckAndIncrementReservationAnnuleAsync(int userId, int adminId)
         {
-            var response = await _httpClient.PutAsync($"{UserUrl}/User/check-reservation-annule/{userId}", null);
-
+            string requestUrl = $"{UserUrl.TrimEnd('/')}/users/check-reservation-annule/{userId}";
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, requestUrl);
+            request.Headers.Add("Tenant-ID", adminId.ToString());
+            request.Content = new StringContent("{}", Encoding.UTF8, "application/json");
+            var response = await _httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
                 return true;
 

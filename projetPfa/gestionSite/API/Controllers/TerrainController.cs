@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using gestionSite.API.Filters;
 using gestionSite.Infrastructure.Mappers;
+using System.Data;
 
 namespace gestionSite.API.Controllers
 {
@@ -47,19 +48,27 @@ namespace gestionSite.API.Controllers
         {
             if (addTerrain == null)
             {
-                return BadRequest("Invalid terrain data.");
+                return BadRequest(new { errorMessage = "Invalid terrain data." });
             }
 
             var terrain = TerrainMapper.AddTerrainDtoToTerrain(addTerrain);
-            var result = await _terrainService.AddTerrainAsync(terrain);
-
-            if (result == null)
+            try
             {
-                return BadRequest("An error occurred while adding the terrain.");
+                var result = await _terrainService.AddTerrainAsync(terrain);
+
+                if (result == null)
+                {
+                    return StatusCode(500, new { errorMessage = "An error occurred while adding the terrain." });
+                }
+
+                return Created("/api/Terrain/" + result.IdAdmin, result);
+
+            }catch(InvalidOperationException ex)
+            {
+                return BadRequest(new { errorMessage = ex.Message });
             }
 
-            return Created("/api/Terrain/" + result.IdAdmin, result);
-            
+
         }
 
         // Modifier un terrain
@@ -81,6 +90,25 @@ namespace gestionSite.API.Controllers
             }
 
             return Ok(result);
+        }
+
+        [HttpPut("update-status")]
+        public async Task<IActionResult> UpdateTerrainStatusAsync([FromBody] UpdateStatusDto dto)
+        {
+            if(dto == null) { return BadRequest("No data provided"); }
+
+            try
+            {
+                Terrain terrain = await _terrainService.UpdateTerrainStatusAsync(dto);
+                if (terrain == null)
+                {
+                    return StatusCode(500, new { errorMessage = "an error happen while updating the court" });
+                }
+                return NoContent();
+            }catch(KeyNotFoundException ex)
+            {
+                return NotFound(new {errorMessage=ex.Message});
+            }
         }
 
         // Supprimer un terrain

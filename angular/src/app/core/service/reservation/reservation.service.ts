@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { getReservation } from '../../models/reservations/getReservation';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReservationService {
-  private apiUrl = 'http://localhost:5010/gateway/reservation';
-
+  private apiUrl = environment.apiUrl+"/reservation";
+ 
   constructor(private http: HttpClient) {}
 
   // Méthode pour effectuer une réservation
@@ -18,4 +20,28 @@ export class ReservationService {
 
     return this.http.post<any>(this.apiUrl, reservationData, { headers });
   }
+
+  getRequestsList(): Observable<getReservation[]>{
+    const url = this.apiUrl+"/requests-list";
+    return this.http.get<getReservation[]>(url);
+  }
+
+  rejectReservation(resiD:number): Observable<any>{
+    const url = this.apiUrl+"/update-status";
+    const employeeId = 5; //need to be extravted from the token
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<any>(url,{id:resiD , status:'Canceled', employeeId: employeeId}, {headers});
+  }
+
+  acceptReservation(resiD:number): Observable<any>{
+    const url = this.apiUrl+"/update-status";
+    const employeeId = 5; //need to be extravted from the token
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<any>(url,{id:resiD , status:'Confirmed', employeeId: employeeId}, {headers});
+  }
+  
 }

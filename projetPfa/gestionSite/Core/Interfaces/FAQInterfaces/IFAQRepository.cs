@@ -8,7 +8,7 @@ namespace gestionSite.Core.Interfaces.FAQInterfaces
         Task<gestionSite.Core.Models.FAQ?> AddFaqAsync(gestionSite.Core.Models.FAQ _faq);
         Task<gestionSite.Core.Models.FAQ?> DeleteFaqAsync(int id);
         Task<gestionSite.Core.Models.FAQ?> UpdateFaqAsync(gestionSite.Core.Models.FAQ _faq);
-        Task<bool> ExistsAsync(string question);
+        Task<bool> ExistsAsync(string question,int adminId);
 
     }
 }

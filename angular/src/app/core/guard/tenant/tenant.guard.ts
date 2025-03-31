@@ -50,7 +50,7 @@ export class TenantGuard implements CanActivate {
     if (window.location.hostname === 'localhost') {
 
       
-      return 28;
+      return 11;
     }
 
     return tenantMap[tenantSlug] || null; // Retourne le tenantId si trouvé, sinon null

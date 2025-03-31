@@ -95,6 +95,27 @@ namespace gestionUtilisateur.API.Controllers
             if (user == null) { return NotFound(); }
             return Ok(user);
         }
+
+        [HttpGet("get-right/{id}/{AdminId}")]
+        public async Task<IActionResult> GetUserConfAsync(int id,int AdminId)
+        {
+            try
+            {
+                ReturnedLoginDto dto = await _userService.GetUserConfAsync(id);
+                if(dto == null)
+                {
+                    return StatusCode(500, "An error happen while handling your request");
+                }
+                return Ok(dto);
+            }catch(KeyNotFoundException ex)
+            {
+                return NotFound(new { errorMessage = ex.Message });
+            }catch(Exception ex)
+            {
+                return StatusCode(500, "An error happen while handling your request");
+            }
+        }
+
         [HttpPut("ResetConteur/{id}")]
         public async Task<IActionResult> ResetConteurResAnnuler(int id)
         {
@@ -112,7 +133,7 @@ namespace gestionUtilisateur.API.Controllers
             {
                 var success = await _userService.CheckAndIncrementReservationAnnuleAsync(id);
                 if (!success)
-                    return Conflict(new { message = "Utilisateur déjà bloqué des réservations." });
+                    return Ok(new { message = "Utilisateur déjà bloqué des réservations." });
 
                 return Ok(new { message = "Le compteur des réservations annulées a été mis à jour." });
             }
@@ -200,5 +221,44 @@ namespace gestionUtilisateur.API.Controllers
             var result = await _userService.SearchUsersAsync(searchTerm);
             return Ok(result);
         }
+
+        [HttpPost("pagination")]
+        public async Task<ActionResult<PaginatedResponse<paginationUser>>> GetUsers([FromBody] paginationParams dto)
+        {
+            try
+            {
+                var result = await _userService.GetUsersPaginatedAsync(
+                    dto.skip,
+                    dto.limit,
+                    dto.AdminId,
+                    dto.isBlocked,
+                    dto.searchTerm 
+                );
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPut("{userId}/status")]
+        public async Task<IActionResult> UpdateUserStatus(int userId, [FromBody] UpdateStatusDto dto)
+            {
+            try
+            {
+                var result = await _userService.UpdateUserStatusAsync(userId, dto.isBlocked);
+                if (!result)
+                {
+                    return NotFound("User not found");
+                }
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
     }
 }

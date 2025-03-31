@@ -226,6 +226,9 @@ export class routes {
   public static get admin_profile_settings(): string {
     return this.admin + '/profile-settings';
   }
+  public static get admin_courts(): string {
+    return this.admin + '/courts';
+  }
   // coaches routes start
   public static get coach(): string {
     return this.baseUrl + '/coaches/';

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FAQsRoutingModule } from './faqs-routing.module';
 import { FAQsComponent } from './faqs.component';
+import { MatSortModule } from '@angular/material/sort';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { FAQsComponent } from './faqs.component';
   ],
   imports: [
     CommonModule,
-    FAQsRoutingModule
+    FAQsRoutingModule,
+    MatSortModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class FAQsModule { }

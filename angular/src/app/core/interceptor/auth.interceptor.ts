@@ -35,6 +35,8 @@ export class AuthInterceptor implements HttpInterceptor {
   private isExcluded(url: string): boolean {
     return this.excludedRoutes.some((excludedRoute) => url.includes(excludedRoute));
   }
+
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {      
     if (this.isExcluded(req.url)) {
       return next.handle(req); // Skip adding headers for excluded routes
@@ -49,8 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (this.Tenant) {
       headers = headers.set('Tenant-ID', this.Tenant.toString());
     }
-    
-    
+    console.error("tenant :    ",this.Tenant);
     const modifiedReq = req.clone({ headers });
     
     return next.handle(modifiedReq).pipe(

@@ -79,7 +79,7 @@ public class ReservationService : IReservationService
         reservation.IdEmploye = dto.EmployeeId;
         if (dto.Status == "Confirmed")
         {
-            if (!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
+            if (!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur, reservation.IdAdmin))
             {
                 throw new Exception("Failed to reset compteur");
             }
@@ -88,7 +88,7 @@ public class ReservationService : IReservationService
         }
         else if (dto.Status == "Canceled")
         {
-            if (!await _userService.ResetConteurResAnnulerAsync(reservation.IdUtilisateur))
+            if (!await _userService.CheckAndIncrementReservationAnnuleAsync(reservation.IdUtilisateur, reservation.IdAdmin))
             {
                 throw new Exception("Failed to update the user compteur");
             }
@@ -137,7 +137,11 @@ public class ReservationService : IReservationService
         return reservationDtos;
     }
 
+    public async Task<IEnumerable<Reservation>> GetRequestsListAsync(int AdminId){
+        DateTime startDate = DateTime.Now;  
+        DateTime endDate = startDate.AddDays(7);
+        return await _reservationRepository.GetRequestsListAsync(AdminId, startDate, endDate); 
 
-
+    }
 
 }

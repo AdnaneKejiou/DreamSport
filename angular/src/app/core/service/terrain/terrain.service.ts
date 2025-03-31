@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { selectTenantId } from '../../store/tenant/tenant.selectors';
 import { Store } from '@ngrx/store';
 
@@ -27,6 +27,11 @@ export interface SportCategory {
   nombreMax: number;
 }
 
+export interface IUpdateStatus {
+  id: number;
+  statusId: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -46,6 +51,11 @@ export class TerrainService {
     return this.http.get<Terrain[]>(`${this.apiUrl}`);
   }
 
+  getTerrain(id:number): Observable<Terrain>{
+    const url = `${this.apiUrl}/by-id/${id}`;
+    return this.http.get<Terrain>(url);
+  }
+
   getTerrainStatuses(): Observable<TerrainStatus[]> {
     
    return this.http.get<TerrainStatus[]>('http://localhost:5010/gateway/terrainstatus');
@@ -61,6 +71,42 @@ export class TerrainService {
 getReservationsForTerrain(terrainId: number): Observable<any[]> {
  
   return this.http.get<any[]>(`http://localhost:5010/gateway/reservation/upcoming/${terrainId}`);
+}
+
+private httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
+
+deleteCourt(id: number): Observable<any> {
+  const url = `${this.apiUrl}/${id}`;
+  return this.http.delete(url, this.httpOptions);
+}
+
+createCourt(faq: any): Observable<any> {
+        return this.http.post<any>(this.apiUrl, faq, this.httpOptions).pipe(
+          catchError(error => {
+            
+              console.error("Error creating Court:", error.error.errorMessage);
+              let errorMessage = error.error.errorMessage || 'Unknown error';
+              throw new Error(errorMessage);
+            
+          })
+        );
+}
+
+updateCourtStatus(id:number,statusId:number): Observable<any>{
+   const url = this.apiUrl+"/update-status";
+   console.log(url);
+   const UpdateStatusDto: IUpdateStatus = {id, statusId};
+   console.log("obj : ",UpdateStatusDto);
+      return this.http.put<any>(url, UpdateStatusDto, this.httpOptions).pipe(
+        catchError(error => {
+          console.error('Error updating user:', error);
+          throw error;
+        })
+      );
 }
 
 }

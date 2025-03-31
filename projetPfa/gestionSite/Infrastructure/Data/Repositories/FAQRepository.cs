@@ -67,9 +67,9 @@ namespace gestionSite.Infrastructure.Data.Repositories
             return existingFaq;
         }
 
-        public async Task<bool> ExistsAsync(string question)
+        public async Task<bool> ExistsAsync(string question, int adminId)
         {
-            return await _context.FAQs.AnyAsync(f => f.Question == question);
+            return await _context.FAQs.AnyAsync(f => f.Question == question && f.IdAdmin == adminId);
         }
 
     }

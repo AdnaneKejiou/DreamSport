@@ -41,7 +41,6 @@ export class EmployeesComponent {
   dataSource!: MatTableDataSource<employee>;
 
   constructor(private employeeService: EmployeesService, private dialog: MatDialog, private snackBar: MatSnackBar) {
-    this.loadUsers();
   }
 
 
@@ -175,7 +174,6 @@ selectedEmployee: any;
   }
 //end update employee 
 //add employee  
-// Add this to your existing parent component
 openAddEmployeeDialog(): void {
   const dialogRef = this.dialog.open(AddEmployeeComponent, {
     width: '800px',

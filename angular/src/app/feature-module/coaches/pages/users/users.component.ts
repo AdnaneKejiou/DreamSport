@@ -2,127 +2,258 @@ import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { PaginationService, tablePageSize } from 'src/app/shared/shared.index';
 import { Router } from '@angular/router';
-import {  pageSelection, routes } from 'src/app/core/core.index';
-import { User } from 'src/app/core/models/user.model'
+import { pageSelection, routes } from 'src/app/core/core.index';
+import { UsersService, userBlock } from 'src/app/core/service/Backend/users/users.service'
+import { finalize } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss'
+  styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
   public searchDataValue = '';
-  public tableShowed : Array<User> = []; //list that holds the list of users
-  public tableData: Array<User> = [
-    {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@example.com',
-      imageUrl: 'https://example.com/images/john.jpg',
-      username: 'johndoe',
-      isBlocked: false,
-      phoneNumber: '123-456-7890'
-    },
-    {
-      id: 2,
-      firstName: 'Jane',
-      lastName: 'Smith',
-      email: 'jane.smith@example.com',
-      imageUrl: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-      username: 'janesmith',
-      isBlocked: true,
-      phoneNumber: '987-654-3210'
-    },
-    {
-      id: 3,
-      firstName: 'Alice',
-      lastName: 'Johnson',
-      email: 'alice.johnson@example.com',
-      imageUrl: 'https://example.com/images/alice.jpg',
-      username: 'alicej',
-      isBlocked: false,
-      phoneNumber: '555-123-4567'
-    },
-    {
-      id: 4,
-      firstName: 'Bob',
-      lastName: 'Brown',
-      email: 'bob.brown@example.com',
-      imageUrl: 'https://example.com/images/bob.jpg',
-      username: 'bobbrown',
-      isBlocked: true,
-      phoneNumber: '444-555-6666'
-    },
-    {
-      id: 5,
-      firstName: 'Charlie',
-      lastName: 'Davis',
-      email: 'charlie.davis@example.com',
-      imageUrl: 'https://example.com/images/charlie.jpg',
-      username: 'charlied',
-      isBlocked: false,
-      phoneNumber: '777-888-9999'
-    }
-  ]; //list that holds users tha will be showed
+  public tableShowed: userBlock[] = [];
+  public tableData: userBlock[] = [];
   public routes = routes;
   public pageSize = 10;
-  selectedTab: string = 'all';
+  public totalRecords = 0;
+  public isLoading = false;
+  public selectedTab: string = 'all';
+
+  public searchControl = new FormControl('');
+  public selectedUser: userBlock | null = null; 
+  private modal: any; 
+
+  // Pagination variables
+  public lastIndex = 0;
+  public totalData = 0;
+  public skip = 0;
+  public limit: number = this.pageSize;
+  public pageIndex = 0;
+  public serialNumberArray: Array<number> = [];
+  public currentPage = 1;
+  public pageNumberArray: Array<number> = [];
+  public pageSelection: Array<pageSelection> = [];
+  public totalPages = 0;
 
   constructor(
-      private router: Router,
-      private pagination: PaginationService
-    ){
-   
-      this.pagination.tablePageSize.subscribe((res: tablePageSize) => {
-        if (this.router.url === this.routes.coachCourts) {
-          this.getTableData({ skip: res.skip, limit: res.limit });
-          this.pageSize = res.pageSize;
-        }
-      });
-      
-    }
-
-
-  public searchData(value: string): void {
-    //search methode 
-  }
-
-  //sort methode dyal dok les fleches
-  public sortData(sort: Sort) {
-      const data = this.tableShowed.slice();
-  
-      if (!sort.active || sort.direction === '') {
-        this.tableShowed = data;
-      } else {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.tableShowed = data.sort((a: any, b: any) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const aValue = (a as any)[sort.active];
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const bValue = (b as any)[sort.active];
-          return (aValue < bValue ? -1 : 1) * (sort.direction === 'asc' ? 1 : -1);
-        });
+    private router: Router,
+    private pagination: PaginationService,
+    private userService: UsersService,
+    private toastr: ToastrService,
+  ) {
+    this.pagination.tablePageSize.subscribe((res: tablePageSize) => {
+      if (this.router.url === this.routes.coachUsers) {
+        this.getTableData({ skip: res.skip, limit: res.limit });
+        this.pageSize = res.pageSize;
       }
+    });
   }
 
+  ngOnInit(): void {
+    this.loadInitialData();
+    
+    // Add debounce to search input (500ms delay)
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      )
+      .subscribe((value: string | null) => {
+        this.searchData(value!); // The ! tells TypeScript you're sure it's not null
+      });
+  }
+
+  private loadInitialData(): void {
+    this.getTableData({ skip: 0, limit: this.pageSize });
+  }
+
+  public searchData(value: string | null): void {
+  if (value === null) {
+    value = ''; // or handle null case as you prefer
+  }
+  this.searchDataValue = value;
+  // Reset to first page when searching
+  this.currentPage = 1;
+  this.skip = 0;
+  this.limit = this.pageSize;
+  this.getTableData({ skip: this.skip, limit: this.limit });
+}
+
+  public sortData(sort: Sort) {
+    const data = this.tableShowed.slice();
+
+    if (!sort.active || sort.direction === '') {
+      this.tableShowed = data;
+    } else {
+      this.tableShowed = data.sort((a: any, b: any) => {
+        const aValue = (a as any)[sort.active];
+        const bValue = (b as any)[sort.active];
+        return (aValue < bValue ? -1 : 1) * (sort.direction === 'asc' ? 1 : -1);
+      });
+    }
+  }
 
   private getTableData(pageOption: pageSelection): void {
-      //get data from server
+    this.isLoading = true;
+    
+    let isBlocked: boolean | undefined;
+    if (this.selectedTab === 'blocked') {
+      isBlocked = true;
+    } else if (this.selectedTab === 'notBlocked') {
+      isBlocked = false;
+    }
+  
+    this.userService.getUsers(
+      pageOption.skip, 
+      pageOption.limit, 
+      isBlocked,
+      this.searchDataValue // Pass search term to the service
+    )
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+        next: (response) => {
+          this.tableData = response.users;
+          this.tableShowed = [...this.tableData];
+          this.totalRecords = response.totalCount;
+          this.calculateTotalPages(response.totalCount, this.pageSize);
+        },
+        error: (error) => {
+          console.error('Error fetching users:', error);
+        }
+      });
   }
 
+  // Pagination methods
+  public getMoreData(event: string): void {
+    if (event == 'next') {
+      this.currentPage++;
+      this.pageIndex = this.currentPage - 1;
+      this.limit += this.pageSize;
+      this.skip = this.pageSize * this.pageIndex;
+      this.getTableData({ skip: this.skip, limit: this.limit });
+    } else if (event == 'previous') {
+      this.currentPage--;
+      this.pageIndex = this.currentPage - 1;
+      this.limit -= this.pageSize;
+      this.skip = this.pageSize * this.pageIndex;
+      this.getTableData({ skip: this.skip, limit: this.limit });
+    }
+  }
 
-  public blocked() {
-    this.tableShowed = this.tableData.filter(item => item.isBlocked === true);//need adjust
+  public moveToPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
+    this.skip = this.pageSelection[pageNumber - 1].skip;
+    this.limit = this.pageSelection[pageNumber - 1].limit;
+    if (pageNumber > this.currentPage) {
+      this.pageIndex = pageNumber - 1;
+    } else if (pageNumber < this.currentPage) {
+      this.pageIndex = pageNumber + 1;
+    }
+    this.getTableData({ skip: this.skip, limit: this.limit });
+  }
+
+  public changePageSize(pageSize: number): void {
+    this.pageSelection = [];
+    this.pageSize = pageSize;
+    this.limit = pageSize;
+    this.skip = 0;
+    this.currentPage = 1;
+    this.getTableData({ skip: this.skip, limit: this.limit });
+  }
+
+  public calculateTotalPages(totalData: number, pageSize: number): void {
+    this.pageNumberArray = [];
+    this.totalData = totalData;
+    this.totalPages = totalData / pageSize;
+    if (this.totalPages % 1 != 0) {
+      this.totalPages = Math.trunc(this.totalPages + 1);
+    }
+    for (let i = 1; i <= this.totalPages; i++) {
+      const limit = pageSize * i;
+      const skip = limit - pageSize;
+      this.pageNumberArray.push(i);
+      this.pageSelection.push({ skip: skip, limit: limit });
+    }
+  }
+
+  public blocked(): void {
     this.selectedTab = 'blocked';
+    this.getTableData({ skip: 0, limit: this.pageSize });
   }
 
-  public inblocked() {
-    this.tableShowed = this.tableData.filter(item => item.isBlocked === false);//need adjust
+  public inblocked(): void {
     this.selectedTab = 'notBlocked';
-  } 
-  public allUsers(){
-    this.tableShowed = this.tableData;//need adjust
+    this.getTableData({ skip: 0, limit: this.pageSize });
+  }
+
+  public allUsers(): void {
     this.selectedTab = 'all';
+    this.getTableData({ skip: 0, limit: this.pageSize });
+  }
+
+  // Add this method to open the modal
+  public openStatusModal(user: userBlock): void {
+    this.selectedUser = user;
+    this.originalStatus = user.isBlocked; // Store original status
+    this.statusChangeUserId = user.id; // Store user ID
+    
+    if (!this.modal) {
+      this.modal = new (window as any).bootstrap.Modal(
+        document.getElementById('userStatusModal')
+      );
+    }
+    this.modal.show();
+  }
+private originalStatus: boolean | null = null;
+  private statusChangeUserId: number | null = null;
+// Add this method to handle confirmation
+public confirmStatusChange(): void {
+  if (!this.selectedUser) return;
+
+  this.isLoading = true;
+  this.userService.updateUserStatus(this.selectedUser.id, this.selectedUser.isBlocked)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
+      next: () => {
+        this.toastr.success('The user has been updates', 'Success');
+        this.selectedUser!.isBlocked = !this.selectedUser!.isBlocked;
+        this.getTableData({ skip: this.skip, limit: this.limit });
+      },
+      error: (error) => {
+        this.toastr.error('Failed to update user status', 'Error');
+        this.revertStatus();
+      }
+    });
+  }
+
+  // Add this new method to handle "No" click
+  public cancelStatusChange(): void {
+    this.revertStatus();
+    if (this.modal) {
+      this.modal.hide();
+    }
+  }
+
+  // Helper method to revert status
+  private revertStatus(): void {
+    if (this.statusChangeUserId && this.originalStatus !== null) {
+      const user = this.tableData.find(u => u.id === this.statusChangeUserId);
+      if (user) {
+        user.isBlocked = this.originalStatus;
+      }
+      // Also update the showed table if filtered
+      const showedUser = this.tableShowed.find(u => u.id === this.statusChangeUserId);
+      if (showedUser) {
+        showedUser.isBlocked = this.originalStatus;
+      }
+    }
+    this.originalStatus = null;
+    this.statusChangeUserId = null;
   }
 }

@@ -24,9 +24,7 @@
                     <a [routerLink] = "mainMenus.route" [class.active]="last === mainMenus.page">
                       <img [src]=mainMenus.img alt="Icon">
                       <span>{{mainMenus.title}}</span>
-                      @if (mainMenus.span === true) {
-                        <span class="court-notify">03</span>
-                      }
+                     
                     </a>
                   </li>
                 }

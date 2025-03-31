@@ -42,7 +42,6 @@ export class AuthService {
     const body = {
       'email': email,
       'password': password,
-      'adminId': this.Tenant,  
       'facebookToken': null, 
       'googleToken': null 
     };
@@ -141,7 +140,6 @@ export class AuthService {
     const body = {
       'email': null,
       'password': null,
-      'adminId': this.Tenant,  
       'facebookToken': credentials, 
       'googleToken': null 
     };

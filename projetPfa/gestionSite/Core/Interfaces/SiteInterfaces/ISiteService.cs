@@ -1,4 +1,7 @@
-﻿namespace gestionSite.Core.Interfaces.SiteInterfaces
+﻿using gestionSite.API.DTOs.TerrainDtos;
+using gestionSite.Core.Models;
+
+namespace gestionSite.Core.Interfaces.SiteInterfaces
 {
     public interface ISiteService
     {

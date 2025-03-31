@@ -10,7 +10,7 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./admin-dashboard/admin-dashboard.module').then(
-            (m) => m.AdminDashboardModule
+            (m) => m.AdminDashboardModule,
           ),
       },
       {
@@ -46,6 +46,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./profile-settings/profile-settings.module').then(
             (m) => m.ProfileSettingsModule
+          ),
+      },
+      {
+        path: 'courts',
+        loadChildren: () =>
+          import('./courts/courts.module').then(
+            (m) => m.CourtsModule
           ),
       },
     ]

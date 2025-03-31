@@ -171,5 +171,20 @@ namespace gestionUtilisateur.API.Mappers
             }
             return user;
         }
+
+        public static paginationUser modelTopagination(User user)
+        {
+            return new paginationUser
+            {
+                id = user.Id,
+                firstName = user.Prenom,
+                lastName = user.Nom,
+                email = user.Email,
+                phoneNumber = user.PhoneNumber,
+                imageUrl = user.ImageUrl,
+                isBlocked = user.IsReservationBlocked,
+                username = user.Username,
+            };
+        }
     }
 }

@@ -83,5 +83,11 @@ public class ReservationRepository : IReservationRepository
             .ToListAsync();
     }
 
-
+    public async Task<IEnumerable<Reservation>> GetRequestsListAsync(int AdminId, DateTime startDate, DateTime endDate)
+    {
+        return await _context.Reservations
+            .Include(r => r.Status) // Inclure le statut
+            .Where(r => r.DateRes >= startDate && r.DateRes <= endDate && r.IdAdmin == AdminId && r.Status.Libelle == "Pending")
+            .ToListAsync();
+    }
 }

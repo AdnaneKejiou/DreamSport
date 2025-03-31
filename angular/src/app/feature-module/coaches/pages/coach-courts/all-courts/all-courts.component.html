@@ -27,25 +27,15 @@
               </div>
               <div class="col-xl-6 col-lg-6 col-sm-12 col-12">
                 <div class="sortby-filter-group court-sortby">
-                  <div class="sortbyset week-bg">
-                    <div class="sorting-select coach-booking-mat">
-
-                      <mat-select  [(ngModel)]="selectedValue2"  [ngModelOptions]="{standalone: true}" class="select"   placeholder="This Week">
-                        @for (data of selectedList2; track data) {
-                          <mat-option [value]="data.value">
-                            {{data.value}}
-                          </mat-option>
-                        }
-                      </mat-select>
-                    </div>
-                  </div>
+                  <span class="sortbytitle">Sort By :  </span>
+                 
                   <div class="sortbyset">
-                    <span class="sortbytitle">Sort By</span>
+                    <span class="sortbytitle">Sport</span>
                     <div class="sorting-select">
-                      <mat-select  [(ngModel)]="selectedValue1"  [ngModelOptions]="{standalone: true}" class="select"   placeholder="Relevance">
-                        @for (data of selectedList1; track data) {
-                          <mat-option [value]="data.value">
-                            {{data.value}}
+                      <mat-select   [(ngModel)]="selectedSport" [ngModelOptions]="{standalone: true}" class="select"  placeholder="Relevance" (selectionChange)="filterCourtsBySport()">
+                        @for (data of sportCategories; track data) {
+                          <mat-option [value]="data.name">
+                            {{data.name}}
                           </mat-option>
                         }
                       </mat-select>
@@ -89,7 +79,7 @@
                   </div>
                 </div>
                 <div class="table-responsive">
-                  <table  (matSortChange)="sortData($event)" matSort matSortActive="Sno" matSortDirection="asc"
+                  <table matSort (matSortChange)="sortData($event)"  matSortActive="Sno" matSortDirection="asc"
                     matSortDisableClear  class="table table-borderless datatable">
                     <thead class="thead-light">
                       <tr>
@@ -102,36 +92,40 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @for (data of tableShowed; track data; let i = $index) {
+                      @for (data of filteredTerrains; track data; let i = $index) {
                         <tr>
                           <td>
                             <h2 class="table-avatar">
-                              <a href="javascript:void(0);" class="avatar avatar-sm  flex-shrink-0"><img class="avatar-img" [src]="data.img" alt="User Image"></a>
+                              @if (data.image=='string' || data.image == null) {
+                                <a href="javascript:void(0);" class="avatar avatar-sm  flex-shrink-0"><img class="avatar-img" src="assets/img/featured/featured-05.jpg" alt="User Image"></a>
+                              }@else {
+                                <a href="javascript:void(0);" class="avatar avatar-sm  flex-shrink-0"><img class="avatar-img" [src]="data.image" alt="User Image"></a>
+                              }
+
                               <span class="table-head-name flex-grow-1">
-                                <a href="javascript:void(0);">{{data.courtname}}</a>
-                                <span>Court {{data.noofcourt}}</span>
+                                <a href="javascript:void(0);">{{data.title}}</a>
                               </span>
                             </h2>
                           </td>
-                          <td>{{data.location}}</td>
-                          <td><span class="pay-dark">${{data.amount}}</span></td>
-                          <td >{{data.maxguest}}</td>
-                          <td class="table-inset-btn">
-                            <div class="interset-btn" >
-                              <div class="status-toggle d-inline-flex align-items-center">
-                                <input type="checkbox"  class="check" id="{{ 'status_' + i}}">
-                                <label  class="checktoggle" for="{{ 'status_' + i}}" >checkbox</label>
-                              </div>
-                            </div>
+                          <td class="text-wrap text-break">{{data.description}}</td>
+                          <td>{{data.sport_Categorie.name}}<span class="pay-dark"></span></td>
+                          <td>{{data.sport_Categorie.nombreMax}}</td>
+                          <td>
+                            <mat-select
+                              [(ngModel)]="selectedStatuses[data.id]"
+                              [ngModelOptions]="{ standalone: true }"
+                              class="select"
+                              [placeholder]="data.terrainStatus.libelle"
+                            >
+                              @for (statu of terrainStatuses; track statu) {
+                                <mat-option [value]="statu.id">
+                                  {{ statu.libelle }}
+                                </mat-option>
+                              }
+                            </mat-select>
                           </td>
                           <td class="text-end">
-                            <div class="dropdown dropdown-action table-drop-action">
-                              <a href="javascript:void(0);" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
-                              <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="javascript:void(0);"><i class="feather icon-edit"></i>Edit</a>
-                                <a class="dropdown-item" href="javascript:void(0);"><i class="feather icon-trash"></i>Delete</a>
-                              </div>
-                            </div>
+                            <a href="javascript:void(0);" class="btn btn-secondary save-profile" (click)="StatusUpdatingList(data.id)">Save Change</a>
                           </td>
                         </tr>
                       }

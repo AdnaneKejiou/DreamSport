@@ -22,9 +22,9 @@ namespace gestionSite.Core.Services
         public async Task<FAQ?> AddFAQAsync(FAQ faq)
         {
             // Add any necessary validation or preprocessing here
-            if (await _faqRepository.ExistsAsync(faq.Question))
+            if (await _faqRepository.ExistsAsync(faq.Question,faq.IdAdmin))
             {
-                throw new InvalidOperationException("FAQ with this question already exists");
+                return null;
             }
 
             return await _faqRepository.AddFaqAsync(faq);

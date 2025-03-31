@@ -2,16 +2,20 @@
 using gestionSite.Core.Interfaces.TerrainInterfaces;
 using Microsoft.EntityFrameworkCore;
 using gestionSite.Core.Models;
+using gestionSite.API.DTOs.TerrainDtos;
+using gestionSite.Core.Interfaces.TerrainStatutsInterfaces;
 
 namespace gestionSite.Core.Services
 {
     public class TerrainService : ITerrainService
     {
         private readonly ITerrainRepository _terrainRepository;
+        private readonly ITerrainStatusRepository _terrainStatusRepository;
 
-        public TerrainService(ITerrainRepository terrainRepository)
+        public TerrainService(ITerrainRepository terrainRepository, ITerrainStatusRepository terrainStatusRepository)
         {
             _terrainRepository = terrainRepository;
+            _terrainStatusRepository = terrainStatusRepository; 
         }
 
         // Récupérer tous les terrains associés à un administrateur
@@ -74,6 +78,21 @@ namespace gestionSite.Core.Services
         public async Task<Terrain?> GetTerrainByIdWithStatusAsync(int id)
         {
             return await _terrainRepository.GetTerrainByIdWithStatusAsync(id);
+        }
+
+        public async Task<Terrain?> UpdateTerrainStatusAsync(UpdateStatusDto dto)
+        {
+            Terrain terrain = await _terrainRepository.GetTerrainByIdAsync(dto.Id);
+            if (terrain == null)
+            {
+                throw new KeyNotFoundException("The court not found ");
+            }
+            if(await _terrainStatusRepository.ExistsByIdAsync(dto.statusId) == null)
+            {
+                throw new KeyNotFoundException("The Status you provided not found ");
+            }
+            terrain.TerrainStatusId = dto.statusId;
+            return await _terrainRepository.UpdateTerrainAsync(terrain);
         }
     }
 }

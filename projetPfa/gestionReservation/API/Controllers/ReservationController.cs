@@ -17,11 +17,11 @@ namespace gestionReservation.API.Controllers
             _reservationService = reservationService;
         }
         [HttpGet("{AdminId}")]
-        public async Task<ActionResult<List<ReturnedListReservationsDTO>>> GetReservations( [FromQuery] GetReservationsDTO filter)
+        public async Task<ActionResult<List<ReturnedListReservationsDTO>>> GetReservations([FromQuery] GetReservationsDTO filter)
         {
             try
             {
-                var reservations = await _reservationService.GetReservationsAsync( filter);
+                var reservations = await _reservationService.GetReservationsAsync(filter);
                 return Ok(reservations);
             }
             catch (Exception ex)
@@ -106,6 +106,22 @@ namespace gestionReservation.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("requests-list/{AdminId}")]
+        public async Task<IActionResult> GetRequestsListAsync(int AdminId)
+        {
+            try
+            {
+                IEnumerable<Reservation> listRequests = await _reservationService.GetRequestsListAsync(AdminId);
+                if(listRequests == null)
+                {
+                    return NotFound(new {errorMessage = "No requests Found"});
+                }
+                return Ok(listRequests);
+            }catch(Exception ex)
+            {
+                return StatusCode(500, "An error happen while performing your request");
+            }
+        }
     }
 
 }
