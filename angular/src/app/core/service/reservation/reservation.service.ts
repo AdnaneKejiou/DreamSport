@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { getReservation } from '../../models/reservations/getReservation';
+import { AuthService } from '../auth/authservice';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { getReservation } from '../../models/reservations/getReservation';
 export class ReservationService {
   private apiUrl = environment.apiUrl+"/reservation";
  
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private authService:AuthService) {}
 
   // Méthode pour effectuer une réservation
   createReservation(reservationData: any): Observable<any> {
@@ -28,7 +29,7 @@ export class ReservationService {
 
   rejectReservation(resiD:number): Observable<any>{
     const url = this.apiUrl+"/update-status";
-    const employeeId = 5; //need to be extravted from the token
+    const employeeId = this.authService.getUserId(); //need to be extravted from the token
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -37,7 +38,7 @@ export class ReservationService {
 
   acceptReservation(resiD:number): Observable<any>{
     const url = this.apiUrl+"/update-status";
-    const employeeId = 5; //need to be extravted from the token
+    const employeeId = this.authService.getUserId(); //need to be extravted from the token
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

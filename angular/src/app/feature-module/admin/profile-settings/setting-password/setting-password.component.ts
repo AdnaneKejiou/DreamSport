@@ -1,23 +1,18 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { routes } from 'src/app/core/core.index';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { routes } from 'src/app/core/core.index';
+import { changePassword } from 'src/app/core/models/Users/chnagePassword';
 import { AuthService } from 'src/app/core/service/auth/authservice';
-import { EmployeesService } from 'src/app/core/service/Backend/employees/employees.service';
-
-interface ChangePassword {
-  OldPassword: string;
-  NewPassword: string;
-  EmployerId: number;
-}
+import { AdminService } from 'src/app/core/service/Backend/admin/admin.service';
 
 @Component({
   selector: 'app-setting-password',
   templateUrl: './setting-password.component.html',
-  styleUrls: ['./setting-password.component.scss']
+  styleUrl: './setting-password.component.scss'
 })
 export class SettingPasswordComponent {
-  public routes = routes;
+public routes = routes;
   passwordForm: FormGroup;
   isLoading = false;
   oldPasswordError = '';
@@ -26,7 +21,7 @@ export class SettingPasswordComponent {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private empService: EmployeesService,
+    private adminService: AdminService,
   ) {
     this.passwordForm = this.fb.group({
       oldPassword: ['', [Validators.required]],
@@ -50,13 +45,13 @@ export class SettingPasswordComponent {
     this.isLoading = true;
     this.oldPasswordError = ''; // Clear previous error
   
-    const payload: ChangePassword = {
+    const payload: changePassword = {
       OldPassword: this.passwordForm.value.oldPassword,
       NewPassword: this.passwordForm.value.newPassword,
       EmployerId: this.authService.getUserId()
     };
   
-    this.empService.chnagePassword(payload).subscribe({
+    this.adminService.chnagePassword(payload).subscribe({
       next: () => {
         this.snackBar.open('Password changed successfully', 'Close', { duration: 3000 });
         this.passwordForm.reset();

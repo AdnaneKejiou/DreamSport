@@ -804,7 +804,7 @@ export class DataService {
         title: 'Profile Setting',
         img: 'assets/img/icons/profile-icon.svg',
         page: 'profile settings',
-        route: routes.admin_profile_settings,
+        route: routes.admin_profile_edit,
         span: false,
       },
       

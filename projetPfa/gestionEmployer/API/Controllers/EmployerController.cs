@@ -154,12 +154,12 @@ namespace gestionEmployer.API.Controllers
                 var isValid = await _passwordService.VerifyOldPassword(ChangePasswordDto.AdminId, ChangePasswordDto.EmployerId, ChangePasswordDto.OldPassword);
 
                 if (!isValid)
-                    return BadRequest("Ancien mot de passe incorrect");
+                    return BadRequest();
 
                 // Changement du mot de passe
                 await _passwordService.ChangePassword(ChangePasswordDto.AdminId, ChangePasswordDto.EmployerId, ChangePasswordDto.NewPassword);
 
-                return Ok("Mot de passe mis à jour avec succès");
+                return Ok();
             }
             catch (KeyNotFoundException ex)
             {

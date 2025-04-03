@@ -15,13 +15,6 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'appointment-details',
-        loadChildren: () =>
-          import('./appointment-details/appointment-details.module').then(
-            (m) => m.AppointmentDetailsModule
-          ),
-      },
-      {
         path: 'othersetting',
         loadChildren: () =>
           import('./othersetting/othersetting.module').then(
