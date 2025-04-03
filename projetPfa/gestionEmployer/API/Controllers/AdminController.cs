@@ -123,5 +123,18 @@ namespace gestionEmployer.API.Controllers
                 return StatusCode(500, $"Erreur interne: {ex.Message}");
             }
         }
+
+        [HttpPut("recover-password")]
+        public async Task<IActionResult> RecoverPasswordAsync([FromBody] recoverPass dto)
+        {
+            // Appel au service
+            var userDto = await _adminService.RecupererPasswodAsync(dto);
+
+            if (userDto.error != null)
+            {
+                return BadRequest(userDto);
+            }
+            return Ok(userDto);
+        }
     }
 }

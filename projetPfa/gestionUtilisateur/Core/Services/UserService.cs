@@ -134,7 +134,7 @@ namespace gestionUtilisateur.Core.Services
             await _userRepository.UpdateAsync(user);
 
             EmailRequest emailRequest= new EmailRequest(user.Email, nouveauMotDePasse, user.Nom + " " + user.Prenom);
-            await _mailService.MailRecoverkey(emailRequest);
+            await _mailService.MailRecoverkey(emailRequest,user.IdAdmin);
             // Retourner true après une mise à jour réussie
             return ReturnDto;
         }

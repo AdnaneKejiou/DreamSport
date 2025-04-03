@@ -1,21 +1,21 @@
-﻿using gestionUtilisateur.Infrastructure.Extern_Services.Extern_DTOs;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text;
-using gestionUtilisateur.Core.Interfaces;
+using gestionReservation.Infrastructure.ExternServices.Extern_DTo;
+using gestionReservation.Core.Interfaces;
 
-namespace gestionUtilisateur.Infrastructure.Extern_Services
+namespace gestionReservation.Infrastructure.ExternServices
 {
     public class MailService : IMailService
     {
         private readonly HttpClient _httpClient;
-        private static readonly string SiteUrl = "http://localhost:5010/Gateway/Mail/send";
+        private static readonly string SiteUrl = "http://localhost:5193/api/Mail/send";
 
         public MailService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<bool> MailRecoverkey(EmailRequest request, int adminId)
+        public async Task<bool> SendMailAsync(EmailRequest request, int adminId)
         {
             var req = new HttpRequestMessage(HttpMethod.Post, SiteUrl);
             req.Headers.Add("Tenant-ID", adminId.ToString());

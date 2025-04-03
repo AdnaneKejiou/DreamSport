@@ -175,5 +175,20 @@ namespace gestionEmployer.API.Controllers
             }
         }
 
+        [HttpPut("recover-password")]
+        public async Task<IActionResult> RecoverPasswordAsync([FromBody] recoverPass dto)
+        {
+            // Appel au service
+            var userDto = await _employeeService.RecupererPasswodAsync(dto);
+
+            if (userDto.error != null)
+            {
+                return BadRequest(userDto);
+            }
+            return Ok(userDto);
+        }
+
+        
+
     }
 }

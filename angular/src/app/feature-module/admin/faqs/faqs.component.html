@@ -81,6 +81,7 @@
             <label for="response" class="form-label">Response</label>
             <textarea class="form-control" id="response" rows="4"
                       formControlName="response"
+                      (ngmodel)="newFaq.question"
                       [ngClass]="{ 'is-invalid': faqForm.get('response')?.touched && faqForm.get('response')?.invalid }"></textarea>
             <div *ngIf="faqForm.get('response')?.touched && faqForm.get('response')?.invalid" class="invalid-feedback">
               Response is required

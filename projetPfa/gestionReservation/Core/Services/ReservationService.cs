@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text.Json;
 using gestionReservation.Infrastructure.Data.Repositories;
 using gestionReservation.API.Mappers;
+using gestionReservation.Infrastructure.ExternServices.Extern_DTo;
 
 public class ReservationService : IReservationService
 {
@@ -13,11 +14,13 @@ public class ReservationService : IReservationService
     private readonly IStatusRepository _statusRepository;
     private readonly ISiteService _siteService;
     private readonly IUserService _userService;
-    public ReservationService(IReservationRepository reservationRepository, IStatusRepository statusRepository, IUserService userService, ISiteService siteService)
+    private readonly IMailService _mailService;
+    public ReservationService(IReservationRepository reservationRepository,IMailService mailService, IStatusRepository statusRepository, IUserService userService, ISiteService siteService)
     {
         _reservationRepository = reservationRepository;
         _statusRepository = statusRepository;
         _userService = userService; 
+        _mailService = mailService;
         _siteService = siteService;
     }
 
@@ -76,6 +79,11 @@ public class ReservationService : IReservationService
         {
             throw new KeyNotFoundException("The reservation not found ");
         }
+        UserDTO user =await _userService.FetchUserAsync(reservation.IdUtilisateur, reservation.IdAdmin);
+        if (user == null)
+        {
+            throw new KeyNotFoundException("The user not found ");
+        }
         reservation.IdEmploye = dto.EmployeeId;
         if (dto.Status == "Confirmed")
         {
@@ -100,6 +108,16 @@ public class ReservationService : IReservationService
             throw new BadRequestException("We dont have a status named : " + dto.Status);
         }
         Reservation res = await _reservationRepository.UpdateReservationAsync(reservation);
+        if(res != null && dto.Status == "Confirmed")
+        {
+            SiteDto site = await _siteService.GetSiteInfosAsync(reservation.IdAdmin);
+            if(site != null)
+            {
+                EmailRequest mail = new EmailRequest();
+                mail.SendReservationConfirmationToUser(user.Email, user.Nom + "" + user.Prenom, site.Name, reservation.DateRes);
+                await _mailService.SendMailAsync(mail, reservation.IdAdmin);
+            }
+        }
         return res;
 
     }

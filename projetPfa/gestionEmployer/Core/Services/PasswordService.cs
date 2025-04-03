@@ -1,4 +1,5 @@
 ﻿using gestionEmployer.Core.Interfaces;
+using gestionEmployer.Infrastructure.ExternServices.ExternDTOs;
 
 namespace gestionEmployer.Core.Services
 {
@@ -6,10 +7,14 @@ namespace gestionEmployer.Core.Services
     public class PasswordService : IPasswordService
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IMailService _mailService;
+        private readonly ISiteService _siteService;
 
-        public PasswordService(IEmployeeRepository employeeRepository)
+        public PasswordService(IEmployeeRepository employeeRepository, IMailService mailService, ISiteService siteService)
         {
             _employeeRepository = employeeRepository;
+            _mailService = mailService;
+            _siteService = siteService;
         }
 
         public async Task<bool> VerifyOldPassword(int adminId, int employerId, string oldPassword)
@@ -39,6 +44,13 @@ namespace gestionEmployer.Core.Services
             employer.Password = newPassword;
 
             await _employeeRepository.UpdateEmployeeAsync(employer);
+            SiteDto site = await _siteService.GetSiteInfosAsync(employer.AdminId);
+            if (site != null)
+            {
+                EmailRequest mail = new EmailRequest();
+                mail.ChangePasswordMail(employer.Email, employer.Nom + " " + employer.Prenom, site.Name);
+                await _mailService.NewEmployeeMail(mail, employer.AdminId);
+            }
         }
     }
 }

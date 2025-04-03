@@ -19,6 +19,8 @@ builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 
 builder.Services.AddScoped<ISiteService,SiteService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IMailService, MailService>();
+
 
 // Si vous utilisez des mappers ou des services supplémentaires, vous pouvez les ajouter ici aussi
 // builder.Services.AddScoped<IReservationMapper, ReservationMapper>();

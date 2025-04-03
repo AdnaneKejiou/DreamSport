@@ -15,6 +15,7 @@ namespace gestionUtilisateur.API.Controllers
     {
         private readonly IUserService _userService;
         private readonly IPasswordUserService _passwordUserService;
+        private readonly IMailService _mailService;
 
         public UserController(IUserService userService, IPasswordUserService passwordUserService)
         {

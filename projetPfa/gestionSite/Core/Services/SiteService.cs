@@ -29,6 +29,11 @@ namespace gestionSite.Core.Services
             return await _siteRepository.GetAllComplexInfosAsync(adminId);
         }
 
+        public async Task<Site> GetSiteASync(int adminId)
+        {
+            return await _siteRepository.getSiteASync(adminId);
+        }
+
         public async Task<Site?> AddSiteAsync(int adminId)
         {
             // Créer un objet Site manuellement avec les données que tu veux

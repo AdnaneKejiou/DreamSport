@@ -64,7 +64,7 @@ export class TerrainService {
 
   getSportCategories(): Observable<SportCategory[]> {
   
-    return this.http.get<SportCategory[]>('http://localhost:5010/gateway/SportCategorie');
+    return this.http.get<SportCategory[]>('http://localhost:5010/gateway/SportCategorie/execute');
   }
 
   // Dans TerrainService

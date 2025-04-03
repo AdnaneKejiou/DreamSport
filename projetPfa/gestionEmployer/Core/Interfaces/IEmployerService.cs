@@ -14,6 +14,8 @@ namespace gestionEmployer.Core.Interfaces
         Task<Employer> ModifyProfileAsync(Employer employer);
         Task<SendLoginEmployeeDto> ValidateLogin(EmployerLoginDto login);
         Task<IEnumerable<GetEmployeeDTO>> SearchEmployeesAsync(string searchTerm);
-        
+        Task<ReturnForgotPasswordDTO> RecupererPasswodAsync(recoverPass dto);
+
+
     }
 }

@@ -17,7 +17,7 @@ namespace Auth.Services
 
         public async Task<GetEmpLogin> LoginEmployerAsync(EmployerLoginDto userLogin)
         {
-            int adminId = userLogin.AdminId; // Example Admin ID to be sent in the header
+            int adminId = userLogin.AdminId;
 
             // Construct the URL (only with idUser, as AdminId will be in headers)
             string requestUrl = $"{UserUrl.TrimEnd('/')}/employee/validate";
@@ -31,7 +31,7 @@ namespace Auth.Services
             var response = await _httpClient.SendAsync(request);
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                throw new KeyNotFoundException("Employee with this Email not found");
+                throw new KeyNotFoundException("User with this Email not found");
             }
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
@@ -39,12 +39,12 @@ namespace Auth.Services
             }
             if (!response.IsSuccessStatusCode)
             {
-                string errorMsg = $"❌ Error fetching user: {response.StatusCode}, URL: {requestUrl}";
                 return null;
             }
 
-            GetEmpLogin Emp = await response.Content.ReadFromJsonAsync<GetEmpLogin>();
-            return Emp;
+            GetEmpLogin comingUser = await response.Content.ReadFromJsonAsync<GetEmpLogin>();
+            return comingUser;
+            
         }
     }
 }

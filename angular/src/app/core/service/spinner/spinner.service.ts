@@ -8,7 +8,7 @@ export class SpinnerService {
    
 
   private _loading = new BehaviorSubject<boolean>(false);
-  public readonly loading$ = this._loading.asObservable();
+  loading$ = this._loading.asObservable();
 
   show() {
     this._loading.next(true);

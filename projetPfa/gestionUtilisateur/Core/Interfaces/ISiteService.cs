@@ -2,8 +2,8 @@
 
 namespace gestionUtilisateur.Core.Interfaces
 {
-    public interface IMailService
+    public interface ISiteService
     {
-        Task<bool> MailRecoverkey(EmailRequest request,int adminId);
+        Task<SiteDto> GetSiteInfosAsync(int AdminId);
     }
 }
