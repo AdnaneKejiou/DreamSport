@@ -6,6 +6,6 @@ export enum UserType {
 
   export const LOGIN_ENDPOINTS: Record<UserType, string> = {
     [UserType.ADMIN]: '/login/admin',
-    [UserType.EMPLOYEE]: '/login/employee',
+    [UserType.EMPLOYEE]: '/login/employer',
     [UserType.CLIENT]: '/login/user',
   };

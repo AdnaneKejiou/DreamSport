@@ -208,5 +208,32 @@ namespace gestionEmployer.Core.Services
             // ATTENTION: Comparaison directe (non sécurisée)
             return employer.Password == oldPassword;
         }
+
+        public async Task<ReturnForgotPasswordDTO> RecupererPasswodAsync(recoverPass dto)
+        {
+            // Recherche l'utilisateur par email
+            Employer user = await _employeeRepository.EmployerByEmailAsync(dto.Email, dto.AdminId);
+            if (user == null)
+            {
+                var Returnto = EmployeeMapper.recoverTOreturn(dto);
+                Returnto.error = "Aucun utilisateur trouvé avec cet email";
+                return Returnto;
+            }
+            var ReturnDto = EmployeeMapper.recoverTOreturn(dto);
+
+            // Générer un nouveau mot de passe
+            var nouveauMotDePasse = GenererNouveauMotDePasse();
+
+            // Mise à jour du mot de passe dans l'objet utilisateur
+            user.Password = nouveauMotDePasse;
+
+            // Mise à jour dans la base de données
+            await _employeeRepository.UpdateEmployeeAsync(user);
+
+            EmailRequest emailRequest = new EmailRequest(user.Email, nouveauMotDePasse, user.Nom , user.Prenom);
+            await _mailService.NewEmployeeMail(emailRequest,user.AdminId);
+            // Retourner true après une mise à jour réussie
+            return ReturnDto;
+        }
     }
 }

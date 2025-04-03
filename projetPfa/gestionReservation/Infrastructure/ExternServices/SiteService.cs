@@ -29,5 +29,21 @@ namespace gestionReservation.Infrastructure.ExternServices
 
             return await response.Content.ReadFromJsonAsync<TerrainDTO>() ?? new TerrainDTO();
         }
+
+        public async Task<SiteDto> GetSiteInfosAsync(int AdminId)
+        {
+            string requestUrl = SiteUrl+"/site/name";
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+            request.Headers.Add("Tenant-ID", AdminId.ToString()); // Add AdminId to headers
+
+
+            var response = await _httpClient.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            return await response.Content.ReadFromJsonAsync<SiteDto>() ?? new SiteDto();
+        }
     }
 }

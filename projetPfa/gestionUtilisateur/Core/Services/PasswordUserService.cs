@@ -1,16 +1,21 @@
 ﻿using gestionUtilisateur.Core.Interfaces;
 using gestionUtilisateur.Core.Models;
 using gestionUtilisateur.Infrastructure.Data.Repositories;
+using gestionUtilisateur.Infrastructure.Extern_Services.Extern_DTOs;
 
 namespace gestionUtilisateur.Core.Services
 {
     public class PasswordUserService : IPasswordUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMailService _mailService;
+        private readonly ISiteService _siteService;
 
-        public PasswordUserService(IUserRepository userRepository)
+        public PasswordUserService(IUserRepository userRepository, IMailService mailService, ISiteService siteService)
         {
             _userRepository = userRepository;
+            _mailService = mailService;
+            _siteService = siteService;
         }
 
         public async Task<bool> VerifyOldUserPassword(int IdAdmin, int userId, string oldPassword)
@@ -40,6 +45,13 @@ namespace gestionUtilisateur.Core.Services
             User.Password = newPassword;
 
             await _userRepository.UpdateAsync(User);
+            SiteDto site = await _siteService.GetSiteInfosAsync(User.IdAdmin);
+            if (site != null)
+            {
+                EmailRequest mail = new EmailRequest();
+                mail.ChangePasswordMail(User.Email, User.Nom + " " + User.Prenom, site.Name);
+                await _mailService.MailRecoverkey(mail,User.IdAdmin);
+            }     
         }
     }
 }

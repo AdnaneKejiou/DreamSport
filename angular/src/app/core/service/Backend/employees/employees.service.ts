@@ -4,6 +4,7 @@ import { catchError, Observable } from 'rxjs';
 import { employee } from 'src/app/core/models/employee/employee';
 import { AddEmployee } from 'src/app/core/models/employee/addEmployee';
 import { environment } from '../../../../../environments/environment'; 
+import { changePassword } from 'src/app/core/models/Users/chnagePassword';
 
 
 @Injectable({
@@ -70,5 +71,20 @@ export class EmployeesService {
   searchEmployees(term: string): Observable<employee[]> {
     const url = `${this.apiUrl}/search?q=${term}`;
     return this.http.get<employee[]>(url);
+  }
+
+  chnagePassword(user:changePassword): Observable<any> {
+    const url = `${this.apiUrl}/changePassword`;
+    return this.http.put<any>(url, user, this.httpOptions).pipe(
+      catchError(error => {
+        if (error.status === 400 ) {
+          // Return the error object with the validation errors
+          throw error;
+        } else {
+          let errorMessage = error.error?.message || error.message || 'Unknown error';
+          throw new Error(errorMessage);
+        }
+      })
+    );
   }
 }

@@ -15,6 +15,7 @@ import { EquipeService } from '../equipe/equipe.service';
   providedIn: 'root',
 })
 export class AuthService {
+  private logoutUrl = environment.apiUrl;
   private apiUrl = `${environment.apiUrl}/Login`;
   private accessTokenKey = 'access_token';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
@@ -92,6 +93,7 @@ export class AuthService {
         this.RedirectDashboard();
       }),
       catchError((error) => {
+        console.error("err : ",error);
         return throwError(() => error);
       })
     );
@@ -118,7 +120,7 @@ export class AuthService {
       this.router.navigate(['/user/user-dashboard']);
       return;
     }else if( decodedToken && decodedToken.role === UserType.EMPLOYEE){
-      this.router.navigate(['/employee/dashboard']);
+      this.router.navigate(['/coaches/pages/dashboard']);
       return;
     }
   }
@@ -230,7 +232,6 @@ export class AuthService {
     const body = {
       'email': null,
       'password': null,
-      'AdminId': this.Tenant,  
       'facebookToken': null, 
       'googleToken': token 
     };
@@ -251,6 +252,33 @@ export class AuthService {
         return throwError(() => error);
       })
     );
+  }
+
+  forgotPassword(email:any , usertype:string): Observable<any> {
+    var endpoint = "";
+    if(usertype === UserType.ADMIN){
+      endpoint = this.logoutUrl + "/admin/recover-password";
+    }else if (usertype === UserType.EMPLOYEE){
+      endpoint = this.logoutUrl + "/employee/recover-password";
+    }else if( usertype === UserType.CLIENT ){
+      endpoint = this.logoutUrl + "/users/recover-password";
+          console.log("DAS : ",usertype);
+   }
+   const body = {
+    'email': email,
+  };
+
+  console.log("📢 Sending request with body:", body);  // Log the body being sent
+
+  return this.http.put(endpoint, body, { withCredentials: true }).pipe(
+    tap((response: any) => {
+      console.log("success " );
+    }),
+    catchError((error) => {
+      console.error("err : ",error);
+      return throwError(() => error);
+    })
+  );
   }
 }
 

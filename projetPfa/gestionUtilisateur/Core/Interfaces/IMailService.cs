@@ -4,6 +4,6 @@ namespace gestionUtilisateur.Core.Interfaces
 {
     public interface IMailService
     {
-        Task<bool> MailRecoverkey(EmailRequest request);
+        Task<bool> MailRecoverkey(EmailRequest request,int adminId);
     }
 }

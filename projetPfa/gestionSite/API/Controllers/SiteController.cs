@@ -40,6 +40,24 @@ namespace gestionSite.API.Controllers
             }
             return Ok(site);
         }
+        [HttpGet("name/{adminId}")]
+        public async Task<ActionResult<IEnumerable<FAQ>>> GetSitenameAsync(int adminId)
+        {
+            // Validate the adminId parameter
+            if (adminId <= 0)
+            {
+                return BadRequest("Invalid admin ID. It must be greater than 0.");
+            }
+            // Retrieve FAQs using the service
+            Site site = await _siteService.GetSiteASync(adminId);
+
+            // Handle null or empty result
+            if (site == null )
+            {
+                return NotFound($"No site infos found for admin with ID {adminId}.");
+            }
+            return Ok(site);
+        }
 
         [HttpPut]
         [ValidateModelAttribute]

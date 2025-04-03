@@ -25,8 +25,14 @@ namespace Auth.Services
             // Create the request with headers
             var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
             request.Headers.Add("Tenant-ID", adminId.ToString()); // Add AdminId to headers
-            var jsonContent = new StringContent(JsonConvert.SerializeObject(new { userLogin.Login, userLogin.Password }), Encoding.UTF8, "application/json");
-            request.Content = jsonContent;
+            var jsonContent = new StringContent(
+                JsonConvert.SerializeObject(new
+                {
+                    login = userLogin.Email,
+                    password = userLogin.Password // Note: Make sure it's Password (capital P) if that's your property name
+                }),
+                Encoding.UTF8,
+                "application/json"); request.Content = jsonContent;
 
             var response = await _httpClient.SendAsync(request);
             if (response.StatusCode == HttpStatusCode.NotFound)

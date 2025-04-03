@@ -8,20 +8,28 @@ namespace gestionUtilisateur.Infrastructure.Extern_Services
     public class MailService : IMailService
     {
         private readonly HttpClient _httpClient;
-        private static readonly string SiteUrl = "http://localhost:5193/api/Mail/send";
+        private static readonly string SiteUrl = "http://localhost:5010/Gateway/Mail/send";
 
         public MailService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<bool> MailRecoverkey(EmailRequest request)
+        public async Task<bool> MailRecoverkey(EmailRequest request, int adminId)
         {
-                var jsonContent = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+            var req = new HttpRequestMessage(HttpMethod.Post, SiteUrl);
+            req.Headers.Add("Tenant-ID", adminId.ToString());
 
-            
-                HttpResponseMessage response = await _httpClient.PostAsync(SiteUrl, jsonContent);
-                return response.IsSuccessStatusCode;
+            // Create JSON content and set it as the request body
+            var jsonContent = new StringContent(
+                JsonSerializer.Serialize(request),
+                Encoding.UTF8,
+                "application/json");
+            req.Content = jsonContent;
+
+
+            var response = await _httpClient.SendAsync(req);
+            return response.IsSuccessStatusCode;
         }
     }
 }

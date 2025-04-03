@@ -62,7 +62,7 @@ namespace gestionUtilisateur.Core.Services
             {
                 if (_user.ImageUrl == null)
                 {
-                    _user.ImageUrl = "https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/avatar-01.jpg";
+                    _user.ImageUrl = "https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/avatar-02.jpg";
                 }
                 var user = await _userRepository.AddUserManualyAsync(_user);
                 var AddedUsers = UserMapper.UserToAddedUser(user);
@@ -134,7 +134,7 @@ namespace gestionUtilisateur.Core.Services
             await _userRepository.UpdateAsync(user);
 
             EmailRequest emailRequest= new EmailRequest(user.Email, nouveauMotDePasse, user.Nom + " " + user.Prenom);
-            await _mailService.MailRecoverkey(emailRequest);
+            await _mailService.MailRecoverkey(emailRequest,user.IdAdmin);
             // Retourner true après une mise à jour réussie
             return ReturnDto;
         }

@@ -131,123 +131,149 @@
             "UpstreamHttpMethod": [ "GET" ]
         },
 
-    //--------------------------------------------------------Gestion des Utilisateurs-------------------------------------------
+        //--------------------------------------------------------Gestion des Utilisateurs-------------------------------------------
 
-    {
-      // Route pour ajouter un utilisateur (POST)
-      "DownstreamPathTemplate": "/api/user",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      // Route pour mettre à jour un utilisateur (PUT)
-      "DownstreamPathTemplate": "/api/user/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour ajouter un utilisateur (POST)
+            "DownstreamPathTemplate": "/api/user",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/{id}",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-    {
-      // Route pour supprimer un utilisateur (DELETE)
-      "DownstreamPathTemplate": "/api/user/{id}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour ajouter un utilisateur (POST)
+            "DownstreamPathTemplate": "/api/user/get-right/{id}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/get-right/{id}/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/{id}/{AdminId}",
-      "UpstreamHttpMethod": [ "DELETE" ]
-    },
-    {
-      // Route pour mettre à jour les données sportives d'un utilisateur (PUT)
-      "DownstreamPathTemplate": "/api/user/update-sport-data/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour ajouter un utilisateur (POST)
+            "DownstreamPathTemplate": "/api/user/pagination",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/pagination",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/update-sport-data/{id}",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-    {
-      // Route pour récupérer le mot de passe d'un utilisateur (PUT)
-      "DownstreamPathTemplate": "/api/user/recover-password",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour mettre à jour un utilisateur (PUT)
+            "DownstreamPathTemplate": "/api/user/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/{id}",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/recover-password",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-    {
-      // Route pour récupérer le mot de passe d'un utilisateur (get)
-      "DownstreamPathTemplate": "/api/user/get/{id}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour supprimer un utilisateur (DELETE)
+            "DownstreamPathTemplate": "/api/user/{id}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/{id}/{AdminId}",
+            "UpstreamHttpMethod": [ "DELETE" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/get/{id}/{AdminId}",
-      "UpstreamHttpMethod": [ "Get" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/user/validate",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour mettre à jour les données sportives d'un utilisateur (PUT)
+            "DownstreamPathTemplate": "/api/user/update-sport-data/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/update-sport-data/{id}",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/validate",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/user/Register-facebook",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour récupérer le mot de passe d'un utilisateur (PUT)
+            "DownstreamPathTemplate": "/api/user/recover-password",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/recover-password",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/Register-facebook",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/user/facebook-validate/{id}/{AdminId}/{type}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour récupérer le mot de passe d'un utilisateur (get)
+            "DownstreamPathTemplate": "/api/user/get/{id}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/get/{id}/{AdminId}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/facebook-validate/{id}/{AdminId}/{type}",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-        
+            "DownstreamPathTemplate": "/api/user/validate",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/validate",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/user/Register-facebook",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/Register-facebook",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/user/facebook-validate/{id}/{AdminId}/{type}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5255
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/users/facebook-validate/{id}/{AdminId}/{type}",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
+
 
         //Route pour chercher un utilisateur search GET
 
@@ -392,6 +418,19 @@
             "UpstreamHttpMethod": [ "GET" ]
         },
         {
+            // Route pour récupérer les informations du site par adminId (GET)
+            "DownstreamPathTemplate": "/api/site/name/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/site/name/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
+        {
             // Route pour mettre à jour les informations du site (PUT)
             "DownstreamPathTemplate": "/api/site",
             "DownstreamScheme": "http",
@@ -420,85 +459,85 @@
 
         //--------------------------------------------------------Gestion des Terrains-------------------------------------------
 
-    {
-      // Route pour récupérer les terrains d'un administrateur (GET)
-      "DownstreamPathTemplate": "/api/terrain/{idAdmin}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain/{idAdmin}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      // Route pour ajouter un terrain (POST)
-      "DownstreamPathTemplate": "/api/terrain",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour récupérer les terrains d'un administrateur (GET)
+            "DownstreamPathTemplate": "/api/terrain/{idAdmin}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain/{idAdmin}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      // Route pour mettre à jour un terrain (PUT)
-      "DownstreamPathTemplate": "/api/terrain",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour ajouter un terrain (POST)
+            "DownstreamPathTemplate": "/api/terrain",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-    {
-      // Route pour supprimer un terrain (DELETE)
-      "DownstreamPathTemplate": "/api/terrain/{id}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour mettre à jour un terrain (PUT)
+            "DownstreamPathTemplate": "/api/terrain",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain/{id}/{AdminId}",
-      "UpstreamHttpMethod": [ "DELETE" ]
-    },
-    {
-      // Route pour Get terrain by id
-      "DownstreamPathTemplate": "/api/terrain/by-id/{id}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour supprimer un terrain (DELETE)
+            "DownstreamPathTemplate": "/api/terrain/{id}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain/{id}/{AdminId}",
+            "UpstreamHttpMethod": [ "DELETE" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/terrain/update-status",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour Get terrain by id
+            "DownstreamPathTemplate": "/api/terrain/by-id/{id}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain/update-status",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
+            "DownstreamPathTemplate": "/api/terrain/update-status",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain/update-status",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
 
-    //--------------------------------------------------------Gestion des Statuts de Terrains-------------------------------------------
+        //--------------------------------------------------------Gestion des Statuts de Terrains-------------------------------------------
 
         {
             // Route pour récupérer les statuts de terrains (GET)
@@ -597,7 +636,32 @@
             "UpstreamPathTemplate": "/gateway/admin/validate/{AdminId}",
             "UpstreamHttpMethod": [ "GET" ]
         },
-
+        {
+            // Route pour récupérer le mot de passe d'un utilisateur (PUT)
+            "DownstreamPathTemplate": "/api/employee/recover-password",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5097
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/employee/recover-password",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
+        {
+            // Route pour récupérer le mot de passe d'un utilisateur (PUT)
+            "DownstreamPathTemplate": "/api/admin/recover-password",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5097
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/admin/recover-password",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
         {
             // Route pour ajouter un employé (POST)
             "DownstreamPathTemplate": "/api/employee",
@@ -933,45 +997,45 @@
             "UpstreamPathTemplate": "/gateway/Login/Admin",
             "UpstreamHttpMethod": [ "POST" ]
         },
-       {
-      "DownstreamPathTemplate": "/api/Login/Employer",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5181
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/Login/Employer",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/Login/RefreshToken",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/Login/Employer",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5181
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/Login/Employer",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5181
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/Login/RefreshToken",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/Login/Logout",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/Login/RefreshToken",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5181
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/Login/RefreshToken",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5181
+            "DownstreamPathTemplate": "/api/Login/Logout",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5181
+                }
+
+            ],
+            "UpstreamPathTemplate": "/gateway/Login/Logout",
+            "UpstreamHttpMethod": [ "POST" ]
         }
 
-      ],
-      "UpstreamPathTemplate": "/gateway/Login/Logout",
-      "UpstreamHttpMethod": [ "POST" ]
-    }
-
-  ],
+    ],
 
   
   "GlobalConfiguration": {

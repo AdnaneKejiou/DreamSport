@@ -247,15 +247,21 @@ export class routes {
   public static get admin_profile_settings(): string {
     return this.admin + '/profile-settings';
   }
+  public static get admin_profile_edit(): string {
+    return this.admin + '/profile-settings/admin-profile';
+  }
+  public static get admin_profile(): string {
+    return this.admin + '/profile-settings/myprofile';
+  }
+  public static get admin_setting_password(): string {
+    return this.admin + '/profile-settings/setting-password';
+  }
   public static get admin_courts(): string {
     return this.admin + '/courts';
   }
   // coaches routes start
   public static get coach(): string {
     return this.baseUrl + '/coaches/';
-  }
-  public static get coach_profile_appointment_details(): string {
-    return this.coach + 'pages/profile-settings/appointment-details';
   }
   public static get coach_profile_edit(): string {
     return this.coach + 'pages/profile-settings/coach-profile';

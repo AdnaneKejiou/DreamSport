@@ -154,12 +154,12 @@ namespace gestionEmployer.API.Controllers
                 var isValid = await _passwordService.VerifyOldPassword(ChangePasswordDto.AdminId, ChangePasswordDto.EmployerId, ChangePasswordDto.OldPassword);
 
                 if (!isValid)
-                    return BadRequest("Ancien mot de passe incorrect");
+                    return BadRequest();
 
                 // Changement du mot de passe
                 await _passwordService.ChangePassword(ChangePasswordDto.AdminId, ChangePasswordDto.EmployerId, ChangePasswordDto.NewPassword);
 
-                return Ok("Mot de passe mis à jour avec succès");
+                return Ok();
             }
             catch (KeyNotFoundException ex)
             {
@@ -174,6 +174,21 @@ namespace gestionEmployer.API.Controllers
                 return StatusCode(500, $"Erreur interne: {ex.Message}");
             }
         }
+
+        [HttpPut("recover-password")]
+        public async Task<IActionResult> RecoverPasswordAsync([FromBody] recoverPass dto)
+        {
+            // Appel au service
+            var userDto = await _employeeService.RecupererPasswodAsync(dto);
+
+            if (userDto.error != null)
+            {
+                return BadRequest(userDto);
+            }
+            return Ok(userDto);
+        }
+
+        
 
     }
 }

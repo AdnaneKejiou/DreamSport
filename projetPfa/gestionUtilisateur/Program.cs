@@ -13,7 +13,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMailService,MailService>();
 builder.Services.AddScoped<IPasswordUserService, PasswordUserService>();
-
+builder.Services.AddScoped<ISiteService, SiteService>();
 
 
 

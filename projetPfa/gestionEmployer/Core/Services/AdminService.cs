@@ -4,6 +4,8 @@ using gestionEmployer.API.Mappers;
 using gestionEmployer.Core.Interfaces;
 using gestionEmployer.Core.Models;
 using gestionEmployer.Infrastructure.Data.Repositories;
+using gestionEmployer.Infrastructure.ExternServices;
+using gestionEmployer.Infrastructure.ExternServices.ExternDTOs;
 using Shared.Messaging.Services;
 
 namespace gestionEmployer.Core.Services
@@ -11,11 +13,12 @@ namespace gestionEmployer.Core.Services
     public class AdminService : IAdminService
     {
         private readonly IAdminRepository _adminRepository;
+        private readonly IMailService _mailService;
 
-        public AdminService(IAdminRepository adminRepository)
+        public AdminService(IAdminRepository adminRepository, IMailService mailService)
         {
             _adminRepository = adminRepository;
-
+            _mailService = mailService;
         }
 
         public bool ValidateTenant(int tenantId)
@@ -27,7 +30,7 @@ namespace gestionEmployer.Core.Services
         {
             return _adminRepository.GetAdminByTenantId(tenantId);
         }
-        public AdminAddedDTO AjouterAdmin(Admin admin)
+        public  AdminAddedDTO AjouterAdmin(Admin admin)
         {
             AdminAddedDTO _adminDTO = AdminMapper.AdminToAdminAddedDTO(admin);
 
@@ -44,6 +47,9 @@ namespace gestionEmployer.Core.Services
                 _adminDTO.errors.Add("An error occurred while adding the administrator. Please try again.");
                 return _adminDTO;
             }
+            EmailRequest mail = new EmailRequest();
+            mail.SendNewAdminWelcomeEmail(admin.Email, admin.Nom + " " + admin.Prenom, admin.Login, admin.Password);
+            _mailService.NewEmployeeMail(mail, adminAdded.Id);
 
             _adminDTO = AdminMapper.AdminToAdminAddedDTO(adminAdded);
 
@@ -68,42 +74,76 @@ namespace gestionEmployer.Core.Services
             return AdminMapper.ModelToLogin(admin);
         }
 
-       //public async Task<ReturnUpdatedAdminDto?> UpdateAdminAsync(Admin updatedAdmin)
-       // {
-       //     // Récupérer l'employé existant
-       //     Admin existingAdmin = _adminRepository.GetAdminByTenantId(updatedAdmin.Id)
-       //                             ?? throw new KeyNotFoundException("Admin non trouvé.");
+        //public async Task<ReturnUpdatedAdminDto?> UpdateAdminAsync(Admin updatedAdmin)
+        // {
+        //     // Récupérer l'employé existant
+        //     Admin existingAdmin = _adminRepository.GetAdminByTenantId(updatedAdmin.Id)
+        //                             ?? throw new KeyNotFoundException("Admin non trouvé.");
 
-       //     // Liste pour stocker les erreurs trouvées
-       //     ReturnUpdatedAdminDto dto = AdminMapper.ModelToUpdate(updatedAdmin);
+        //     // Liste pour stocker les erreurs trouvées
+        //     ReturnUpdatedAdminDto dto = AdminMapper.ModelToUpdate(updatedAdmin);
 
-       //     // Vérification de l'unicité seulement si l'attribut est modifié
-       //     if (updatedAdmin.Login != null && !updatedAdmin.Login.Equals(existingAdmin.Login))
-       //     {
-       //         if (await _adminRepository.GetByLoginAsync(updatedAdmin.Login, updatedAdmin.Id) != null)
-       //         {
-       //             {
-       //                 dto.Errors.Add("Login", "Login already exist.");
-       //             }
-       //         }
-       //     }
-       //     if (updatedAdmin.PhoneNumber != null && !updatedAdmin.PhoneNumber.Equals(existingAdmin.PhoneNumber))
-       //     {
-       //         if (await _adminRepository.EmployerByPhoneAsync(updatedAdmin.PhoneNumber, updatedAdmin.Id) != null)
-       //         {
-       //             dto.Errors.Add("PhoneNumber", "PhoneNumber already exist.");
-       //         }
-       //     }
+        //     // Vérification de l'unicité seulement si l'attribut est modifié
+        //     if (updatedAdmin.Login != null && !updatedAdmin.Login.Equals(existingAdmin.Login))
+        //     {
+        //         if (await _adminRepository.GetByLoginAsync(updatedAdmin.Login, updatedAdmin.Id) != null)
+        //         {
+        //             {
+        //                 dto.Errors.Add("Login", "Login already exist.");
+        //             }
+        //         }
+        //     }
+        //     if (updatedAdmin.PhoneNumber != null && !updatedAdmin.PhoneNumber.Equals(existingAdmin.PhoneNumber))
+        //     {
+        //         if (await _adminRepository.EmployerByPhoneAsync(updatedAdmin.PhoneNumber, updatedAdmin.Id) != null)
+        //         {
+        //             dto.Errors.Add("PhoneNumber", "PhoneNumber already exist.");
+        //         }
+        //     }
 
-       //     if (dto.Errors.Count() == 0)
-       //     {
-       //         EmployeeMapper.updateToModel(existingEmploye, updatedEmploye);
-       //         // Sauvegarder les changements dans la base de données
-       //         var empp = await _employeeRepository.UpdateEmployeeAsync(existingEmploye);
-       //     }
+        //     if (dto.Errors.Count() == 0)
+        //     {
+        //         EmployeeMapper.updateToModel(existingEmploye, updatedEmploye);
+        //         // Sauvegarder les changements dans la base de données
+        //         var empp = await _employeeRepository.UpdateEmployeeAsync(existingEmploye);
+        //     }
 
-       //     return dto;
-       // }
+        //     return dto;
+        // }
+        public async Task<ReturnForgotPasswordDTO> RecupererPasswodAsync(recoverPass dto)
+        {
+            // Recherche l'utilisateur par email
+            Admin user = _adminRepository.GetAdminByTenantId(dto.AdminId);
+            if (user == null || !user.Email.Equals(dto.Email))
+            {
+                var Returnto = EmployeeMapper.recoverTOreturn(dto);
+                Returnto.error = "Aucun utilisateur trouvé avec cet email";
+                return Returnto;
+            }
+            var ReturnDto = EmployeeMapper.recoverTOreturn(dto);
+
+            // Générer un nouveau mot de passe
+            var nouveauMotDePasse = GenererNouveauMotDePasse();
+
+            // Mise à jour du mot de passe dans l'objet utilisateur
+            user.Password = nouveauMotDePasse;
+
+            // Mise à jour dans la base de données
+            await _adminRepository.UpdateAdminAsync(user);
+
+            EmailRequest emailRequest = new EmailRequest(user.Email, nouveauMotDePasse, user.Nom, user.Prenom);
+            await _mailService.NewEmployeeMail(emailRequest, user.Id);
+            // Retourner true après une mise à jour réussie
+            return ReturnDto;
+        }
+
+        private string GenererNouveauMotDePasse()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, 10)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
     }
 
 

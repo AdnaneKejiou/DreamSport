@@ -93,7 +93,7 @@ namespace Auth.Controllers
                 GetEmpLogin adm = await _adminService.LoginAdminAsync(model);
                 if (adm == null)
                 {
-                    return StatusCode(500, "An error occurred while logging in.");
+                    return StatusCode(403, "Invalid login credentials.");
                 }
 
                 string refreshToken = await _jwtService.GenerateRefreshToken();
@@ -118,11 +118,11 @@ namespace Auth.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return StatusCode(403, "Invalid login credentials.");
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(ex.Message);
+                return StatusCode(403, "Invalid login credentials.");
             }
             catch (Exception ex)
             {
@@ -138,7 +138,7 @@ namespace Auth.Controllers
                 GetEmpLogin Emp = await _employerService.LoginEmployerAsync(model);
                 if (Emp == null)
                 {
-                    return StatusCode(500, "An error occurred while logging in.");
+                    return StatusCode(403, "Invalid login credentials.");
                 }
 
                 string refreshToken = await _jwtService.GenerateRefreshToken();
@@ -163,11 +163,11 @@ namespace Auth.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return StatusCode(403, "Invalid login credentials.");
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(ex.Message);
+                return StatusCode(403, "Invalid login credentials.");
             }
             catch (Exception ex)
             {

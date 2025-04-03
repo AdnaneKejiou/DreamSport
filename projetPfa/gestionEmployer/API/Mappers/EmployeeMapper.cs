@@ -133,5 +133,14 @@ namespace gestionEmployer.API.Mappers
                 Prenom = _Employer.Prenom,
             };
         }
+
+        public static ReturnForgotPasswordDTO recoverTOreturn(recoverPass dto)
+        {
+            return new ReturnForgotPasswordDTO
+            {
+                Email = dto.Email,
+                AdminId = dto.AdminId,
+            };
+        }
     }
 }

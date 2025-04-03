@@ -89,12 +89,16 @@ export class FAQsComponent {
 
   
   addFaq() {
+    this.newFaq.question=this.faqForm.controls['question'].value;
+    this.newFaq.response=this.faqForm.controls['response'].value;
+    console.log("DSASDf",this.newFaq);
     if (this.newFaq.question && this.newFaq.response) {
       this.faqService.createFaq(this.newFaq).subscribe({
         next: (response) => {
           this.faqsList.push(response);  // Add new FAQ to the list
           this.newFaq = { question: '', response: '' };  // Reset the form
           this.showForm = false;  // Hide the form after submitting
+          this.snackBar.open('success: FAQ has been added', 'Close');
         },
         error: (err) => {
           console.log("hahah ",err.error);

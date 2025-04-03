@@ -11,5 +11,6 @@ namespace gestionEmployer.Core.Interfaces
         Admin? GetAdmin(int tenantId);
         AdminAddedDTO AjouterAdmin(Admin admin);
         Task<SendLoginEmployeeDto> ValidateLoginAsync(AdminLoginDto dto);
+        Task<ReturnForgotPasswordDTO> RecupererPasswodAsync(recoverPass dto);
     }
 }

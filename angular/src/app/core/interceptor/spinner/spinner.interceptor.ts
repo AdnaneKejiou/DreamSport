@@ -5,6 +5,7 @@ import { SpinnerService } from '../../core.index';
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
+  
   constructor(private spinner: SpinnerService) {}
 
   intercept(

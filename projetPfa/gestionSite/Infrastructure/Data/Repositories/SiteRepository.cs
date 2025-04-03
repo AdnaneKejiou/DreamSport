@@ -54,7 +54,10 @@ namespace gestionSite.Infrastructure.Data.Repositories
             return existingSite;
         }
 
-
+        public async Task<Site> getSiteASync(int adminId)
+        {
+            return await _context.Sites.FirstOrDefaultAsync(s => s.IdAdmin == adminId);
+        }
 
 
     }
