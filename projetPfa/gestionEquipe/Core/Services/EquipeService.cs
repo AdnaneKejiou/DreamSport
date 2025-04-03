@@ -5,6 +5,7 @@ using gestionEquipe.Core.Models;
 using gestionEquipe.Infrastructure.Data.Repositories;
 using gestionEquipe.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace gestionEquipe.Core.Services
 {
@@ -40,7 +41,7 @@ namespace gestionEquipe.Core.Services
             {
                 ReturningEquipe.Errors.Add("Name", "A team with this name already exist");
             }
-            var sports = await _siteService.GetSportsAsync();
+            var sports = await _siteService.GetSportsAsync(_equipe.AdminId);
             if (!sports.Select(s => s.Id).Contains(_equipe.SportId)) // Extract IDs and check
             {
                 ReturningEquipe.Errors.Add("Sport", "Sport with this id dont exist");
@@ -57,6 +58,35 @@ namespace gestionEquipe.Core.Services
             return ReturningEquipe;
 
         }
+        public async Task<EquipeDto> GetEquipe(int IdEquipe)
+        {
+            var equipe = await _equipeRepository.GetEquipeById(IdEquipe);
+            
+            
+            if (equipe == null) throw new KeyNotFoundException("Team not found");
+
+            var membres = await _membersRepository.GetTeamMembersAsync(equipe.Id);
+
+            var memberDtos = membres.Select(m => new MembreDto
+            {
+                UserId = m.UserId,
+                EquipeId = m.EquipeId
+            }).ToList();
+
+            return new EquipeDto
+            {
+               Id = equipe.Id ,
+               Name =equipe.Name ,
+               Description=equipe.Description ,
+               Avatar=equipe.Avatar ,
+               CaptainId=equipe.CaptainId ,
+               Membres= memberDtos,
+               SportId=equipe.SportId
+
+            };
+
+        }
+
 
         private async Task<Equipe> AddEquipeWithMemberAsync(Equipe equipe)
         {
@@ -191,7 +221,7 @@ namespace gestionEquipe.Core.Services
 
             // Sélectionner aléatoirement un nouveau capitaine
             Random random = new Random();
-            int nouveauCapitaineId = membresIds[random.Next(membresIds.Count)].UserId; // ✅ Access Id properly
+            int nouveauCapitaineId = membresIds[random.Next(membresIds.Count)].UserId; 
 
             equipe.CaptainId = nouveauCapitaineId;
             // Mettre à jour l'équipe avec le nouveau capitaine
@@ -222,21 +252,51 @@ namespace gestionEquipe.Core.Services
         {
             var membre = await _equipeRepository.GetUserTeamMembershipAsync(userId, adminId);
 
+
+
             if (membre == null)
             {
                 return new UserTeamMembershipResponseDto
                 {
                     IsMember = false,
                     EquipeId = null,
-                    EquipeNom = null
+                    EquipeNom = null,
+                    IsCapitaine = false,
+                    UserId= userId,
                 };
             }
 
+            var membres = await _membersRepository.GetTeamMembersAsync(membre.EquipeId);
+
+            var memberDtos = membres.Select(m => new MembreDto
+            {
+                UserId = m.UserId,
+                EquipeId = m.EquipeId 
+            }).ToList();
+
+            if (membre.Equipe.CaptainId==userId)
+            {
+                return new UserTeamMembershipResponseDto
+                {
+                    IsMember = true,
+                    EquipeId = membre.EquipeId,
+                    EquipeNom = membre.Equipe.Name,
+                    IsCapitaine = true,
+                    UserId = userId,
+                    Members= memberDtos,
+
+
+                };
+            }
             return new UserTeamMembershipResponseDto
             {
                 IsMember = true,
                 EquipeId = membre.EquipeId,
-                EquipeNom = membre.Equipe.Name
+                EquipeNom = membre.Equipe.Name,
+                IsCapitaine = false,
+                UserId = userId,
+
+
             };
         }
 

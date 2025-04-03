@@ -84,6 +84,7 @@ namespace gestionEquipe.Infrastructure.Data.Repositories
             return ls;
         }
 
+
         public async Task<int> CountTeamsForMemberAsync(int MemberId)
         {
             return await _context.Memberss

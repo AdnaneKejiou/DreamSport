@@ -73,8 +73,13 @@ const routes: Routes = [
           ),
           canActivate: [TenantGuard]
       },
+      { path: 'team', loadChildren: () =>
+        import('./team/team.module').then(
+         (m) => m.TeamModule
+       ) },
     ],
   },
+ 
 ];
 
 @NgModule({

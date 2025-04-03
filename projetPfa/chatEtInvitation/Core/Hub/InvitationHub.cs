@@ -7,7 +7,6 @@ public class InvitationHub : Hub
 {
     public override async Task OnConnectedAsync()
     {
-        // Récupération directe de l'userId depuis les query parameters
         var userId = Context.GetHttpContext()?.Request.Query["userId"];
 
         if (!string.IsNullOrEmpty(userId))
@@ -31,12 +30,21 @@ public class InvitationHub : Hub
 
     public async Task SendInvitationToUser(string userId, MemberInvitationDTO invitation)
     {
-        // Assurez-vous d'envoyer l'objet complet
         await Clients.Group(userId).SendAsync("ReceiveInvitation", new
         {
             Emetteur = invitation.Emetteur,
             Recepteur = invitation.Recepteur,
-            // Ajoutez toutes les propriétés nécessaires
         });
     }
+    public async Task SendTeamInvitationToUser(string userId, TeamInvitationDTO invitation)
+    {
+        await Clients.Group(userId).SendAsync("ReceiveTeamInvitation", new
+        {
+            TeamName = invitation.TeamName,
+            SenderId = invitation.Emetteur,
+            ReceiverId = invitation.Recepteur,
+            // Ajoutez d'autres propriétés selon votre modèle
+        });
+    }
+
 }

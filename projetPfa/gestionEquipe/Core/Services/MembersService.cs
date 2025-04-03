@@ -53,7 +53,7 @@ namespace gestionEquipe.Core.Services
             {
                 throw new InvalidOperationException("Member is already in another team.");
             }
-            List<SportCategorieDTO> sports = await _siteService.GetSportsAsync();
+            List<SportCategorieDTO> sports = await _siteService.GetSportsAsync(equipe.AdminId);
             int MaxVolume = sports.FirstOrDefault(s => s.Id == equipe.SportId).NombreMax;
             if(await _membersRepository.CountTeamMembersAsync(member.EquipeId) >= MaxVolume)
             {

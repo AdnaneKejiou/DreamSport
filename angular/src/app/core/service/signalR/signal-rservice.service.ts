@@ -5,6 +5,8 @@ import { MemberInvitationDTOO } from 'src/app/core/models/member-invitation-dto'
 import { Subject } from 'rxjs';
 import { AuthService } from '../auth/authservice';
 import { UserService } from '../user/user.service';
+import { EquipeService } from '../equipe/equipe.service';
+import { TeamInvitationDTO } from '../../models/TeamInvitationDTO.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +15,13 @@ export class SignalRService {
   private hubConnection!: signalR.HubConnection;
   public invitationReceived = new Subject<MemberInvitationDTOO>();
   private isConnected = false;
+  public teamInvitationReceived = new Subject<TeamInvitationDTO>();
 
   constructor(
     private auth: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private teamService: EquipeService
+
   ) {
     this.buildConnection();
     this.startConnection();
@@ -46,7 +51,11 @@ export class SignalRService {
     }
   }
 
+ 
+
   private registerSignalEvents(): void {
+
+
     this.hubConnection.on('ReceiveInvitation', (invitation: any) => {
       console.log('SignalR - Raw invitation:', invitation);
       
@@ -81,8 +90,56 @@ export class SignalRService {
         }
       });
     });
-  }
 
+    //invitation team ReceiveTeamInvitation
+
+    this.hubConnection.on('ReceiveTeamInvitation', (invitation: any) => {
+      console.log('SignalR - Raw team invitation:', invitation);
+      
+      // Correction du nom des propriétés
+      const correctedInvitation = {
+        ...invitation,
+        recepteur: invitation.Recepteur, // Correction de la casse
+        Emetteur: invitation.Emetteur // Conservation de la valeur originale
+      };
+  
+      this.teamService.getTeamDetails(correctedInvitation.Emetteur).subscribe({
+        next: (team) => {
+          const completeInvitation: TeamInvitationDTO = {
+            id: correctedInvitation.Id,
+            invitation: {
+              id:correctedInvitation.Emetteur ,
+              name: team.name || 'Unknown Team',
+              description: team.description || 'No description',
+              avatar: team.avatar || 'assets/img/default-team.png'
+            },
+            recepteur: correctedInvitation.Recerpteur,
+            adminId: correctedInvitation.AdminId
+          };
+          console.log('SignalR - Processed team invitation:', completeInvitation);
+          this.teamInvitationReceived.next(completeInvitation);
+        },
+        error: () => {
+          const fallbackInvitation = this.createTeamFallbackInvitation(correctedInvitation);
+          this.teamInvitationReceived.next(fallbackInvitation);
+        }
+      });
+    });
+  }
+  
+  private createTeamFallbackInvitation(invitation: any): TeamInvitationDTO {
+    return {
+      id: invitation.Id,
+      invitation: {
+        id: invitation.Emetteur, // ID de l'équipe
+        name: invitation.TeamName || 'Unknown Team',
+        description: 'Team information unavailable',
+        avatar: 'assets/img/default-team.png'
+      },
+      recepteur: invitation.recepteur,
+      adminId: invitation.AdminId
+    };
+  }
  
 
   private createFallbackInvitation(invitation: any): MemberInvitationDTOO {

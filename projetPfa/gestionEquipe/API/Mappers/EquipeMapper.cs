@@ -22,6 +22,7 @@ namespace gestionEquipe.API.Mappers
 
         public static Equipe UpdateEquipDTOtoEquipe(UpdateEquipeDTO dto)
         {
+
             return new Equipe
             {
                 Id = dto.Id,

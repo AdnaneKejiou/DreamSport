@@ -1,6 +1,13 @@
 <!-- Page Content -->
 <div class="content">
   <div class="container">
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
     <div class="row text-center">
       <!-- Section des dates et heures -->
       <div class="col-12 col-sm-12 col-md-12 col-lg-8">

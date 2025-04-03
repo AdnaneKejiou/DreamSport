@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 import { UserType, LOGIN_ENDPOINTS } from '../../contantes/UserType';
 import { jwtDecode } from 'jwt-decode';
 import { DecodedToken } from '../../models/decoded-token.model';
+import { EquipeService } from '../equipe/equipe.service';
 
 
 @Injectable({
@@ -34,8 +35,7 @@ export class AuthService {
       })
     ); 
   }
-
-  getUserId(): number {
+   getUserId(): number {
     const userString = localStorage.getItem('user_data');
     
     if (!userString) {
@@ -66,6 +66,7 @@ export class AuthService {
     }
   }
 
+
   login(email: string, password: string, userType: UserType): Observable<any> {
     const endpoint = environment.apiUrl + LOGIN_ENDPOINTS[userType];  // Ensure this resolves to the correct endpoint
     console.warn("📢 Login endpoint:", endpoint);  // Log the endpoint URL
@@ -73,6 +74,7 @@ export class AuthService {
     const body = {
       'email': email,
       'password': password,
+      'AdminId': this.Tenant,  
       'facebookToken': null, 
       'googleToken': null 
     };
@@ -223,13 +225,12 @@ export class AuthService {
       console.error('Google login failed: No credential returned');
     }
   }
-
   verifyToken(token: string) {
     const endpoint = environment.apiUrl + LOGIN_ENDPOINTS["User"];
     const body = {
       'email': null,
       'password': null,
-      'adminId': this.Tenant,  
+      'AdminId': this.Tenant,  
       'facebookToken': null, 
       'googleToken': token 
     };
@@ -252,4 +253,13 @@ export class AuthService {
     );
   }
 }
+
+
+
+
+
+
+
+
+
 

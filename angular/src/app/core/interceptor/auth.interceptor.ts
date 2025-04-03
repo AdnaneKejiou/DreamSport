@@ -16,7 +16,6 @@ import { Store} from '@ngrx/store';
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
 
-  Tenant$: Observable<string | number | null>; // Observable for tenantId
   Tenant: string | number | null = null; // Raw value for tenantId
   private excludedRoutes: string[] = [
     '/auth/register',
@@ -24,12 +23,9 @@ export class AuthInterceptor implements HttpInterceptor {
   ];
 
   constructor(private authService: AuthService,private router: Router,private store: Store) {
-    this.Tenant$ = this.store.select(selectTenantId);
+     this.Tenant=localStorage.getItem("Tenant-ID");
+     
 
-    // Subscribe to the observable to get the tenantId value
-    this.Tenant$.subscribe((tenantId) => {
-      this.Tenant = tenantId; // Assign the value to the Tenant property
-    });
   } 
 
   private isExcluded(url: string): boolean {
@@ -51,7 +47,8 @@ export class AuthInterceptor implements HttpInterceptor {
     if (this.Tenant) {
       headers = headers.set('Tenant-ID', this.Tenant.toString());
     }
-    console.error("tenant :    ",this.Tenant);
+    
+    
     const modifiedReq = req.clone({ headers });
     
     return next.handle(modifiedReq).pipe(

@@ -21,6 +21,10 @@ builder.Services.AddScoped<IEquipeService, EquipeService>();
 builder.Services.AddScoped<ISiteService, SiteService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.AddScoped<EquipeConsumerService>();
+builder.Services.AddSingleton<IHostedService,  EquipeConsumerService>();
+
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

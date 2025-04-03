@@ -6,6 +6,7 @@ using chatEtInvitation.Core.Interfaces.IExternServices;
 using chatEtInvitation.API.Mappers;
 using chatEtInvitation.Core.Models;
 using chatEtInvitation.Infrastructure.Data.Repositories;
+using Shared.Messaging.Services;
 
 namespace chatEtInvitation.Core.Services
 {
@@ -28,36 +29,39 @@ namespace chatEtInvitation.Core.Services
                 throw new KeyNotFoundException("The invitation not found");
             }
 
-            await _TeamInvitationRepository.DeleteInvitationAsync(invitation);  
+            await _TeamInvitationRepository.DeleteInvitationAsync(invitation);
 
-            //message broker appele de equipe service pour ajouter le membre
+            var _producer = new RabbitMQProducerService("Add Member to team");
+            // Utilisation de RabbitMQ Producer injecté
+            _producer.Publish(new { UserID = invitation.Recerpteur , EquipeId = invitation.Emetteur });
         }
 
-        public async Task<string> SendInvitationAsync(TeamInvitationDTO invitationDto)
+        public async Task<TeamInvitation> SendInvitationAsync(TeamInvitationDTO invitationDto)
         {
             // Vérifier si l'invitation existe déjà
             var existingInvitation = await _TeamInvitationRepository.GetExistingInvitationAsync(invitationDto.Emetteur, invitationDto.Recepteur);
             if (existingInvitation != null)
             {
-                return "CONFLICT";
+                throw new KeyNotFoundException("The invitation not found");
+
             }
 
             // Vérifier si l'utilisateur est déjà dans l'équipe
-            List<int> MembersIds = await _TeamService.FetchMembersAsync(invitationDto.Emetteur);
+            List<int> MembersIds = await _TeamService.FetchMembersAsync(invitationDto.Emetteur, invitationDto.AdminId);
             if (MembersIds == null )
             {
-                return "TEAM_NOT_FOUND";
+                throw new KeyNotFoundException("Team not found");
             }
             if (MembersIds.Contains(invitationDto.Recepteur))
             {
-                return "ALREADY_MEMBER";
+                throw new KeyNotFoundException("Already member");
             }
-           
+
             // Ajouter l'invitation
             var invitation = TeamInvMapper.SendInvToModel(invitationDto);
             await _TeamInvitationRepository.AddInvitationAsync(invitation);
 
-            return "SUCCESS";
+            return invitation;
         }
 
               //---------------------------------
@@ -75,7 +79,19 @@ namespace chatEtInvitation.Core.Services
             }).ToList();
         }
 
+        // Méthode pour refuser (supprimer) une invitation
+        public async Task RefuserInvitation(int Id)
+        {
+            TeamInvitation invitation = await _TeamInvitationRepository.GetInvitationByIdAsync(Id);
+            if (invitation == null)
+            {
+                throw new KeyNotFoundException("The invitation not found");
+            }
 
+            await _TeamInvitationRepository.DeleteInvitationAsync(invitation);
+            
+            
+        }
 
 
         // Méthode pour récupérer les invitations team et le nombre total

@@ -685,7 +685,7 @@ export class DataService {
       title: 'Team',
       img: 'assets/img/icons/team.svg',
       page: 'wallet',
-      route: routes.userWallet,
+      route: routes.userTeam,
 
     },
     {

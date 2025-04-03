@@ -15,5 +15,8 @@ namespace chatEtInvitation.API.DTOs
         [Required(ErrorMessage = "L'ID de l'équipe (AdminId) est requis.")]
         [Range(1, int.MaxValue, ErrorMessage = "L'ID de l'équipe doit être un identifiant valide.")]
         public int AdminId { get; set; }
+        public string? TeamName { get; set; }
+
+        public int? idInv { get; set; }
     }
 }

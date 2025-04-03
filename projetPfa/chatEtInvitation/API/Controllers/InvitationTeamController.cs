@@ -3,6 +3,8 @@ using chatEtInvitation.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using chatEtInvitation.API.DTOs;
+using Microsoft.AspNetCore.SignalR;
+using chatEtInvitation.Core.Models;
 
 namespace chatEtInvitation.API.Controllers
 {
@@ -11,10 +13,13 @@ namespace chatEtInvitation.API.Controllers
     public class InvitationTeamController : ControllerBase
     {
         private readonly ITeamInvitationService _teamInvitationService;
+        private readonly IHubContext<InvitationHub> _hubContext;
 
-        public InvitationTeamController (ITeamInvitationService invitationService)
+        public InvitationTeamController (ITeamInvitationService invitationService, IHubContext<InvitationHub> hubContext)
         {
             _teamInvitationService = invitationService;
+            _hubContext = hubContext;
+
         }
 
         [HttpPost]
@@ -23,16 +28,16 @@ namespace chatEtInvitation.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _teamInvitationService.SendInvitationAsync(invitationDto);
+            var invitation = await _teamInvitationService.SendInvitationAsync(invitationDto);
 
-            return result switch
-            {
-                "CONFLICT" => Conflict(new { message = "Une invitation existe déjà." }),
-                "TEAM_NOT_FOUND" => NotFound(new {message = "Team not found"}),
-                "ALREADY_MEMBER" => BadRequest(new { message = "L'utilisateur est déjà membre de l'équipe." }),
-                "SUCCESS" => Ok(new { message = "Invitation envoyée avec succès." }),
-                _ => StatusCode(500, new { message = "Erreur inconnue." })
-            };
+          
+                // Envoyer via SignalR
+                await _hubContext.Clients.Group(invitationDto.Recepteur.ToString())
+                    .SendAsync("ReceiveTeamInvitation", invitation);
+            
+
+            return Ok ();
+            
         }
 
         [HttpPost("accepter/{invitationId}")]
@@ -41,13 +46,33 @@ namespace chatEtInvitation.API.Controllers
             try
             {
                 await _teamInvitationService.AccepteInvitationAsync(invitationId);
-                return Ok("Invitation acceptée et chat créé avec succès.");
+                return Ok();
             }
             catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
             catch(Exception ex)
+            {
+                return StatusCode(500, "An error happen");
+            }
+
+        }
+
+        // Endpoint API pour refuser une invitation
+        [HttpDelete("Refuser/{id}/{AdminId}")]
+        public async Task<IActionResult> RefuserInvitation(int id)
+        {
+            try
+            {
+                 await _teamInvitationService.RefuserInvitation(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, "An error happen");
             }

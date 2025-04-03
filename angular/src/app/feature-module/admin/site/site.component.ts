@@ -88,7 +88,7 @@ export class SiteComponent implements OnInit {
 
     try {
       // Upload to Cloudflare CDN
-      const imageUrl = await this.cloudflareService.uploadImage(file).toPromise();
+      const imageUrl = await this.cloudflareService.uploadFile(file);
       
       // Update form with CDN URL
       this.siteForm.get(field)?.setValue(imageUrl);
