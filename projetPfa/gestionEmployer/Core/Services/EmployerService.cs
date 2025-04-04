@@ -95,7 +95,7 @@ namespace gestionEmployer.Core.Services
             // Vérification de l'unicité seulement si l'attribut est modifié
             if (updatedEmploye.CIN != null && !updatedEmploye.CIN.Equals(existingEmploye.CIN))
             {
-                if (await _employeeRepository.EmployerByCINAsync(updatedEmploye.CIN, updatedEmploye.Id) != null)
+                if (await _employeeRepository.EmployerByCINAsync(updatedEmploye.CIN, updatedEmploye.AdminId) != null)
                 {
                     {
                         dto.Errors.Add("CIN", "CIN already exist.");

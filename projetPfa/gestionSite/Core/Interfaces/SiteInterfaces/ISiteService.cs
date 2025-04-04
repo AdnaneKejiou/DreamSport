@@ -1,4 +1,5 @@
-﻿using gestionSite.API.DTOs.TerrainDtos;
+﻿using gestionSite.API.DTOs.SiteDtos;
+using gestionSite.API.DTOs.TerrainDtos;
 using gestionSite.Core.Models;
 
 namespace gestionSite.Core.Interfaces.SiteInterfaces
@@ -7,7 +8,7 @@ namespace gestionSite.Core.Interfaces.SiteInterfaces
     {
         Task<IEnumerable<gestionSite.Core.Models.Site>> GetSiteByAdminAsync(int adminId);
         Task<gestionSite.Core.Models.Site?> AddSiteAsync(int adminId);
-        Task<gestionSite.Core.Models.Site?> UpdateSiteAsync(gestionSite.Core.Models.Site site);
+        Task<ReturnUpdatedSiteDto?> UpdateSiteAsync(Site updatingSite);
         Task<Site> GetSiteASync(int adminId);
     }
 }

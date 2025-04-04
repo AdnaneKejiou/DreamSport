@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SiteM } from 'src/app/core/models/Site/siteM';
 import { CloudflareService } from 'src/app/core/service/Cloudflare/cloudflare.service';
-import { finalize } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-site',
@@ -17,6 +17,7 @@ export class SiteComponent implements OnInit {
   isSaving = false;
   isUploading = false;
   currentUploadField: string | null = null;
+  backendErrors: any = {};
   private Site: any;
 
   constructor(
@@ -73,7 +74,7 @@ export class SiteComponent implements OnInit {
     });
   }
 
-  async onFileSelected(event: Event, field: string): Promise<void> {
+  onFileSelected(event: Event, field: string): void {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
 
@@ -86,55 +87,88 @@ export class SiteComponent implements OnInit {
     this.isUploading = true;
     this.currentUploadField = field;
 
-    try {
-      // Upload to Cloudflare CDN
-      const imageUrl = await this.cloudflareService.uploadImage(file).toPromise();
+    // Create preview and validate dimensions
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const img = new Image();
+      img.src = e.target.result;
       
-      // Update form with CDN URL
-      this.siteForm.get(field)?.setValue(imageUrl);
-      this.toastr.success('Image uploaded successfully', 'Success');
-    } catch (error) {
-      console.error('Upload failed:', error);
-      this.toastr.error('Failed to upload image', 'Error');
-    } finally {
-      this.isUploading = false;
-      this.currentUploadField = null;
-      input.value = ''; // Reset input to allow same file re-upload
-    }
+      img.onload = () => {
+        if (field === 'Logo' && (img.width < 150 || img.height < 150)) {
+          this.toastr.warning('Logo must be at least 150×150 pixels');
+          this.isUploading = false;
+          this.currentUploadField = null;
+          input.value = '';
+          return;
+        }
+
+        // Upload to Cloudflare
+        from(this.cloudflareService.uploadFile(file)).subscribe({
+          next: (imageUrl) => {
+            this.siteForm.get(field)?.setValue(imageUrl);
+            this.toastr.success('Image uploaded successfully');
+            this.backendErrors[field] = null; // Clear any previous errors
+          },
+          error: (err) => {
+            console.error('Upload failed:', err);
+            this.toastr.error('Failed to upload image');
+            this.backendErrors[field] = 'Image upload failed';
+          },
+          complete: () => {
+            this.isUploading = false;
+            this.currentUploadField = null;
+            input.value = '';
+          }
+        });
+      };
+    };
+    reader.readAsDataURL(file);
   }
 
   removeBackground(): void {
     this.siteForm.get('Background')?.setValue('');
+    this.backendErrors['Background'] = null;
   }
 
   resetForm(): void {
+    this.backendErrors = {};
     this.siteForm.reset();
     this.loadSiteSettings();
   }
 
   saveSiteSettings(): void {
     if (this.siteForm.invalid) {
-      this.siteForm.markAllAsTouched();
-      this.toastr.warning('Please fill all required fields correctly', 'Form Invalid');
+      this.markFormGroupTouched(this.siteForm);
+      this.toastr.warning('Please fill all required fields correctly');
       return;
     }
 
     this.isSaving = true;
-    this.siteService.updateSiteSettings(this.siteForm.value)
-      .pipe(finalize(() => this.isSaving = false))
-      .subscribe({
-        next: () => this.toastr.success('Site settings saved successfully!', 'Success'),
-        error: (err: HttpErrorResponse) => {
-          console.error('Save error:', err);
-          this.toastr.error('Failed to save site settings', 'Error');
+    this.siteService.updateSiteSettings(this.siteForm.value).subscribe({
+      next: () => {
+        this.toastr.success('Site settings saved successfully!');
+        this.backendErrors = {}; // Clear all errors on success
+        this.isSaving = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.warn("das ",err);
+        this.isSaving = false;
+        if (err.status === 400 && err.error.errors) {
+          this.backendErrors = err.error.errors;
+          console.log("thi :", this.backendErrors);
+        } else {
+          this.toastr.error('Failed to save site settings');
         }
-      });
+        console.error('Save error:', err);
+      }
+    });
   }
 
   onColorChange(field: string, event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input) {
       this.siteForm.get(field)?.setValue(input.value);
+      this.backendErrors[field] = null;
     }
   }
 
@@ -144,8 +178,18 @@ export class SiteComponent implements OnInit {
     
     if (/^#([0-9A-F]{3}){1,2}$/i.test(value)) {
       this.siteForm.get(field)?.setValue(value);
+      this.backendErrors[field] = null;
     } else {
-      this.toastr.warning('Please enter a valid hex color code', 'Invalid Color');
+      this.toastr.warning('Please enter a valid hex color code');
     }
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 }

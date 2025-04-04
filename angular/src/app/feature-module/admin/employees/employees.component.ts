@@ -7,6 +7,8 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { AddEmployee } from 'src/app/core/models/employee/addEmployee';
+import { ToastrService } from 'ngx-toastr';
 interface data {
   value: string;
 }
@@ -17,6 +19,7 @@ interface EmployeeFormData {
   phoneNumber: string;
   salaire: number;
   birthday: string; 
+  imageUrl?: string; // Add this line
 }
 
 @Component({
@@ -40,7 +43,7 @@ export class EmployeesComponent {
   public searchDataValue = '';
   dataSource!: MatTableDataSource<employee>;
 
-  constructor(private employeeService: EmployeesService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private employeeService: EmployeesService, private dialog: MatDialog, private toastr: ToastrService) {
   }
 
 
@@ -94,7 +97,7 @@ export class EmployeesComponent {
       },
       error: (err) => {
         console.error('Failed to refresh employee list:', err);
-        this.snackBar.open('Failed to refresh employee data', 'Close', { duration: 3000 });
+        this.toastr.error('Error', 'Failed to refresh employee data');
       }
     });
   }
@@ -112,10 +115,11 @@ selectedEmployee: any;
   deleteEmployee(id:number):void {
     this.employeeService.deleteEmployee(id).subscribe({
       next: (response) => {
+        this.toastr.success('Success', 'Employee has been deleted');
         this.refreshEmployeeList();
       },
       error: (err) => {
-        this.snackBar.open('Update failed: ' + (err.error.message || err.message), 'Close');
+        this.toastr.error('Error', 'deleting Employee failed');
       }
     })
   }
@@ -139,14 +143,14 @@ selectedEmployee: any;
         next: (response) => {
           dialogRef.close();
           this.refreshEmployeeList();
-          this.snackBar.open('Employee updated successfully', 'Close', { duration: 3000 });
+          this.toastr.success('Success', 'Employee updated successfully');
         },
         error: (err) => {
           // Handle API validation errors
           if (err.status === 400 && err.error.errors) {
             dialogRef.componentInstance.setErrors(err.error.errors);
           } else {
-            this.snackBar.open('Update failed: ' + (err.error.message || err.message), 'Close');
+            this.toastr.error('Error', 'Update failed');
           }
         }
       });
@@ -160,7 +164,8 @@ selectedEmployee: any;
 
   private mapFormDataToEmployee(formData: EmployeeFormData, originalEmployee: employee): employee {
     const date = new Date(formData.birthday);
-        const isoString = date.toISOString(); 
+    const isoString = date.toISOString();
+    
     return {
       ...originalEmployee, 
       prenom: formData.prenom,
@@ -169,34 +174,34 @@ selectedEmployee: any;
       phoneNumber: formData.phoneNumber,
       salaire: formData.salaire,
       birthday: isoString,
-      
+      imageUrl: formData.imageUrl || originalEmployee.imageUrl // Add this line
     };
   }
 //end update employee 
 //add employee  
+// ... existing imports ...
+
 openAddEmployeeDialog(): void {
   const dialogRef = this.dialog.open(AddEmployeeComponent, {
     width: '800px',
     disableClose: true,
   });
 
-  const sub = dialogRef.componentInstance.onSubmitSuccess.subscribe((addedData) => {
-    this.employeeService.createEmployee(addedData).subscribe({
+  const sub = dialogRef.componentInstance.onSubmitSuccess.subscribe((employeeData: AddEmployee) => {
+    this.employeeService.createEmployee(employeeData).subscribe({
       next: (response) => {
         dialogRef.close();
         this.refreshEmployeeList();
-        this.snackBar.open('Employee added successfully', 'Close', { duration: 3000 });
+        this.toastr.success('Success', 'Employee added successfully');
       },
       error: (err) => {
+        dialogRef.componentInstance.isSubmitting = false;
         if (err.status === 400 && err.error.errors) {
           // Pass validation errors to the form
           dialogRef.componentInstance.setErrors(err.error.errors);
         } else {
           // Show other errors in snackbar
-          this.snackBar.open(
-            err.error?.message || err.message || 'Failed to add employee', 
-            'Close'
-          );
+          this.toastr.error('Error', 'Failed to add employee');
         }
       }
     });
@@ -207,4 +212,5 @@ openAddEmployeeDialog(): void {
   });
 }
   
+
 }

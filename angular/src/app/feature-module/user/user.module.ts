@@ -6,6 +6,7 @@ import { UserComponent } from './user.component';
 import { sharedModule } from 'src/app/shared/shared.module';
 
 
+
 @NgModule({
   declarations: [
     UserComponent
@@ -13,7 +14,9 @@ import { sharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     UserRoutingModule,
-    sharedModule
+    sharedModule,
+    
+
   ]
 })
 export class UserModule { }

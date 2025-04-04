@@ -6,5 +6,6 @@ export interface AddEmployee {
     email: string;
     birthday: string | Date;  // Can be string or Date object
     username: string;
+    imageUrl?: string;
     salaire: number;
   }

@@ -12,7 +12,7 @@ namespace gestionSite.Infrastructure.Mappers
             {
                 Title = addTerrainDto.Title,
                 Description = addTerrainDto.Description,
-                Image = addTerrainDto.Image,
+                Image = addTerrainDto.imageUrl,
                 TerrainStatusId = addTerrainDto.TerrainStatusId,
                 IdSport_Categorie = addTerrainDto.IdSport_Categorie,
                 IdAdmin = addTerrainDto.AdminId

@@ -37,12 +37,9 @@ export interface IUpdateStatus {
 })
 export class TerrainService {
   private apiUrl = 'http://localhost:5010/gateway/terrain';
-  private tenantId: number | null = null;
 
-  constructor(private http: HttpClient, private store: Store) {
-    this.store.select(selectTenantId).subscribe((tenantId: number | null) => {
-      this.tenantId = 28;
-    });
+  constructor(private http: HttpClient) {
+ 
   }
 
   getTerrains(): Observable<Terrain[]> {

@@ -22,4 +22,8 @@
     <Folder Include="API\Filters\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shared.Messaging\Shared.Messaging.csproj" />
+  </ItemGroup>
+
 </Project>

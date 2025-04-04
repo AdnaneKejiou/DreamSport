@@ -95,53 +95,49 @@
     <!-- /Page Content -->
      
     <div class="modal custom-modal fade" id="deactive" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Add New Announcement</h5>
-              <a class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span class="align-center" aria-hidden="true"><i class="feather icon-x"></i></span>
-              </a>
-            </div>
-            <div class="modal-body">
-              <form #annonceForm="ngForm" (ngSubmit)="addNewAnnonce(annonceForm.value)">
-                <div class="row">
-                  
-                  
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>Description</label>
-                      <textarea class="form-control" rows="4" name="description" ngModel required></textarea>
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Start Date</label>
-                      <input type="datetime-local" class="form-control" name="launchedAt" ngModel required>
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>End Date & Time</label>
-                      <input type="datetime-local" class="form-control" name="endDate" ngModel required
-                             (change)="validateDates()" #endDate>
-                      <small class="text-danger" *ngIf="dateError">End date must be after start date</small>
-                    </div>
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header d-flex justify-content-between align-items-center">
+            <h5 class="modal-title">Add New Announcement</h5>
+            <a class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span class="align-center" aria-hidden="true"><i class="feather icon-x"></i></span>
+            </a>
+          </div>
+          <div class="modal-body">
+            <form #annonceForm="ngForm" (ngSubmit)="addNewAnnonce(annonceForm.value)">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="4" name="description" ngModel required></textarea>
                   </div>
                 </div>
-                
-                <div class="convenient-btns mt-4">
-                  <button type="submit" class="btn btn-primary d-inline-flex align-items-center" href="javascript:void(0);" data-bs-dismiss="modal" >
-                    Save <span><i class="feather icon-check-circle ms-2"></i></span>
-                  </button>
-                  <button type="button" class="btn btn-secondary d-inline-flex align-items-center" data-bs-dismiss="modal">
-                    Cancel <span><i class="feather icon-x-circle ms-2"></i></span>
-                  </button>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="datetime-local" class="form-control" name="launchedAt" ngModel required>
+                  </div>
                 </div>
-              </form>
-            </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>End Date & Time</label>
+                    <input type="datetime-local" class="form-control" name="endDate" ngModel required
+                           (change)="validateDates()" #endDate>
+                    <small class="text-danger" *ngIf="dateError">End date must be after start date</small>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="convenient-btns mt-4 d-flex justify-content-end gap-2">
+                <button type="button" class="btn btn-secondary d-inline-flex align-items-center" data-bs-dismiss="modal">
+                  Cancel <span><i class="feather icon-x-circle ms-2"></i></span>
+                </button>
+                <button type="submit" class="btn btn-primary d-inline-flex align-items-center" data-bs-dismiss="modal">
+                  Save <span><i class="feather icon-check-circle ms-2"></i></span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
+    </div>

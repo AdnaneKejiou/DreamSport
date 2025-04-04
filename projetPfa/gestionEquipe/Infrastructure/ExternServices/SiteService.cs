@@ -17,7 +17,7 @@ namespace gestionEquipe.Infrastructure.ExternServices
             _cache = cacheService;
         }
 
-        public async Task<List<SportCategorieDTO>> GetSportsAsync()
+        public async Task<List<SportCategorieDTO>> GetSportsAsync(int adminId)
         {
             // Check if data is in cache
             if (_cache.TryGetValue(CacheKey, out List<SportCategorieDTO> cachedData))
@@ -26,7 +26,7 @@ namespace gestionEquipe.Infrastructure.ExternServices
             }
 
             // Ila kan lcashe khawi
-            var result = await FetchSportsAsync();
+            var result = await FetchSportsAsync(adminId);
 
             // Cache the data for 5 minutes
             _cache.Set(CacheKey, result, TimeSpan.FromMinutes(60));
@@ -34,9 +34,9 @@ namespace gestionEquipe.Infrastructure.ExternServices
             return result;
         }
 
-        private async Task<List<SportCategorieDTO>> FetchSportsAsync()
+        private async Task<List<SportCategorieDTO>> FetchSportsAsync(int adminId)
         {
-            int adminId = 1;
+           
             string requestUrl = "http://localhost:5010/gateway/SportCategorie/execute";
 
             // Create request message for GET

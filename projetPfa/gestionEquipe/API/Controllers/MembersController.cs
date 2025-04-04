@@ -21,7 +21,7 @@ namespace gestionEquipe.API.Controllers
             _membersService = membersService;
         }
 
-        [HttpDelete("/{AdminId}")]
+        [HttpDelete("{AdminId}")]
         public async Task<ActionResult> KickMemberAsync([FromBody] DeleteMemberDTO member)
         {
             var _member = MembersMapper.DeleteDTOtoModel(member);

@@ -64,13 +64,26 @@ namespace gestionSite.API.Controllers
         public async Task<ActionResult<FAQ>> UpdateSite([FromBody] UpdateSiteDto _updateSiteDto)
         {
             var site = SiteMapper.UpdateSiteDtoToSite(_updateSiteDto);
-            var result = await _siteService.UpdateSiteAsync(site);
-            if (result == null)
+            try
             {
-                return BadRequest("Failed to update Site");
+                var result = await _siteService.UpdateSiteAsync(site);
+                if (result == null)
+                {
+                    return StatusCode(500,new { errorMessage="something happen whilee updating the site" });
+                }
+                if(result.Errors.Count > 0)
+                {
+                    return BadRequest(result);
+                }
+                return Ok(result);
+            }catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { errorMessage = ex.Message });
+            }catch (Exception ex)
+            {
+                return StatusCode(500, new { errorMessage = "some error haapen while updating the site" });
             }
-
-            return Ok(result);
+            
         }
 
         [HttpPost]

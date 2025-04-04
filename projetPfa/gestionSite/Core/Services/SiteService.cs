@@ -6,6 +6,8 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using Newtonsoft.Json;
+using gestionSite.API.DTOs.SiteDtos;
+using gestionSite.API.Mappers;
 
 
 namespace gestionSite.Core.Services
@@ -57,16 +59,58 @@ namespace gestionSite.Core.Services
             return await _siteRepository.AddSiteAsync(site);
         }
 
-        public async Task<Site?> UpdateSiteAsync(Site site)
+        public async Task<ReturnUpdatedSiteDto?> UpdateSiteAsync(Site updatingSite)
         {
-            // Add any necessary validation or preprocessing here
-            if (site.Id <= 0)
+            Site existingSite = await _siteRepository.getSiteASync(updatingSite.IdAdmin);
+            if(existingSite == null)
             {
-                // Example validation: ID must be valid
-                return null;
+                throw new KeyNotFoundException("SIte not found");
             }
-
-            return await _siteRepository.UpdateSiteAsync(site);
+            ReturnUpdatedSiteDto dto = SiteMapper.modelToUpdated(existingSite);
+            // Vérification de l'unicité seulement si l'attribut est modifié
+            if (updatingSite.PhoneNumber != null && !updatingSite.PhoneNumber.Equals(existingSite.PhoneNumber))
+            {
+                if (await _siteRepository.getByPhoneAsync(updatingSite.PhoneNumber) != null)
+                {
+                    {
+                        dto.Errors.Add("PhoneNumber", "PhoneNumber already exist.");
+                    }
+                }
+            }
+            if (updatingSite.Name != null && !updatingSite.Name.Equals(existingSite.Name))
+            {
+                if (await _siteRepository.getByNameAsync(updatingSite.Name) != null)
+                {
+                    {
+                        dto.Errors.Add("Name", "Name already exist.");
+                    }
+                }
+            }
+            if (updatingSite.Email != null && !updatingSite.Email.Equals(existingSite.Email))
+            {
+                if (await _siteRepository.getByEmailAsync(updatingSite.Email) != null)
+                {
+                    {
+                        dto.Errors.Add("Email", "Email already exist.");
+                    }
+                }
+            }
+            if (updatingSite.DomainName != null && !updatingSite.DomainName.Equals(existingSite.DomainName))
+            {
+                if (await _siteRepository.getByDomaineAsync(updatingSite.DomainName) != null)
+                {
+                    {
+                        dto.Errors.Add("DomainName", "DomainName already exist.");
+                    }
+                }
+            }
+            if (dto.Errors.Count == 0)
+            {
+                
+                return SiteMapper.modelToUpdated(await _siteRepository.UpdateSiteAsync(updatingSite));
+                
+            }
+            return dto;
 
         }
 

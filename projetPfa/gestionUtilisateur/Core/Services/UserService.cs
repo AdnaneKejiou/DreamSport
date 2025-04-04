@@ -62,7 +62,7 @@ namespace gestionUtilisateur.Core.Services
             {
                 if (_user.ImageUrl == null)
                 {
-                    _user.ImageUrl = "https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/avatar-01.jpg";
+                    _user.ImageUrl = "https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/avatar-02.jpg";
                 }
                 var user = await _userRepository.AddUserManualyAsync(_user);
                 var AddedUsers = UserMapper.UserToAddedUser(user);
@@ -271,6 +271,45 @@ namespace gestionUtilisateur.Core.Services
             var result = await _userRepository.UpdateUserStatusAsync(userId, isBlocked);
 
             return result;
+        }
+
+        public async Task<ReturnUpdated> updateUserAsync(User updatingUser)
+        {
+            User existingUser = await _userRepository.GetByIdAsync(updatingUser.Id);
+            if(existingUser == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+            ReturnUpdated dto = UserMapper.modelToUpdated(existingUser);
+            if (updatingUser.Username != null && !updatingUser.Username.Equals(existingUser.Username))
+            {
+                if (await _userRepository.DoesUserWithUsernameExist(updatingUser.Username, updatingUser.IdAdmin))
+                {
+                    dto.Errors.Add("Username", "Username already exist.");
+                }
+            }
+            if (updatingUser.PhoneNumber != null && !updatingUser.PhoneNumber.Equals(existingUser.PhoneNumber))
+            {
+                if (await _userRepository.DoesUserWithPhoneExist(updatingUser.PhoneNumber, updatingUser.IdAdmin))
+                {
+                    dto.Errors.Add("PhoneNumber", "PhoneNumber already exist.");
+                }
+            }
+            if (updatingUser.Email != null && !updatingUser.Email.Equals(existingUser.Email))
+            {
+                if (await _userRepository.DoesUserWithEmailExist(updatingUser.Email, updatingUser.IdAdmin))
+                {
+                    dto.Errors.Add("Email", "Email already exist.");
+                }
+            }
+            if (dto.Errors.Count() == 0)
+            {
+                UserMapper.updateInsideUser(existingUser, updatingUser);
+                // Sauvegarder les changements dans la base de données
+                 await _userRepository.UpdateAsync(existingUser);
+            }
+
+            return dto;
         }
     }
 }

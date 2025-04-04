@@ -31,7 +31,7 @@ export class EmployeesService {
 
   // Get a single user by ID
   getEmployee(id: number): Observable<employee> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}/get/${id}`;
     return this.http.get<employee>(url);
   }
 
@@ -87,4 +87,6 @@ export class EmployeesService {
       })
     );
   }
+
+  
 }

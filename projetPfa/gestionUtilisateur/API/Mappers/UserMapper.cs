@@ -186,5 +186,63 @@ namespace gestionUtilisateur.API.Mappers
                 username = user.Username,
             };
         }
+
+        public static User updateToUser(UpdateUser dto)
+        {
+            return new User
+            {
+                Id = dto.Id,
+                Nom = dto.lastname,
+                Prenom = dto.firstname,
+                Email = dto.Email,
+                PhoneNumber = dto.PhoneNumber,
+                Username = dto.Username,
+                ImageUrl= dto.ImageUrl, 
+                IdAdmin = dto.AdminId,
+            };
+        }
+
+        public static ReturnUpdated modelToUpdated(User user)
+        {
+            return new ReturnUpdated
+            {
+                Id = user.Id,
+                Nom = user.Nom,
+                Prenom = user.Prenom,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Username= user.Username,
+                imageUrl= user.ImageUrl,
+                AdminId = user.IdAdmin,
+            };
+        }
+        
+        public static void updateInsideUser(User user, User userr)
+        {
+            if(userr.Nom != null)
+            {
+                user.Nom = userr.Nom;
+            }
+            if (userr.Prenom != null)
+            {
+                user.Prenom = userr.Prenom;
+            }
+            if (userr.Email != null)
+            {
+                user.Email = userr.Email;
+            }
+            if (userr.PhoneNumber != null)
+            {
+                user.PhoneNumber = userr.PhoneNumber;
+            }
+            if (userr.Username != null)
+            {
+                user.Username = userr.Username;
+            }
+            if (userr.ImageUrl != null)
+            {
+                user.ImageUrl = userr.ImageUrl;
+            }
+        }
     }
 }

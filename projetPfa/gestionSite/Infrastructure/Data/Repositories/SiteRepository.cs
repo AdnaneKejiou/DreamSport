@@ -59,6 +59,25 @@ namespace gestionSite.Infrastructure.Data.Repositories
             return await _context.Sites.FirstOrDefaultAsync(s => s.IdAdmin == adminId);
         }
 
+        public async Task<Site> getByNameAsync(string name)
+        {
+            return await _context.Sites.FirstOrDefaultAsync(s => s.Name == name );
+        }
+
+        public async Task<Site> getByEmailAsync(string email)
+        {
+            return await _context.Sites.FirstOrDefaultAsync(s => s.Email == email );
+        }
+
+        public async Task<Site> getByPhoneAsync(string phone)
+        {
+            return await _context.Sites.FirstOrDefaultAsync(s => s.PhoneNumber == phone);
+        }
+
+        public async Task<Site> getByDomaineAsync(string domaine)
+        {
+            return await _context.Sites.FirstOrDefaultAsync(s => s.DomainName == domaine );
+        }
 
     }
 }

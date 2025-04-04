@@ -1,5 +1,7 @@
 ﻿using gestionUtilisateur.API.DTOs;
+using gestionUtilisateur.API.Mappers;
 using gestionUtilisateur.Core.Models;
+using gestionUtilisateur.Infrastructure.Data.Repositories;
 
 namespace gestionUtilisateur.Core.Interfaces
 {
@@ -23,6 +25,8 @@ namespace gestionUtilisateur.Core.Interfaces
         Task<ReturnedLoginDto> GetUserConfAsync(int Id);
         Task<PaginatedResponse<paginationUser>> GetUsersPaginatedAsync(int skip, int limit, int adminId, bool? isBlocked = null, string searchTerm = null);
         Task<bool> UpdateUserStatusAsync(int userId, bool isBlocked);
+        Task<ReturnUpdated> updateUserAsync(User updatingUser);
+        
 
     }
 }

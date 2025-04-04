@@ -29,6 +29,7 @@ export class TimedateComponent implements OnInit, AfterViewInit {
   public disabledTimes: string[] = [];
   public errorMessage: string | null = null;
   public userId: string | null = null;
+  public isLoading = true;
 
   public coachTimeDateOptions: OwlOptions = {
     loop: true,
@@ -60,6 +61,9 @@ export class TimedateComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+
+    this.isLoading = true; 
+
     const userString = localStorage.getItem('user_data');
     if (userString) {
       const user = JSON.parse(userString);
@@ -77,6 +81,9 @@ export class TimedateComponent implements OnInit, AfterViewInit {
       if (id) {
         this.terrainId = +id;
         this.loadReservations();
+      }else{
+        this.isLoading = false; 
+
       }
     });
   }
@@ -161,13 +168,19 @@ export class TimedateComponent implements OnInit, AfterViewInit {
         (reservations) => {
           this.reservations = reservations;
           this.updateDisabledTimes();
+          this.isLoading = false; 
+
         },
         (error) => {
           console.error('Error loading reservations:', error);
+          this.isLoading = false; 
+
         }
       );
     } else {
       console.error('Terrain ID is not defined');
+      this.isLoading = false; 
+
     }
   }
 

@@ -12,9 +12,8 @@ namespace chatEtInvitation.Infrastructure.ExternServices
             _httpClient = httpClient;
         }
 
-        public async Task<List<int>> FetchMembersAsync(int TeamId)
+        public async Task<List<int>> FetchMembersAsync(int TeamId , int adminId)
         {
-            int adminId = 1; // Example Admin ID to be sent in the header
 
             // Construct the URL (only with idUser, as AdminId will be in headers)
             string requestUrl = $"{UserUrl.TrimEnd('/')}/equipe/{TeamId}";

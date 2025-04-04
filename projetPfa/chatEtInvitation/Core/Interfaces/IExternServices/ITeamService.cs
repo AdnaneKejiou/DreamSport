@@ -2,6 +2,6 @@
 {
     public interface ITeamService
     {
-        Task<List<int>> FetchMembersAsync(int TeamId);
+        Task<List<int>> FetchMembersAsync(int TeamId, int adminId);
     }
 }

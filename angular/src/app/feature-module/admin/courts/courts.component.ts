@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
+import { CloudflareService } from 'src/app/core/service/Cloudflare/cloudflare.service';
 import { SportCategory, Terrain, TerrainService, TerrainStatus } from 'src/app/core/service/terrain/terrain.service';
 
 
@@ -19,14 +21,19 @@ export class CourtsComponent {
     public selectedCategoryId: number | null = null; // Catégorie sélectionnée
     
     courtForm: FormGroup;
+    selectedFile: File | null = null;
+    imagePreview: string | ArrayBuffer | null = null;
+    isUploading = false;
 
-  constructor(  private terrainService: TerrainService, private snackBar: MatSnackBar,private fb: FormBuilder) 
+  constructor(  private terrainService: TerrainService, private toastr: ToastrService,
+    private fb: FormBuilder, private cloudflareService:CloudflareService) 
     {  
       this.courtForm = this.fb.group({
         title: ['', Validators.required],
         description: ['', Validators.required],
         idSport_Categorie: ['', Validators.required],
-        terrainStatusId: ['', Validators.required]
+        terrainStatusId: ['', Validators.required],
+        imageUrl: ['']
       });
     console.log('CourtsComponent constructor called'); // Debug 1
     }
@@ -125,10 +132,10 @@ export class CourtsComponent {
           // Remove the deleted FAQ from the list
           this.terrains = this.terrains.filter(faq => faq.id !== id);
           this.filteredTerrains = this.terrains;
-          this.snackBar.open('FAQ deleted successfully', 'Close');
+          this.toastr.success('Success', 'Court deleted successfully');
         },
         error: (err) => {
-          this.snackBar.open('An error encoutred while deleting the court', 'Close');
+          this.toastr.error('Error', 'An error encoutred while deleting the court');
         }
       });
     }
@@ -141,27 +148,83 @@ export class CourtsComponent {
       terrainStatusId: '',
     };
   
+    onFileSelected(event: any): void {
+      const file = event.target.files[0];
+      if (!file) return;
+  
+      if (!file.type.match('image.*')) {
+        this.toastr.warning('Warning', 'Only images are allowed (JPG, PNG, SVG)');
+        return;
+      }
+  
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const img = new Image();
+        img.src = e.target.result;
+        
+        img.onload = () => {
+          if (img.width < 150 || img.height < 150) {
+            this.toastr.warning('Warning', 'Image must be at least 150×150 pixels');
+            return;
+          }
+  
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const size = Math.min(img.width, img.height);
+          
+          canvas.width = 150;
+          canvas.height = 150;
+          
+          const offsetX = (img.width - size) / 2;
+          const offsetY = (img.height - size) / 2;
+          
+          ctx?.drawImage(img, offsetX, offsetY, size, size, 0, 0, 150, 150);
+          
+          this.imagePreview = canvas.toDataURL('image/jpeg', 0.9);
+          this.selectedFile = file;
+        };
+      };
+      reader.readAsDataURL(file);
+    }
     // Function to handle form submission
-    addCourt() {
+    async addCourt() {
       if (this.courtForm.invalid) {
         this.courtForm.markAllAsTouched();
         return;
       }
+  
+      this.isUploading = true;
       const newCourt = this.courtForm.value;
-    this.terrainService.createCourt(newCourt).subscribe({
-      next: (response) => {
-        this.snackBar.open('Court added successfully', 'Close');
-        this.courtForm.reset();
-        this.closeModal('addCourtModal');
-        this.loadTerrains(); // Refresh the list
-      },
-      error: (err) => {
-        console.error('Error adding court:', err);
-        this.snackBar.open(err , 'Close');
+  
+      try {
+        // Upload image if selected
+        if (this.selectedFile) {
+          const imageUrl = await this.cloudflareService.uploadFile(this.selectedFile);
+          newCourt.imageUrl = imageUrl;
+        }
+  
+        this.terrainService.createCourt(newCourt).subscribe({
+          next: (response) => {
+            this.toastr.success('Success', 'Court added successfully');
+            this.courtForm.reset();
+            this.imagePreview = null;
+            this.selectedFile = null;
+            this.closeModal('addCourtModal');
+            this.loadTerrains();
+            this.isUploading = false;
+          },
+          error: (err) => {
+            console.error('Error adding court:', err);
+            this.toastr.error('Error', 'Error adding court');
+            this.isUploading = false;
+          }
+        });
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        this.toastr.error('Error', 'Image upload failed');
+        this.isUploading = false;
       }
-    });
-                
-      }
+    }
     
   
     // Reset the form

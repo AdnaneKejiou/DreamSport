@@ -114,7 +114,13 @@ namespace gestionEquipe.API.Controllers
                 return NotFound(ex.Message);
             }
         }
+        [HttpGet("get/{teamId}/{AdminId}")]
+        public async Task<IActionResult> GetTeam(int teamId)
+        {
+            var result = await _equipeService.GetEquipe(teamId);
 
+            return Ok(result);
+        }
 
         //--------------
         [HttpGet("check-membership/{userId}/{adminId}")]

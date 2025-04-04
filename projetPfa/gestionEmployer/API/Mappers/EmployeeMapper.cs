@@ -19,7 +19,7 @@ namespace gestionEmployer.API.Mappers
                 Email = _AddEmployeeDTO.Email,
                 Username = _AddEmployeeDTO.Username,
                 Salaire = _AddEmployeeDTO.Salaire,
-                
+                imageUrl = _AddEmployeeDTO.ImageUrl,    
             };
         }
         public static Employer UpdateEmployeeDTOToEmployer(UpdateEmployeeDTO _UpdateEmployeeDTO)
@@ -63,7 +63,7 @@ namespace gestionEmployer.API.Mappers
             }
             if (!string.IsNullOrEmpty(updatedEmploye.imageUrl))
             {
-                existingEmploye.PhoneNumber = updatedEmploye.PhoneNumber;
+                existingEmploye.imageUrl = updatedEmploye.imageUrl;
             }
             if (updatedEmploye.Salaire != null && updatedEmploye.Salaire != 0.0)
             {
@@ -88,6 +88,7 @@ namespace gestionEmployer.API.Mappers
                 Username = _Employer.Username,
                 Salaire = _Employer.Salaire,
                 AdminId = _Employer.AdminId,
+                imageUrl = _Employer.imageUrl,
             };
         }
 

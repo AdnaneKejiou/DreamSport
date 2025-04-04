@@ -4,6 +4,6 @@ namespace gestionEquipe.Core.Interfaces
 {
     public interface ISiteService
     {
-        Task<List<SportCategorieDTO>> GetSportsAsync();
+        Task<List<SportCategorieDTO>> GetSportsAsync(int adminId);
     }
 }

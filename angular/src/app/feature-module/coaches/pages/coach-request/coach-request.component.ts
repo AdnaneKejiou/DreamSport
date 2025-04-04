@@ -61,7 +61,10 @@ loadReservations() {
     next: (reservations) => {
       // Create an array of observables to get user and terrain for each reservation
       const requests = reservations.map(reservation => {
+
+        console.warn(reservations);
         return forkJoin({
+
           user: this.userService.getUser(reservation.idUtilisateur),
           terrain: this.terrainService.getTerrain(reservation.idTerrain),
         }).pipe(
@@ -74,6 +77,8 @@ loadReservations() {
           })
         );
       });
+
+      console.warn(reservations[0].user);
 
       // Execute all requests in parallel
       forkJoin(requests).subscribe({

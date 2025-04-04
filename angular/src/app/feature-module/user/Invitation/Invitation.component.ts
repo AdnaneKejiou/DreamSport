@@ -31,7 +31,6 @@ export class InvitationComponent implements OnInit, OnDestroy {
   public invitationReceived = new Subject<MemberInvitationDTOO>();
 
   constructor(
-    private data: DataService,
     private pagination: PaginationService, 
     private router: Router,
     private invitationService: InvitationService,
@@ -95,11 +94,6 @@ export class InvitationComponent implements OnInit, OnDestroy {
 
     this.updateDataSource();
     
-    const senderName = `${invitation.emetteur.firstName} ${invitation.emetteur.lastName}`;
-    this.toastr.info(`New invitation from ${senderName}`, 'New Invitation', {
-      timeOut: 5000,
-      positionClass: 'toast-bottom-right'
-    });
   }
 
   private loadInvitations(): void {

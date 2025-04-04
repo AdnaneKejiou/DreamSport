@@ -52,6 +52,25 @@ namespace gestionUtilisateur.API.Controllers
             return Ok(new { message = "Profil mis à jour avec succès.", data = result });
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync([FromBody] UpdateUser dto)
+        {
+            User user = UserMapper.updateToUser(dto);
+
+            try
+            {
+                ReturnUpdated emp = await _userService.updateUserAsync(user);
+                if (emp.Errors.Count() > 0)
+                {
+                    return BadRequest(emp);
+                }
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
         [HttpDelete("{id}/{AdminId}")]
         public async Task<IActionResult> DeleteUser(int id)

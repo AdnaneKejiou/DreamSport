@@ -9,3 +9,4 @@
 
 # Ignore build output and temporary files
 obj/
+/projetPfa/gestionEquipe/gestionEquipe.csproj

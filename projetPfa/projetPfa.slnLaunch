@@ -33,6 +33,10 @@
       {
         "Path": "gestionReservation\\gestionReservation.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "Auth\\Auth.csproj",
+        "Action": "Start"
       }
     ]
   }

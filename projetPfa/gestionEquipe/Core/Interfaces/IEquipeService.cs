@@ -15,5 +15,7 @@ namespace gestionEquipe.Core.Interfaces
         Task SupprimerEquipeAvecMembresAsync(int equipeId);
         Task<IEnumerable<int>> GetTeamAsync(int teamId);
         Task<UserTeamMembershipResponseDto> CheckUserTeamMembershipAsync(int userId, int adminId);
+        Task<EquipeDto> GetEquipe(int IdEquipe);
+
     }
 }

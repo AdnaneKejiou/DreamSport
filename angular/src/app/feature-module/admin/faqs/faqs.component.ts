@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Sort } from '@angular/material/sort';
+import { ToastrService } from 'ngx-toastr';
 import { Faq } from 'src/app/core/models/Site/Faq'
 import { FaqsService } from 'src/app/core/service/Backend/SIte/faqs.service';
 @Component({
@@ -13,7 +13,7 @@ export class FAQsComponent {
   public faqsList: Faq[]=[];
   faqForm: FormGroup;
 
-  constructor(private faqService: FaqsService,private snackBar: MatSnackBar,private fb: FormBuilder) 
+  constructor(private faqService: FaqsService,private toastr: ToastrService,private fb: FormBuilder) 
   {
     this.faqForm = this.fb.group({
       question: ['', Validators.required],
@@ -70,10 +70,10 @@ export class FAQsComponent {
         next: (response) => {
           // Remove the deleted FAQ from the list
           this.faqsList = this.faqsList.filter(faq => faq.id !== id);
-          this.snackBar.open('FAQ deleted successfully', 'Close');
+          this.toastr.success('Success', 'FAQ deleted successfully');
         },
         error: (err) => {
-          this.snackBar.open('Delete failed: ' + (err.error.message || err.message), 'Close');
+          this.toastr.error('Error' , 'Delete failed');
         }
       });
     }
@@ -98,16 +98,16 @@ export class FAQsComponent {
           this.faqsList.push(response);  // Add new FAQ to the list
           this.newFaq = { question: '', response: '' };  // Reset the form
           this.showForm = false;  // Hide the form after submitting
-          this.snackBar.open('success: FAQ has been added', 'Close');
+          this.toastr.success('Success', 'FAQ has been added');
         },
         error: (err) => {
           console.log("hahah ",err.error);
           if (err.status === 400) {
             // Handle validation errors from backend
-            this.snackBar.open('Validation Error: ' + JSON.stringify(err.error.errors), 'Close');
+            this.toastr.error('Validation Error: ' , JSON.stringify(err.error.errors));
           } else {
             // Handle general errors
-            this.snackBar.open('Error: ' + (err.message || 'Unknown error'), 'Close');
+            this.toastr.error('Error ', 'Failed to add faq');
           }
         }
       });

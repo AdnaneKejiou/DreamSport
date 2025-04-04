@@ -65,8 +65,31 @@
       "UpstreamPathTemplate": "/gateway/members/{AdminId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
-
-    //Get Equipe
+    {
+      "DownstreamPathTemplate": "/api/equipe/capitaine-quitte",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5108
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/equipe/capitaine-quitte",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/equipe/ChangerCapitaine",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5108
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/equipe/ChangerCapitaine",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    //Get Equipe membre
     {
       "DownstreamPathTemplate": "/api/equipe/{teamId}/{AdminId}",
       "DownstreamScheme": "http",
@@ -77,6 +100,20 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe/{teamId}/{AdminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    //Get Equipe 
+
+    {
+      "DownstreamPathTemplate": "/api/equipe/get/{teamId}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5108
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/equipe/get/{teamId}/{AdminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
 
@@ -95,6 +132,7 @@
     },
 
     //--------------------------------------------------------Gestion des Utilisateurs-------------------------------------------
+
     {
       // Route pour ajouter un utilisateur (POST)
       "DownstreamPathTemplate": "/api/user",
@@ -106,19 +144,6 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/users",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      // Route pour ajouter un utilisateur (POST)
-      "DownstreamPathTemplate": "/api/user/pagination",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/pagination",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
@@ -135,6 +160,19 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
+      // Route pour ajouter un utilisateur (POST)
+      "DownstreamPathTemplate": "/api/user/pagination",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5255
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/users/pagination",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
       // Route pour mettre à jour un utilisateur (PUT)
       "DownstreamPathTemplate": "/api/user/{id}",
       "DownstreamScheme": "http",
@@ -149,7 +187,7 @@
     },
     {
       // Route pour mettre à jour un utilisateur (PUT)
-      "DownstreamPathTemplate": "/api/user/{userId}/status",
+      "DownstreamPathTemplate": "/api/user",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -157,33 +195,7 @@
           "Port": 5255
         }
       ],
-      "UpstreamPathTemplate": "/gateway/users/{userId}/status",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-    {
-      // Route pour mettre à jour un utilisateur (PUT)
-      "DownstreamPathTemplate": "/api/user/ResetConteur/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/ResetConteur/{id}",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-    {
-      // Route pour mettre à jour un utilisateur (PUT)
-      "DownstreamPathTemplate": "/api/user/check-reservation-annule/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5255
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/users/check-reservation-annule/{id}",
+      "UpstreamPathTemplate": "/gateway/users",
       "UpstreamHttpMethod": [ "PUT" ]
     },
     {
@@ -274,6 +286,7 @@
       "UpstreamPathTemplate": "/gateway/users/facebook-validate/{id}/{AdminId}/{type}",
       "UpstreamHttpMethod": [ "POST" ]
     },
+
 
     //Route pour chercher un utilisateur search GET
 
@@ -858,6 +871,8 @@
       "UpstreamPathTemplate": "/gateway/InvitationMember/Accepter/{invitationId}",
       "UpstreamHttpMethod": [ "POST" ]
     },
+    // Route pour envoyer une invitation team
+
     {
       "DownstreamPathTemplate": "/api/InvitationTeam",
       "DownstreamScheme": "http",
@@ -914,6 +929,32 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
+    // Route pour accepter une invitation team
+    {
+      "DownstreamPathTemplate": "/api/InvitationTeam/accepter/{invitationId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5270
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/InvitationTeam/accepter/{invitationId}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    // Route pour refuser une invitation team
+    {
+      "DownstreamPathTemplate": "/api/InvitationTeam/Refuser/{id}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5270
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/InvitationTeam/Refuser/{id}/{AdminId}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
 
     //-------------------------------------------------------- reservation service ----------------------------------------
     {
@@ -967,18 +1008,7 @@
       "UpstreamPathTemplate": "/gateway/reservation/upcoming/{idTerrain}/{AdminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
-    {
-      "DownstreamPathTemplate": "/api/reservation/requests-list/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5169
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/reservation/requests-list/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
+
     //------------------------------------------------------- auth service ---------------------------------------------------------------
     {
       "DownstreamPathTemplate": "/api/Login/User",

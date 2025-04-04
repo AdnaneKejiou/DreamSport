@@ -170,6 +170,27 @@ export class routes {
     return this.user + '/user-dashboard';
   }
 
+  public static get userTeam(): string {
+    return this.user + '/team';
+  }
+
+  public static get userTeamCapitain(): string {
+    return this.userTeam + '/capitaine';
+  }
+  public static get userTeamInvitation(): string {
+    return this.userTeam + '/send-invitation';
+  }
+  public static get userTeamSetting(): string {
+    return this.userTeam + '/setting';
+  }
+  
+  
+  public static get userTeamMember(): string {
+    return this.userTeam + '/member';
+  }
+  public static get userTeamUser(): string {
+    return this.userTeam + '/user';
+  }
   public static get userBookings(): string {
     return this.user + '/user-bookings/details';
   }

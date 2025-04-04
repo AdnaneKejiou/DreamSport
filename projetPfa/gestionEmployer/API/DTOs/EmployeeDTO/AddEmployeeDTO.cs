@@ -29,6 +29,7 @@ namespace gestionEmployer.API.DTOs.DTOs
         public string Username { get; set; }
 
         public double Salaire { get; set; }
+        public string? ImageUrl { get; set; }
         // Le mot de passe ne doit normalement pas être exposé dans les API, on ne l'inclut pas dans le DTO.
     }
 

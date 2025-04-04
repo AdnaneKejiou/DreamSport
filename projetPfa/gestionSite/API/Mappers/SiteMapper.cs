@@ -26,5 +26,25 @@ namespace gestionSite.API.Mappers
                 IdAdmin = _updateSiteDto.AdminId,
             };
         }
+
+        public static ReturnUpdatedSiteDto modelToUpdated(Site site)
+        {
+            return new ReturnUpdatedSiteDto
+            {
+                Id = site.Id,
+                Name = site.Name,
+                Logo = site.Logo,
+                Description = site.Description, 
+                Email = site.Email,
+                PhoneNumber = site.PhoneNumber,
+                AboutUs = site.AboutUs,
+                CouleurPrincipale = site.CouleurPrincipale,
+                CouleurSecondaire = site.CouleurSecondaire,
+                Background = site.Background,
+                Addresse = site.Addresse,
+                DomainName = site.DomainName,   
+                AdminId = site.IdAdmin,
+            };
+        }
     }
 }

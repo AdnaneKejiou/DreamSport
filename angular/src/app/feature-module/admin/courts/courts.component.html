@@ -10,9 +10,9 @@
               <div class="row d-flex align-items-center">
                 <div class="col-xl-4 col-lg-3 col-sm-12 col-12">
                   <div class="count-search">
-                    <a href="javascript:void(0);" class="btn deactive-btn" 
+                    <a href="javascript:void(0);" class="btn btn-primary" 
                         data-bs-toggle="modal" data-bs-target="#addCourtModal">
-                        <i class="me-1 feather icon-zap-off"></i>Add Court
+                        <i ></i>Add Court
                     </a>
                   </div>
                 </div>
@@ -92,9 +92,7 @@
     }
         <!-- /Featured Item -->
 
-        <div class="col-12 text-center mt-3">
-          <a href="javascript:void(0);" class="btn btn-load">Load More Coaches <img src="assets/img/icons/u_plus-square.svg" class="ms-2" alt="img"></a>
-        </div>
+        
       </div>
     </div>
   
@@ -136,83 +134,104 @@
     </div>
   </div>
 
-  <!-- Add Court Modal -->
 <!-- Add Court Modal -->
 <div class="modal custom-modal fade" id="addCourtModal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add New Court</h5>
-          <a class="close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal('addCourtModal')">
-            <span aria-hidden="true"><i class="feather icon-x"></i></span>
-          </a>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="courtForm" (ngSubmit)="addCourt()">
-            <!-- Court Name -->
-            <div class="mb-3">
-              <label for="courtName" class="form-label">Court Name</label>
-              <input type="text" class="form-control" id="courtName" formControlName="title"
-                     [ngClass]="{ 'is-invalid': courtForm.get('title')?.touched && courtForm.get('title')?.invalid }">
-              <div *ngIf="courtForm.get('title')?.touched && courtForm.get('title')?.invalid" class="invalid-feedback">
-                Court name is required
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div class="modal-header justify-content-between">
+        <h5 class="modal-title">Add New Court</h5>
+        <a class="close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal('addCourtModal')">
+          <span aria-hidden="true"><i class="feather icon-x"></i></span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="courtForm" (ngSubmit)="addCourt()">
+          <!-- Court Image Upload -->
+          <div class="mb-3">
+            <div class="file-upload-text">
+              <div class="file-upload">
+                <img [src]="imagePreview || 'assets/img/icons/img-icon.svg'" 
+                    class="img-fluid avatar-img" 
+                    alt="Court Image">
+                <span>
+                  <i class="feather icon-edit"></i>
+                  <input type="file" 
+                        id="court-image-input" 
+                        (change)="onFileSelected($event)"
+                        accept="image/*">
+                </span>
               </div>
+              <h5>Image should be minimum 150×150 pixels. Supported formats: JPG, PNG, SVG</h5>
             </div>
-  
-            <!-- Description -->
-            <div class="mb-3">
-              <label for="courtDescription" class="form-label">Description</label>
-              <textarea class="form-control" id="courtDescription" formControlName="description" rows="3"
-                        [ngClass]="{ 'is-invalid': courtForm.get('description')?.touched && courtForm.get('description')?.invalid }"></textarea>
-              <div *ngIf="courtForm.get('description')?.touched && courtForm.get('description')?.invalid" class="invalid-feedback">
-                Description is required
-              </div>
+          </div>
+
+          <!-- Court Name -->
+          <div class="mb-3">
+            <label for="courtName" class="form-label">Court Name</label>
+            <input type="text" class="form-control" id="courtName" formControlName="title"
+                   [ngClass]="{ 'is-invalid': courtForm.get('title')?.touched && courtForm.get('title')?.invalid }">
+            <div *ngIf="courtForm.get('title')?.touched && courtForm.get('title')?.invalid" class="invalid-feedback">
+              Court name is required
             </div>
-  
-            <!-- Sport Type -->
-            <div class="mb-3">
-              <label for="sportType" class="form-label">Sport Type</label>
-              <select class="form-select" id="sportType" formControlName="idSport_Categorie"
-                      [ngClass]="{ 'is-invalid': courtForm.get('idSport_Categorie')?.touched && courtForm.get('idSport_Categorie')?.invalid }">
-                <option value="">Select a sport</option>
-                <option *ngFor="let sport of sportCategories" [value]="sport.id">
-                  {{ sport.name }}
-                </option>
-              </select>
-              <div *ngIf="courtForm.get('idSport_Categorie')?.touched && courtForm.get('idSport_Categorie')?.invalid" class="invalid-feedback">
-                Sport type is required
-              </div>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label for="courtDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="courtDescription" formControlName="description" rows="3"
+                      [ngClass]="{ 'is-invalid': courtForm.get('description')?.touched && courtForm.get('description')?.invalid }"></textarea>
+            <div *ngIf="courtForm.get('description')?.touched && courtForm.get('description')?.invalid" class="invalid-feedback">
+              Description is required
             </div>
-  
-            <!-- Terrain Status -->
-            <div class="mb-3">
-              <label for="terrainStatus" class="form-label">Court Status</label>
-              <select class="form-select" id="terrainStatus" formControlName="terrainStatusId"
-                      [ngClass]="{ 'is-invalid': courtForm.get('terrainStatusId')?.touched && courtForm.get('terrainStatusId')?.invalid }">
-                <option value="">Select a status</option>
-                <option *ngFor="let status of terrainStatuses" [value]="status.id">
-                  {{ status.libelle }}
-                </option>
-              </select>
-              <div *ngIf="courtForm.get('terrainStatusId')?.touched && courtForm.get('terrainStatusId')?.invalid" class="invalid-feedback">
-                Status is required
-              </div>
+          </div>
+
+          <!-- Sport Type -->
+          <div class="mb-3">
+            <label for="sportType" class="form-label">Sport Type</label>
+            <select class="form-select" id="sportType" formControlName="idSport_Categorie"
+                    [ngClass]="{ 'is-invalid': courtForm.get('idSport_Categorie')?.touched && courtForm.get('idSport_Categorie')?.invalid }">
+              <option value="">Select a sport</option>
+              <option *ngFor="let sport of sportCategories" [value]="sport.id">
+                {{ sport.name }}
+              </option>
+            </select>
+            <div *ngIf="courtForm.get('idSport_Categorie')?.touched && courtForm.get('idSport_Categorie')?.invalid" class="invalid-feedback">
+              Sport type is required
             </div>
-  
-            <div class="convenient-btns">
-              <button type="submit" class="btn btn-primary d-inline-flex align-items-center"
-                      [disabled]="courtForm.invalid" href="javascript:void(0);" 
-                      data-bs-toggle="modal" data-bs-target="#addCourtModal">
-                Save <i class="feather icon-check-circle ms-2"></i>
-              </button>
-              <button type="button" class="btn btn-secondary d-inline-flex align-items-center ms-2"
-                      href="javascript:void(0);" 
-                      data-bs-toggle="modal" data-bs-target="#addCourtModal">
-                Cancel <i class="feather icon-x-circle ms-2"></i>
-              </button>
+          </div>
+
+          <!-- Terrain Status -->
+          <div class="mb-3">
+            <label for="terrainStatus" class="form-label">Court Status</label>
+            <select class="form-select" id="terrainStatus" formControlName="terrainStatusId"
+                    [ngClass]="{ 'is-invalid': courtForm.get('terrainStatusId')?.touched && courtForm.get('terrainStatusId')?.invalid }">
+              <option value="">Select a status</option>
+              <option *ngFor="let status of terrainStatuses" [value]="status.id">
+                {{ status.libelle }}
+              </option>
+            </select>
+            <div *ngIf="courtForm.get('terrainStatusId')?.touched && courtForm.get('terrainStatusId')?.invalid" class="invalid-feedback">
+              Status is required
             </div>
-          </form>
-        </div>
+          </div>
+
+          <div class="convenient-btns d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary d-inline-flex align-items-center me-2"
+                    (click)="closeModal('addCourtModal')">
+              <i class="feather icon-x-circle me-2"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-primary d-inline-flex align-items-center"
+                    [disabled]="courtForm.invalid || isUploading">
+              <span *ngIf="!isUploading">
+                <i class="feather icon-check-circle me-2"></i> Save
+              </span>
+              <span *ngIf="isUploading">
+                <i class="fa fa-spinner fa-spin me-2"></i> Saving...
+              </span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>

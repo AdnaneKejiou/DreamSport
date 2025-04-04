@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Sort } from '@angular/material/sort';
+import { ToastrService } from 'ngx-toastr';
 import { Annonce } from 'src/app/core/models/Site/Annonce';
 import { AnnoncesService } from 'src/app/core/service/Backend/SIte/annonces.service';
 @Component({
@@ -16,7 +17,7 @@ export class AnnoncesComponent {
   public isLoading = false;
   public selectedTab = 'all';
 
-  constructor(private annonceService: AnnoncesService,private datePipe: DatePipe,private snackBar: MatSnackBar) { }
+  constructor(private annonceService: AnnoncesService,private datePipe: DatePipe,private toastr: ToastrService,) { }
     
     ngOnInit(): void {
       this.loadData();
@@ -70,10 +71,10 @@ export class AnnoncesComponent {
     this.annonceService.createAnnonce(newAnnonce).subscribe({
       next: (response) => {
         this.loadData();  // Add new FAQ to the list
-        this.snackBar.open('Annonce added successfully', 'Close');
+        this.toastr.success('success', 'Annonce added successfully');
       },
       error: (err) => {
-        this.snackBar.open('An error happen while adding your Annonce', 'Close');
+        this.toastr.error('error', 'An error happen while adding your Annonce');
       }
     });
   }
