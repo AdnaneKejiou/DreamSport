@@ -49,7 +49,7 @@ namespace gestionEmployer.API.Mappers
                 Prenom = _UpdateAdminDTO.Prenom,
                 Login = _UpdateAdminDTO.Login,
                 PhoneNumber = _UpdateAdminDTO.PhoneNumber,
-                
+                Email = _UpdateAdminDTO.Email,
             };
         }
 
@@ -83,7 +83,21 @@ namespace gestionEmployer.API.Mappers
                 Prenom = _Admin.Prenom,
                 PhoneNumber = _Admin.PhoneNumber,
                 Login = _Admin.Login,
-                Id = _Admin.Id
+                Id = _Admin.Id,
+                Email = _Admin.Email,
+            };
+        }
+
+        public static ReturnAdminDto ModeltoReturn(Admin _Admin)
+        {
+            return new ReturnAdminDto
+            {
+                Id = _Admin.Id,
+                Nom = _Admin.Nom,
+                Prenom = _Admin.Prenom,
+                PhoneNumber = _Admin.PhoneNumber,
+                Login = _Admin.Login,
+                Email = _Admin.Email,
             };
         }
     }

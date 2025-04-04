@@ -39,14 +39,25 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
             return _context.Admins.Any(a => a.Nom == nom || a.Login == login || a.PhoneNumber == phoneNumber);
         }
 
-        public async Task<Admin> GetByLoginAsync(string login)
+        public async Task<Admin> GetByLoginAsync(string login, int adminId)
         {
             return await _context.Admins.FirstOrDefaultAsync(a => a.Login == login);
         }
 
+        public async Task<Admin> GetAdminByEmailAsync(string email, int adminId)
+        {
+            return await _context.Admins.FirstOrDefaultAsync(a => a.Email == email);
+        }
 
+        public async Task<Admin> GetAdminByPhoneAsync(string phone, int adminId)
+        {
+            return await _context.Admins.FirstOrDefaultAsync(a => a.PhoneNumber == phone);
+        }
 
-
+        public async Task<Admin> GetAdminAsync(int tenantId)
+        {
+            return await _context.Admins.FindAsync(tenantId);
+        }
         public async Task<Admin?> UpdateAdminAsync(Admin admin)
         {
             var trackedEntity = _context.Employers.Local.FirstOrDefault(e => e.Id == admin.Id);

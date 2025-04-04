@@ -234,15 +234,15 @@ namespace gestionUtilisateur.API.Controllers
             try
             {
                 // Vérification de l'ancien mot de passe
-                var isValid = await _passwordUserService.VerifyOldUserPassword(ChangePasswordUserDto.AdminId, ChangePasswordUserDto.UserId, ChangePasswordUserDto.OldPassword);
+                var isValid = await _passwordUserService.VerifyOldUserPassword(ChangePasswordUserDto.AdminId, ChangePasswordUserDto.EmployerId, ChangePasswordUserDto.OldPassword);
 
                 if (!isValid)
-                    return BadRequest("Ancien mot de passe incorrect");
+                    return BadRequest();
 
                 // Changement du mot de passe
-                await _passwordUserService.ChangeUserPassword(ChangePasswordUserDto.AdminId, ChangePasswordUserDto.UserId, ChangePasswordUserDto.NewPassword);
+                await _passwordUserService.ChangeUserPassword(ChangePasswordUserDto.AdminId, ChangePasswordUserDto.EmployerId, ChangePasswordUserDto.NewPassword);
 
-                return Ok("Mot de passe mis à jour avec succès");
+                return Ok();
             }
             catch (KeyNotFoundException ex)
             {

@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { userRes } from 'src/app/core/models/Users/userRes';
+import { changePassword } from 'src/app/core/models/Users/chnagePassword';
 export interface userBlock{
   id: number,
   firstName: string,
@@ -55,5 +56,20 @@ export class UsersService {
     updateUserStatus(userId: number, isBlocked: boolean): Observable<any> {
       return this.http.put(`${this.apiUrl}/${userId}/status`, { isBlocked });
     }
+
+    chnagePassword(user:changePassword): Observable<any> {
+        const url = `${this.apiUrl}/changePassworduser`;
+        return this.http.put<any>(url, user, this.httpOptions).pipe(
+          catchError(error => {
+            if (error.status === 400 ) {
+              // Return the error object with the validation errors
+              throw error;
+            } else {
+              let errorMessage = error.error?.message || error.message || 'Unknown error';
+              throw new Error(errorMessage);
+            }
+          })
+        );
+      }
 }
 

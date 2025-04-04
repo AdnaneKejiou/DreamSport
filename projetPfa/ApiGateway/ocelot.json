@@ -637,6 +637,18 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
+      "DownstreamPathTemplate": "/api/admin/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/admin/{AdminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
       // Route pour récupérer le mot de passe d'un utilisateur (PUT)
       "DownstreamPathTemplate": "/api/employee/recover-password",
       "DownstreamScheme": "http",
@@ -739,7 +751,19 @@
       "UpstreamPathTemplate": "/gateway/admin/validate",
       "UpstreamHttpMethod": [ "POST" ]
     },
-
+    {
+      // Route pour mettre à jour un admin (PUT)
+      "DownstreamPathTemplate": "/api/admin",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5097
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/admin",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
     {
       "DownstreamPathTemplate": "/api/admin/ajouter",
       "DownstreamScheme": "http",

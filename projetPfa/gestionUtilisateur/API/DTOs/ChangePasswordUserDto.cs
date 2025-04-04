@@ -9,7 +9,7 @@ namespace gestionUtilisateur.API.DTOs
             public int AdminId { get; set; }
 
             [Required]
-            public int UserId { get; set; }
+            public int EmployerId { get; set; }
 
             [Required]
             public string OldPassword { get; set; }

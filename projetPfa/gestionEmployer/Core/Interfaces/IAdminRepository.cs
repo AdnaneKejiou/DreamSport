@@ -8,9 +8,11 @@ namespace gestionEmployer.Core.Interfaces
         Admin? GetAdminByTenantId(int tenantId);
         Admin? AddAdmin(Admin admin);
         bool AdminExists(string nom, string login, string phoneNumber);
-        Task<Admin> GetByLoginAsync(string login);
+        Task<Admin> GetAdminAsync(int tenantId);
+        Task<Admin> GetByLoginAsync(string login, int adminId);
         Task<Admin?> UpdateAdminAsync(Admin admin);
-
+        Task<Admin> GetAdminByPhoneAsync(string phone, int adminId);
+        Task<Admin> GetAdminByEmailAsync(string email, int adminId);
 
     }
 }

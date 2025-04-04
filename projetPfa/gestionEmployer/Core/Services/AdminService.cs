@@ -62,7 +62,7 @@ namespace gestionEmployer.Core.Services
 
         public async Task<SendLoginEmployeeDto> ValidateLoginAsync(AdminLoginDto dto)
         {
-            Admin admin = await _adminRepository.GetByLoginAsync(dto.Login);
+            Admin admin = await _adminRepository.GetByLoginAsync(dto.Login, dto.AdminId);
             if(admin == null)
             {
                 throw new KeyNotFoundException("Tenant not Found");
@@ -144,6 +144,65 @@ namespace gestionEmployer.Core.Services
             return new string(Enumerable.Repeat(chars, 10)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+        public async Task<ReturnUpdatedAdminDto?> UpdateAdminAsync(Admin admin)
+        {
+            // Récupérer l'employé existant
+            Admin existingAdmin = await _adminRepository.GetAdminAsync(admin.Id)
+                                    ?? throw new KeyNotFoundException("Admin non trouvé.");
+
+            // Liste pour stocker les erreurs trouvées
+            ReturnUpdatedAdminDto dto = AdminMapper.ModelToUpdate(existingAdmin);
+
+            // Vérification de l'unicité seulement si l'attribut est modifié
+            if (admin.Email != null && !admin.Email.Equals(existingAdmin.Email))
+            {
+                if (await _adminRepository.GetAdminByEmailAsync(admin.Email, admin.Id) != null)
+                {
+                    {
+                        dto.Errors.Add("Email", "Email already exist.");
+                    }
+                }
+            }
+            if (admin.PhoneNumber != null && !admin.PhoneNumber.Equals(existingAdmin.PhoneNumber))
+            {
+                if (await _adminRepository.GetAdminByPhoneAsync(admin.PhoneNumber, admin.Id) != null)
+                {
+                    {
+                        dto.Errors.Add("PhoneNumber", "PhoneNumber already exist.");
+                    }
+                }
+            }
+            if (admin.Login != null && !admin.Login.Equals(existingAdmin.Login))
+            {
+                if (await _adminRepository.GetByLoginAsync(admin.Login, admin.Id) != null)
+                {
+                    {
+                        dto.Errors.Add("Login", "Login already exist.");
+                    }
+                }
+            }
+            
+
+            if (dto.Errors.Count() == 0)
+            {
+                admin.Password = existingAdmin.Password;
+                var empp = await _adminRepository.UpdateAdminAsync(admin);
+            }
+
+            return dto;
+        }
+
+        public async Task<ReturnAdminDto?> GetADminByIdAsync(int id)
+        {
+            Admin admin = await _adminRepository.GetAdminAsync(id);
+            if(admin == null)
+            {
+                return null;
+            }
+            ReturnAdminDto dto = AdminMapper.ModeltoReturn(admin);
+            return dto;
+        }
+
     }
 
 

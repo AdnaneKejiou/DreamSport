@@ -1,5 +1,7 @@
 ﻿using gestionEmployer.API.DTOs.AdminDTO;
+using gestionEmployer.API.DTOs.DTOs;
 using gestionEmployer.API.DTOs.EmployeeDTO;
+using gestionEmployer.API.Filters;
 using gestionEmployer.API.Mappers;
 using gestionEmployer.Core.Interfaces;
 using gestionEmployer.Core.Models;
@@ -103,12 +105,12 @@ namespace gestionEmployer.API.Controllers
                 var isValid = await _passwordServiceadmin.VerifyOldPasswordAdmin(ChangeAdminPasswordDto.AdminId, ChangeAdminPasswordDto.OldPassword);
 
                 if (!isValid)
-                    return BadRequest("Ancien mot de passe incorrect");
+                    return BadRequest();
 
                 // Changement du mot de passe
                 await _passwordServiceadmin.ChangePasswordAdmin(ChangeAdminPasswordDto.AdminId, ChangeAdminPasswordDto.NewPassword);
 
-                return Ok("Mot de passe mis à jour avec succès");
+                return Ok();
             }
             catch (KeyNotFoundException ex)
             {
@@ -135,6 +137,38 @@ namespace gestionEmployer.API.Controllers
                 return BadRequest(userDto);
             }
             return Ok(userDto);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAdminAsync([FromBody] UpdateAdminDTO dto)
+        {
+            Admin admin = AdminMapper.UpdateAdminDTOToAdmin(dto);
+
+            try
+            {
+                ReturnUpdatedAdminDto adminDto = await _adminService.UpdateAdminAsync(admin);
+                if (adminDto.Errors.Count() > 0)
+                {
+                    return BadRequest(adminDto);
+                }
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { errorMessage = ex.Message });
+            }
+
+        }
+
+        [HttpGet("{AdminId}")]
+        public async Task<IActionResult> GetAdminAsync(int AdminId)
+        {
+            ReturnAdminDto dto = await _adminService.GetADminByIdAsync(AdminId);
+            if(dto == null)
+            {
+                return NotFound(new { errorMessage = "Admin not found"});
+            }
+            return Ok(dto);
         }
     }
 }
