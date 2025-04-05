@@ -7,5 +7,6 @@
         public int Emetteur { get; set; }
         public DateTime when { get; set; }
         public string Contenue { get; set; }
+        public ICollection<MessageStatut> Statuts { get; set; }
     }
 }

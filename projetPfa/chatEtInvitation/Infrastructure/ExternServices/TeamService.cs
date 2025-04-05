@@ -1,4 +1,5 @@
 ﻿using chatEtInvitation.Core.Interfaces.IExternServices;
+using chatEtInvitation.Infrastructure.ExternServices.ExternDTOs;
 
 namespace chatEtInvitation.Infrastructure.ExternServices
 {
@@ -31,5 +32,29 @@ namespace chatEtInvitation.Infrastructure.ExternServices
 
             return await response.Content.ReadFromJsonAsync<List<int>>() ?? null;
         }
+
+        public async Task<teamDTO> FetchTeamAsync(int teamId, int adminId)
+        {
+
+            // Construct the URL (only with idUser, as AdminId will be in headers)
+            string requestUrl = $"{UserUrl.TrimEnd('/')}/equipe/get/{teamId}";
+
+            // Create the request with headers
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+            request.Headers.Add("Tenant-ID", adminId.ToString()); // Add AdminId to headers
+
+            Console.WriteLine($"🔍 Requesting: {requestUrl}, with Tenant-ID: {adminId}"); // Debugging Output
+
+            var response = await _httpClient.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMsg = $"❌ Error fetching user: {response.StatusCode}, URL: {requestUrl}";
+            }
+
+            return await response.Content.ReadFromJsonAsync<teamDTO>() ?? new teamDTO();
+        }
+
+
     }
 }

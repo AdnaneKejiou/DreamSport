@@ -6,6 +6,7 @@ using gestionEquipe.Infrastructure.Data.Repositories;
 using gestionEquipe.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Shared.Messaging.Services;
 
 namespace gestionEquipe.Core.Services
 {
@@ -42,7 +43,7 @@ namespace gestionEquipe.Core.Services
                 ReturningEquipe.Errors.Add("Name", "A team with this name already exist");
             }
             var sports = await _siteService.GetSportsAsync(_equipe.AdminId);
-            if (!sports.Select(s => s.Id).Contains(_equipe.SportId)) // Extract IDs and check
+            if (!sports.Select(s => s.Id).Contains(_equipe.SportId)) 
             {
                 ReturningEquipe.Errors.Add("Sport", "Sport with this id dont exist");
             }
@@ -55,6 +56,10 @@ namespace gestionEquipe.Core.Services
             
             
              await AddEquipeWithMemberAsync(_equipe);
+
+            var _producer = new RabbitMQProducerService("Create chat equipe");
+            _producer.Publish(new { teamId = _equipe.Id, AdminId = _equipe.AdminId });
+
             return ReturningEquipe;
 
         }

@@ -6,16 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace chatEtInvitation.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateSequence(
-                name: "ChatAmisMessageSequence");
-
-            migrationBuilder.CreateSequence(
-                name: "TeamChatMessageSequence");
+                name: "MessageSequence");
 
             migrationBuilder.CreateTable(
                 name: "AmisChats",
@@ -60,6 +57,19 @@ namespace chatEtInvitation.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "statuts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    libelle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_statuts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TeamChats",
                 columns: table => new
                 {
@@ -92,11 +102,11 @@ namespace chatEtInvitation.Migrations
                 name: "ChatAmisMessages",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [ChatAmisMessageSequence]"),
-                    ChatAmisId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [MessageSequence]"),
                     Emetteur = table.Column<int>(type: "int", nullable: false),
                     when = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Contenue = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Contenue = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChatAmisId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,14 +120,33 @@ namespace chatEtInvitation.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MessageStatuts",
+                columns: table => new
+                {
+                    MessageId = table.Column<int>(type: "int", nullable: false),
+                    StatutId = table.Column<int>(type: "int", nullable: false),
+                    UtilisateurId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MessageStatuts", x => new { x.MessageId, x.StatutId, x.UtilisateurId });
+                    table.ForeignKey(
+                        name: "FK_MessageStatuts_statuts_StatutId",
+                        column: x => x.StatutId,
+                        principalTable: "statuts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TeamChatMessages",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [TeamChatMessageSequence]"),
-                    TeamChatId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [MessageSequence]"),
                     Emetteur = table.Column<int>(type: "int", nullable: false),
                     when = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Contenue = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Contenue = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeamChatId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,6 +163,11 @@ namespace chatEtInvitation.Migrations
                 name: "IX_ChatAmisMessages_ChatAmisId",
                 table: "ChatAmisMessages",
                 column: "ChatAmisId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MessageStatuts_StatutId",
+                table: "MessageStatuts",
+                column: "StatutId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeamChatMessages_TeamChatId",
@@ -154,6 +188,9 @@ namespace chatEtInvitation.Migrations
                 name: "MemberInvitations");
 
             migrationBuilder.DropTable(
+                name: "MessageStatuts");
+
+            migrationBuilder.DropTable(
                 name: "TeamChatMessages");
 
             migrationBuilder.DropTable(
@@ -163,13 +200,13 @@ namespace chatEtInvitation.Migrations
                 name: "AmisChats");
 
             migrationBuilder.DropTable(
+                name: "statuts");
+
+            migrationBuilder.DropTable(
                 name: "TeamChats");
 
             migrationBuilder.DropSequence(
-                name: "ChatAmisMessageSequence");
-
-            migrationBuilder.DropSequence(
-                name: "TeamChatMessageSequence");
+                name: "MessageSequence");
         }
     }
 }

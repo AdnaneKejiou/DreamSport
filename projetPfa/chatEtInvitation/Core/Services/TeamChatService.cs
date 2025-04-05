@@ -1,0 +1,154 @@
+﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.Core.Interfaces.IExternServices;
+using chatEtInvitation.Core.Interfaces.IRepositories;
+using chatEtInvitation.Core.Interfaces.IServices;
+using chatEtInvitation.Core.Models;
+using chatEtInvitation.Infrastructure.Data.Repositories;
+using chatEtInvitation.Infrastructure.ExternServices;
+using chatEtInvitation.Infrastructure.ExternServices.ExternDTOs;
+using Microsoft.EntityFrameworkCore;
+
+namespace chatEtInvitation.Core.Services
+{
+    public class TeamChatService : IchatTeamService
+    {
+        private readonly ITeamMessageRepository _chatRepository;
+        private readonly ITeamService _TeamService;
+        private readonly IUserService _userService;
+        private readonly ITeamChatRepository _teamChatRepository;
+
+        public TeamChatService(
+     ITeamMessageRepository chatRepository,
+     ITeamService TeamService,
+     IUserService userService,
+     ITeamChatRepository teamChatRepository)
+        {
+            _chatRepository = chatRepository;
+            _TeamService = TeamService;
+            _userService = userService;
+            _teamChatRepository = teamChatRepository;
+        }
+
+        public async Task<TeamChatReturnedDTO> GetTeamChatByIdAsync(int idEquipe, int idMember)
+        {
+            var teamChat = await _chatRepository.ExisteChatTeamAsync(idEquipe);
+            if (teamChat == null) return null;
+
+            teamDTO team = await _TeamService.FetchTeamAsync(teamChat.TeamId, teamChat.AdminId);
+            var lastMessage = await _chatRepository.GetLastTeamMessageAsync(teamChat.Id);
+            var statut = lastMessage != null
+                ? await _chatRepository.GetUserMessageStatutAsync(lastMessage.Id, idMember)
+                : null;
+            var unreadCount = await _chatRepository.GetUnreadMessagesCountAsync(teamChat.Id, idMember);
+
+            return new TeamChatReturnedDTO
+            {
+                Id = teamChat.Id,
+                EquipeName = team.Name,
+                lasteMessage = lastMessage?.Contenue,
+                date = lastMessage?.when ?? DateTime.MinValue,
+                nbrMessage = unreadCount,
+                st = statut,
+                avatar = team.Avatar
+            };
+        }
+
+        public async Task<List<TeamMessageDTO>> GetFullTeamConversationAsync(int teamId, int adminId)
+        {
+            var teamChat = await _chatRepository.ExisteChatTeamAsync(teamId);
+            if (teamChat == null) return null;
+
+            var messages = await _chatRepository.GetTeamConversationWithStatutsAsync(teamChat.Id);
+            var result = new List<TeamMessageDTO>();
+
+            foreach (var message in messages)
+            {
+                var emetteur = await _userService.FetchUserAsync(message.Emetteur, adminId);
+                var statut = message.Statuts.FirstOrDefault()?.Statut?.libelle;
+
+                result.Add(new TeamMessageDTO
+                {
+                    Id = message.Id,
+                    Contenu = message.Contenue,
+                    DateEnvoi = message.when,
+                    Emetteur = new UserInfoDTO
+                    {
+                        Id = emetteur.Id,
+                        NomComplet = $"{emetteur.Prenom} {emetteur.Nom}",
+                        Avatar = emetteur.ImageUrl
+                    },
+                    Statut = statut
+                });
+            }
+
+            return result;
+        }
+        public async Task MarkMessageAsSeenAsync(int messageId, int userId)
+        {
+            await _chatRepository.UpdateMessageStatutAsync(messageId, userId, 2);
+        }
+
+        public async Task<TeamMessageDTO> SendTeamMessageAsync(SendTeamMessageDTO messageDto, int adminId)
+        {
+            // Vérifier si le chat existe
+            var teamChat = await _chatRepository.ExisteChatTeamAsync(messageDto.TeamId);
+            if (teamChat == null)
+            {
+                throw new ArgumentException("Chat d'équipe introuvable");
+            }
+
+            // Créer le message
+            var message = new TeamChatMessage
+            {
+                Emetteur = messageDto.EmetteurId,
+                Contenue = messageDto.Contenu,
+                when = DateTime.Now,
+                TeamChatId = teamChat.Id
+            };
+
+            var createdMessage = await _chatRepository.CreateTeamMessageAsync(message);
+
+            // Récupérer le statut "Sent" (3) par défaut
+            var defaultStatut = await _chatRepository.GetDefaultMessageStatutAsync();
+            if (defaultStatut == null)
+            {
+                throw new InvalidOperationException("Statut par défaut introuvable");
+            }
+
+            var messageStatut = new MessageStatut
+            {
+                MessageId = createdMessage.Id,
+                StatutId = defaultStatut.Id, // Utilise le statut "Sent" (3)
+                UtilisateurId = messageDto.EmetteurId,
+                IsTeam = true
+            };
+
+            await _chatRepository.AddMessageStatutAsync(messageStatut);
+
+            // Récupérer les infos de l'émetteur
+            var emetteur = await _userService.FetchUserAsync(messageDto.EmetteurId, adminId);
+
+            return new TeamMessageDTO
+            {
+                Id = createdMessage.Id,
+                Contenu = createdMessage.Contenue,
+                DateEnvoi = createdMessage.when,
+                Emetteur = new UserInfoDTO
+                {
+                    Id = emetteur.Id,
+                    NomComplet = $"{emetteur.Prenom} {emetteur.Nom}",
+                    Avatar = emetteur.ImageUrl
+                },
+                Statut = defaultStatut.libelle 
+            };
+        }
+
+        public async Task CreateTeamChat(int teamId,int adminId)
+        {
+            TeamChat team=new TeamChat { AdminId = adminId , TeamId=teamId};
+
+            _teamChatRepository.CreateChatAsync(team);
+
+        }
+    }
+}

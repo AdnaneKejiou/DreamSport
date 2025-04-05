@@ -20,13 +20,29 @@ namespace gestionEmployer.Infrastructure.Data
         public DbSet<MemberInvitation> MemberInvitations { get; set; }
         public DbSet<TeamInvitation> TeamInvitations { get; set; }
         public DbSet<TeamChat> TeamChats { get; set; }
+        public DbSet<Statut> statuts { get; set; }
+        public DbSet<MessageStatut> MessageStatuts { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Table-Per-Concrete-Type (TPC) Inheritance
-            modelBuilder.Entity<ChatAmisMessage>().UseTpcMappingStrategy();
-            modelBuilder.Entity<TeamChatMessage>().UseTpcMappingStrategy();
+            modelBuilder.Entity<Message>().UseTpcMappingStrategy();
+
+            // Configure MessageStatut relationship
+            modelBuilder.Entity<MessageStatut>(entity =>
+            {
+                entity.HasKey(ms => new { ms.MessageId, ms.StatutId, ms.UtilisateurId });
+
+                entity.HasOne(ms => ms.Message)
+                    .WithMany(m => m.Statuts)
+                    .HasForeignKey(ms => ms.MessageId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ms => ms.Statut)
+                    .WithMany(s => s.MessageStatuts)
+                    .HasForeignKey(ms => ms.StatutId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
             // Relationship: ChatAmisMessage -> AmisChat
             modelBuilder.Entity<ChatAmisMessage>()
@@ -43,11 +59,11 @@ namespace gestionEmployer.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<BloqueList>()
-            .HasKey(bl => new { bl.Bloked, bl.BlokedBy }); // Composite PK
+                .HasKey(bl => new { bl.Bloked, bl.BlokedBy });
 
             base.OnModelCreating(modelBuilder);
         }
-    }
 
+    }
 }
 

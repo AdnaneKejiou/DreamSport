@@ -16,9 +16,16 @@ builder.Services.AddEndpointsApiExplorer();
 //builder interfaces services and repositories
 builder.Services.AddScoped<IInvitationService, InvitationService>();
 builder.Services.AddScoped<IMemberInvitationRepository, MemberInvitationRepository>();
+builder.Services.AddScoped<IchatAmisService,AmisChatService>();
+builder.Services.AddScoped<IchatTeamService, TeamChatService>();
+builder.Services.AddScoped<ITeamMessageRepository,TeamMessageRepository>();
+builder.Services.AddScoped<IChatAmisMessageRepository, ChatAmisMessageRepository>();
+builder.Services.AddScoped<IBlockService, BlockService>();
+builder.Services.AddScoped<IBloqueListRepository, BloqueListRepository>();
 
 
-
+builder.Services.AddScoped<TeamChatConsumerService>();
+builder.Services.AddSingleton<IHostedService, TeamChatConsumerService>();
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>

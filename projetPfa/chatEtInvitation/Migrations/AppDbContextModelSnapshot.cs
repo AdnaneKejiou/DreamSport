@@ -22,9 +22,7 @@ namespace chatEtInvitation.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.HasSequence("ChatAmisMessageSequence");
-
-            modelBuilder.HasSequence("TeamChatMessageSequence");
+            modelBuilder.HasSequence("MessageSequence");
 
             modelBuilder.Entity("chatEtInvitation.Core.Models.AmisChat", b =>
                 {
@@ -61,37 +59,6 @@ namespace chatEtInvitation.Migrations
                     b.ToTable("BloqueList");
                 });
 
-            modelBuilder.Entity("chatEtInvitation.Core.Models.ChatAmisMessage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR [ChatAmisMessageSequence]");
-
-                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
-
-                    b.Property<int>("ChatAmisId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Contenue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Emetteur")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("when")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChatAmisId");
-
-                    b.ToTable("ChatAmisMessages");
-
-                    b.UseTpcMappingStrategy();
-                });
-
             modelBuilder.Entity("chatEtInvitation.Core.Models.MemberInvitation", b =>
                 {
                     b.Property<int>("Id")
@@ -114,6 +81,70 @@ namespace chatEtInvitation.Migrations
                     b.ToTable("MemberInvitations");
                 });
 
+            modelBuilder.Entity("chatEtInvitation.Core.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR [MessageSequence]");
+
+                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
+
+                    b.Property<string>("Contenue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Emetteur")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("when")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable((string)null);
+
+                    b.UseTpcMappingStrategy();
+                });
+
+            modelBuilder.Entity("chatEtInvitation.Core.Models.MessageStatut", b =>
+                {
+                    b.Property<int>("MessageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatutId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UtilisateurId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsTeam")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MessageId", "StatutId", "UtilisateurId");
+
+                    b.HasIndex("StatutId");
+
+                    b.ToTable("MessageStatuts");
+                });
+
+            modelBuilder.Entity("chatEtInvitation.Core.Models.Statut", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("libelle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("statuts");
+                });
+
             modelBuilder.Entity("chatEtInvitation.Core.Models.TeamChat", b =>
                 {
                     b.Property<int>("Id")
@@ -131,37 +162,6 @@ namespace chatEtInvitation.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TeamChats");
-                });
-
-            modelBuilder.Entity("chatEtInvitation.Core.Models.TeamChatMessage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR [TeamChatMessageSequence]");
-
-                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
-
-                    b.Property<string>("Contenue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Emetteur")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamChatId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("when")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeamChatId");
-
-                    b.ToTable("TeamChatMessages");
-
-                    b.UseTpcMappingStrategy();
                 });
 
             modelBuilder.Entity("chatEtInvitation.Core.Models.TeamInvitation", b =>
@@ -188,6 +188,49 @@ namespace chatEtInvitation.Migrations
 
             modelBuilder.Entity("chatEtInvitation.Core.Models.ChatAmisMessage", b =>
                 {
+                    b.HasBaseType("chatEtInvitation.Core.Models.Message");
+
+                    b.Property<int>("ChatAmisId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ChatAmisId");
+
+                    b.ToTable("ChatAmisMessages");
+                });
+
+            modelBuilder.Entity("chatEtInvitation.Core.Models.TeamChatMessage", b =>
+                {
+                    b.HasBaseType("chatEtInvitation.Core.Models.Message");
+
+                    b.Property<int>("TeamChatId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("TeamChatId");
+
+                    b.ToTable("TeamChatMessages");
+                });
+
+            modelBuilder.Entity("chatEtInvitation.Core.Models.MessageStatut", b =>
+                {
+                    b.HasOne("chatEtInvitation.Core.Models.Message", "Message")
+                        .WithMany("Statuts")
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("chatEtInvitation.Core.Models.Statut", "Statut")
+                        .WithMany("MessageStatuts")
+                        .HasForeignKey("StatutId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Message");
+
+                    b.Navigation("Statut");
+                });
+
+            modelBuilder.Entity("chatEtInvitation.Core.Models.ChatAmisMessage", b =>
+                {
                     b.HasOne("chatEtInvitation.Core.Models.AmisChat", "_AmisChat")
                         .WithMany()
                         .HasForeignKey("ChatAmisId")
@@ -206,6 +249,16 @@ namespace chatEtInvitation.Migrations
                         .IsRequired();
 
                     b.Navigation("_TeamChat");
+                });
+
+            modelBuilder.Entity("chatEtInvitation.Core.Models.Message", b =>
+                {
+                    b.Navigation("Statuts");
+                });
+
+            modelBuilder.Entity("chatEtInvitation.Core.Models.Statut", b =>
+                {
+                    b.Navigation("MessageStatuts");
                 });
 #pragma warning restore 612, 618
         }

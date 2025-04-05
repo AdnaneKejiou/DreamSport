@@ -1,0 +1,18 @@
+﻿namespace chatEtInvitation.API.DTOs
+{
+    public class SendAmisMessageDTO
+    {
+        public int ChatAmisId { get; set; }
+        public int EmetteurId { get; set; }
+        public string Contenu { get; set; }
+        public int AdminId { get; set; }
+    }
+    public class AmisMessageDTO
+    {
+        public int Id { get; set; }
+        public string Contenu { get; set; }
+        public DateTime DateEnvoi { get; set; }
+        public UserInfoDTO Emetteur { get; set; }
+        public string Statut { get; set; }
+    }
+}

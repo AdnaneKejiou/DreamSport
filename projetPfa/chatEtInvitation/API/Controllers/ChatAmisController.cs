@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.Core.Interfaces.IServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace chatEtInvitation.API.Controllers
@@ -7,5 +9,61 @@ namespace chatEtInvitation.API.Controllers
     [ApiController]
     public class ChatAmisController : ControllerBase
     {
+        private readonly IchatAmisService _chatAmisService;
+
+        public ChatAmisController(IchatAmisService chatAmisService)
+        {
+            _chatAmisService = chatAmisService;
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<List<AmisChatReturnedDTO>>> GetAmisChatInfo(int userId)
+        {
+            try
+            {
+                var result = await _chatAmisService.GetAmisChatInfoAsync(userId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Loguer l'erreur
+                return StatusCode(500, "Une erreur est survenue");
+            }
+        }
+
+        [HttpPost("send")]
+        public async Task<ActionResult<AmisMessageDTO>> SendMessage([FromBody] SendAmisMessageDTO messageDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _chatAmisService.SendAmisMessageAsync(messageDto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Loguer l'erreur
+                return StatusCode(500, "Erreur lors de l'envoi du message");
+            }
+        }
+
+        [HttpGet("{chatAmisId}/conversation/{adminId}")]
+        public async Task<ActionResult<List<AmisMessageDTO>>> GetConversation(int chatAmisId, int adminId)
+        {
+            try
+            {
+                var result = await _chatAmisService.GetAmisConversationAsync(chatAmisId, adminId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Loguer l'erreur
+                return StatusCode(500, "Erreur lors de la récupération de la conversation");
+            }
+        }
     }
 }

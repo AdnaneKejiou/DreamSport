@@ -5,6 +5,13 @@ namespace chatEtInvitation.Core.Interfaces.IRepositories
 {
     public interface IChatAmisMessageRepository
     {
+        Task<List<AmisChat>> GetUserChatsAsync(int userId);
+        Task<ChatAmisMessage> GetLastChatMessageAsync(int chatId);
+        Task<int> GetUnreadMessagesCountAsync(int chatId, int userId);
+        Task<ChatAmisMessage> CreateAmisMessageAsync(ChatAmisMessage message);
+        Task AddMessageStatutAsync(MessageStatut statut);
+        Task<AmisChat> GetChatAmisByIdAsync(int Id);
+        Task<List<ChatAmisMessage>> GetConversationAsync(int chatAmisId);
 
     }
 }
