@@ -1,0 +1,54 @@
+.no-selection-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    
+    .message-content {
+      opacity: 0.5;
+      
+      i {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+      
+      h4 {
+        font-weight: 300;
+      }
+    }
+  }
+  .alert-warning {
+    margin: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+  }
+
+  .msg-status {
+    margin-left: 8px;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .single-check {
+    color: #6c757d;
+  }
+  
+  .double-check {
+    color: #4e73df;
+  }
+  
+  .seen-text {
+    color: #4e73df;
+    font-size: 0.65rem;
+    margin-left: 3px;
+  }
+  
+  .chat-scroll {
+    max-height: 500px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }

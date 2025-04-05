@@ -50,7 +50,8 @@ namespace chatEtInvitation.Core.Services
                     Date = lastMessage?.when ?? DateTime.MinValue,
                     UnreadCount = unreadCount > 0 ? unreadCount : null,
                     Statut = statut, // Maintenant correctement peuplé
-                    Avatar = ami.ImageUrl
+                    Avatar = ami.ImageUrl,
+                    idMember= amiId
                 });
             }
 
@@ -89,7 +90,7 @@ namespace chatEtInvitation.Core.Services
             var messageStatutEmetteur = new MessageStatut
             {
                 MessageId = createdMessage.Id,
-                StatutId = 3, // Statut "Sent"
+                StatutId = 2, // Statut "Sent"
                 UtilisateurId = messageDto.EmetteurId,
                 IsTeam = false
             };

@@ -15,6 +15,7 @@ namespace chatEtInvitation.Core.Interfaces.IRepositories
         Task<Statut> GetDefaultMessageStatutAsync();
         Task AddMessageStatutAsync(MessageStatut statut);
         Task UpdateMessageStatutAsync(int messageId, int userId, int newStatutId);
+        Task UpdateMessagesStatusAsync(List<int> messageIds, int userId, int newStatusId);
 
     }
 }

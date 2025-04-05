@@ -1,6 +1,8 @@
-﻿using chatEtInvitation.Core.Interfaces.IServices;
+﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.Core.Interfaces.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace chatEtInvitation.API.Controllers
 {
@@ -16,12 +18,12 @@ namespace chatEtInvitation.API.Controllers
             _blockService = blockService;
         }
 
-        [HttpPost("block/{userIdToBlock}/{currentUserId}/{AdminId}")]
-        public async Task<IActionResult> BlockUser(int userIdToBlock,int currentUserId, int AdminId)
+        [HttpPost("block")]
+        public async Task<IActionResult> BlockUser(UserBlockDTO dto)
         {
             try
             {
-                await _blockService.BlockUserAsync(currentUserId, userIdToBlock , AdminId);
+                await _blockService.BlockUserAsync(dto.currentUserId, dto.userIdToBlock, dto.AdminId);
                 return Ok();
             }
             catch (ArgumentException ex)
@@ -34,12 +36,12 @@ namespace chatEtInvitation.API.Controllers
             }
         }
 
-        [HttpPost("unblock/{userIdToUnblock}/{currentUserId}/{AdminId}")]
-        public async Task<IActionResult> UnblockUser(int userIdToUnblock,int currentUserId, int AdminId)
+        [HttpPost("unblock")]
+        public async Task<IActionResult> UnblockUser(UserUnblockDTO dto)
         {
             try
             {
-                await _blockService.UnblockUserAsync(currentUserId, userIdToUnblock , AdminId);
+                await _blockService.UnblockUserAsync(dto.currentUserId, dto.userIdToUnblock , dto.AdminId);
                 return Ok();
             }
             catch (Exception)
@@ -73,6 +75,27 @@ namespace chatEtInvitation.API.Controllers
             catch (Exception)
             {
                 return StatusCode(500, "Erreur lors de la vérification");
+            }
+        }
+
+        [HttpGet("statusbetween/{userId1}/{userId2}/{AdminId}")]
+        public async Task<IActionResult> GetBlockStatusBetweenUsers(int userId1, int userId2)
+        {
+            try
+            {
+                var user1BlockedUser2 = await _blockService.IsUserBlockedAsync(userId2, userId1);
+
+                var user2BlockedUser1 = await _blockService.IsUserBlockedAsync(userId1, userId2);
+
+                return Ok(new
+                {
+                    user1BlockedUser2,
+                    user2BlockedUser1
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error checking block status");
             }
         }
 

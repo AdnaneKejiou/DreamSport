@@ -3,15 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { ChatRoutingModule } from './chat-routing.module';
 import { ChatComponent } from './chat.component';
+import { sharedModule } from 'src/app/shared/shared.module';
+import { TruncatePipe } from 'src/app/shared/shared.index';
 
 
 @NgModule({
   declarations: [
-    ChatComponent
+    ChatComponent,
+    TruncatePipe
+    
   ],
   imports: [
     CommonModule,
-    ChatRoutingModule
+    ChatRoutingModule,
+    sharedModule
   ]
 })
 export class ChatModule { }

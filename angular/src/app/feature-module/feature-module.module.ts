@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   declarations: [
     FeatureModuleComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     CommonModule,

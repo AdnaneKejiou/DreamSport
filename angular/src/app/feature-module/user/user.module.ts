@@ -9,7 +9,8 @@ import { sharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
-    UserComponent
+    UserComponent,
+    
   ],
   imports: [
     CommonModule,

@@ -16,7 +16,7 @@ namespace chatEtInvitation.API.Controllers
             _chatAmisService = chatAmisService;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("{userId}/{AdminId}")]
         public async Task<ActionResult<List<AmisChatReturnedDTO>>> GetAmisChatInfo(int userId)
         {
             try
@@ -51,7 +51,7 @@ namespace chatEtInvitation.API.Controllers
             }
         }
 
-        [HttpGet("{chatAmisId}/conversation/{adminId}")]
+        [HttpGet("{chatAmisId}/conversation/{AdminId}")]
         public async Task<ActionResult<List<AmisMessageDTO>>> GetConversation(int chatAmisId, int adminId)
         {
             try

@@ -21,6 +21,7 @@ import {
   BsDatepickerConfig,
 } from 'ngx-bootstrap/datepicker';
 import { MatSliderModule } from '@angular/material/slider';
+import { TruncatePipe } from './shared.index';
 
 @NgModule({ exports: [
         FeatherIconModule,

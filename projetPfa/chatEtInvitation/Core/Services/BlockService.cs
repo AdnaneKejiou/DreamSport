@@ -42,10 +42,10 @@ namespace chatEtInvitation.Core.Services
             return await _blockRepository.GetBlockedUsersAsync(currentUserId);
         }
 
-        public async Task<bool> IsUserBlockedAsync(int currentUserId, int targetUserId)
+        public async Task<bool> IsUserBlockedAsync(int user1, int user2)
         {
-            return await _blockRepository.IsUserBlockedAsync(targetUserId, currentUserId) ||
-                   await _blockRepository.IsUserBlockedAsync(currentUserId, targetUserId);
+            return await _blockRepository.IsUserBlockedAsync(user1, user2);
         }
+
     }
 }

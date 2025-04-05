@@ -93,9 +93,46 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
             }
         }
 
+        public async Task UpdateMessagesStatusAsync(List<int> messageIds, int userId, int newStatusId)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var messageId in messageIds)
+                    {
+                        var existingStatut = await _context.MessageStatuts
+                            .FirstOrDefaultAsync(ms => ms.MessageId == messageId && ms.UtilisateurId == userId);
+
+                        if (existingStatut != null)
+                        {
+                            _context.MessageStatuts.Remove(existingStatut);
+                        }
+
+                        var newStatut = new MessageStatut
+                        {
+                            MessageId = messageId,
+                            StatutId = newStatusId,
+                            UtilisateurId = userId,
+                            IsTeam = true
+                        };
+
+                        await _context.MessageStatuts.AddAsync(newStatut);
+                    }
+
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
         public async Task<Statut> GetDefaultMessageStatutAsync()
         {
-            // Statut "Sent" (3) par défaut pour les nouveaux messages
             return await _context.statuts.FindAsync(3);
         }
     }

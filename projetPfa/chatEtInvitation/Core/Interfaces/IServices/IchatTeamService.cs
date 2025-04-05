@@ -7,8 +7,10 @@ namespace chatEtInvitation.Core.Interfaces.IServices
         Task<TeamChatReturnedDTO> GetTeamChatByIdAsync(int idEquipe, int idMember);
         Task<List<TeamMessageDTO>> GetFullTeamConversationAsync(int teamId, int adminId);
         Task<TeamMessageDTO> SendTeamMessageAsync(SendTeamMessageDTO messageDto, int adminId);
-        Task MarkMessageAsSeenAsync(int messageId, int userId);
+        Task MarkMessagesAsSeenAsync(List<int> messageIds, int userId);
+
         Task CreateTeamChat(int teamId, int adminId);
+        Task MarkAllMessagesAsSeenAsync(int teamChatId, int userId);
 
     }
 }

@@ -83,9 +83,17 @@ namespace chatEtInvitation.Core.Services
 
             return result;
         }
-        public async Task MarkMessageAsSeenAsync(int messageId, int userId)
+        public async Task MarkMessagesAsSeenAsync(List<int> messageIds, int userId)
         {
-            await _chatRepository.UpdateMessageStatutAsync(messageId, userId, 2);
+            await _chatRepository.UpdateMessagesStatusAsync(messageIds, userId, 2);
+        }
+
+        public async Task MarkAllMessagesAsSeenAsync(int teamChatId, int userId)
+        {
+            var messages = await _chatRepository.GetTeamConversationAsync(teamChatId);
+            var messageIds = messages.Select(m => m.Id).ToList();
+
+            await _chatRepository.UpdateMessagesStatusAsync(messageIds, userId, 2);
         }
 
         public async Task<TeamMessageDTO> SendTeamMessageAsync(SendTeamMessageDTO messageDto, int adminId)
@@ -108,22 +116,27 @@ namespace chatEtInvitation.Core.Services
 
             var createdMessage = await _chatRepository.CreateTeamMessageAsync(message);
 
-            // Récupérer le statut "Sent" (3) par défaut
-            var defaultStatut = await _chatRepository.GetDefaultMessageStatutAsync();
-            if (defaultStatut == null)
+            // Récupérer tous les membres de l'équipe
+            teamDTO team = await _TeamService.FetchTeamAsync(teamChat.TeamId, teamChat.AdminId);
+
+            if (team.Membres == null || team.Membres.Count == 0)
             {
-                throw new InvalidOperationException("Statut par défaut introuvable");
+                throw new InvalidOperationException("Aucun membre trouvé dans l'équipe");
             }
 
-            var messageStatut = new MessageStatut
-            {
-                MessageId = createdMessage.Id,
-                StatutId = defaultStatut.Id, // Utilise le statut "Sent" (3)
-                UtilisateurId = messageDto.EmetteurId,
-                IsTeam = true
-            };
 
-            await _chatRepository.AddMessageStatutAsync(messageStatut);
+            foreach (var membre in team.Membres)
+            {
+                var messageStatut = new MessageStatut
+                {
+                    MessageId = createdMessage.Id,
+                    StatutId = membre.UserId == messageDto.EmetteurId ? 2 : 3,
+                    UtilisateurId = membre.UserId,
+                    IsTeam = true
+                };
+
+                await _chatRepository.AddMessageStatutAsync(messageStatut);
+            }
 
             // Récupérer les infos de l'émetteur
             var emetteur = await _userService.FetchUserAsync(messageDto.EmetteurId, adminId);
@@ -139,10 +152,9 @@ namespace chatEtInvitation.Core.Services
                     NomComplet = $"{emetteur.Prenom} {emetteur.Nom}",
                     Avatar = emetteur.ImageUrl
                 },
-                Statut = defaultStatut.libelle 
+                Statut = "Seen"
             };
         }
-
         public async Task CreateTeamChat(int teamId,int adminId)
         {
             TeamChat team=new TeamChat { AdminId = adminId , TeamId=teamId};

@@ -16,7 +16,7 @@ namespace chatEtInvitation.API.Controllers
             _teamChatService = teamChatService;
         }
 
-        [HttpGet("{teamId}/members/{memberId}")]
+        [HttpGet("{teamId}/members/{memberId}/{AdminId}")]
         public async Task<ActionResult<TeamChatReturnedDTO>> GetTeamChatInfo(int teamId, int memberId)
         {
             try
@@ -38,7 +38,7 @@ namespace chatEtInvitation.API.Controllers
         }
 
         // Dans chatEtInvitation.API.Controllers.ChatTeamController
-        [HttpGet("{teamId}/conversation/{adminId}")]
+        [HttpGet("{teamId}/conversation/{AdminId}")]
         public async Task<ActionResult<List<TeamMessageDTO>>> GetFullConversation(
             int teamId, int adminId)
         {
@@ -60,13 +60,17 @@ namespace chatEtInvitation.API.Controllers
             }
         }
 
-        [HttpGet("{MessageId}/seen/{UserId}/{AdminId}")]
-
-        public async Task MarkMessageAsSeenAsync(int MessageId, int UserId,int AdminId)
+        [HttpPost("mark-as-seen")]
+        public async Task MarkMessagesAsSeenAsync(MarkerMessageDTO dto)
         {
-            await _teamChatService.MarkMessageAsSeenAsync(MessageId, UserId);
+            await _teamChatService.MarkMessagesAsSeenAsync(dto.messageIds, dto.userId);
+        }
 
-
+        public class MarkMessagesAsSeenRequest
+        {
+            public List<int> MessageIds { get; set; }
+            public int UserId { get; set; }
+            // AdminId n'est pas nécessaire dans le corps de la requête si vous l'utilisez pour l'authentification
         }
 
 
@@ -97,6 +101,20 @@ namespace chatEtInvitation.API.Controllers
             {
                 // Loguer l'erreur
                 return StatusCode(500, "Une erreur est survenue lors de l'envoi du message");
+            }
+        }
+
+        [HttpPost("mark-all-as-seen")]
+        public async Task<ActionResult> MarkAllMessagesAsSeen(MarkAllAsSeenDTO dto)
+        {
+            try
+            {
+                await _teamChatService.MarkAllMessagesAsSeenAsync(dto.teamChatId, dto.userId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error marking messages as seen");
             }
         }
 
