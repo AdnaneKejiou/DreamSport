@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
+import { TenantGuard } from 'src/app/core/guard/tenant/tenant.guard';
+import { AuthGuard } from 'src/app/core/core.index';
+import { RoleGuard } from 'src/app/core/guard/auth/role.guard';
 
 const routes: Routes = [
   { path: '', 
@@ -19,6 +22,8 @@ const routes: Routes = [
           import('./employees/employees.module').then(
             (m) => m.EmployeesModule
           ),
+        canActivate: [TenantGuard, AuthGuard, RoleGuard],
+        data: { roles: ['Admin'] }
       },
       {
         path: 'site',

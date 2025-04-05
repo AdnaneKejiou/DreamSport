@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FeatureModuleComponent } from './feature-module.component';
 import { TenantGuard } from 'src/app/core/guard/tenant/tenant.guard'; // Importer le TenantGuard
+import { AuthGuard } from '../core/core.index';
+import { RoleGuard } from '../core/guard/auth/role.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +25,8 @@ const routes: Routes = [
         path: 'coaches',
         loadChildren: () =>
           import('./coaches/coaches.module').then((m) => m.CoachesModule),
-        canActivate: [TenantGuard], 
+        canActivate: [TenantGuard, AuthGuard, RoleGuard],
+        data: { roles: ['Employee'] }  
       },
       {
         path: 'pages',
@@ -41,7 +44,8 @@ const routes: Routes = [
         path: 'user',
         loadChildren: () =>
           import('./user/user.module').then((m) => m.UserModule),
-        canActivate: [TenantGuard], 
+        canActivate: [TenantGuard, AuthGuard, RoleGuard],
+        data: { roles: ['User'] } 
       },
       {
         path: 'home',
@@ -59,10 +63,11 @@ const routes: Routes = [
         path: 'admin',
         loadChildren: () =>
           import('./admin/admin.module').then((m) => m.AdminModule),
-        canActivate: [TenantGuard], // Appliquer le Guard ici aussi
+        canActivate: [TenantGuard, AuthGuard, RoleGuard],
+        data: { roles: ['Admin'] }
       },
     ],
-  },
+  },  
   {
     path: 'error',
     loadChildren: () =>

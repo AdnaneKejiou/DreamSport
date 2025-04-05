@@ -113,13 +113,14 @@ export class AuthService {
   private RedirectDashboard(){
     const userData = localStorage.getItem(this.userKey);
     const decodedToken: DecodedToken | null = userData ? JSON.parse(userData) as DecodedToken : null;
-    if(decodedToken && decodedToken.role === UserType.ADMIN){
+    console.log("role : ",decodedToken);
+    if(decodedToken && decodedToken.Role === UserType.ADMIN){
       this.router.navigate(['/admin/dashboard']);
       return;
-    }else if( decodedToken && decodedToken.role === UserType.CLIENT){
+    }else if( decodedToken && decodedToken.Role === UserType.CLIENT){
       this.router.navigate(['/user/user-dashboard']);
       return;
-    }else if( decodedToken && decodedToken.role === UserType.EMPLOYEE){
+    }else if( decodedToken && decodedToken.Role === UserType.EMPLOYEE){
       this.router.navigate(['/coaches/pages/dashboard']);
       return;
     }
@@ -154,6 +155,7 @@ export class AuthService {
   // ✅ Logout: Clears access token and triggers backend logout (clears cookie)
   logout(): void {
     localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(this.userKey);
     this.isAuthenticatedSubject.next(false);
     this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe(() => {
       this.router.navigate([routes.login]);

@@ -36,7 +36,7 @@ namespace gestionReservation.Infrastructure.ExternServices
 
             return await response.Content.ReadFromJsonAsync<UserDTO>();
         }
-
+        //message broker
         public async Task<bool> ResetConteurResAnnulerAsync(int id, int adminId)
         {
             string requestUrl = $"{UserUrl.TrimEnd('/')}/users/ResetConteur/{id}";
@@ -56,7 +56,7 @@ namespace gestionReservation.Infrastructure.ExternServices
             response.EnsureSuccessStatusCode(); // Throws an exception if status code is 4xx or 5xx
             return false;
         }
-
+        //message broker
         public async Task<bool> CheckAndIncrementReservationAnnuleAsync(int userId, int adminId)
         {
             string requestUrl = $"{UserUrl.TrimEnd('/')}/users/check-reservation-annule/{userId}";

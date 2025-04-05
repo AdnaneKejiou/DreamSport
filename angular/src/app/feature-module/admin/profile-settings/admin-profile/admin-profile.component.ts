@@ -4,7 +4,6 @@ import { routes } from 'src/app/core/core.index';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdminService } from 'src/app/core/service/Backend/admin/admin.service';
 import { AuthService } from 'src/app/core/service/auth/authservice';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-profile',

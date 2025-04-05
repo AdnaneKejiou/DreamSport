@@ -2,7 +2,7 @@ export interface DecodedToken {
     id: number;
     userId: number;
     adminId: number;
-    role: string;
+    Role: string;
     nom: string;
     prenom: string;
     imageUrl?: string; // Optional
