@@ -1,7 +1,9 @@
 ﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.API.Mappers;
 using chatEtInvitation.Core.Interfaces.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace chatEtInvitation.API.Controllers
 {
@@ -10,10 +12,13 @@ namespace chatEtInvitation.API.Controllers
     public class ChatTeamController : ControllerBase
     {
         private readonly IchatTeamService _teamChatService;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public ChatTeamController(IchatTeamService teamChatService)
+
+        public ChatTeamController(IchatTeamService teamChatService, IHubContext<ChatHub> hubContext)
         {
             _teamChatService = teamChatService;
+            _hubContext = hubContext;
         }
 
         [HttpGet("{teamId}/members/{memberId}/{AdminId}")]
@@ -87,6 +92,13 @@ namespace chatEtInvitation.API.Controllers
                 }
 
                 var result = await _teamChatService.SendTeamMessageAsync(messageDto, messageDto.AdminId);
+
+                var rst= SignalRChatMapper.TeamMessageSignalRDTO(result);
+                foreach (var member in result.TeamMemberIds)
+                {
+                    await _hubContext.Clients.Group(member.UserId.ToString())
+                                       .SendAsync("ReceiveTeamMessage", rst);
+                }
                 return Ok(result);
             }
             catch (ArgumentException ex)

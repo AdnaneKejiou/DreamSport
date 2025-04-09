@@ -5,6 +5,7 @@ import { CommonService, DataService, SidebarService } from 'src/app/core/core.in
 import { routes } from 'src/app/core/helpers/routes';
 import { sideBar } from 'src/app/shared/model/header.model';
 import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
+import { AuthService } from 'src/app/core/service/auth/authservice';
 
 @Component({
   selector: 'app-header',
@@ -38,7 +39,8 @@ export class HeaderComponent {
     private common: CommonService,
     private data: DataService,
     private sidebarService: SidebarService,
-    private store: Store
+    private store: Store,
+    private auth :AuthService
   ){
 
 
@@ -89,5 +91,10 @@ export class HeaderComponent {
   }
   public hideSidebar(): void {
     this.sidebarService.closeSidebar();
+  }
+
+  logout():void{
+
+    this.auth.logout();
   }
 }

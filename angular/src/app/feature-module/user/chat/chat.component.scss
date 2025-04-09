@@ -47,8 +47,31 @@
     margin-left: 3px;
   }
   
-  .chat-scroll {
-    max-height: 500px;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-  }
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.dots {
+  display: flex;
+  margin-left: 10px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  background: #ddd;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }

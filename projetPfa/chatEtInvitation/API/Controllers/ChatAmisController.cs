@@ -1,7 +1,10 @@
 ﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.API.Mappers;
 using chatEtInvitation.Core.Interfaces.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace chatEtInvitation.API.Controllers
 {
@@ -10,10 +13,12 @@ namespace chatEtInvitation.API.Controllers
     public class ChatAmisController : ControllerBase
     {
         private readonly IchatAmisService _chatAmisService;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public ChatAmisController(IchatAmisService chatAmisService)
+        public ChatAmisController(IchatAmisService chatAmisService, IHubContext<ChatHub> hubContext)
         {
             _chatAmisService = chatAmisService;
+            _hubContext = hubContext;
         }
 
         [HttpGet("{userId}/{AdminId}")]
@@ -42,6 +47,16 @@ namespace chatEtInvitation.API.Controllers
                 }
 
                 var result = await _chatAmisService.SendAmisMessageAsync(messageDto);
+
+
+                UserInfoSignalRDTO emet = SignalRChatMapper.UserToUserSignalRDTO(result.Emetteur);
+                AmisMessageSignalRDTO rsltSignalr = SignalRChatMapper.AmisMessageSignalRDTO(result);
+
+                rsltSignalr.emetteur = emet;
+                
+
+                await _hubContext.Clients.Group(result.RecepteurId.ToString())
+                          .SendAsync("ReceiveAmisMessage", rsltSignalr);
                 return Ok(result);
             }
             catch (Exception ex)

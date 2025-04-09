@@ -6,5 +6,6 @@ export interface AmisChatReturnedDTO {
     unreadCount?: number;
     statut?: string;
     avatar: string;
-    idMember:string
+    idMember:string;
+    type: 'amis'; 
   }

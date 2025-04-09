@@ -43,7 +43,6 @@ public class InvitationHub : Hub
             TeamName = invitation.TeamName,
             SenderId = invitation.Emetteur,
             ReceiverId = invitation.Recepteur,
-            // Ajoutez d'autres propriétés selon votre modèle
         });
     }
 

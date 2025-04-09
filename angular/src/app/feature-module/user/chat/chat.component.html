@@ -20,11 +20,11 @@
                         <!-- Friend chats -->
                         <a href="javascript:void(0);" class="media" 
                            *ngFor="let chat of amisChats"
-                           [ngClass]="{'read-chat active': selectedChat?.id === chat.id && !selectedChat?.isTeam}"
+                           [ngClass]="{'read-chat active': isActiveAmisChat(chat)}"
                            (click)="chatOpen(chat)">
                             <div class="media-img-wrap">
                                 <div class="avatar avatar-online">
-                                    <img [src]="chat.avatar" alt="User Image" class="avatar-img rounded-circle">
+                                    <img [src]="chat.avatar || 'assets/img/default-avatar.png'" alt="User Image" class="avatar-img rounded-circle">
                                 </div>
                             </div>
                             <div class="media-body">
@@ -36,8 +36,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="last-chat-time block">{{chat.date | date:'shortTime'}}</div>
-                                    <div class="badge badge-success badge-pill" *ngIf="chat.unreadCount">
+                                    <div class="last-chat-time block">{{chat.date | date:'shortTime':'UTC'}}</div>
+                                    <div class="badge badge-success badge-pill" *ngIf="chat.unreadCount && chat.unreadCount > 0">
                                         {{chat.unreadCount}}
                                     </div>
                                 </div>
@@ -47,11 +47,11 @@
                         <!-- Team chats -->
                         <a href="javascript:void(0);" class="media" 
                            *ngFor="let chat of teamChats"
-                           [ngClass]="{'read-chat active': selectedChat?.id === chat.id && selectedChat?.isTeam}"
-                           (click)="chatOpen(chat, true)">
+                           [ngClass]="{'read-chat active': isActiveTeamChat(chat)}"
+                           (click)="chatOpen(chat)">
                             <div class="media-img-wrap">
                                 <div class="avatar avatar-online">
-                                    <img [src]="chat.avatar" alt="User Image" class="avatar-img rounded-circle">
+                                    <img [src]="chat.avatar || 'assets/img/default-avatar.png'" alt="User Image" class="avatar-img rounded-circle">
                                 </div>
                             </div>
                             <div class="media-body">
@@ -59,12 +59,12 @@
                                     <div class="user-name">{{chat.equipeName}}</div>
                                     <div class="user-last-chat">
                                         <i class="fa-solid fa-check-double"></i> 
-                                        {{chat.lastMessage | truncate:20}}
+                                        {{chat.lasteMessage | truncate:20}}
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="last-chat-time block">{{chat.date | date:'shortTime'}}</div>
-                                    <div class="badge badge-success badge-pill" *ngIf="chat.nbrMessage">
+                                    <div class="last-chat-time block">{{chat.date | date:'shortTime':'UTC'}}</div>
+                                    <div class="badge badge-success badge-pill" *ngIf="chat.nbrMessage && chat.nbrMessage > 0">
                                         {{chat.nbrMessage}}
                                     </div>
                                 </div>
@@ -83,12 +83,13 @@
                     <div class="media">
                         <div class="media-img-wrap">
                             <div class="avatar avatar-online">
-                                <img [src]="selectedChat.avatar" alt="User Image" class="avatar-img rounded-circle">
+                                <img [src]="getSelectedChatAvatar()" alt="User Image" class="avatar-img rounded-circle">
                             </div>
                         </div>
                         <div class="media-body">
                             <div class="user-name">
-                                {{selectedChat.isTeam ? selectedChat.equipeName : selectedChat.amiName}}
+                                {{getSelectedChatName()}}
+                              
                             </div>
                         </div>
                     </div>
@@ -99,18 +100,18 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" 
-                                   *ngIf="!selectedChat.isTeam && !blockStatus.iBlockedThem && !blockStatus.theyBlockedMe"
-                                   (click)="blockUser(selectedChat.idMember)">
+                                   *ngIf="!selectedChat?.isTeam && !blockStatus.iBlockedThem && !blockStatus.theyBlockedMe"
+                                   (click)="blockUser(getSelectedChatIdMember() || '')">
                                     <i class="feather icon-user-x"></i>Block User
                                 </a>
                                 
                                 <a class="dropdown-item" 
-                                   *ngIf="!selectedChat.isTeam && blockStatus.iBlockedThem"
-                                   (click)="unblockUser(selectedChat.idMember)">
+                                   *ngIf="!selectedChat?.isTeam && blockStatus.iBlockedThem"
+                                   (click)="unblockUser(getSelectedChatIdMember() || '')">
                                     <i class="feather icon-user-check"></i>Unblock User
                                 </a>
 
-                                <div *ngIf="!selectedChat.isTeam && blockStatus.theyBlockedMe" 
+                                <div *ngIf="!selectedChat?.isTeam && blockStatus.theyBlockedMe" 
                                      class="dropdown-item text-danger small">
                                     <i class="feather icon-alert-triangle"></i> This user blocked you
                                 </div>
@@ -121,13 +122,18 @@
 
                 <div class="chat-body">
                     <div class="chat-scroll">
-                        <!-- Loading messages -->
-                        <div *ngIf="loading" class="text-center p-3 text-muted">
-                            Loading messages...
+                        <!-- Loading indicator -->
+                        <div *ngIf="initialLoad" class="text-center p-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading messages...</span>
+                            </div>
+                            <p class="mt-2">Loading messages...</p>
                         </div>
 
+                       
+                        
                         <!-- No messages -->
-                        <div *ngIf="!loading && messages.length === 0" class="text-center p-3 text-muted">
+                        <div *ngIf="!initialLoad && !loading && messages.length === 0" class="text-center p-3 text-muted">
                             Start the conversation!
                         </div>
 
@@ -147,18 +153,19 @@
                         </div>
 
                         <!-- Messages list -->
-                        <ul class="list-unstyled" *ngIf="!loading && messages.length > 0">
+                        <ul class="list-unstyled" *ngIf="!initialLoad && !loading && messages.length > 0">
                             <li class="chat-date">Today</li>
                             
                             <li class="media" 
                                 *ngFor="let message of messages"
+                                [id]="'message-' + message.id"
                                 [ngClass]="{
-                                    'sent': message.emetteur.id === currentUserId,
-                                    'received': message.emetteur.id !== currentUserId
+                                    'sent': getMessageSenderId(message) === currentUserId,
+                                    'received': getMessageSenderId(message) !== currentUserId
                                 }">
                                 
-                                <div class="avatar" *ngIf="message.emetteur.id !== currentUserId">
-                                    <img [src]="message.emetteur.avatar" alt="User Image" class="avatar-img rounded-circle">
+                                <div class="avatar" *ngIf="getMessageSenderId(message) !== currentUserId">
+                                    <img [src]="getMessageSenderAvatar(message)" alt="User Image" class="avatar-img rounded-circle">
                                 </div>
                                 
                                 <div class="media-body">
@@ -168,8 +175,8 @@
                                             <ul class="chat-msg-info">
                                                 <li>
                                                     <div class="chat-time">
-                                                        <span>{{message.dateEnvoi | date:'shortTime'}}</span>
-                                                        <span class="msg-status" *ngIf="message.emetteur.id === currentUserId">
+                                                        <span>{{message.dateEnvoi | date:'shortTime':'UTC'}}</span>
+                                                        <span class="msg-status" *ngIf="getMessageSenderId(message) === currentUserId">
                                                             <i class="fa-solid" 
                                                                [ngClass]="{
                                                                    'fa-check single-check': message.statut === 'Sent',
@@ -184,13 +191,26 @@
                                     </div>
                                 </div>
                                 
-                                <div class="avatar" *ngIf="message.emetteur.id === currentUserId">
-                                    <img [src]="message.emetteur.avatar" alt="User Image" class="avatar-img rounded-circle">
+                                <div class="avatar" *ngIf="getMessageSenderId(message) === currentUserId">
+                                    <img [src]="getMessageSenderAvatar(message)" alt="User Image" class="avatar-img rounded-circle">
                                 </div>
+               
                             </li>
+                                                  <!-- Typing indicator -->
+                 <li *ngIf="isTyping && typingUserId !== currentUserId" class="typing-indicator">
+                    <div class="dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <span>{{typingUserName}} is typing</span>
+                </li>
                         </ul>
                     </div>
-                </div>
+
+                
+         </div>
+                
 
                 <div class="chat-footer">
                     <div class="form-custom">
@@ -203,6 +223,7 @@
                                    placeholder="Type something"
                                    [(ngModel)]="newMessage"
                                    (keyup.enter)="sendMessage()"
+                                   (input)="onInputChange()"
                                    [disabled]="!selectedChat?.isTeam && isCommunicationBlocked()">
                             <div class="input-group-append">
                                 <button type="button" 

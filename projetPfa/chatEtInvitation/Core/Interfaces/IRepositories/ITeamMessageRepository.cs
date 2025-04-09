@@ -12,7 +12,6 @@ namespace chatEtInvitation.Core.Interfaces.IRepositories
         Task<int> GetUnreadMessagesCountAsync(int teamChatId, int userId);
         Task<List<TeamChatMessage>> GetTeamConversationWithStatutsAsync(int teamChatId);
         Task<TeamChatMessage> CreateTeamMessageAsync(TeamChatMessage message);
-        Task<Statut> GetDefaultMessageStatutAsync();
         Task AddMessageStatutAsync(MessageStatut statut);
         Task UpdateMessageStatutAsync(int messageId, int userId, int newStatutId);
         Task UpdateMessagesStatusAsync(List<int> messageIds, int userId, int newStatusId);

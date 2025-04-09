@@ -10,5 +10,6 @@
         public int? UnreadCount { get; set; }
         public string Statut { get; set; }
         public string Avatar { get; set; }
+        
     }
 }

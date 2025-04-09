@@ -6,4 +6,6 @@ export interface TeamChatReturnedDTO {
     nbrMessage?: number;
     st?: string;
     avatar: string;
+    type: 'team'; 
+
   }

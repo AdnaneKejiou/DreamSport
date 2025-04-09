@@ -6,6 +6,7 @@ using chatEtInvitation.Core.Models;
 using chatEtInvitation.Infrastructure.Data.Repositories;
 using chatEtInvitation.Infrastructure.ExternServices;
 using chatEtInvitation.Infrastructure.ExternServices.ExternDTOs;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace chatEtInvitation.Core.Services
@@ -27,6 +28,7 @@ namespace chatEtInvitation.Core.Services
             _TeamService = TeamService;
             _userService = userService;
             _teamChatRepository = teamChatRepository;
+
         }
 
         public async Task<TeamChatReturnedDTO> GetTeamChatByIdAsync(int idEquipe, int idMember)
@@ -94,6 +96,7 @@ namespace chatEtInvitation.Core.Services
             var messageIds = messages.Select(m => m.Id).ToList();
 
             await _chatRepository.UpdateMessagesStatusAsync(messageIds, userId, 2);
+
         }
 
         public async Task<TeamMessageDTO> SendTeamMessageAsync(SendTeamMessageDTO messageDto, int adminId)
@@ -114,6 +117,8 @@ namespace chatEtInvitation.Core.Services
                 TeamChatId = teamChat.Id
             };
 
+            
+
             var createdMessage = await _chatRepository.CreateTeamMessageAsync(message);
 
             // Récupérer tous les membres de l'équipe
@@ -125,12 +130,13 @@ namespace chatEtInvitation.Core.Services
             }
 
 
+
             foreach (var membre in team.Membres)
             {
                 var messageStatut = new MessageStatut
                 {
                     MessageId = createdMessage.Id,
-                    StatutId = membre.UserId == messageDto.EmetteurId ? 2 : 3,
+                    StatutId = membre.UserId == messageDto.EmetteurId ? 1 : 3,
                     UtilisateurId = membre.UserId,
                     IsTeam = true
                 };
@@ -152,7 +158,10 @@ namespace chatEtInvitation.Core.Services
                     NomComplet = $"{emetteur.Prenom} {emetteur.Nom}",
                     Avatar = emetteur.ImageUrl
                 },
-                Statut = "Seen"
+                TeamMemberIds = team.Membres,
+                Statut = "Sent",
+                chatTeamId= teamChat.Id,
+                teamId= teamChat.TeamId
             };
         }
         public async Task CreateTeamChat(int teamId,int adminId)

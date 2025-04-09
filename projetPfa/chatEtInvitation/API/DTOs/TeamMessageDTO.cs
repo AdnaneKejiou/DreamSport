@@ -1,4 +1,6 @@
-﻿namespace chatEtInvitation.API.DTOs
+﻿using chatEtInvitation.Infrastructure.ExternServices.ExternDTOs;
+
+namespace chatEtInvitation.API.DTOs
 {
     public class TeamMessageDTO
     {
@@ -7,6 +9,10 @@
         public DateTime DateEnvoi { get; set; }
         public UserInfoDTO Emetteur { get; set; }
         public string Statut { get; set; }
+        public List<MembreDto>? TeamMemberIds { get; set; }
+        public int chatTeamId;
+        public int? teamId;
+
     }
 
     public class UserInfoDTO

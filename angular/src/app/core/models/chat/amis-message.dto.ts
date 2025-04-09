@@ -6,4 +6,7 @@ export interface AmisMessageDTO {
     dateEnvoi: Date;
     emetteur: UserInfoDTO;
     statut: string;
+    chatAmisId: number;  
+    RecepteurId?:number;
+
   }

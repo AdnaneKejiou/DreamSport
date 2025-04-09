@@ -6,6 +6,7 @@ using chatEtInvitation.Core.Services;
 using chatEtInvitation.Infrastructure.Data.Repositories;
 using gestionEmployer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using chatEtInvitation.Core.Interfaces.Hub;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.addRepositoriesDependencies();
 builder.Services.addServicesDependencies();
+
+builder.Services.AddSingleton<IUserConnectionManager, UserConnectionManager>();
+
 builder.Services.AddSignalR()
     .AddJsonProtocol(options => {
         options.PayloadSerializerOptions.PropertyNamingPolicy = null;
@@ -55,6 +59,7 @@ app.UseCors("AllowAll");
 
 app.MapHub<InvitationHub>("/invitationHub");
 
+app.MapHub<ChatHub>("/chatHub");
 
 app.UseAuthorization();
 

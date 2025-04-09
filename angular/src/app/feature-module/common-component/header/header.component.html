@@ -149,7 +149,7 @@
               </div>
             </div>
             
-            <p><a class="dropdown-item" [routerLink]="routes.login">Logout</a></p>
+            <p><a class="dropdown-item" [routerLink]="routes.login" (click)="logout()">Logout</a></p>
           </div>
         </li>
 
@@ -176,7 +176,7 @@
                   <a [routerLink]="routes.userProfile" class="text-profile mb-0">Go to Profile</a>
                 </div>
               </div>
-              <p><a class="dropdown-item" [routerLink]="routes.login">Logout</a></p>
+              <p><a class="dropdown-item" [routerLink]="routes.login" (click)="logout()">Logout</a></p>
             </div>
           </li>
          

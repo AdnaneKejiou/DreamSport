@@ -41,7 +41,7 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
         }
 
         // méthode pour compter les messages non lus
-        public async Task<int> GetUnreadMessagesCountAsync(int teamChatId, int userId)
+        public async Task<int> GetUnreadMessagesUserCountAsync(int teamChatId, int userId)
         {
             return await _context.TeamChatMessages
                 .Where(m => m.TeamChatId == teamChatId)
@@ -49,7 +49,15 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
                 .CountAsync();
         }
 
-     
+        public async Task<int> GetUnreadMessagesCountAsync(int teamChatId, int userId)
+        {
+            return await _context.TeamChatMessages
+                .Where(m => m.TeamChatId == teamChatId)
+                // Correction: Utiliser 'Emetteur' au lieu de 'EmetteurId'
+                .Where(m => m.Emetteur != userId)
+                .Where(m => m.Statuts.Any(s => s.UtilisateurId == userId && s.Statut.libelle != "Seen"))
+                .CountAsync();
+        }
 
         public async Task<List<TeamChatMessage>> GetTeamConversationAsync(int Id)
         {
@@ -95,45 +103,9 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
 
         public async Task UpdateMessagesStatusAsync(List<int> messageIds, int userId, int newStatusId)
         {
-            using (var transaction = _context.Database.BeginTransaction())
-            {
-                try
-                {
-                    foreach (var messageId in messageIds)
-                    {
-                        var existingStatut = await _context.MessageStatuts
-                            .FirstOrDefaultAsync(ms => ms.MessageId == messageId && ms.UtilisateurId == userId);
-
-                        if (existingStatut != null)
-                        {
-                            _context.MessageStatuts.Remove(existingStatut);
-                        }
-
-                        var newStatut = new MessageStatut
-                        {
-                            MessageId = messageId,
-                            StatutId = newStatusId,
-                            UtilisateurId = userId,
-                            IsTeam = true
-                        };
-
-                        await _context.MessageStatuts.AddAsync(newStatut);
-                    }
-
-                    await _context.SaveChangesAsync();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    throw ex;
-                }
-            }
+            await _context.MessageStatuts
+         .Where(ms => messageIds.Contains(ms.MessageId) && ms.UtilisateurId == userId)
+         .ExecuteUpdateAsync(setters => setters.SetProperty(ms => ms.StatutId, newStatusId));
         }
-
-        public async Task<Statut> GetDefaultMessageStatutAsync()
-        {
-            return await _context.statuts.FindAsync(3);
         }
-    }
 }

@@ -79,7 +79,7 @@ namespace Auth.Services
             return new[]
            {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Role, role),
+                new Claim("Role", role),
                 new Claim("AdminId", AdminId.ToString()),
                 new Claim("Nom", Nom),
                 new Claim("Prenom", Prenom),

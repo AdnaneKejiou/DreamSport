@@ -118,7 +118,10 @@ namespace chatEtInvitation.Core.Services
                     NomComplet = $"{emetteur.Prenom} {emetteur.Nom}",
                     Avatar = emetteur.ImageUrl
                 },
-                Statut = "Sent"
+                Statut = "Sent",
+                RecepteurId=recepteurId,
+                chatAmisId= amichat.Id,
+                
             };
         }
         public async Task<List<AmisMessageDTO>> GetAmisConversationAsync(int chatAmisId, int adminId)

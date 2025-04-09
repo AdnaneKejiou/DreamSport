@@ -19,7 +19,7 @@ export class AuthService {
   private apiUrl = `${environment.apiUrl}/Login`;
   private accessTokenKey = 'access_token';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
-  private Tenant =11;
+  private Tenant =28;
   private userKey = 'user_data';
   private GoogleClientId: string = '39053290852-ol06nn3fdpl6cbs2eobh3toc44dbb8kr.apps.googleusercontent.com';
 
@@ -35,6 +35,58 @@ export class AuthService {
         return throwError(() => backendErrors);
       })
     ); 
+  }
+
+  getUserAvatar():string{
+    const userString = localStorage.getItem('user_data');
+    if (!userString) {
+      console.warn('No user data found in localStorage');
+      return ""; // ou throw new Error('User not authenticated');
+    }
+  
+    try {
+      const user = JSON.parse(userString);
+      
+      if (!user || !user.avatar) {
+        console.warn('User ID not found in user data');
+        return "";
+      }
+      
+      const avatar = user.avatar;
+      
+      return avatar;
+      
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      return "";
+    }
+
+  }
+
+  getUserName():string{
+    const userString = localStorage.getItem('user_data');
+    if (!userString) {
+      console.warn('No user data found in localStorage');
+      return ""; // ou throw new Error('User not authenticated');
+    }
+  
+    try {
+      const user = JSON.parse(userString);
+      
+      if (!user || !user.Nom) {
+        console.warn('User ID not found in user data');
+        return "";
+      }
+      
+      const Nom = user.Nom + " " +user.Prenom;
+      
+      return Nom;
+      
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      return "";
+    }
+
   }
    getUserId(): number {
     const userString = localStorage.getItem('user_data');

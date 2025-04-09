@@ -40,15 +40,4 @@ export class ChatTeamService {
   sendMessage(messageDto: SendTeamMessageDTO): Observable<TeamMessageDTO> {
     return this.http.post<TeamMessageDTO>(`${this.baseUrl}/send`, messageDto);
   }
-
-  markAllAsSeen(teamChatId: number, userId: number): Observable<void> {
-    const request = {
-      teamChatId: teamChatId,
-      userId: userId
-    };
-    return this.http.post<void>(
-        `${this.baseUrl}/mark-all-as-seen`,
-        request
-    );
-}
 }

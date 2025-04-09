@@ -6,4 +6,6 @@ export interface TeamMessageDTO {
     dateEnvoi: Date;
     emetteur: UserInfoDTO;
     statut: string;
+    teamId?:number;
+    chatTeamId:number
   }

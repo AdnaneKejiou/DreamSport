@@ -6,6 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SiteM } from 'src/app/core/models/Site/siteM';
 import { CloudflareService } from 'src/app/core/service/Cloudflare/cloudflare.service';
 import { from } from 'rxjs';
+import { Route, Router } from '@angular/router';
+import { routes } from 'src/app/core/core.index';
 
 @Component({
   selector: 'app-site',
@@ -19,12 +21,15 @@ export class SiteComponent implements OnInit {
   currentUploadField: string | null = null;
   backendErrors: any = {};
   private Site: any;
+  public routes = routes;
+  
 
   constructor(
     private fb: FormBuilder,
     private siteService: SiteService,
     private toastr: ToastrService,
     private cloudflareService: CloudflareService,
+    private router:Router
   ) {
     this.siteForm = this.fb.group({
       Id: [''],
@@ -80,50 +85,41 @@ export class SiteComponent implements OnInit {
 
     const file = input.files[0];
     if (!file.type.match('image.*')) {
-      this.toastr.warning('Please select an image file', 'Invalid File');
-      return;
+        this.toastr.warning('Please select an image file', 'Invalid File');
+        return;
     }
 
     this.isUploading = true;
     this.currentUploadField = field;
 
-    // Create preview and validate dimensions
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      const img = new Image();
-      img.src = e.target.result;
-      
-      img.onload = () => {
-        if (field === 'Logo' && (img.width < 150 || img.height < 150)) {
-          this.toastr.warning('Logo must be at least 150×150 pixels');
-          this.isUploading = false;
-          this.currentUploadField = null;
-          input.value = '';
-          return;
-        }
-
-        // Upload to Cloudflare
-        from(this.cloudflareService.uploadFile(file)).subscribe({
-          next: (imageUrl) => {
-            this.siteForm.get(field)?.setValue(imageUrl);
-            this.toastr.success('Image uploaded successfully');
-            this.backendErrors[field] = null; // Clear any previous errors
-          },
-          error: (err) => {
-            console.error('Upload failed:', err);
-            this.toastr.error('Failed to upload image');
-            this.backendErrors[field] = 'Image upload failed';
-          },
-          complete: () => {
-            this.isUploading = false;
-            this.currentUploadField = null;
-            input.value = '';
-          }
-        });
-      };
+        const img = new Image();
+        img.src = e.target.result;
+        
+        img.onload = () => {
+           
+            from(this.cloudflareService.uploadFile(file)).subscribe({
+                next: (imageUrl) => {
+                    this.siteForm.get(field)?.setValue(imageUrl);
+                    this.toastr.success('Image uploaded successfully');
+                    this.backendErrors[field] = null;
+                },
+                error: (err) => {
+                    console.error('Upload failed:', err);
+                    this.toastr.error('Failed to upload image');
+                    this.backendErrors[field] = 'Image upload failed';
+                },
+                complete: () => {
+                    this.isUploading = false;
+                    this.currentUploadField = null;
+                    input.value = '';
+                }
+            });
+        };
     };
     reader.readAsDataURL(file);
-  }
+}
 
   removeBackground(): void {
     this.siteForm.get('Background')?.setValue('');
@@ -147,9 +143,13 @@ export class SiteComponent implements OnInit {
     this.siteService.updateSiteSettings(this.siteForm.value).subscribe({
       next: () => {
         this.toastr.success('Site settings saved successfully!');
+
         this.backendErrors = {}; // Clear all errors on success
         this.isSaving = false;
-      },
+        this.router.navigateByUrl(this.routes.userTeam).then(() => {
+          window.location.reload();
+        });      } 
+       ,
       error: (err: HttpErrorResponse) => {
         console.warn("das ",err);
         this.isSaving = false;
