@@ -1,4 +1,5 @@
-﻿using chatEtInvitation.Core.Interfaces.IRepositories;
+﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.Core.Interfaces.IRepositories;
 using chatEtInvitation.Core.Models;
 using gestionEmployer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -66,14 +67,27 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<TeamChatMessage>> GetTeamConversationWithStatutsAsync(int teamChatId)
+        public async Task<PaginatedResponse<TeamChatMessage>> GetTeamConversationWithStatutsAsync(int teamChatId, int page = 1, int pageSize = 20)
         {
-            return await _context.TeamChatMessages
+            var query = _context.TeamChatMessages
                 .Where(m => m.TeamChatId == teamChatId)
                 .Include(m => m.Statuts)
                     .ThenInclude(ms => ms.Statut)
-                .OrderBy(m => m.when)
+                .OrderBy(m => m.when);
+
+            var totalCount = await query.CountAsync();
+            var messages = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
+
+            return new PaginatedResponse<TeamChatMessage>
+            {
+                Items = messages,
+                TotalCount = totalCount,
+                Page = page,
+                PageSize = pageSize
+            };
         }
 
 

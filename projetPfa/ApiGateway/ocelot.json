@@ -571,9 +571,6 @@
             ],
             "UpstreamPathTemplate": "/gateway/terrain/{idAdmin}",
             "UpstreamHttpMethod": [ "GET" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer"
-            }
         },
         {
             // Route pour ajouter un terrain (POST)
@@ -1104,7 +1101,7 @@
             "UpstreamHttpMethod": [ "POST" ]
         },
         {
-            "DownstreamPathTemplate": "/api/chatamis/{chatAmisId}/conversation/{AdminId}",
+            "DownstreamPathTemplate": "/api/chatamis/{chatAmisId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -1113,7 +1110,12 @@
                 }
             ],
             "UpstreamPathTemplate": "/gateway/chatamis/{chatAmisId}/conversation",
-            "UpstreamHttpMethod": [ "GET" ]
+            "UpstreamHttpMethod": [ "GET" ],
+            "Priority": 0,
+            "AddQueriesToRequest": {
+                "page": "{page}",
+                "pageSize": "{pageSize}"
+            }
         },
 
         // Routes pour ChatTeamController
@@ -1130,7 +1132,7 @@
             "UpstreamHttpMethod": [ "GET" ]
         },
         {
-            "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/conversation/{AdminId}",
+            "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -1138,8 +1140,9 @@
                     "Port": 5270
                 }
             ],
-            "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/conversation/{AdminId}",
+            "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
             "UpstreamHttpMethod": [ "GET" ]
+
         },
         {
             "DownstreamPathTemplate": "/api/ChatTeam/mark-as-seen",

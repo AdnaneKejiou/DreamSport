@@ -55,15 +55,15 @@ namespace chatEtInvitation.Core.Services
             };
         }
 
-        public async Task<List<TeamMessageDTO>> GetFullTeamConversationAsync(int teamId, int adminId)
+        public async Task<PaginatedResponse<TeamMessageDTO>> GetFullTeamConversationAsync(int teamId, int adminId, int page = 1, int pageSize = 20)
         {
             var teamChat = await _chatRepository.ExisteChatTeamAsync(teamId);
             if (teamChat == null) return null;
 
-            var messages = await _chatRepository.GetTeamConversationWithStatutsAsync(teamChat.Id);
+            var paginatedMessages = await _chatRepository.GetTeamConversationWithStatutsAsync(teamChat.Id, page, pageSize);
             var result = new List<TeamMessageDTO>();
 
-            foreach (var message in messages)
+            foreach (var message in paginatedMessages.Items)
             {
                 var emetteur = await _userService.FetchUserAsync(message.Emetteur, adminId);
                 var statut = message.Statuts.FirstOrDefault()?.Statut?.libelle;
@@ -83,7 +83,13 @@ namespace chatEtInvitation.Core.Services
                 });
             }
 
-            return result;
+            return new PaginatedResponse<TeamMessageDTO>
+            {
+                Items = result,
+                TotalCount = paginatedMessages.TotalCount,
+                Page = paginatedMessages.Page,
+                PageSize = paginatedMessages.PageSize
+            };
         }
         public async Task MarkMessagesAsSeenAsync(List<int> messageIds, int userId)
         {

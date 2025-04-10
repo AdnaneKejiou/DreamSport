@@ -11,7 +11,7 @@ namespace chatEtInvitation.Core.Interfaces.IRepositories
         Task<ChatAmisMessage> CreateAmisMessageAsync(ChatAmisMessage message);
         Task AddMessageStatutAsync(MessageStatut statut);
         Task<AmisChat> GetChatAmisByIdAsync(int Id);
-        Task<List<ChatAmisMessage>> GetConversationAsync(int chatAmisId);
+        Task<PaginatedResponse<ChatAmisMessage>> GetConversationAsync(int chatAmisId,int page,int pageSize);
 
     }
 }

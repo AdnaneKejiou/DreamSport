@@ -42,14 +42,16 @@ namespace chatEtInvitation.API.Controllers
             }
         }
 
-        // Dans chatEtInvitation.API.Controllers.ChatTeamController
         [HttpGet("{teamId}/conversation/{AdminId}")]
-        public async Task<ActionResult<List<TeamMessageDTO>>> GetFullConversation(
-            int teamId, int adminId)
+        public async Task<ActionResult<PaginatedResponse<TeamMessageDTO>>> GetFullConversation(
+            int teamId,
+            int adminId,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20)
         {
             try
             {
-                var result = await _teamChatService.GetFullTeamConversationAsync(teamId, adminId);
+                var result = await _teamChatService.GetFullTeamConversationAsync(teamId, adminId, page, pageSize);
 
                 if (result == null)
                 {

@@ -67,11 +67,15 @@ namespace chatEtInvitation.API.Controllers
         }
 
         [HttpGet("{chatAmisId}/conversation/{AdminId}")]
-        public async Task<ActionResult<List<AmisMessageDTO>>> GetConversation(int chatAmisId, int adminId)
+        public async Task<ActionResult<PaginatedResponse<AmisMessageDTO>>> GetConversation(
+          int chatAmisId,
+          int adminId,
+         [FromQuery] int page = 1,
+         [FromQuery] int pageSize = 20)
         {
             try
             {
-                var result = await _chatAmisService.GetAmisConversationAsync(chatAmisId, adminId);
+                var result = await _chatAmisService.GetAmisConversationAsync(chatAmisId, adminId, page, pageSize);
                 return Ok(result);
             }
             catch (Exception ex)
