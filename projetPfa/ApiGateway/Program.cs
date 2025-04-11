@@ -51,6 +51,7 @@ app.UseCors();
 app.UseMiddleware<TenantMiddleware>();
 app.UseMiddleware<TenantMiddlewareHandler>();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseOcelot().Wait();

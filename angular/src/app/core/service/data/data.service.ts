@@ -702,13 +702,13 @@ export class DataService {
     Array<usermenu>
   >(this.userMenus);
   public coachPages: Array<coachPages> = [
-    {
+    /*{
       title: 'Dashboard',
       img: 'assets/img/icons/dashboard-icon.svg',
       route: routes.coachDashboard,
       page: 'dashboard',
       span: false,
-    },
+    },*/
     {
       title: 'Courts',
       img: 'assets/img/icons/court-icon.svg',
@@ -723,7 +723,7 @@ export class DataService {
       page: 'requests',
       span: true,
     },
-    {
+    /*{
       title: 'Bookings',
       img: 'assets/img/icons/booking-icon.svg',
       route: routes.coachBooking,
@@ -736,7 +736,7 @@ export class DataService {
       route: routes.coachEarning,
       page: 'earnings',
       span: false,
-    },
+    },*/
     {
       title: 'Users',
       img: 'assets/img/icons/profile-icon.svg',
@@ -758,13 +758,13 @@ export class DataService {
     
     
     public adminPages: Array<adminPages> =  [
-      {
+     /* {
         title: 'Dashboard',
         img: 'assets/img/icons/dashboard-icon.svg',
         route: routes.adminDashboard,
         page: 'dashboard',
         span: false,
-      },
+      },*/
       {
         title: 'Employees',
         img: 'assets/img/icons/employee.svg',
