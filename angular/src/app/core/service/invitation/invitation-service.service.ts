@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { environment } from 'src/environments/environment';
 import { AddInvMemberDto } from 'src/app/core/models/add-inv-member-dto';
 import { MemberInvitationDTOO } from 'src/app/core/models/member-invitation-dto';
-import { catchError, forkJoin, map, Observable, of, switchMap, throwError } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { SendTeamInvitationDTO, TeamInvitationDTO } from '../../models/TeamInvitationDTO.model';
 import { EquipeService } from '../equipe/equipe.service';
@@ -19,6 +19,10 @@ export class InvitationService {
 
   sendInvitation(invitation: AddInvMemberDto): Observable<any> {
     return this.http.post(`${this.baseUrl}/send`, invitation);
+  }
+  // Dans InvitationService
+  checkFriendship(idMember1: number, idMember2: number): Observable<boolean> {
+    return this.http.get<boolean>(`${environment.apiUrl}/chatamis/isAmisChat/${idMember1}/${idMember2}`);
   }
 
   acceptInvitation(invitationId: number): Observable<any> {
@@ -174,6 +178,7 @@ export class InvitationService {
   acceptTeamInvitation(invitationId: number): Observable<any> {
     return this.http.post(`${this.baseUrlTeam}/accepter/${invitationId}`, {});
   }
+
 
   refuseTeamInvitation(invitationId: number): Observable<any> {
     return this.http.delete(`${this.baseUrlTeam}/Refuser/${invitationId}`);

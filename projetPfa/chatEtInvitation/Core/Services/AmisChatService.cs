@@ -161,6 +161,14 @@ namespace chatEtInvitation.Core.Services
             };
         }
 
-       
+        public async Task<bool> AmisChatCheck(int idMember1, int idMember2, int AdminId)
+        {
+            return await _chatRepository.AmisChatCheck(idMember1, idMember2, AdminId) != null;
+        }
+
+
+
+
+
     }
 }

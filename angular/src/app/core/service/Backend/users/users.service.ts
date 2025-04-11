@@ -67,6 +67,8 @@ export class UsersService {
       return this.http.put(`${this.apiUrl}/${userId}/status`, { isBlocked });
     }
 
+
+
     chnagePassword(user:changePassword): Observable<any> {
         const url = `${this.apiUrl}/changePassworduser`;
         return this.http.put<any>(url, user, this.httpOptions).pipe(
@@ -93,6 +95,7 @@ export class UsersService {
       const backendUser = this.mapToBackend(user);
       return this.http.put(this.apiUrl, user, this.httpOptions);
     }
+
 
     private mapToFrontend(backendUser: BackendUser): User {
       return {

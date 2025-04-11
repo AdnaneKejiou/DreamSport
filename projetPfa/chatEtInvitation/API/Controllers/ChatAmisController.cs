@@ -84,5 +84,13 @@ namespace chatEtInvitation.API.Controllers
                 return StatusCode(500, "Erreur lors de la récupération de la conversation");
             }
         }
+
+        [HttpGet("isAmisChat/{idMember1}/{idMember2}/{AdminId}")]
+        public async Task<IActionResult> SearchUsersAsync(int idMember1, int idMember2, int AdminId)
+        {
+            var result = await _chatAmisService.AmisChatCheck(idMember1, idMember2, AdminId);
+            return Ok(result);
+        }
+
     }
 }

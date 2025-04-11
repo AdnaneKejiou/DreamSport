@@ -1088,6 +1088,19 @@
             "UpstreamPathTemplate": "/gateway/chatamis/{userId}/{AdminId}",
             "UpstreamHttpMethod": [ "GET" ]
         },
+
+        {
+            "DownstreamPathTemplate": "/api/chatamis/isAmisChat/{idMember1}/{idMember2}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatamis/isAmisChat/{idMember1}/{idMember2}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
             "DownstreamPathTemplate": "/api/chatamis/send",
             "DownstreamScheme": "http",

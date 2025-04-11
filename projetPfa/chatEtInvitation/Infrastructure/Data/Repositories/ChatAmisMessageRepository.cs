@@ -85,5 +85,17 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
             };
         }
 
+        public async Task<AmisChat> AmisChatCheck(int idMember1, int idMember2, int AdminId)
+        {
+            return await _context.AmisChats
+                .Where(c =>
+                    ((c.Member1 == idMember1 && c.Member2 == idMember2) ||
+                     (c.Member1 == idMember2 && c.Member2 == idMember1)) &&
+                     c.AdminId == AdminId)
+                .FirstOrDefaultAsync();
+        }
+
+
+
     }
 }
