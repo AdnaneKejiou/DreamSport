@@ -559,101 +559,102 @@
 
     //--------------------------------------------------------Gestion des Terrains-------------------------------------------
 
-    {
-      // Route pour récupérer les terrains d'un administrateur (GET)
-      "DownstreamPathTemplate": "/api/terrain/{idAdmin}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain/{idAdmin}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      // Route pour ajouter un terrain (POST)
-      "DownstreamPathTemplate": "/api/terrain",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour récupérer les terrains d'un administrateur (GET)
+            "DownstreamPathTemplate": "/api/terrain/{idAdmin}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain/{idAdmin}",
+            "UpstreamHttpMethod": [ "GET" ],
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain",
-      "UpstreamHttpMethod": [ "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      }
-    },
-    {
-      // Route pour mettre à jour un terrain (PUT)
-      "DownstreamPathTemplate": "/api/terrain",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour ajouter un terrain (POST)
+            "DownstreamPathTemplate": "/api/terrain",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain",
+            "UpstreamHttpMethod": [ "POST" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {
+                "Role": "Admin"
+            }
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-    {
-      // Route pour supprimer un terrain (DELETE)
-      "DownstreamPathTemplate": "/api/terrain/{id}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour mettre à jour un terrain (PUT)
+            "DownstreamPathTemplate": "/api/terrain",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain",
+            "UpstreamHttpMethod": [ "PUT" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain/{id}/{AdminId}",
-      "UpstreamHttpMethod": [ "DELETE" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      }
-    },
-    {
-      // intern
-      "DownstreamPathTemplate": "/api/terrain/by-id/{id}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            // Route pour supprimer un terrain (DELETE)
+            "DownstreamPathTemplate": "/api/terrain/{id}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain/{id}/{AdminId}",
+            "UpstreamHttpMethod": [ "DELETE" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {
+                "Role": "Admin"
+            }
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/terrain/update-status",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            //intern
+            // Route pour Get terrain by id
+            "DownstreamPathTemplate": "/api/terrain/by-id/{id}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5150
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/terrain/update-status",
-      "UpstreamHttpMethod": [ "PUT" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Employee"
-      }
-    },
+            "DownstreamPathTemplate": "/api/terrain/update-status",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5150
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/terrain/update-status",
+            "UpstreamHttpMethod": [ "PUT" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {
+                "Role": "Employee"
+            }
+        },
 
     //--------------------------------------------------------Gestion des Statuts de Terrains-------------------------------------------
 
@@ -1074,105 +1075,111 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
-    // Routes pour ChatAmisController
-    {
-      "DownstreamPathTemplate": "/api/chatamis/{userId}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+        // Routes pour ChatAmisController
         {
-          "Host": "localhost",
-          "Port": 5270
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/chatamis/{userId}/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/chatamis/send",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/chatamis/{userId}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatamis/{userId}/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5270
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/chatamis/send",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/chatamis/{chatAmisId}/conversation/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/chatamis/send",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatamis/send",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5270
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/chatamis/{chatAmisId}/conversation",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
+            "DownstreamPathTemplate": "/api/chatamis/{chatAmisId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatamis/{chatAmisId}/conversation",
+            "UpstreamHttpMethod": [ "GET" ],
+            "Priority": 0,
+            "AddQueriesToRequest": {
+                "page": "{page}",
+                "pageSize": "{pageSize}"
+            }
+        },
 
-    // Routes pour ChatTeamController
-    {
-      "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/members/{memberId}/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+        // Routes pour ChatTeamController
         {
-          "Host": "localhost",
-          "Port": 5270
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/members/{memberId}/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/conversation/{AdminId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/members/{memberId}/{AdminId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/members/{memberId}/{AdminId}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5270
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/conversation/{AdminId}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/ChatTeam/mark-as-seen",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
+            "UpstreamHttpMethod": [ "GET" ]
+
+        },
         {
-          "Host": "localhost",
-          "Port": 5270
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/chatteam/mark-as-seen",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/ChatTeam/mark-all-as-seen",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/ChatTeam/mark-as-seen",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatteam/mark-as-seen",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5270
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/chatteam/mark-all-as-seen",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/ChatTeam/send",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/ChatTeam/mark-all-as-seen",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatteam/mark-all-as-seen",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "localhost",
-          "Port": 5270
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/chatteam/send",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
+            "DownstreamPathTemplate": "/api/ChatTeam/send",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5270
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/chatteam/send",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
 
 
     {

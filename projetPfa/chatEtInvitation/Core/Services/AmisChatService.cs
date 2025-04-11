@@ -124,12 +124,13 @@ namespace chatEtInvitation.Core.Services
                 
             };
         }
-        public async Task<List<AmisMessageDTO>> GetAmisConversationAsync(int chatAmisId, int adminId)
+        public async Task<PaginatedResponse<AmisMessageDTO>> GetAmisConversationAsync(int chatAmisId, int adminId , int page = 1,
+        int pageSize = 20)
         {
-            var messages = await _chatRepository.GetConversationAsync(chatAmisId);
+            var messages = await _chatRepository.GetConversationAsync(chatAmisId,page,pageSize);
             var result = new List<AmisMessageDTO>();
 
-            foreach (var message in messages)
+            foreach (var message in messages.Items)
             {
                 var emetteur = await _userService.FetchUserAsync(message.Emetteur, adminId);
 
@@ -151,7 +152,13 @@ namespace chatEtInvitation.Core.Services
                 });
             }
 
-            return result;
+            return new PaginatedResponse<AmisMessageDTO>
+            {
+                Items = result,
+                TotalCount = messages.TotalCount,
+                Page = messages.Page,
+                PageSize = messages.PageSize
+            };
         }
 
        

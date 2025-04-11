@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { TeamChatReturnedDTO } from '../../models/chat/team-chat-returned.dto';
 import { TeamMessageDTO } from '../../models/chat/team-message.dto';
 import { SendTeamMessageDTO } from '../../models/chat/send-team-message.dto';
+import { PaginatedResponse } from '../../models/chat/amis-chat-returned.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,13 @@ export class ChatTeamService {
     );
   }
 
-  getFullConversation(teamId: number): Observable<TeamMessageDTO[]> {
-    return this.http.get<TeamMessageDTO[]>(
-      `${this.baseUrl}/${teamId}/conversation`
+  getFullConversation(teamId: number, page: number = 1, pageSize: number = 20): Observable<PaginatedResponse<TeamMessageDTO>> {
+    return this.http.get<PaginatedResponse<TeamMessageDTO>>(
+      `${this.baseUrl}/${teamId}/conversation`,
+      { params: { page: page.toString(), pageSize: pageSize.toString() } }
     );
   }
-
+   
   markMultipleAsSeen(messageIds: number[], userId: number): Observable<void> {
     const request = {
       messageIds: messageIds,

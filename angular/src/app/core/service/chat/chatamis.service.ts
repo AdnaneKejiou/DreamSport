@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AmisChatReturnedDTO } from '../../models/chat/amis-chat-returned.dto';
+import { AmisChatReturnedDTO, PaginatedResponse } from '../../models/chat/amis-chat-returned.dto';
 import { SendAmisMessageDTO } from '../../models/chat/send-amis-message.dto';
 import { AmisMessageDTO } from '../../models/chat/amis-message.dto';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +23,10 @@ export class ChatAmisService {
     return this.http.post<AmisMessageDTO>(`${this.baseUrl}/send`, messageDto);
   }
 
-  getConversation(chatAmisId: number): Observable<AmisMessageDTO[]> {
-    return this.http.get<AmisMessageDTO[]>(
-      `${this.baseUrl}/${chatAmisId}/conversation`
+  getConversation(chatAmisId: number, page: number = 1, pageSize: number = 20): Observable<PaginatedResponse<AmisMessageDTO>> {
+    return this.http.get<PaginatedResponse<AmisMessageDTO>>(
+      `${this.baseUrl}/${chatAmisId}/conversation`,
+      { params: { page: page.toString(), pageSize: pageSize.toString() } }
     );
   }
   markMultipleAsSeen(messageIds: number[], userId: number): Observable<void> {

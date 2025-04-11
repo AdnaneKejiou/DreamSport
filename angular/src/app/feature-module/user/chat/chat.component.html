@@ -6,20 +6,25 @@
             <div class="chat-cont-left">
                 <form class="chat-search">
                     <div class="form-custom">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" 
+                               class="form-control" 
+                               placeholder="Search by name or last message"
+                               [(ngModel)]="searchTerm"
+                               name="searchTerm"
+                               (input)="cdRef.detectChanges()">
                     </div>
                 </form>
                 <div class="chat-users-list">
                     <h3>Contacts</h3>
                     <div class="chat-scroll">
                         <!-- No chats message -->
-                        <div *ngIf="amisChats.length === 0 && teamChats.length === 0" class="text-center p-3 text-muted">
-                            No chats available
+                        <div *ngIf="filteredAmisChats().length === 0 && filteredTeamChats().length === 0" class="text-center p-3 text-muted">
+                            {{searchTerm ? 'No chats found' : 'No chats available'}}
                         </div>
 
                         <!-- Friend chats -->
                         <a href="javascript:void(0);" class="media" 
-                           *ngFor="let chat of amisChats"
+                           *ngFor="let chat of filteredAmisChats()"
                            [ngClass]="{'read-chat active': isActiveAmisChat(chat)}"
                            (click)="chatOpen(chat)">
                             <div class="media-img-wrap">
@@ -46,7 +51,7 @@
 
                         <!-- Team chats -->
                         <a href="javascript:void(0);" class="media" 
-                           *ngFor="let chat of teamChats"
+                           *ngFor="let chat of filteredTeamChats()"
                            [ngClass]="{'read-chat active': isActiveTeamChat(chat)}"
                            (click)="chatOpen(chat)">
                             <div class="media-img-wrap">
@@ -89,7 +94,6 @@
                         <div class="media-body">
                             <div class="user-name">
                                 {{getSelectedChatName()}}
-                              
                             </div>
                         </div>
                     </div>
@@ -122,16 +126,21 @@
 
                 <div class="chat-body">
                     <div class="chat-scroll">
-                        <!-- Loading indicator -->
+                        <!-- Loading more indicator -->
+                        <div *ngIf="pagination.loadingMore" class="text-center p-2">
+                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                <span class="sr-only">Loading more messages...</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Initial loading indicator -->
                         <div *ngIf="initialLoad" class="text-center p-3">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="sr-only">Loading messages...</span>
                             </div>
                             <p class="mt-2">Loading messages...</p>
                         </div>
-
                        
-                        
                         <!-- No messages -->
                         <div *ngIf="!initialLoad && !loading && messages.length === 0" class="text-center p-3 text-muted">
                             Start the conversation!
@@ -194,24 +203,21 @@
                                 <div class="avatar" *ngIf="getMessageSenderId(message) === currentUserId">
                                     <img [src]="getMessageSenderAvatar(message)" alt="User Image" class="avatar-img rounded-circle">
                                 </div>
-               
                             </li>
-                                                  <!-- Typing indicator -->
-                 <li *ngIf="isTyping && typingUserId !== currentUserId" class="typing-indicator">
-                    <div class="dots">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                    <span>{{typingUserName}} is typing</span>
-                </li>
+                            
+                            <!-- Typing indicator -->
+                            <li *ngIf="isTyping && typingUserId !== currentUserId" class="typing-indicator">
+                                <div class="dots">
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+                                <span>{{typingUserName}} is typing</span>
+                            </li>
                         </ul>
                     </div>
-
+                </div>
                 
-         </div>
-                
-
                 <div class="chat-footer">
                     <div class="form-custom">
                         <div class="input-group-prepend">

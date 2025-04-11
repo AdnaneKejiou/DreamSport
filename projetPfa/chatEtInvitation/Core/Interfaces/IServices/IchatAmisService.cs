@@ -6,7 +6,7 @@ namespace chatEtInvitation.Core.Interfaces.IServices
     {
         Task<List<AmisChatReturnedDTO>> GetAmisChatInfoAsync(int userId);
         Task<AmisMessageDTO> SendAmisMessageAsync(SendAmisMessageDTO messageDto);
-        Task<List<AmisMessageDTO>> GetAmisConversationAsync(int chatAmisId, int adminId);
+        Task<PaginatedResponse<AmisMessageDTO>> GetAmisConversationAsync(int chatAmisId, int adminId,int page,int pageSize);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using chatEtInvitation.Core.Interfaces.IRepositories;
+﻿using chatEtInvitation.API.DTOs;
+using chatEtInvitation.Core.Interfaces.IRepositories;
 using chatEtInvitation.Core.Models;
 using gestionEmployer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -61,16 +62,28 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
                     s.Statut.libelle != "Seen" &&
                     s.IsTeam == false));
         }
-        public async Task<List<ChatAmisMessage>> GetConversationAsync(int chatAmisId)
+        public async Task<PaginatedResponse<ChatAmisMessage>> GetConversationAsync(int chatAmisId, int page, int pageSize)
         {
-            return await _context.ChatAmisMessages
+            var query = _context.ChatAmisMessages
                 .Where(m => m.ChatAmisId == chatAmisId)
                 .Include(m => m.Statuts)
                     .ThenInclude(ms => ms.Statut)
-                .OrderBy(m => m.when)
-                .ToListAsync();
-        }
+                .OrderByDescending(m => m.when); // Changé OrderBy en OrderByDescending
 
+            var totalCount = await query.CountAsync();
+            var messages = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PaginatedResponse<ChatAmisMessage>
+            {
+                Items = messages,
+                TotalCount = totalCount,
+                Page = page,
+                PageSize = pageSize
+            };
+        }
 
     }
 }
