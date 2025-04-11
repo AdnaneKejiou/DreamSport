@@ -60,17 +60,19 @@ namespace gestionEmployer.Infrastructure.Data.Repositories
         }
         public async Task<Admin?> UpdateAdminAsync(Admin admin)
         {
-            var trackedEntity = _context.Employers.Local.FirstOrDefault(e => e.Id == admin.Id);
-            if (trackedEntity != null)
+            var tracked = _context.ChangeTracker.Entries<Admin>()
+                .FirstOrDefault(e => e.Entity.Id == admin.Id);
+
+            if (tracked != null)
             {
-                _context.Entry(trackedEntity).State = EntityState.Detached; // Detach the old entity
+                _context.Entry(tracked.Entity).State = EntityState.Detached;
             }
 
-            _context.Admins.Attach(admin);
             _context.Entry(admin).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
             return admin;
         }
+
     }
 }

@@ -36,8 +36,9 @@ constructor(private Router: Router, private dataservice: DataService,private com
   this.Router.events.subscribe((data: RouterEvent) => {
     if (data instanceof NavigationStart) {
       this.setRouting(data);
-      console.log("currentUrl",this.currentUrl)
-      console.log("end",this.end)
+      console.log("currentUrl",this.currentUrl);
+      console.log("end",this.end);
+      console.log("last",this.last);
     }
     if (this.currentUrl == routes.coachCourts) {
       this.end = 'Courts';

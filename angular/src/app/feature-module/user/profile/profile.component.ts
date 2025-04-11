@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/core/service/auth/authservice';
 import { from } from 'rxjs';
 import { User } from 'src/app/core/models/user.model';
 import { CloudflareService } from 'src/app/core/service/Cloudflare/cloudflare.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +27,8 @@ export class ProfileComponent implements OnInit {
     private usersService: UsersService,
     private toastr: ToastrService,
     private cloudflareService: CloudflareService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router:Router
   ) {
     this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -162,6 +164,22 @@ export class ProfileComponent implements OnInit {
         this.userData = updatedUser;
         this.isLoading = false;
         this.selectedFile = null;
+        const storedUser = localStorage.getItem('user_data');
+        if (storedUser) {
+          // Parse the JSON string to an object
+          const user = JSON.parse(storedUser);
+          console.log("up : ", data)
+          // Modify only the 'name' property
+          user.Nom = data.lastName;
+          user.Prenom = data.firstName;
+          user.ImageUrl = data.imageUrl;
+        
+          // Save the updated object back to localStorage
+          localStorage.setItem('user_data', JSON.stringify(user));
+          this.router.navigateByUrl(this.routes.userProfile).then(() => {
+            window.location.reload();
+          }); 
+        }
         this.toastr.success('Profile updated successfully');
       },
       error: (err) => {

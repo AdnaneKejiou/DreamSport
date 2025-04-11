@@ -15,13 +15,6 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'othersetting',
-        loadChildren: () =>
-          import('./othersetting/othersetting.module').then(
-            (m) => m.OthersettingModule
-          ),
-      },
-      {
         path: 'setting-password',
         loadChildren: () =>
           import('./setting-password/setting-password.module').then(

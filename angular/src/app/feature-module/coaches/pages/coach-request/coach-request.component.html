@@ -31,21 +31,7 @@
                             </label>
                           </div>
                         </div>
-                        <div class="card-header-btns">
-                          <nav>
-                            <div class="nav nav-tabs" role="tablist">
-                              <button class="nav-link active" id="nav-Recent-tab"
-                                data-bs-toggle="tab" data-bs-target="#nav-Recent"
-                                type="button" role="tab" aria-controls="nav-Recent"
-                              aria-selected="true">Court</button>
-                              <button class="nav-link" id="nav-RecentCoaching-tab"
-                                data-bs-toggle="tab"
-                                data-bs-target="#nav-RecentCoaching" type="button"
-                                role="tab" aria-controls="nav-RecentCoaching"
-                              aria-selected="false">Coaching</button>
-                            </div>
-                          </nav>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -62,7 +48,6 @@
                             <th mat-sort-header="user.nom">Player name</th>
                             <th mat-sort-header="dateRes">Date & Time</th>
                             <th mat-sort-header="status.libelle">Status</th>
-                            <th mat-sort-header="action"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -102,14 +87,6 @@
                                 <span >
                                   {{reservation.status.libelle}}
                                 </span>
-                              </td>
-                              <td class="table-accept-btn text-end">
-                                <button class="btn accept-btn" (click)="onAccepteSubmit(reservation.id)">
-                                  <i class="feather icon-check-circle"></i> Accept
-                                </button>
-                                <a href="javascript:void(0);" class="btn cancel-table-btn" data-bs-toggle="modal" data-bs-target="#request-rejectt" (click)="openRejectModal(reservation)">
-                                  <i class="feather icon-x-circle"></i> Reject
-                                </a>
                               </td>
                             </tr>
                           }

@@ -167,13 +167,13 @@ export class AuthService {
     const decodedToken: DecodedToken | null = userData ? JSON.parse(userData) as DecodedToken : null;
     console.log("role : ",decodedToken);
     if(decodedToken && decodedToken.Role === UserType.ADMIN){
-      this.router.navigate(['/admin/dashboard']);
+      this.router.navigate(['/admin/employees']);
       return;
     }else if( decodedToken && decodedToken.Role === UserType.CLIENT){
       this.router.navigate(['/user/user-dashboard']);
       return;
     }else if( decodedToken && decodedToken.Role === UserType.EMPLOYEE){
-      this.router.navigate(['/coaches/pages/dashboard']);
+      this.router.navigate(['/coaches/pages/requests']);
       return;
     }
   }

@@ -7,6 +7,7 @@ import { CloudflareService } from 'src/app/core/service/Cloudflare/cloudflare.se
 import { EmployeesService } from 'src/app/core/service/Backend/employees/employees.service';
 import { AuthService } from 'src/app/core/service/auth/authservice';
 import { from } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-coach-profile',
@@ -26,7 +27,8 @@ export class CoachProfileComponent implements OnInit {
     private employeeService: EmployeesService,
     private toastr: ToastrService,
     private cloudflareService: CloudflareService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router:Router 
   ) {
     this.employeeForm = this.fb.group({
       nom: ['', Validators.required],
@@ -164,6 +166,22 @@ export class CoachProfileComponent implements OnInit {
         this.employeeData = updatedEmployee; // Update local data with server response
         this.isLoading = false;
         this.selectedFile = null;
+        const storedUser = localStorage.getItem('user_data');
+        if (storedUser) {
+          // Parse the JSON string to an object
+          const user = JSON.parse(storedUser);
+        
+          // Modify only the 'name' property
+          user.Nom = data.nom;
+          user.Prenom = data.prenom;
+          user.ImageUrl = data.imageUrl;
+        
+          // Save the updated object back to localStorage
+          localStorage.setItem('user_data', JSON.stringify(user));
+          this.router.navigateByUrl(this.routes.userProfile).then(() => {
+            window.location.reload();
+          }); 
+        }
         this.toastr.success('Profile updated successfully');
       },
       error: (err) => {
