@@ -740,7 +740,7 @@ export class DataService {
     {
       title: 'Users',
       img: 'assets/img/icons/profile-icon.svg',
-      page: 'Users',
+      page: 'users',
       route: routes.coachUsers,
       span: false,
     },

@@ -9,7 +9,6 @@ import {
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../service/auth/authservice';
 import { Router } from '@angular/router';
-import { selectTenantId } from '../../core/store/tenant/tenant.selectors';
 import { Store} from '@ngrx/store';
 
 @Injectable()
