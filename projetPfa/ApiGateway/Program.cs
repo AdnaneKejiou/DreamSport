@@ -50,6 +50,7 @@ app.UseCors();
 
 app.UseMiddleware<TenantMiddleware>();
 app.UseMiddleware<TenantMiddlewareHandler>();
+app.UseMiddleware<TenantComparingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

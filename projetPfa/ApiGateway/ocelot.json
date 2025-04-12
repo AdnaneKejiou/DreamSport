@@ -1415,7 +1415,13 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/Login/RefreshToken",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      "CorsOptions": {
+        "AllowedOrigins": [ "https://localhost:4200" ], // Replace with your frontend URL
+        "AllowCredentials": true, // Allow cookies to be sent and received
+        "AllowedHeaders": [ "*" ],
+        "AllowedMethods": [ "GET", "POST", "PUT", "DELETE" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/Login/Logout",

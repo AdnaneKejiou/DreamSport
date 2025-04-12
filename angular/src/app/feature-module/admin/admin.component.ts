@@ -36,8 +36,8 @@ export class AdminComponent {
     this.Router.events.subscribe((data: RouterEvent) => {
       if (data instanceof NavigationStart) {
         this.setRouting(data);
-        console.log("currentUrl",this.currentUrl)
-        console.log("end",this.end)
+        console.log("currentUrl",this.currentUrl);
+        console.log("page",this.page);
       }
       
     });

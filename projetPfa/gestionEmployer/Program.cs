@@ -5,6 +5,8 @@ using gestionEmployer.Infrastructure.Data.Repositories;
 using gestionEmployer.Core.Services;
 using gestionEmployer.Infrastructure.ExternServices;
 using Shared.Messaging.Services;
+using gestionEmployer.Core.Interfaces.CasheInterfaces;
+using StackExchange.Redis;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -22,7 +24,23 @@ builder.Services.AddScoped<IPasswordServiceAdmin, PasswordServiceAdmin>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<ISiteService, SiteService>();
 
+builder.Services.AddMemoryCache();
 
+var redisConnection = builder.Configuration.GetValue<string>("RedisConnection"); // Get Redis connection string from appsettings
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnection));
+
+builder.Services.AddSingleton<IRedisCacheService, RedisCacheService>();
+builder.Services.AddSingleton<ICacheService, LazyCacheDecorator>();
+
+builder.Services.AddSingleton<InMemoryCacheService>();
+builder.Services.AddSingleton<RedisCacheService>();
+
+builder.Services.AddSingleton<ICacheService>(sp =>
+{
+    var memory = sp.GetRequiredService<InMemoryCacheService>();
+    var redis = sp.GetRequiredService<RedisCacheService>();
+    return new LazyCacheDecorator(memory, redis);
+});
 
 var app = builder.Build();
 

@@ -2,6 +2,7 @@
 using gestionEmployer.API.DTOs.EmployeeDTO;
 using gestionEmployer.API.Mappers;
 using gestionEmployer.Core.Interfaces;
+using gestionEmployer.Core.Interfaces.CasheInterfaces;
 using gestionEmployer.Core.Models;
 using gestionEmployer.Infrastructure.Data.Repositories;
 using gestionEmployer.Infrastructure.ExternServices;
@@ -12,23 +13,42 @@ namespace gestionEmployer.Core.Services
 {
     public class AdminService : IAdminService
     {
+        private readonly ICacheService _cacheService;
         private readonly IAdminRepository _adminRepository;
         private readonly IMailService _mailService;
 
-        public AdminService(IAdminRepository adminRepository, IMailService mailService)
+        public AdminService(IAdminRepository adminRepository, IMailService mailService, ICacheService cacheService)
         {
             _adminRepository = adminRepository;
             _mailService = mailService;
+            _cacheService = cacheService;
         }
 
         public bool ValidateTenant(int tenantId)
         {
-            return _adminRepository.IsTenantValid(tenantId);
+            Admin admin = this.GetAdmin(tenantId);
+            if(admin == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         public Admin? GetAdmin(int tenantId)
         {
-            return _adminRepository.GetAdminByTenantId(tenantId);
+            string cacheKey = $"admin:{tenantId}";
+
+            Admin admin = _cacheService.Get<Admin>(cacheKey);
+            if (admin == null)
+            {
+                // If not found in cache, fetch from DB
+                admin = _adminRepository.GetAdminByTenantId(tenantId);
+
+                // Cache the result in both L1 and L2
+                _cacheService.Set(cacheKey, admin, TimeSpan.FromMinutes(5));  // Set TTL as needed
+            }
+
+            return admin;
         }
         public  AdminAddedDTO AjouterAdmin(Admin admin)
         {
@@ -113,7 +133,7 @@ namespace gestionEmployer.Core.Services
         public async Task<ReturnForgotPasswordDTO> RecupererPasswodAsync(recoverPass dto)
         {
             // Recherche l'utilisateur par email
-            Admin user = _adminRepository.GetAdminByTenantId(dto.AdminId);
+            Admin user = this.GetAdmin(dto.AdminId);
             if (user == null || !user.Email.Equals(dto.Email))
             {
                 var Returnto = EmployeeMapper.recoverTOreturn(dto);
@@ -129,7 +149,12 @@ namespace gestionEmployer.Core.Services
             user.Password = nouveauMotDePasse;
 
             // Mise à jour dans la base de données
-            await _adminRepository.UpdateAdminAsync(user);
+            Admin result = await _adminRepository.UpdateAdminAsync(user);
+            if(result == null)
+            {
+                return ReturnDto;
+            }
+            _cacheService.Remove($"admin:{dto.AdminId}");
 
             EmailRequest emailRequest = new EmailRequest(user.Email, nouveauMotDePasse, user.Nom, user.Prenom);
             await _mailService.NewEmployeeMail(emailRequest, user.Id);
@@ -147,7 +172,7 @@ namespace gestionEmployer.Core.Services
         public async Task<ReturnUpdatedAdminDto?> UpdateAdminAsync(Admin admin)
         {
             // Récupérer l'employé existant
-            Admin existingAdmin = await _adminRepository.GetAdminAsync(admin.Id)
+            Admin existingAdmin = this.GetAdmin(admin.Id)
                                     ?? throw new KeyNotFoundException("Admin non trouvé.");
 
             // Liste pour stocker les erreurs trouvées
@@ -186,7 +211,11 @@ namespace gestionEmployer.Core.Services
             if (dto.Errors.Count() == 0)
             {
                 admin.Password = existingAdmin.Password;
-                var empp = await _adminRepository.UpdateAdminAsync(admin);
+                Admin empp = await _adminRepository.UpdateAdminAsync(admin);
+                if(empp != null)
+                {
+                    _cacheService.Remove($"admin:{admin.Id}");
+                }
             }
 
             return dto;
@@ -194,13 +223,24 @@ namespace gestionEmployer.Core.Services
 
         public async Task<ReturnAdminDto?> GetADminByIdAsync(int id)
         {
-            Admin admin = await _adminRepository.GetAdminAsync(id);
-            if(admin == null)
+            string cacheKey = $"admin:{id}";
+
+            Admin admin = await _cacheService.GetAsync<Admin>(cacheKey);
+            if (admin == null)
+            {
+                // If not found in cache, fetch from DB
+                admin = await _adminRepository.GetAdminAsync(id);
+
+                // Cache the result in both L1 and L2
+                await _cacheService.SetAsync(cacheKey, admin, TimeSpan.FromMinutes(5));  // Set TTL as needed
+            }
+            if (admin == null)
             {
                 return null;
             }
             ReturnAdminDto dto = AdminMapper.ModeltoReturn(admin);
             return dto;
+           
         }
 
     }

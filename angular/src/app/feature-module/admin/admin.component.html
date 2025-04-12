@@ -21,7 +21,7 @@
               <ul>
                 @for (mainMenus of adminPages; track mainMenus) {
                   <li>
-                    <a [routerLink] = "mainMenus.route" [class.active]="last === mainMenus.page">
+                    <a [routerLink] = "mainMenus.route" [class.active]="page === mainMenus.page">
                       <img [src]=mainMenus.img alt="Icon">
                       <span>{{mainMenus.title}}</span>
                      

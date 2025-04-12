@@ -790,14 +790,14 @@ export class DataService {
         title: 'FAQs',
         img: 'assets/img/icons/faqq.svg',
         route: routes.admin_faqs,
-        page: 'FAQs',
+        page: 'faqs',
         span: false,
       },
       {
         title: 'Courts',
         img: 'assets/img/icons/stadium.svg',
         route: routes.admin_courts,
-        page: 'Courts',
+        page: 'courts',
         span: false,
       },
       {

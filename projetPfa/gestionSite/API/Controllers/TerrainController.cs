@@ -113,14 +113,14 @@ namespace gestionSite.API.Controllers
 
         // Supprimer un terrain
         [HttpDelete("{id}/{AdminId}")]
-        public async Task<ActionResult<Terrain>> DeleteTerrainAsync(int id)
+        public async Task<ActionResult<Terrain>> DeleteTerrainAsync(int id, int adminId)
         {
             if (id <= 0)
             {
                 return BadRequest("The ID must be greater than 0.");
             }
 
-            var result = await _terrainService.DeleteTerrainAsync(id);
+            var result = await _terrainService.DeleteTerrainAsync(id,adminId);
 
             if (result == null)
             {
@@ -131,9 +131,9 @@ namespace gestionSite.API.Controllers
         }
 
         [HttpGet("by-id/{id}/{AdminId}")]
-        public async Task<IActionResult> GetTerrainByIdWithStatusAsync(int id)
+        public async Task<IActionResult> GetTerrainByIdWithStatusAsync(int id, int adminId)
         {
-            var terrain = await _terrainService.GetTerrainByIdWithStatusAsync(id);
+            var terrain = await _terrainService.GetTerrainByIdWithStatusAsync(id, adminId);
             if (terrain == null)
                 return NotFound();
 

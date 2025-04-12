@@ -151,12 +151,23 @@ export class AuthService {
     );
   }
   
-  refreshToken(): Observable<any> {
-    console.warn("asda");
+  getRefreshTokenFromCookie(): string | null {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith('refreshToken=')) {
+        return cookie.substring('refreshToken='.length);
+      }
+    }
+    return null;
+  }
 
+  refreshToken(): Observable<any> {
+    console.warn("Attempting to refresh token");
+  
     return this.http.post(`${this.apiUrl}/RefreshToken`, {}, { withCredentials: true }).pipe(
       tap((response: any) => {
-        this.storeAccessToken(response.token);
+        this.storeAccessToken(response.token);  // Assuming the response contains the new access token
       }),
       catchError(this.handleError)
     );

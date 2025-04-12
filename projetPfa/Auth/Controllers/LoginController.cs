@@ -111,7 +111,9 @@ namespace Auth.Controllers
                 Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
                 {
                     HttpOnly = true,
-                    Expires = DateTime.UtcNow.AddDays(30)  // Set expiration time for refresh token (e.g., 30 days)
+                    Secure = true,
+                    Expires = DateTime.UtcNow.AddDays(30),
+                    SameSite = SameSiteMode.None 
                 });
 
                 return Ok(new { token, refreshToken });

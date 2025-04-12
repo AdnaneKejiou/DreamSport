@@ -8,6 +8,7 @@ using System.Text;
 using Newtonsoft.Json;
 using gestionSite.API.DTOs.SiteDtos;
 using gestionSite.API.Mappers;
+using gestionSite.Core.Interfaces.CasheInterfaces;
 
 
 namespace gestionSite.Core.Services
@@ -15,25 +16,47 @@ namespace gestionSite.Core.Services
     public class SiteService:ISiteService
     {
         private readonly ISiteRepository _siteRepository;
+        private readonly ICacheService _cacheService;
 
-        public SiteService(ISiteRepository siteRepository)
+        public SiteService(ISiteRepository siteRepository, ICacheService cacheService)
         {
             _siteRepository = siteRepository;
+            _cacheService = cacheService;
            
         }
 
 
-       
-
+    
         public async Task<IEnumerable<Site>> GetSiteByAdminAsync(int adminId)
         {
-            
-            return await _siteRepository.GetAllComplexInfosAsync(adminId);
+            string cacheKey = $"sites:{adminId}";
+
+            IEnumerable<Site> site = await _cacheService.GetAsync<IEnumerable<Site>>(cacheKey);
+            if (site == null)
+            {
+                // If not found in cache, fetch from DB
+                site = await _siteRepository.GetAllComplexInfosAsync(adminId);
+
+                // Cache the result in both L1 and L2
+                await _cacheService.SetAsync(cacheKey, site, TimeSpan.FromMinutes(5));
+            }
+            return site;
         }
 
         public async Task<Site> GetSiteASync(int adminId)
         {
-            return await _siteRepository.getSiteASync(adminId);
+            string cacheKey = $"site:{adminId}";
+
+            Site site = await _cacheService.GetAsync<Site>(cacheKey);
+            if (site == null)
+            {
+                // If not found in cache, fetch from DB
+                site = await _siteRepository.getSiteASync(adminId);
+
+                // Cache the result in both L1 and L2
+                await _cacheService.SetAsync(cacheKey, site, TimeSpan.FromMinutes(5));
+            }
+            return site;
         }
 
         public async Task<Site?> AddSiteAsync(int adminId)
@@ -106,8 +129,13 @@ namespace gestionSite.Core.Services
             }
             if (dto.Errors.Count == 0)
             {
-                
-                return SiteMapper.modelToUpdated(await _siteRepository.UpdateSiteAsync(updatingSite));
+                Site updatedOne = await _siteRepository.UpdateSiteAsync(updatingSite);
+                if (updatedOne != null)
+                {
+                    await _cacheService.RemoveAsync($"site:{updatedOne.IdAdmin}");
+                    await _cacheService.RemoveAsync($"sites:{updatedOne.IdAdmin}");
+                }
+                return SiteMapper.modelToUpdated(updatedOne);
                 
             }
             return dto;
