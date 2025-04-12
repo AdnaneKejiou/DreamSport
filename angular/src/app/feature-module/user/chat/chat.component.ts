@@ -765,7 +765,7 @@ public filteredTeamChats(): TeamChatReturnedDTO[] {
   }
 
   public getMessageSenderAvatar(message: AmisMessageDTO | TeamMessageDTO): string {
-    return message.emetteur.avatar || 'assets/img/default-avatar.png';
+    return message.emetteur.avatar || 'https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/avatar-02.jpg';
   }
 
   public getSelectedChatName(): string {
@@ -776,7 +776,7 @@ public filteredTeamChats(): TeamChatReturnedDTO[] {
   }
 
   public getSelectedChatAvatar(): string {
-    return this.selectedChat?.chat?.avatar || 'assets/img/default-avatar.png';
+    return this.selectedChat?.chat?.avatar || 'https://pub-ae615910610b409dbb3d91c073aa47e6.r2.dev/avatar-02.jpg';
   }
 
   public getSelectedChatIdMember(): string | undefined {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, forkJoin, map, of, Subject, switchMap } from 'rxjs';
 import { routes } from 'src/app/core/core.index';
 import { UserService, User } from 'src/app/core/service/user/user.service';
 import { AuthService } from 'src/app/core/service/auth/authservice';
@@ -54,7 +54,7 @@ export class SendInvitationComponent {
       this.filteredUsers = [];
       return;
     }
-
+  
     this.isLoading = true;
     const encodedSearchTerm = encodeURIComponent(trimmedTerm);
     
@@ -68,6 +68,19 @@ export class SendInvitationComponent {
         } else {
           this.filteredUsers = users;
         }
+  
+        // Vérifier le statut de chaque utilisateur
+        this.filteredUsers.forEach(user => {
+          this.equipeService.checkMembership(user.id).subscribe({
+            next: (response) => {
+              user.isMemberOfTeam = response.isMember;
+            },
+            error: () => {
+              user.isMemberOfTeam = false;
+            }
+          });
+        });
+  
         this.isLoading = false;
       },
       error: () => {

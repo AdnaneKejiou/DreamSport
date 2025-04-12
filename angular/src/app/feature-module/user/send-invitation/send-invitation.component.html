@@ -74,7 +74,8 @@
                         <p *ngIf="user.bio" class="user-bio">{{ user.bio }}</p>
                       </div>
                       <div class="invite-action">
-                        <button (click)="sendInvitation(user)" 
+                        <button *ngIf="!user.areFriends && !user.hasPendingInvitation" 
+                                (click)="sendInvitation(user)" 
                                 class="btn btn-primary btn-invite"
                                 [disabled]="user.sending">
                           <span *ngIf="!user.sending">
@@ -84,6 +85,14 @@
                             <i class="fas fa-spinner fa-spin me-2"></i> Sending...
                           </span>
                         </button>
+                        
+                        <span *ngIf="user.areFriends" class="text-muted">
+                          Already friends
+                        </span>
+                        
+                        <span *ngIf="!user.areFriends && user.hasPendingInvitation" class="text-muted">
+                          Invitation pending
+                        </span>
                       </div>
                     </div>
                   </div>

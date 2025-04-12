@@ -12,6 +12,10 @@ export interface User {
   imageUrl: string | null;
   bio?: string;
   sending?: boolean; 
+  isMemberOfTeam?: boolean; 
+  areFriends?:boolean;
+  hasPendingInvitation?:boolean;
+
 }
 
 @Injectable({

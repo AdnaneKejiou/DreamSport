@@ -61,7 +61,8 @@
                           <p *ngIf="user.bio" class="user-bio">{{ user.bio }}</p>
                         </div>
                         <div class="invite-action">
-                          <button (click)="sendInvitation(user)" 
+                          <button *ngIf="!user.isMemberOfTeam" 
+                                  (click)="sendInvitation(user)" 
                                   class="btn btn-primary btn-invite"
                                   [disabled]="user.sending">
                             <span *ngIf="!user.sending">
@@ -71,6 +72,9 @@
                               <i class="fas fa-spinner fa-spin me-2"></i> Sending...
                             </span>
                           </button>
+                          <span *ngIf="user.isMemberOfTeam" class="text-muted">
+                            Already in a team
+                          </span>
                         </div>
                       </div>
                     </div>

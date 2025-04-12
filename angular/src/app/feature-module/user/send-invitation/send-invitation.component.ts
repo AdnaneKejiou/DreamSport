@@ -49,12 +49,18 @@ export class SendInvitationComponent {
       this.filteredUsers = [];
       return;
     }
-
+  
     this.isLoading = true;
     const encodedSearchTerm = encodeURIComponent(trimmedTerm);
+    const currentUserId = this.authservice.getUserId();
     
-    this.userService.searchUsers(encodedSearchTerm, this.authservice.getUserId()).subscribe({
+    console.log('Starting search for:', trimmedTerm);
+    console.log('Current user ID:', currentUserId);
+  
+    this.userService.searchUsers(encodedSearchTerm, currentUserId).subscribe({
       next: (users) => {
+        console.log('Initial users found:', users);
+  
         if (trimmedTerm.includes(' ')) {
           const terms = trimmedTerm.toLowerCase().split(' ');
           this.filteredUsers = users.filter(user => 
@@ -63,9 +69,66 @@ export class SendInvitationComponent {
         } else {
           this.filteredUsers = users;
         }
+  
+        console.log('Filtered users:', this.filteredUsers);
+  
+        // Vérification pour chaque utilisateur
+        this.filteredUsers.forEach(user => {
+          console.log(`Checking user ${user.id} (${user.nom} ${user.prenom})`);
+  
+          // 1. Vérifier l'amitié
+          this.invitationService.checkFriendship(currentUserId, user.id).subscribe({
+            next: (areFriends) => {
+              console.log(`Friendship status with ${user.id}:`, areFriends);
+              user.areFriends = areFriends;
+              
+              if (!areFriends) {
+                // 2. Vérifier les invitations dans les deux sens
+                this.invitationService.getUserInvitations(currentUserId).subscribe({
+                  next: (invitationsResponse) => {
+                    console.log('All invitations:', invitationsResponse.invitations);
+                    
+                    // Vérifier dans les deux sens
+                    const hasPendingInvitation = invitationsResponse.invitations.some(inv => {
+                      const condition1 = (inv.emetteur.id === currentUserId && inv.recepteur === user.id); // J'ai envoyé
+                      const condition2 = (inv.emetteur.id === user.id && inv.recepteur === currentUserId); // J'ai reçu
+                      
+                      console.log(`Invitation check for ${user.id}:`, {
+                        condition1,
+                        condition2,
+                        emetteur: inv.emetteur.id,
+                        recepteur: inv.recepteur
+                      });
+                      
+                      return condition1 || condition2;
+                    });
+                    
+                    user.hasPendingInvitation = hasPendingInvitation;
+                    console.log(`Final status for ${user.id}:`, {
+                      areFriends: user.areFriends,
+                      hasPendingInvitation: user.hasPendingInvitation
+                    });
+                  },
+                  error: (err) => {
+                    console.error('Error fetching invitations:', err);
+                    user.hasPendingInvitation = false;
+                  }
+                });
+              } else {
+                user.hasPendingInvitation = false;
+              }
+            },
+            error: (err) => {
+              console.error('Error checking friendship:', err);
+              user.areFriends = false;
+            }
+          });
+        });
+  
         this.isLoading = false;
       },
-      error: () => {
+      error: (err) => {
+        console.error('Search error:', err);
         this.isLoading = false;
         this.filteredUsers = [];
       }
