@@ -17,5 +17,6 @@ namespace gestionUtilisateur.API.DTOs
         public string? PasswordConfirmed { get; set; }
         [Required(ErrorMessage = "required")]
         public int AdminId { get; set; }
+        public string? bio { get; set; }
     }
 }

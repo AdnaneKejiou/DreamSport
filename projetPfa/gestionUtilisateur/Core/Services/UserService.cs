@@ -13,11 +13,13 @@ namespace gestionUtilisateur.Core.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMailService _mailService;
-        // Injecter HttpClient via le constructeur
-        public UserService(IUserRepository userRepository, IMailService mailService)
+        private readonly IAuthService authService;
+
+        public UserService(IUserRepository userRepository, IMailService mailService, IAuthService authService)
         {
             _userRepository = userRepository;
             _mailService = mailService;
+            this.authService = authService;
         }
 
         public async Task<ReturnAddedUserManualy> AddUserManualyAsync(User _user)
@@ -307,6 +309,14 @@ namespace gestionUtilisateur.Core.Services
                 UserMapper.updateInsideUser(existingUser, updatingUser);
                 // Sauvegarder les changements dans la base de données
                  await _userRepository.UpdateAsync(existingUser);
+                ReturnedLoginDto auth = new ReturnedLoginDto
+                {
+                    Id = existingUser.Id,
+                    Nom = updatingUser.Nom,
+                    Prenom = updatingUser.Prenom,
+                    Image = updatingUser.ImageUrl
+                };
+                await authService.UpdateTokenAsync(auth, existingUser.IdAdmin);
             }
 
             return dto;

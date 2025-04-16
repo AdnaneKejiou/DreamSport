@@ -6,5 +6,6 @@ namespace Auth.Interfaces
     {
         Task<ValidateToken> AddTokenAsync(ValidateToken token);
         Task<ValidateToken> GetValidateTokenAsync(string token);
+        Task<ValidateToken> UpdateTokenAsync(ValidateToken token);
     }
 }

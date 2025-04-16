@@ -31,9 +31,11 @@ namespace gestionSite.Core.Services
             {
                 // If not found in cache, fetch from DB
                 courts = await _terrainRepository.GetAllTerrainsByAdminAsync(idAdmin);
-
-                // Cache the result in both L1 and L2
-                await _cacheService.SetAsync(cacheKey, courts, TimeSpan.FromMinutes(5));  // Set TTL as needed
+                if (courts != null)
+                {
+                    // Cache the result in both L1 and L2
+                    await _cacheService.SetAsync(cacheKey, courts, TimeSpan.FromMinutes(5));  // Set TTL as needed
+                }      
             }
 
             return courts;

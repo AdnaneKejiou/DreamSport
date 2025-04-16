@@ -6,7 +6,7 @@ namespace gestionEmployer.Infrastructure.ExternServices
     public class SiteService : ISiteService
     {
         private readonly HttpClient _httpClient;
-        private static readonly string SiteUrl = "http://localhost:5010/gateway/Site/name";
+        private static readonly string SiteUrl = "http://apigateway:8080/gateway/Site/name";
 
         public SiteService(HttpClient httpClient)
         {

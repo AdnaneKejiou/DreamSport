@@ -1,5 +1,6 @@
 ﻿using Auth.Dtos;
 using Auth.Interfaces;
+using Auth.Mappers;
 using Auth.Model;
 using Auth.Models;
 using Microsoft.AspNetCore.Http;
@@ -103,7 +104,7 @@ namespace Auth.Controllers
                 {
                     return StatusCode(500, "An error occurred while logging in.");
                 }
-                ValidateToken Vtoken = _validateTokenDirector.BuildEmpToken(adm.Id, "Admin", model.AdminId, adm.Nom, adm.Prenom, DateTime.Now, refreshToken);
+                ValidateToken Vtoken = _validateTokenDirector.BuildEmpToken(adm.Id, "Admin", model.AdminId, adm.Nom, adm.Prenom, DateTime.Now, refreshToken,null);
                 await _tokenRepository.AddTokenAsync(Vtoken);
 
                 // Generate both the access token and refresh token
@@ -150,11 +151,11 @@ namespace Auth.Controllers
                 {
                     return StatusCode(500, "An error occurred while logging in.");
                 }
-                ValidateToken Vtoken = _validateTokenDirector.BuildEmpToken(Emp.Id, "Employee", model.AdminId, Emp.Nom, Emp.Prenom, DateTime.Now, refreshToken);
+                ValidateToken Vtoken = _validateTokenDirector.BuildEmpToken(Emp.Id, "Employee", model.AdminId, Emp.Nom, Emp.Prenom, DateTime.Now, refreshToken, Emp.Image);
                 await _tokenRepository.AddTokenAsync(Vtoken);
 
                 // Generate both the access token and refresh token
-                string token = _jwtService.GenerateAccessToken(Emp.Id, "Employee", model.AdminId, Emp.Nom, Emp.Prenom, null);
+                string token = _jwtService.GenerateAccessToken(Emp.Id, "Employee", model.AdminId, Emp.Nom, Emp.Prenom, Emp.Image);
 
                 // Store refresh token in HttpOnly cookie for security
                 Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
@@ -212,6 +213,25 @@ namespace Auth.Controllers
             // Optionally, you can also invalidate the access token here (e.g., by blacklisting it, if necessary)
 
             return Ok("Logged out successfully");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateTokenAsync([FromBody] UpdateTokenDto dto )
+        {
+            ValidateToken token = TokenMapper.updateToModel(dto);
+            try
+            {
+                var tk = await _jwtService.updateTokenAsync(token);
+                if (tk != null)
+                {
+                    return NoContent();
+                }
+                return BadRequest();
+            }catch(Exception ex)
+            {
+                return StatusCode(500, "eroor");
+            }
+            
         }
 
     }

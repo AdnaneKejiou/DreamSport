@@ -7,7 +7,7 @@ namespace gestionReservation.Infrastructure.ExternServices
     public class SiteService : ISiteService
     {
         private readonly HttpClient _httpClient;
-        private static readonly string SiteUrl = "http://localhost:5010/gateway";
+        private static readonly string SiteUrl = "http://apigateway:8080/gateway";
         public SiteService(HttpClient httpClient)
         {
             _httpClient = httpClient;

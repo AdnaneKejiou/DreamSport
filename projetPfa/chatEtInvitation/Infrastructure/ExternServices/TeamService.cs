@@ -6,7 +6,7 @@ namespace chatEtInvitation.Infrastructure.ExternServices
     public class TeamService : ITeamService
     {
         private readonly HttpClient _httpClient;
-        private readonly static string UserUrl = "http://localhost:5010/gateway";
+        private readonly static string UserUrl = "http://gestionequipe:8080/gateway";
 
         public TeamService(HttpClient httpClient)
         {

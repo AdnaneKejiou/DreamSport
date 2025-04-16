@@ -23,6 +23,7 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IPasswordServiceAdmin, PasswordServiceAdmin>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<ISiteService, SiteService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddMemoryCache();
 

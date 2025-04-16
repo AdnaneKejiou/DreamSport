@@ -26,6 +26,28 @@ namespace Auth
             return token;
         }
 
-       
+        public async Task<ValidateToken> UpdateTokenAsync(ValidateToken token)
+        {
+            var tokensToUpdate = await context.validateTokens
+                .Where(t => t.UserId == token.UserId && t.Role == token.Role)
+                .ToListAsync();
+
+            if (!tokensToUpdate.Any())
+            {
+                throw new KeyNotFoundException("No tokens found for the given user and role.");
+            }
+
+            foreach (var t in tokensToUpdate)
+            {
+                t.Nom = token.Nom;
+                t.Prenom = token.Prenom;
+                t.ImageUrl = token.ImageUrl;
+            }
+
+            await context.SaveChangesAsync();
+
+            return token;
+        }
+
     }
 }

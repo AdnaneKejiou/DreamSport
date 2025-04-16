@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Auth.Model;
+using System.Security.Claims;
 
 namespace Auth.Interfaces
 {
@@ -6,5 +7,6 @@ namespace Auth.Interfaces
     {
         string GenerateAccessToken(int userId, string role, int AdminId, string Nom, string Prenom, string imageUrl);
         Task<string> GenerateRefreshToken();
+        Task<ValidateToken> updateTokenAsync(ValidateToken token);
     }
 }

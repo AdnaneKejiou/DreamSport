@@ -17,14 +17,14 @@ namespace gestionEmployer.Core.Services
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMailService _mailService;
         private readonly IAdminRepository _adminRepository;
+        private readonly IAuthService _authService;
 
-
-        public EmployeeService(IEmployeeRepository employeeRepository, IMailService mailService, IAdminRepository adminRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IMailService mailService, IAdminRepository adminRepository, IAuthService authService)
         {
             _employeeRepository = employeeRepository;
             _mailService = mailService;
             _adminRepository = adminRepository;
-
+            _authService = authService;
         }
 
         public async Task<Employer> GetEmployeeByIdAsync(int id)
@@ -129,6 +129,14 @@ namespace gestionEmployer.Core.Services
                 EmployeeMapper.updateToModel(existingEmploye, updatedEmploye);
                 // Sauvegarder les changements dans la base de données
                 var empp = await _employeeRepository.UpdateEmployeeAsync(existingEmploye);
+                SendLoginEmployeeDto tk = new SendLoginEmployeeDto
+                {
+                    Id = empp.Id,
+                    Nom = empp.Nom,
+                    Prenom = empp.Prenom,
+                    Image = empp.imageUrl
+                };
+                await _authService.UpdateTokenAsync(tk, empp.AdminId);
             }
 
             return dto;

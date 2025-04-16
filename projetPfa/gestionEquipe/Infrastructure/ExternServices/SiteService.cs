@@ -37,7 +37,7 @@ namespace gestionEquipe.Infrastructure.ExternServices
         private async Task<List<SportCategorieDTO>> FetchSportsAsync(int adminId)
         {
            
-            string requestUrl = "http://localhost:5010/gateway/SportCategorie/execute";
+            string requestUrl = "http://apigateway:8080/gateway/SportCategorie/execute";
 
             // Create request message for GET
             using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);

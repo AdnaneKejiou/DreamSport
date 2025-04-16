@@ -27,7 +27,7 @@ namespace Auth.Model
                 .Build();
         }
 
-        public ValidateToken BuildEmpToken(int userId, string role, int adminId, string nom, string prenom, DateTime createdAt, string token)
+        public ValidateToken BuildEmpToken(int userId, string role, int adminId, string nom, string prenom, DateTime createdAt, string token, string imageUrl)
         {
             return _builder
                 .SetUserId(userId)
@@ -37,6 +37,7 @@ namespace Auth.Model
                 .SetPrenom(prenom)
                 .SetCreatedAt(createdAt)
                 .SetToken(token)
+                .SetImageUrl(imageUrl)
                 .Build();
         }
     }

@@ -92,6 +92,9 @@ namespace gestionUtilisateur.API.Mappers
             {
                 user.Username = dto.Username;
             }
+            if (dto.bio != null) { 
+                user.Bio=dto.bio;
+            }
 
         }
         public static void UpdateSportData(User user, UpdateSportDataDTO dto)
@@ -199,6 +202,7 @@ namespace gestionUtilisateur.API.Mappers
                 Username = dto.Username,
                 ImageUrl= dto.ImageUrl, 
                 IdAdmin = dto.AdminId,
+                Bio=dto.bio,
             };
         }
 
@@ -214,6 +218,8 @@ namespace gestionUtilisateur.API.Mappers
                 Username= user.Username,
                 imageUrl= user.ImageUrl,
                 AdminId = user.IdAdmin,
+                bio=user.Bio,
+                
             };
         }
         
@@ -242,6 +248,10 @@ namespace gestionUtilisateur.API.Mappers
             if (userr.ImageUrl != null)
             {
                 user.ImageUrl = userr.ImageUrl;
+            }
+            if (userr.Bio != null)
+            {
+                user.Bio = userr.Bio;
             }
         }
     }

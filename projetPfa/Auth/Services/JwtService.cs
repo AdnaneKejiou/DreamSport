@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
+using Auth.Model;
 
 namespace Auth.Services
 {
@@ -113,6 +114,12 @@ namespace Auth.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+
+        public async Task<ValidateToken> updateTokenAsync(ValidateToken token)
+        {
+            return await _tokenRepository.UpdateTokenAsync(token);
         }
     }
 }

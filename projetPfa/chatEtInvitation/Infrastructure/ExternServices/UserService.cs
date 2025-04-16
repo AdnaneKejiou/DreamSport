@@ -6,7 +6,7 @@ namespace chatEtInvitation.Infrastructure.ExternServices
     public class UserService : IUserService
     {
         private readonly HttpClient _httpClient;
-        private readonly static string UserUrl = "http://localhost:5010/gateway";
+        private readonly static string UserUrl = "http://gestionutilisateur:8080/gateway";
         public UserService(HttpClient httpClient)
         {
             _httpClient = httpClient;

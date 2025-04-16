@@ -132,6 +132,7 @@ namespace gestionEmployer.API.Mappers
                 Id = _Employer.Id,
                 Nom = _Employer.Nom,
                 Prenom = _Employer.Prenom,
+                Image = _Employer.imageUrl
             };
         }
 

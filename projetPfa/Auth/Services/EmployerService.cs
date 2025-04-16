@@ -9,7 +9,7 @@ namespace Auth.Services
     public class EmployerService : IEmployerService
     {
         private readonly HttpClient _httpClient;
-        private readonly static string UserUrl = "http://localhost:5010/gateway";
+        private readonly static string UserUrl = "http://apigateway:8080/gateway";
         public EmployerService(HttpClient httpClient)
         {
             _httpClient = httpClient;

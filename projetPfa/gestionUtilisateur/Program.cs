@@ -14,7 +14,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMailService,MailService>();
 builder.Services.AddScoped<IPasswordUserService, PasswordUserService>();
 builder.Services.AddScoped<ISiteService, SiteService>();
-
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 

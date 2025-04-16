@@ -5,6 +5,7 @@ using ApiGateway.Middleware;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Ocelot.Values;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero,
         };
     });
+
+builder.Services.AddHttpClient("AdminService", client =>
+{
+    client.BaseAddress = new Uri("http://gestionemployer");
+});
 var app = builder.Build();
 
 app.UseCors();

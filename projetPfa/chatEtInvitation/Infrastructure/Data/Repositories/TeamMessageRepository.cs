@@ -73,7 +73,7 @@ namespace chatEtInvitation.Infrastructure.Data.Repositories
                 .Where(m => m.TeamChatId == teamChatId)
                 .Include(m => m.Statuts)
                     .ThenInclude(ms => ms.Statut)
-                .OrderBy(m => m.when);
+                .OrderByDescending(m => m.when);
 
             var totalCount = await query.CountAsync();
             var messages = await query

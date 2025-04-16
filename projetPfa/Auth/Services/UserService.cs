@@ -9,7 +9,7 @@ namespace Auth.Services
     public class UserService : ILoginService, IUserService
     {
         private readonly HttpClient _httpClient;
-        private readonly static string UserUrl = "http://localhost:5010/gateway";
+        private readonly static string UserUrl = "http://apigateway:8080/gateway";
         public UserService(HttpClient httpClient)
         {
             _httpClient = httpClient;

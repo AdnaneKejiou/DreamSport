@@ -6,8 +6,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe",
@@ -19,8 +19,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe",
@@ -32,8 +32,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe/{equipeId}/{AdminId}",
@@ -45,8 +45,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/members",
@@ -58,8 +58,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/members/{AdminId}",
@@ -70,8 +70,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe/capitaine-quitte",
@@ -82,8 +82,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe/ChangerCapitaine",
@@ -96,8 +96,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe/{teamId}/{AdminId}",
@@ -111,8 +111,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe/get/{teamId}/{AdminId}",
@@ -125,8 +125,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5108
+          "Host": "gestionequipe",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/equipe/check-membership/{userId}/{adminId}",
@@ -141,8 +141,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users",
@@ -154,8 +154,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/get-right/{id}/{AdminId}",
@@ -173,8 +173,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/pagination",
@@ -192,8 +192,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/{id}",
@@ -205,8 +205,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/{userId}/status",
@@ -224,8 +224,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users",
@@ -237,8 +237,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/{id}/{AdminId}",
@@ -250,8 +250,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/update-sport-data/{id}",
@@ -263,8 +263,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/recover-password",
@@ -276,8 +276,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/ResetConteur/{id}",
@@ -289,8 +289,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/check-reservation-annule/{id}",
@@ -303,8 +303,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/get/{id}/{AdminId}",
@@ -316,8 +316,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/validate",
@@ -329,8 +329,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/Register-facebook",
@@ -342,8 +342,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/facebook-validate/{id}/{AdminId}/{type}",
@@ -358,8 +358,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/search/{searchTerm}/{id}/{AdminId}",
@@ -373,8 +373,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5255
+          "Host": "gestionutilisateur",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/changePassworduser",
@@ -389,8 +389,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/annonces/{AdminId}",
@@ -402,8 +402,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/annonces",
@@ -421,8 +421,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/annonces/{annoncesId}/{AdminId}",
@@ -436,8 +436,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/faq/{adminId}",
@@ -449,8 +449,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/faq",
@@ -468,8 +468,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/faq",
@@ -481,8 +481,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/faq/{faqId}/{AdminId}",
@@ -503,8 +503,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/site/{AdminId}",
@@ -517,8 +517,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/site/name/{AdminId}",
@@ -530,8 +530,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/site",
@@ -549,8 +549,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionsite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/site",
@@ -559,102 +559,102 @@
 
     //--------------------------------------------------------Gestion des Terrains-------------------------------------------
 
+    {
+      // Route pour récupérer les terrains d'un administrateur (GET)
+      "DownstreamPathTemplate": "/api/terrain/{idAdmin}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            // Route pour récupérer les terrains d'un administrateur (GET)
-            "DownstreamPathTemplate": "/api/terrain/{idAdmin}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5150
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/terrain/{idAdmin}",
-            "UpstreamHttpMethod": [ "GET" ],
-        },
+          "Host": "gestionsite",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/terrain/{idAdmin}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      // Route pour ajouter un terrain (POST)
+      "DownstreamPathTemplate": "/api/terrain",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            // Route pour ajouter un terrain (POST)
-            "DownstreamPathTemplate": "/api/terrain",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5150
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/terrain",
-            "UpstreamHttpMethod": [ "POST" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer"
-            },
-            "RouteClaimsRequirement": {
-                "Role": "Admin"
-            }
-        },
+          "Host": "gestionsite",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/terrain",
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
+    },
+    {
+      // Route pour mettre à jour un terrain (PUT)
+      "DownstreamPathTemplate": "/api/terrain",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            // Route pour mettre à jour un terrain (PUT)
-            "DownstreamPathTemplate": "/api/terrain",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5150
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/terrain",
-            "UpstreamHttpMethod": [ "PUT" ]
-        },
+          "Host": "gestionsite",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/terrain",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      // Route pour supprimer un terrain (DELETE)
+      "DownstreamPathTemplate": "/api/terrain/{id}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            // Route pour supprimer un terrain (DELETE)
-            "DownstreamPathTemplate": "/api/terrain/{id}/{AdminId}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5150
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/terrain/{id}/{AdminId}",
-            "UpstreamHttpMethod": [ "DELETE" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer"
-            },
-            "RouteClaimsRequirement": {
-                "Role": "Admin"
-            }
-        },
+          "Host": "gestionSite",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/terrain/{id}/{AdminId}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
+    },
+    {
+      //intern
+      // Route pour Get terrain by id
+      "DownstreamPathTemplate": "/api/terrain/by-id/{id}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            //intern
-            // Route pour Get terrain by id
-            "DownstreamPathTemplate": "/api/terrain/by-id/{id}/{AdminId}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5150
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}/{AdminId}",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
+          "Host": "gestionSite",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/terrain/by-id/{id}/{AdminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/terrain/update-status",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/terrain/update-status",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5150
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/terrain/update-status",
-            "UpstreamHttpMethod": [ "PUT" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer"
-            },
-            "RouteClaimsRequirement": {
-                "Role": "Employee"
-            }
-        },
+          "Host": "gestionSite",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/terrain/update-status",
+      "UpstreamHttpMethod": [ "PUT" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Employee"
+      }
+    },
 
     //--------------------------------------------------------Gestion des Statuts de Terrains-------------------------------------------
 
@@ -664,8 +664,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionSite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/terrainstatus/{AdminId}",
@@ -680,8 +680,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionSite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/terrainstatus",
@@ -693,8 +693,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionSite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/terrainstatus/{StatusId}/{AdminId}",
@@ -707,8 +707,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5150
+          "Host": "gestionSite",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/SportCategorie/execute/{AdminId}",
@@ -726,8 +726,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee/get/{id}/{AdminId}",
@@ -744,8 +744,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee/admin/{AdminId}",
@@ -763,8 +763,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/admin/validate/{AdminId}",
@@ -775,8 +775,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/admin/{AdminId}",
@@ -794,8 +794,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee/recover-password",
@@ -807,8 +807,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/admin/recover-password",
@@ -820,8 +820,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee",
@@ -839,8 +839,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee",
@@ -858,8 +858,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee/{id}/{AdminId}",
@@ -878,8 +878,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee/validate",
@@ -890,8 +890,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee/search/{searchTerm}/{AdminId}",
@@ -903,8 +903,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/admin/validate",
@@ -916,8 +916,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/admin",
@@ -934,8 +934,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/ajouter",
@@ -948,8 +948,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/employee/changePassword",
@@ -969,8 +969,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5097
+          "Host": "gestionemployer",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/admin/changeAdminPassword",
@@ -990,8 +990,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5193
+          "Host": "servicemail",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/Mail/send",
@@ -1003,8 +1003,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/InvitationMember/send",
@@ -1018,8 +1018,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/block/block",
@@ -1030,8 +1030,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/block/unblock",
@@ -1042,8 +1042,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/block/blocked/{currentUserId}/{AdminId}",
@@ -1054,8 +1054,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/block/is-blocked/{targetUserId}/{currentUserId}/{AdminId}",
@@ -1067,132 +1067,132 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/block/status-between/{userId1}/{userId2}/{AdminId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
 
-        // Routes pour ChatAmisController
+    // Routes pour ChatAmisController
+    {
+      "DownstreamPathTemplate": "/api/chatamis/{userId}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/chatamis/{userId}/{AdminId}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatamis/{userId}/{AdminId}",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatamis/{userId}/{AdminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
 
+    {
+      "DownstreamPathTemplate": "/api/chatamis/isAmisChat/{idMember1}/{idMember2}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/chatamis/isAmisChat/{idMember1}/{idMember2}/{AdminId}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatamis/isAmisChat/{idMember1}/{idMember2}",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatamis/isAmisChat/{idMember1}/{idMember2}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/chatamis/send",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/chatamis/send",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatamis/send",
-            "UpstreamHttpMethod": [ "POST" ]
-        },
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatamis/send",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/chatamis/{chatAmisId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/chatamis/{chatAmisId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatamis/{chatAmisId}/conversation",
-            "UpstreamHttpMethod": [ "GET" ],
-            "Priority": 0,
-            "AddQueriesToRequest": {
-                "page": "{page}",
-                "pageSize": "{pageSize}"
-            }
-        },
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatamis/{chatAmisId}/conversation",
+      "UpstreamHttpMethod": [ "GET" ],
+      "Priority": 0,
+      "AddQueriesToRequest": {
+        "page": "{page}",
+        "pageSize": "{pageSize}"
+      }
+    },
 
-        // Routes pour ChatTeamController
+    // Routes pour ChatTeamController
+    {
+      "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/members/{memberId}/{AdminId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/members/{memberId}/{AdminId}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/members/{memberId}/{AdminId}",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/members/{memberId}/{AdminId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/ChatTeam/{teamId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
-            "UpstreamHttpMethod": [ "GET" ]
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatteam/{teamId}/conversation/{AdminId}?page={page}&pageSize={pageSize}",
+      "UpstreamHttpMethod": [ "GET" ]
 
-        },
+    },
+    {
+      "DownstreamPathTemplate": "/api/ChatTeam/mark-as-seen",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/ChatTeam/mark-as-seen",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatteam/mark-as-seen",
-            "UpstreamHttpMethod": [ "POST" ]
-        },
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatteam/mark-as-seen",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ChatTeam/mark-all-as-seen",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/ChatTeam/mark-all-as-seen",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatteam/mark-all-as-seen",
-            "UpstreamHttpMethod": [ "POST" ]
-        },
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatteam/mark-all-as-seen",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ChatTeam/send",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/ChatTeam/send",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5270
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/chatteam/send",
-            "UpstreamHttpMethod": [ "POST" ]
-        },
+          "Host": "chatetinvitation",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/chatteam/send",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
 
 
     {
@@ -1200,8 +1200,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/InvitationMember/Refuser/{id}/{AdminId}",
@@ -1213,8 +1213,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/InvitationMember/Accepter/{invitationId}",
@@ -1227,8 +1227,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/InvitationTeam",
@@ -1241,8 +1241,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/InvitationMember/user-invitations/{userId}/{adminId}",
@@ -1254,8 +1254,8 @@
     //    "DownstreamScheme": "http",
     //    "DownstreamHostAndPorts": [
     //        {
-    //            "Host": "localhost",
-    //            "Port": 5270
+    //            "Host": "chatetinvitation",
+    //            "Port": 8080
     //        }
     //    ],
     //    "UpstreamPathTemplate": "/invitationHub",
@@ -1270,8 +1270,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/InvitationTeam/team-invitations/{userId}/{adminId}",
@@ -1284,8 +1284,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/InvitationTeam/accepter/{invitationId}",
@@ -1297,8 +1297,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5270
+          "Host": "chatetinvitation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/InvitationTeam/Refuser/{id}/{AdminId}",
@@ -1311,8 +1311,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5169
+          "Host": "gestionreservation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/reservation/{AdminId}",
@@ -1323,8 +1323,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5169
+          "Host": "gestionreservation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/reservation",
@@ -1335,8 +1335,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5169
+          "Host": "gestionreservation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/reservation/update-status",
@@ -1356,8 +1356,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5169
+          "Host": "gestionreservation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/reservation/upcoming/{idTerrain}/{AdminId}",
@@ -1368,8 +1368,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5169
+          "Host": "gestionreservation",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/reservation/requests-list/{AdminId}",
@@ -1387,8 +1387,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5181
+          "Host": "auth",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/Login/User",
@@ -1399,8 +1399,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5181
+          "Host": "auth",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/Login/Admin",
@@ -1411,8 +1411,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5181
+          "Host": "auth",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/Login/Employer",
@@ -1423,8 +1423,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5181
+          "Host": "auth",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/Login/RefreshToken",
@@ -1441,8 +1441,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5181
+          "Host": "auth",
+          "Port": 8080
         }
 
       ],

@@ -27,7 +27,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<ISportRepository, SportRepository>();
 builder.Services.AddScoped<ISportService, SportService>();
-
+builder.Services.AddScoped<ISiteService, SiteService>();
 
 builder.Services.AddScoped<ITerrainStatusRepository, TerrainStatusRepository>();
 builder.Services.AddScoped<ITerrainStatusService, TerrainStatusService>();
@@ -45,7 +45,7 @@ builder.Services.AddSingleton<IHostedService, SiteConsumerService>();
 
 builder.Services.AddMemoryCache();
 
-var redisConnection = builder.Configuration.GetValue<string>("RedisConnection"); // Get Redis connection string from appsettings
+var redisConnection = builder.Configuration.GetValue<string>("RedisConnection");
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnection));
 
 builder.Services.AddSingleton<IRedisCacheService, RedisCacheService>();

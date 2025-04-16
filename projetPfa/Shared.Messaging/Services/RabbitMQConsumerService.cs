@@ -11,7 +11,9 @@ namespace Shared.Messaging.Services
 {
     public abstract class RabbitMQConsumerService<TService> : BackgroundService where TService : class
     {
-        private readonly string _hostname = "localhost";
+        private readonly string _hostname = "rabbitmq";  // Direct configuration here
+        private readonly string _username = "user";      // Direct configuration here
+        private readonly string _password = "password";
         private readonly string _queueName;
         private readonly TService _service;
         private IConnection _connection;
@@ -26,7 +28,13 @@ namespace Shared.Messaging.Services
 
         private void InitializeRabbitMQ()
         {
-            var factory = new ConnectionFactory { HostName = _hostname };
+            var factory = new ConnectionFactory
+            {
+                HostName = _hostname,
+                UserName = _username,
+                Password = _password
+            };
+
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
             _channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);

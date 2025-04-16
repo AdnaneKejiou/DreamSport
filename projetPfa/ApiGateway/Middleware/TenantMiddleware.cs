@@ -38,7 +38,7 @@ namespace ApiGateway.Middleware
             {
 
                 // Appel au service admin pour valider le Tenant-ID
-                var response = await _httpClient.GetAsync($"http://localhost:5097/api/admin/validate/{tenantId}");
+                var response = await _httpClient.GetAsync($"http://gestionemployer:8080/api/admin/validate/{tenantId}");
 
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {

@@ -11,6 +11,7 @@ namespace gestionUtilisateur.API.DTOs
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
         public string? ImageUrl { get; set; }
+        public string? bio { get; set; }
         public int AdminId { get; set; }
     }
 }
