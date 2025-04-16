@@ -11,7 +11,7 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 script {
-                    sh 'dotnet test projetpfa/auth/auth.csproj'
+                    sh 'dotnet test projetPfa/Auth/Auth.csproj'
                 }
             }
         }
