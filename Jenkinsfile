@@ -32,16 +32,25 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    // Run SonarQube analysis
-                    withSonarQubeEnv(SONARQUBE) {
-                        sh '''
+                    // Run SonarQube analysis inside the dotnet SDK Docker container
+                    sh '''
+                    docker run --rm \
+                        -v $(pwd):/app \
+                        -w /app \
+                        mcr.microsoft.com/dotnet/sdk:8.0 \
                         dotnet sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN /d:sonar.host.url="http://localhost:9000"
-                        dotnet build
+                    
+                    dotnet build
+                    
+                    docker run --rm \
+                        -v $(pwd):/app \
+                        -w /app \
+                        mcr.microsoft.com/dotnet/sdk:8.0 \
                         dotnet sonarscanner end /d:sonar.login=$SONAR_TOKEN
-                        '''
-                    }
+                    '''
                 }
             }
         }
+
     }
 }
