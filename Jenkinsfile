@@ -42,8 +42,9 @@ pipeline {
                             sh -c '
                                 dotnet tool install --global dotnet-sonarscanner &&
                                 export PATH="$PATH:/root/.dotnet/tools:$PATH" &&
-                                dotnet-sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN -d:sonar.host.url="http://172.17.0.1:9000" &&
-                                dotnet build &&
+                                dotnet-sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN -d:sonar.host.url="http://172.17.0.1:9000" \
+                                -d:sonar.projectBaseDir=/app/projetPfa &&  # Specify the project directory
+                                dotnet build /app/projetPfa/Auth/Auth.csproj &&  # Specify the csproj file
                                 dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
                             '
                         '''
