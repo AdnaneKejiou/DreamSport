@@ -41,18 +41,16 @@ pipeline {
                             mcr.microsoft.com/dotnet/sdk:8.0 \
                             sh -c '
                                 dotnet tool install --global dotnet-sonarscanner &&
-                                export PATH="$PATH:/root/.dotnet/tools" &&
-                                /root/.dotnet/tools/dotnet-sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN /d:sonar.host.url="http://host.docker.internal:9000" &&
+                                export PATH="$PATH:/root/.dotnet/tools:$PATH" &&
+                                dotnet-sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN /d:sonar.host.url="http://host.docker.internal:9000" &&
                                 dotnet build &&
-                                /root/.dotnet/tools/dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
+                                dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
                             '
                         '''
                     }
                 }
             }
         }
-
-
 
     }
 }
