@@ -11,13 +11,16 @@ pipeline {
         }
 
         stage('Unit Tests') {
-            agent {
-                docker {
-                    image 'mcr.microsoft.com/dotnet/sdk:8.0'
-                }
-            }
             steps {
-                sh 'dotnet test projetPfa/Auth/Auth.csproj'
+                script {
+                    sh '''
+                    docker run --rm \
+                        -v $(pwd):/app \
+                        -w /app \
+                        mcr.microsoft.com/dotnet/sdk:8.0 \
+                        dotnet test projetPfa/Auth/Auth.csproj
+                    '''
+                }
             }
         }
     }
