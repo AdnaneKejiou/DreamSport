@@ -42,7 +42,7 @@ pipeline {
                             sh -c '
                                 dotnet tool install --global dotnet-sonarscanner &&
                                 export PATH="$PATH:/root/.dotnet/tools:$PATH" &&
-                                dotnet-sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN /d:sonar.host.url="http://host.docker.internal:9000" &&
+                                dotnet-sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN -d:sonar.host.url="http://172.17.0.1:9000" &&
                                 dotnet build &&
                                 dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
                             '
