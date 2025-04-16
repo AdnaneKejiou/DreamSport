@@ -12,6 +12,11 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
+                agent {
+                    docker {
+                        image 'mcr.microsoft.com/dotnet/sdk:8.0'
+                    }
+                }
                 script {
                     sh 'dotnet test projetPfa/Auth/Auth.csproj'
                 }
