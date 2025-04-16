@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SONARQUBE = 'LocalSonarQube'  // The name you set for your SonarQube server in Jenkins
-        SONAR_TOKEN = credentials('sonar-password')  // The SonarQube token credential you created in Jenkins
+        SONAR_TOKEN = credentials('sonar-token')  // This will securely fetch your SonarQube token
     }
 
     stages {
@@ -35,7 +35,7 @@ pipeline {
                     // Run SonarQube analysis
                     withSonarQubeEnv(SONARQUBE) {
                         sh '''
-                        dotnet sonarscanner begin /k:"your_project_key" /d:sonar.login=$SONAR_TOKEN /d:sonar.host.url="http://localhost:9000"
+                        dotnet sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN /d:sonar.host.url="http://localhost:9000"
                         dotnet build
                         dotnet sonarscanner end /d:sonar.login=$SONAR_TOKEN
                         '''
