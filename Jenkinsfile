@@ -33,24 +33,25 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('LocalSonarQube') {
-                        sh """
+                        sh '''
                         docker run --rm \
-                            -v \$(pwd):/app \
+                            -v $(pwd):/app \
                             -w /app \
-                            -e SONAR_TOKEN=${SONAR_TOKEN} \
+                            -e SONAR_TOKEN=$SONAR_TOKEN \
                             mcr.microsoft.com/dotnet/sdk:8.0 \
                             sh -c '
                                 dotnet tool install --global dotnet-sonarscanner &&
-                                export PATH=\\\$PATH:/root/.dotnet/tools &&
-                                dotnet sonarscanner begin /k:"DreamSports" /d:sonar.login=\\\$SONAR_TOKEN /d:sonar.host.url="http://localhost:9000" &&
+                                export PATH="$PATH:/root/.dotnet/tools" &&
+                                /root/.dotnet/tools/dotnet-sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN /d:sonar.host.url="http://localhost:9000" &&
                                 dotnet build &&
-                                dotnet sonarscanner end /d:sonar.login=\\\$SONAR_TOKEN
+                                /root/.dotnet/tools/dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
                             '
-                        """
+                        '''
                     }
                 }
             }
         }
+
 
 
     }
