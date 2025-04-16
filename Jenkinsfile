@@ -53,5 +53,17 @@ pipeline {
             }
         }
 
+        stage('Build Backend Services') {
+            steps {
+                script {
+                    sh '''
+                    docker compose -f docker-compose.yml build
+                    '''
+                }
+            }
+        }
+
+        
+
     }
 }
