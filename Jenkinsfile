@@ -1,3 +1,5 @@
+sonarQubeEnv = 'LocalSonarQube'
+
 pipeline {
     agent any
 
@@ -20,6 +22,17 @@ pipeline {
                         mcr.microsoft.com/dotnet/sdk:8.0 \
                         dotnet test projetPfa/Auth/Auth.csproj
                     '''
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // Run SonarQube analysis
+                    withSonarQubeEnv(sonarQubeEnv) {
+                        sh 'mvn clean install sonar:sonar'
+                    }
                 }
             }
         }
