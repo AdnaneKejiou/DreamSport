@@ -54,7 +54,7 @@ pipeline {
                     sh 'docker images'
 
                     // Push images using docker-compose to Docker Hub
-                    sh 'docker-compose -f projetPfa/docker-compose.yml push'
+                    sh 'docker compose -f projetPfa/docker-compose.yml push'
                 }
             }
         }
