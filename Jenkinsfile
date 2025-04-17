@@ -51,35 +51,10 @@ pipeline {
                     // Get the list of images to ensure the build was successful
                     sh 'docker images'
 
-                    // Push images for each custom-built service
+                    // Push images using docker-compose to Docker Hub
                     sh """
-                    # Tag and push custom service images
-                    docker tag projetpfa-gestionsite \$DOCKER_CREDENTIALS_USR/gestionsite:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/gestionsite:latest
-
-                    docker tag projetpfa-gestionemployer \$DOCKER_CREDENTIALS_USR/gestionemployer:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/gestionemployer:latest
-
-                    docker tag projetpfa-auth \$DOCKER_CREDENTIALS_USR/auth:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/auth:latest
-
-                    docker tag projetpfa-gestionutilisateur \$DOCKER_CREDENTIALS_USR/gestionutilisateur:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/gestionutilisateur:latest
-
-                    docker tag projetpfa-gestionequipe \$DOCKER_CREDENTIALS_USR/gestionequipe:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/gestionequipe:latest
-
-                    docker tag projetpfa-gestionreservation \$DOCKER_CREDENTIALS_USR/gestionreservation:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/gestionreservation:latest
-
-                    docker tag projetpfa-servicemail \$DOCKER_CREDENTIALS_USR/servicemail:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/servicemail:latest
-
-                    docker tag projetpfa-chatetinvitation \$DOCKER_CREDENTIALS_USR/chatetinvitation:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/chatetinvitation:latest
-
-                    docker tag projetpfa-apigateway \$DOCKER_CREDENTIALS_USR/apigateway:latest
-                    docker push \$DOCKER_CREDENTIALS_USR/apigateway:latest
+                    # Push all images defined in the Docker Compose file
+                    docker-compose -f projetPfa/docker-compose.yml push
                     """
                 }
             }
@@ -88,6 +63,7 @@ pipeline {
         stage('Deploy Application with Ansible') {
             steps {
                 script {
+                    // Deploy application using Ansible
                     sh '''
                     ansible-playbook -i deploy/inventory.ini deploy/deploy.yml --ask-become-pass
                     '''
