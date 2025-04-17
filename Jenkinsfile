@@ -4,8 +4,7 @@ pipeline {
     environment {
         SONARQUBE = 'LocalSonarQube'  // The name you set for your SonarQube server in Jenkins
         SONAR_TOKEN = credentials('SONAR_TOKEN')  // This will securely fetch your SonarQube token
-        DOCKER_USER = credentials('mechaymen')  // Docker Hub username
-        DOCKER_PASS = credentials('adminadmin')  // Docker Hub password
+        DOCKER_CREDENTIALS = credentials('DOCKER_CREDENTIALS')  // Docker Hub credentials (username and password)
     }
 
     stages {
@@ -44,11 +43,16 @@ pipeline {
         stage('Push Docker Images to Docker Hub') {
             steps {
                 script {
-                    sh '''
-                    docker login -u $DOCKER_USER -p $DOCKER_PASS
-                    docker tag your-backend-image $DOCKER_USER/your-backend-image:latest
-                    docker push $DOCKER_USER/your-backend-image:latest
-                    '''
+                    // Login to Docker Hub
+                    sh """
+                    echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
+                    """
+
+                    // Tagging and pushing the backend image
+                    sh """
+                    docker tag your-backend-image $DOCKER_CREDENTIALS_USR/your-backend-image:latest
+                    docker push $DOCKER_CREDENTIALS_USR/your-backend-image:latest
+                    """
                 }
             }
         }
