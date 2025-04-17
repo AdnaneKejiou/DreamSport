@@ -44,6 +44,7 @@ services:
     build:
       context: .  # Use the root directory as the build context
       dockerfile: gestionSite/Dockerfile    # Make sure this folder is renamed to lowercase on disk
+    image: mechaymen/gestionsite:latest
     container_name: gestionsite
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -70,6 +71,7 @@ services:
     build:
       context: .
       dockerfile: gestionEmployer/Dockerfile
+    image: mechaymen/gestionemployer:latest
     container_name: gestionemployer
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -92,6 +94,7 @@ services:
     build:
       context: .
       dockerfile: Auth/Dockerfile
+    image: mechaymen/auth:latest
     container_name: auth
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -112,6 +115,7 @@ services:
     build:
       context: . 
       dockerfile: gestionUtilisateur/Dockerfile
+    image: mechaymen/gestionutilisateur:latest
     container_name: gestionutilisateur
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -134,6 +138,7 @@ services:
     build:
       context: .
       dockerfile: gestionEquipe/Dockerfile
+    image: mechaymen/gestionequipe:latest
     container_name: gestionequipe
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -159,6 +164,7 @@ services:
     build:
       context: . 
       dockerfile: gestionReservation/Dockerfile
+    image: mechaymen/gestionreservation:latest
     container_name: gestionreservation
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -181,6 +187,7 @@ services:
     build:
       context: . 
       dockerfile: serviceMail/Dockerfile
+    image: mechaymen/servicemail:latest
     container_name: servicemail
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -197,6 +204,7 @@ services:
     build:
       context: .
       dockerfile: chatEtInvitation/Dockerfile
+    image: mechaymen/chatetinvitation:latest
     container_name: chatetinvitation
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -222,6 +230,7 @@ services:
     build:
       context: . 
       dockerfile: ApiGateway/Dockerfile
+    image: mechaymen/apigateway:latest
     container_name: apigateway
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

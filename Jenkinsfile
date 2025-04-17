@@ -26,29 +26,7 @@ pipeline {
             }
         }
 
-        stage('Tag Docker Images') {
-            steps {
-                script {
-                    def services = [
-                        'auth',
-                        'apigateway',
-                        'chatetinvitation',
-                        'gestionemployer',
-                        'gestionreservation',
-                        'gestionutilisateur',
-                        'gestionequipe',
-                        'gestionsite',
-                        'servicemail'
-                    ]
-                    for (svc in services) {
-                        def localImage = "projetpfa-${svc}"
-                        def remoteImage = "mechaymen/${svc}"
-                        sh "docker tag ${localImage} ${remoteImage}"
-                    }
-                }
-            }
-        }
-
+        
 
         stage('Build Frontend (Angular)') {
             steps {
@@ -76,9 +54,7 @@ pipeline {
                     sh 'docker images'
 
                     // Push images using docker-compose to Docker Hub
-                    sh """
-                    docker compose -f projetPfa/docker-compose.yml push
-                    """
+                    sh 'docker-compose -f projetPfa/docker-compose.yml push'
                 }
             }
         }
