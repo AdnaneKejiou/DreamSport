@@ -4,6 +4,8 @@ pipeline {
     environment {
         SONARQUBE = 'LocalSonarQube'  // The name you set for your SonarQube server in Jenkins
         SONAR_TOKEN = credentials('SONAR_TOKEN')  // This will securely fetch your SonarQube token
+        DOCKER_USER = credentials('mechaymen')  // Docker Hub username
+        DOCKER_PASS = credentials('adminadmin')  // Docker Hub password
     }
 
     stages {
@@ -14,8 +16,6 @@ pipeline {
                     credentialsId: 'gitlab-token'
             }
         }
-
-        
 
         stage('Build Backend Services') {
             steps {
@@ -41,16 +41,26 @@ pipeline {
             }
         }
 
-        stage('Deploy Application with Ansible') {
+        stage('Push Docker Images to Docker Hub') {
             steps {
                 script {
                     sh '''
-                    ansible-playbook -i deploy/inventory.ini deploy/deploy.yml
+                    docker login -u $DOCKER_USER -p $DOCKER_PASS
+                    docker tag your-backend-image $DOCKER_USER/your-backend-image:latest
+                    docker push $DOCKER_USER/your-backend-image:latest
                     '''
                 }
             }
         }
 
-
+        stage('Deploy Application with Ansible') {
+            steps {
+                script {
+                    sh '''
+                    ansible-playbook -i deploy/inventory.ini deploy/deploy.yml --ask-become-pass
+                    '''
+                }
+            }
+        }
     }
 }

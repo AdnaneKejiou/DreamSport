@@ -1,47 +1,42 @@
----
 - name: Deploy Application to VM2
   hosts: vm2
   become: yes
-  become_user: root
+  become_user: aymen
   become_method: sudo
   tasks:
 
+    # 1. Install Docker
     - name: Install Docker
       apt:
         name: docker.io
         state: present
         update_cache: yes
 
+    # 2. Install Docker Compose
     - name: Install Docker Compose
       apt:
         name: docker-compose
         state: present
         update_cache: yes
 
-    - name: Create backend directory
-      file:
-        path: /opt/backend
-        state: directory
+    # 3. Pull and run backend Docker image from Docker Hub
+    - name: Pull and run backend image
+      docker_container:
+        name: backend
+        image: your-dockerhub-user/your-backend-image:latest  # Replace with actual Docker Hub image
+        ports:
+          - "5000:5000"  # Adjust ports based on your backend configuration
+        restart_policy: always
 
-    - name: Copy backend files (Docker Compose project)
-      copy:
-        src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/
-        dest: /opt/backend/
-        mode: '0755'
-
-    - name: Run backend with Docker Compose
-      docker_compose:
-        project_src: /opt/backend
-        state: present
-        restarted: yes
-
+    # 4. Install Nginx
     - name: Install Nginx
       apt:
         name: nginx
         state: present
         update_cache: yes
 
-    - name: Copy Angular build files
+    # 5. Copy Angular build files to Nginx serving directory
+    - name: Copy Angular build files to VM2
       copy:
         src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/angular/dist/dreams-sports
         dest: /var/www/html
@@ -49,12 +44,14 @@
         group: www-data
         mode: '0755'
 
-    - name: Configure Nginx
+    # 6. Configure Nginx to serve the Angular frontend
+    - name: Configure Nginx to serve frontend
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/sites-available/default
 
-    - name: Restart Nginx
+    # 7. Restart Nginx
+    - name: Restart Nginx to apply changes
       service:
         name: nginx
         state: restarted
