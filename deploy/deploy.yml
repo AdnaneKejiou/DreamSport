@@ -1,0 +1,59 @@
+---
+- name: Deploy Application to VM2
+  hosts: vm2
+  become: yes
+  tasks:
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+        update_cache: yes
+
+    - name: Create backend directory
+      file:
+        path: /opt/backend
+        state: directory
+
+    - name: Copy backend files (Docker Compose project)
+      copy:
+        src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/
+        dest: /opt/backend/
+        mode: '0755'
+
+    - name: Run backend with Docker Compose
+      docker_compose:
+        project_src: /opt/backend
+        state: present
+        restarted: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Copy Angular build files
+      copy:
+        src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/angular/dist/dreams-sports
+        dest: /var/www/html
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Configure Nginx
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/sites-available/default
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+        enabled: yes

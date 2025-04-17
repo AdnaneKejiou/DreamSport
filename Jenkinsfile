@@ -41,6 +41,16 @@ pipeline {
             }
         }
 
+        stage('Deploy Application with Ansible') {
+            steps {
+                script {
+                    sh '''
+                    ansible-playbook -i deploy/inventory.ini deploy/deploy.yml
+                    '''
+                }
+            }
+        }
+
 
     }
 }
