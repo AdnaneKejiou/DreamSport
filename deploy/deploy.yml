@@ -1,3 +1,4 @@
+---
 - name: Deploy Application to VM2
   hosts: vm2
   become: yes
@@ -19,23 +20,29 @@
         state: present
         update_cache: yes
 
-    # 3. Pull and run backend Docker image from Docker Hub
-    - name: Pull and run backend image
-      docker_container:
-        name: backend
-        image: your-dockerhub-user/your-backend-image:latest  # Replace with actual Docker Hub image
-        ports:
-          - "5000:5000"  # Adjust ports based on your backend configuration
-        restart_policy: always
+    # 3. Pull Docker images defined in the Docker Compose file
+    - name: Pull all Docker images in the Docker Compose file
+      shell: |
+        cd /home/aymen/projects/dreamsport
+        docker-compose -f projetPfa/docker-compose.yml pull
+      args:
+        chdir: /home/aymen/projects/dreamsport
 
-    # 4. Install Nginx
+    # 4. Run Docker containers with the pulled images
+    - name: Start Docker containers
+      docker_compose:
+        project_src: /home/aymen/projects/dreamsport
+        state: present
+        restarted: yes
+
+    # 5. Install Nginx
     - name: Install Nginx
       apt:
         name: nginx
         state: present
         update_cache: yes
 
-    # 5. Copy Angular build files to Nginx serving directory
+    # 6. Copy Angular build files to Nginx serving directory
     - name: Copy Angular build files to VM2
       copy:
         src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/angular/dist/dreams-sports
@@ -44,13 +51,13 @@
         group: www-data
         mode: '0755'
 
-    # 6. Configure Nginx to serve the Angular frontend
+    # 7. Configure Nginx to serve the Angular frontend
     - name: Configure Nginx to serve frontend
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/sites-available/default
 
-    # 7. Restart Nginx
+    # 8. Restart Nginx
     - name: Restart Nginx to apply changes
       service:
         name: nginx
