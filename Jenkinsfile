@@ -59,7 +59,7 @@ pipeline {
             }
         }
 
-       stage('Deploy Application with Ansible') {
+        stage('Deploy Application with Ansible') {
             steps {
                 withCredentials([
                     sshUserPrivateKey(credentialsId: 'jenkins-ssh-key', keyFileVariable: 'SSH_KEY'),
