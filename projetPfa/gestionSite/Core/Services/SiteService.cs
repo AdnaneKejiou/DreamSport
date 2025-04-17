@@ -37,8 +37,9 @@ namespace gestionSite.Core.Services
                 // If not found in cache, fetch from DB
                 site = await _siteRepository.GetAllComplexInfosAsync(adminId);
 
-                // Cache the result in both L1 and L2
+               if(site!=null){
                 await _cacheService.SetAsync(cacheKey, site, TimeSpan.FromMinutes(5));
+               }     
             }
             return site;
         }
@@ -53,8 +54,10 @@ namespace gestionSite.Core.Services
                 // If not found in cache, fetch from DB
                 site = await _siteRepository.getSiteASync(adminId);
 
-                // Cache the result in both L1 and L2
-                await _cacheService.SetAsync(cacheKey, site, TimeSpan.FromMinutes(5));
+                if(site!= null){
+                    await _cacheService.SetAsync(cacheKey, site, TimeSpan.FromMinutes(5));
+                }
+                
             }
             return site;
         }

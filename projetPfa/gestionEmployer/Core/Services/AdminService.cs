@@ -44,8 +44,9 @@ namespace gestionEmployer.Core.Services
                 // If not found in cache, fetch from DB
                 admin = _adminRepository.GetAdminByTenantId(tenantId);
 
-                // Cache the result in both L1 and L2
+                if(admin != null){
                 _cacheService.Set(cacheKey, admin, TimeSpan.FromMinutes(5));  // Set TTL as needed
+                }
             }
 
             return admin;
@@ -231,8 +232,9 @@ namespace gestionEmployer.Core.Services
                 // If not found in cache, fetch from DB
                 admin = await _adminRepository.GetAdminAsync(id);
 
-                // Cache the result in both L1 and L2
+                if(admin!=null){
                 await _cacheService.SetAsync(cacheKey, admin, TimeSpan.FromMinutes(5));  // Set TTL as needed
+                }
             }
             if (admin == null)
             {
