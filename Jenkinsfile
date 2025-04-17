@@ -53,7 +53,6 @@ pipeline {
 
                     // Push images using docker-compose to Docker Hub
                     sh """
-                    # Push all images defined in the Docker Compose file
                     docker-compose -f projetPfa/docker-compose.yml push
                     """
                 }
