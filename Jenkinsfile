@@ -63,7 +63,6 @@ pipeline {
         stage('Deploy Application with Ansible') {
             steps {
                 script {
-                    // Deploy application using Ansible
                     sh '''
                     ansible-playbook -i deploy/inventory.ini deploy/deploy.yml --ask-become-pass
                     '''
