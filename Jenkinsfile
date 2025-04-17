@@ -48,34 +48,37 @@ pipeline {
                     echo \$DOCKER_CREDENTIALS_PSW | docker login -u \$DOCKER_CREDENTIALS_USR --password-stdin
                     """
                     
+                    // Get the list of images to ensure the build was successful
+                    sh 'docker images'
+
                     // Push images for each custom-built service
                     sh """
                     # Tag and push custom service images
-                    docker tag gestionsite \$DOCKER_CREDENTIALS_USR/gestionsite:latest
+                    docker tag projetpfa-gestionsite \$DOCKER_CREDENTIALS_USR/gestionsite:latest
                     docker push \$DOCKER_CREDENTIALS_USR/gestionsite:latest
 
-                    docker tag gestionemployer \$DOCKER_CREDENTIALS_USR/gestionemployer:latest
+                    docker tag projetpfa-gestionemployer \$DOCKER_CREDENTIALS_USR/gestionemployer:latest
                     docker push \$DOCKER_CREDENTIALS_USR/gestionemployer:latest
 
-                    docker tag auth \$DOCKER_CREDENTIALS_USR/auth:latest
+                    docker tag projetpfa-auth \$DOCKER_CREDENTIALS_USR/auth:latest
                     docker push \$DOCKER_CREDENTIALS_USR/auth:latest
 
-                    docker tag gestionutilisateur \$DOCKER_CREDENTIALS_USR/gestionutilisateur:latest
+                    docker tag projetpfa-gestionutilisateur \$DOCKER_CREDENTIALS_USR/gestionutilisateur:latest
                     docker push \$DOCKER_CREDENTIALS_USR/gestionutilisateur:latest
 
-                    docker tag gestionequipe \$DOCKER_CREDENTIALS_USR/gestionequipe:latest
+                    docker tag projetpfa-gestionequipe \$DOCKER_CREDENTIALS_USR/gestionequipe:latest
                     docker push \$DOCKER_CREDENTIALS_USR/gestionequipe:latest
 
-                    docker tag gestionreservation \$DOCKER_CREDENTIALS_USR/gestionreservation:latest
+                    docker tag projetpfa-gestionreservation \$DOCKER_CREDENTIALS_USR/gestionreservation:latest
                     docker push \$DOCKER_CREDENTIALS_USR/gestionreservation:latest
 
-                    docker tag servicemail \$DOCKER_CREDENTIALS_USR/servicemail:latest
+                    docker tag projetpfa-servicemail \$DOCKER_CREDENTIALS_USR/servicemail:latest
                     docker push \$DOCKER_CREDENTIALS_USR/servicemail:latest
 
-                    docker tag chatetinvitation \$DOCKER_CREDENTIALS_USR/chatetinvitation:latest
+                    docker tag projetpfa-chatetinvitation \$DOCKER_CREDENTIALS_USR/chatetinvitation:latest
                     docker push \$DOCKER_CREDENTIALS_USR/chatetinvitation:latest
 
-                    docker tag apigateway \$DOCKER_CREDENTIALS_USR/apigateway:latest
+                    docker tag projetpfa-apigateway \$DOCKER_CREDENTIALS_USR/apigateway:latest
                     docker push \$DOCKER_CREDENTIALS_USR/apigateway:latest
                     """
                 }
