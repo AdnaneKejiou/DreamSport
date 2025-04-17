@@ -2,6 +2,8 @@
 - name: Deploy Application to VM2
   hosts: vm2
   become: yes
+  become_user: root
+  become_method: sudo
   tasks:
 
     - name: Install Docker
