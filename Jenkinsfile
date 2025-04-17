@@ -85,12 +85,19 @@ pipeline {
 
         stage('Deploy Application with Ansible') {
             steps {
-                script {
+                withCredentials([
+                    sshUserPrivateKey(credentialsId: 'jenkins-ssh-key', keyFileVariable: 'SSH_KEY'),
+                    string(credentialsId: 'ansible-become-password', variable: 'ANSIBLE_BECOME_PASSWORD')
+                ]) {
                     sh '''
-                    ansible-playbook -i deploy/inventory.ini deploy/deploy.yml --ask-become-pass
+                    ansible-playbook -i deploy/inventory.ini deploy/deploy.yml \
+                        --private-key $SSH_KEY \
+                        --become \
+                        --extra-vars "ansible_become_password=$ANSIBLE_BECOME_PASSWORD"
                     '''
                 }
             }
         }
+
     }
 }
