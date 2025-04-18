@@ -5,6 +5,7 @@ pipeline {
         SONARQUBE = 'LocalSonarQube'  // The name you set for your SonarQube server in Jenkins
         SONAR_TOKEN = credentials('SONAR_TOKEN')  // This will securely fetch your SonarQube token
         DOCKER_CREDENTIALS = credentials('DOCKER_CREDENTIALS')  // Docker Hub credentials (username and password)
+        ANSIBLE_HOST_KEY_CHECKING = 'False'
     }
 
     stages {
@@ -59,20 +60,13 @@ pipeline {
             }
         }
 
-        stage('Deploy Application with Ansible') {
+        stage('Deploy') {
             steps {
-                withCredentials([
-                    sshUserPrivateKey(credentialsId: 'jenkins-ssh-key', keyFileVariable: 'SSH_KEY'),
-                    string(credentialsId: 'ansible-become-password', variable: 'ANSIBLE_BECOME_PASSWORD')
-                ]) {
+                sshagent(['jenkins-ssh-key']) {
                     sh '''
-                    export ANSIBLE_HOST_KEY_CHECKING=False
-                    
-                    ansible-playbook -i deploy/inventory.ini deploy/deploy.yml \
-                        --private-key "$SSH_KEY" \
-                        --user aymen \
-                        --become \
-                        --extra-vars "ansible_become_password=$ANSIBLE_BECOME_PASSWORD"
+                        ansible-playbook -i deploy/inventory.ini deploy/deploy.yml \
+                        --private-key /var/lib/jenkins/.ssh/id_ed25519 \
+                        --user aymen --become --extra-vars ansible_become_password=YOUR_PASSWORD
                     '''
                 }
             }
