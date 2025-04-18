@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/l
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
+# Install dotnet-ef tool
+RUN dotnet tool install --global dotnet-ef
+
 # Copy project files
 COPY chatEtInvitation/chatEtInvitation.csproj ./chatEtInvitation/
 COPY Shared.Messaging/Shared.Messaging.csproj ./Shared.Messaging/

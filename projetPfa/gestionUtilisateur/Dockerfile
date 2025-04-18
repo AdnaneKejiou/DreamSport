@@ -8,6 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
+# Install dotnet-ef tool
+RUN dotnet tool install --global dotnet-ef
+
 # Copy project files
 COPY gestionUtilisateur/gestionUtilisateur.csproj ./gestionUtilisateur/
 COPY Shared.Messaging/Shared.Messaging.csproj ./Shared.Messaging/
