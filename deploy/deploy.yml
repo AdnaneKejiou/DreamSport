@@ -5,6 +5,16 @@
   become_method: sudo
   tasks:
 
+    - name: Enable universe repository
+      apt_repository:
+        repo: 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} universe'
+        state: present
+
+    # 1. Update apt cache after enabling universe repository
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
     # 0. Ensure required dependencies are present
     - name: Install prerequisite packages
       apt:
@@ -44,6 +54,7 @@
           - docker-compose-plugin
         state: latest
         update_cache: yes
+
 
     # 4. Ensure Docker service is running
     - name: Start and enable Docker
