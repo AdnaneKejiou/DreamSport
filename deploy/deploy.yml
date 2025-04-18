@@ -50,6 +50,14 @@
         state: started
         enabled: yes
 
+    - name: Copy docker-compose.yml to VM2
+      copy:
+        src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/docker-compose.yml
+        dest: /home/aymen/projects/dreamsport/docker-compose.yml
+        owner: aymen
+        group: aymen
+        mode: '0644'
+
     # 5. Pull Docker images defined in the Docker Compose file
     - name: Pull all Docker images in the Docker Compose file
       shell: docker compose -f projetPfa/docker-compose.yml pull
