@@ -60,7 +60,7 @@
 
     # 5. Pull Docker images defined in the Docker Compose file
     - name: Pull all Docker images in the Docker Compose file
-      shell: docker compose -f projetPfa/docker-compose.yml pull
+      shell: docker compose -f docker-compose.yml pull
       args:
         chdir: /home/aymen/projects/dreamsport
 
