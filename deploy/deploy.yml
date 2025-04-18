@@ -23,7 +23,7 @@
     - name: Pull all Docker images in the Docker Compose file
       shell: |
         cd /home/aymen/projects/dreamsport
-        docker-compose -f projetPfa/docker-compose.yml pull
+        docker compose -f projetPfa/docker-compose.yml pull
       args:
         chdir: /home/aymen/projects/dreamsport
 
