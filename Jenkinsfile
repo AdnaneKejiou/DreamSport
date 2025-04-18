@@ -62,12 +62,14 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sshagent(['jenkins-ssh-key']) {
-                    sh '''
-                        ansible-playbook -i deploy/inventory.ini deploy/deploy.yml \
-                        --private-key /var/lib/jenkins/.ssh/id_ed25519 \
-                        --user aymen --become --extra-vars ansible_become_password=YOUR_PASSWORD
-                    '''
+                withCredentials([string(credentialsId: 'ansible-sudo-password', variable: 'BECOME_PASS')]) {
+                    sshagent(['jenkins-ssh-key']) {
+                        sh '''
+                            ansible-playbook -i deploy/inventory.ini deploy/deploy.yml \
+                            --private-key /var/lib/jenkins/.ssh/id_ed25519 \
+                            --user aymen --become --extra-vars "ansible_become_password=$BECOME_PASS"
+                        '''
+                    }
                 }
             }
         }
