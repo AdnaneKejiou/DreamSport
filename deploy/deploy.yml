@@ -2,7 +2,6 @@
 - name: Deploy Application to VM2
   hosts: vm2
   become: yes
-  become_user: aymen
   become_method: sudo
   tasks:
 
