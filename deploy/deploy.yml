@@ -91,8 +91,9 @@
 
     - name: Print docker compose output
       debug:
-    var: compose_output
-    
+        var: compose_output
+
+
     # 7. Install Nginx
     - name: Install Nginx
       apt:
