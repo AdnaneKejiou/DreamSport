@@ -56,7 +56,7 @@ services:
       sqlserver:
         condition: service_started
       rabbitmq:
-        condition: service_healthy
+        condition: service_started
       redis:
         condition: service_started
     networks:
