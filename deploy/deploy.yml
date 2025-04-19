@@ -59,6 +59,14 @@
         owner: aymen
         group: aymen
         mode: '0644'
+    
+    - name: Copy wait-for-it.sh script to VM2
+      copy:
+        src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/gestionSite/wait-for-it.sh
+        dest: /home/aymen/projects/dreamsport/gestionSite/wait-for-it.sh
+        owner: aymen
+        group: aymen
+        mode: '0755'
 
     # 5. Pull Docker images defined in the Docker Compose file
     - name: Pull all Docker images in the Docker Compose file

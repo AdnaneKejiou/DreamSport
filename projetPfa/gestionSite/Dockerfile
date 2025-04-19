@@ -4,6 +4,9 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+# Install netcat-openbsd
+RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
+
 # SDK image for build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
@@ -27,5 +30,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+# ⬇️ This must point to the correct path of wait-for-it.sh
+COPY gestionSite/wait-for-it.sh .
+RUN chmod +x wait-for-it.sh
 
-ENTRYPOINT ["dotnet", "gestionSite.dll"]
+ENTRYPOINT ["./wait-for-it.sh", "sqlserver:1433", "--", "dotnet", "gestionSite.dll"]
