@@ -5,6 +5,13 @@
   become_method: sudo
   tasks:
 
+    - name: Install python3-distutils (using apt-get)
+      apt:
+        name: python3-distutils
+        state: present
+        update_cache: yes
+        force_apt_get: yes
+
     # 0. Ensure required dependencies are present
     - name: Install prerequisite packages
       apt:
