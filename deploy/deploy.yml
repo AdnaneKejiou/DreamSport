@@ -107,6 +107,11 @@
         delay: 10      # Delay between retries to give the service time to initialize
         state: started
 
+    - name: Start Docker containers
+      docker_compose:
+        project_src: /home/aymen/projects/dreamsport
+        state: present
+        
     - name: Print docker compose output
       debug:
         var: compose_output
