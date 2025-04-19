@@ -1,4 +1,3 @@
----
 - name: Deploy Application to VM2
   hosts: vm2
   become: yes
@@ -51,20 +50,6 @@
         state: started
         enabled: yes
 
-    # 5. Wait for SQL Server to be ready
-    - name: Wait for SQL Server to be ready
-      wait_for:
-        host: "localhost"
-        port: 1433
-        timeout: 60
-
-    # 6. Wait for RabbitMQ to be ready
-    - name: Wait for RabbitMQ to be ready
-      wait_for:
-        host: "localhost"
-        port: 5672
-        timeout: 60
-
     # 7. Copy docker-compose.yml to VM2
     - name: Copy docker-compose.yml to VM2
       copy:
@@ -104,18 +89,36 @@
       register: compose_output
       no_log: false
 
+    # 12. Wait for SQL Server to be ready
+    - name: Wait for SQL Server to be ready
+      wait_for:
+        host: "localhost"
+        port: 1433
+        timeout: 120   # Increased timeout to wait longer for readiness
+        delay: 10      # Delay between retries to give the service time to initialize
+        state: started
+
+    # 13. Wait for RabbitMQ to be ready
+    - name: Wait for RabbitMQ to be ready
+      wait_for:
+        host: "localhost"
+        port: 5672
+        timeout: 120   # Increased timeout to wait longer for readiness
+        delay: 10      # Delay between retries to give the service time to initialize
+        state: started
+
     - name: Print docker compose output
       debug:
         var: compose_output
 
-    # 12. Install Nginx
+    # 14. Install Nginx
     - name: Install Nginx
       apt:
         name: nginx
         state: present
         update_cache: yes
 
-    # 13. Copy Angular build files to Nginx serving directory
+    # 15. Copy Angular build files to Nginx serving directory
     - name: Copy Angular build files to VM2
       copy:
         src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/angular/dist/dreams-sports
@@ -124,13 +127,13 @@
         group: www-data
         mode: '0755'
 
-    # 14. Configure Nginx to serve frontend
+    # 16. Configure Nginx to serve frontend
     - name: Configure Nginx to serve frontend
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/sites-available/default
 
-    # 15. Restart Nginx to apply changes
+    # 17. Restart Nginx to apply changes
     - name: Restart Nginx to apply changes
       service:
         name: nginx
