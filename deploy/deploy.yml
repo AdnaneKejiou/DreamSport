@@ -3,7 +3,6 @@
   hosts: vm2
   become: yes
   become_method: sudo
-
   tasks:
 
     # 0. Ensure required dependencies are present
@@ -17,7 +16,6 @@
           - python3
         state: present
         update_cache: yes
-      tags: setup
 
     # 1. Add Docker's official GPG key
     - name: Add Docker’s official GPG key
@@ -26,7 +24,6 @@
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
       args:
         creates: /etc/apt/keyrings/docker.gpg
-      tags: docker
 
     # 2. Set up Docker repository
     - name: Add Docker repository
@@ -34,7 +31,6 @@
         dest: /etc/apt/sources.list.d/docker.list
         content: |
           deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
-      tags: docker
 
     # 3. Install Docker and Compose v2 plugin
     - name: Install Docker CE and Compose plugin
@@ -47,7 +43,6 @@
           - docker-compose-plugin
         state: latest
         update_cache: yes
-      tags: docker
 
     # 4. Ensure Docker service is running
     - name: Start and enable Docker
@@ -55,9 +50,22 @@
         name: docker
         state: started
         enabled: yes
-      tags: docker
 
-    # 5. Copy docker-compose and wait-for-it
+    # 5. Wait for SQL Server to be ready
+    - name: Wait for SQL Server to be ready
+      wait_for:
+        host: "localhost"
+        port: 1433
+        timeout: 60
+
+    # 6. Wait for RabbitMQ to be ready
+    - name: Wait for RabbitMQ to be ready
+      wait_for:
+        host: "localhost"
+        port: 5672
+        timeout: 60
+
+    # 7. Copy docker-compose.yml to VM2
     - name: Copy docker-compose.yml to VM2
       copy:
         src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/docker-compose.yml
@@ -65,8 +73,8 @@
         owner: aymen
         group: aymen
         mode: '0644'
-      tags: deploy
 
+    # 8. Copy wait-for-it.sh script to VM2
     - name: Copy wait-for-it.sh script to VM2
       copy:
         src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/gestionSite/wait-for-it.sh
@@ -74,22 +82,20 @@
         owner: aymen
         group: aymen
         mode: '0755'
-      tags: deploy
 
-    # 6. Pull images and start fresh
+    # 9. Pull Docker images defined in the Docker Compose file
     - name: Pull all Docker images in the Docker Compose file
-      shell: docker compose -f docker-compose.yml pull
+      shell: docker compose -f /home/aymen/projects/dreamsport/docker-compose.yml pull
       args:
         chdir: /home/aymen/projects/dreamsport
-      tags: docker
 
+    # 10. Stop and remove existing Docker Compose containers
     - name: Stop and remove existing Docker Compose containers
       docker_compose:
         project_src: /home/aymen/projects/dreamsport
         state: absent
-      tags: docker
 
-    # 7. Start Docker containers using Compose
+    # 11. Start Docker containers using Compose
     - name: Start Docker containers
       docker_compose:
         project_src: /home/aymen/projects/dreamsport
@@ -97,41 +103,19 @@
         restarted: yes
       register: compose_output
       no_log: false
-      tags: docker
 
     - name: Print docker compose output
       debug:
         var: compose_output
-      tags: docker
 
-    # 8. Get logs from exited containers dynamically
-    - name: Get exited containers
-      shell: docker ps -a --filter "status=exited" --format "{{.Names}}"
-      register: exited_containers
-      tags: logs
-
-    - name: Show logs of exited containers
-      shell: docker logs {{ item }}
-      loop: "{{ exited_containers.stdout_lines }}"
-      register: container_logs
-      when: exited_containers.stdout_lines | length > 0
-      ignore_errors: yes
-      tags: logs
-
-    - name: Debug logs of exited containers
-      debug:
-        var: container_logs.results
-      tags: logs
-
-    # 9. Install Nginx
+    # 12. Install Nginx
     - name: Install Nginx
       apt:
         name: nginx
         state: present
         update_cache: yes
-      tags: nginx
 
-    # 10. Copy Angular build files
+    # 13. Copy Angular build files to Nginx serving directory
     - name: Copy Angular build files to VM2
       copy:
         src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/angular/dist/dreams-sports
@@ -139,20 +123,16 @@
         owner: www-data
         group: www-data
         mode: '0755'
-      become_user: root
-      tags: nginx
 
-    # 11. Configure Nginx
+    # 14. Configure Nginx to serve frontend
     - name: Configure Nginx to serve frontend
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/sites-available/default
-      tags: nginx
 
-    # 12. Restart Nginx
+    # 15. Restart Nginx to apply changes
     - name: Restart Nginx to apply changes
       service:
         name: nginx
         state: restarted
         enabled: yes
-      tags: nginx
