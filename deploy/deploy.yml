@@ -66,6 +66,12 @@
       args:
         chdir: /home/aymen/projects/dreamsport
 
+    - name: Stop and remove existing Docker Compose containers
+      docker_compose:
+        project_src: /home/aymen/projects/dreamsport
+        state: absent
+
+
     # 6. Start Docker containers using Compose
     - name: Start Docker containers
       docker_compose:
