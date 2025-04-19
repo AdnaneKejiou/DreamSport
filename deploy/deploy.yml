@@ -86,7 +86,13 @@
         project_src: /home/aymen/projects/dreamsport
         state: present
         restarted: yes
+        register: compose_output
+      no_log: false
 
+    - name: Print docker compose output
+      debug:
+    var: compose_output
+    
     # 7. Install Nginx
     - name: Install Nginx
       apt:
