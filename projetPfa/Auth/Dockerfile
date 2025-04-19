@@ -7,8 +7,7 @@ EXPOSE 443
 # SDK image for build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-# Install dotnet-ef tool
-RUN dotnet tool install --global dotnet-ef
+
 # Copy project files
 COPY Auth/Auth.csproj ./Auth/
 COPY Shared.Messaging/Shared.Messaging.csproj ./Shared.Messaging/
