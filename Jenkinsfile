@@ -27,22 +27,7 @@ pipeline {
             }
         }
 
-        stage('Push Docker Images to Docker Hub') {
-            steps {
-                script {
-                    // Login to Docker Hub
-                    sh """
-                    echo \$DOCKER_CREDENTIALS_PSW | docker login -u \$DOCKER_CREDENTIALS_USR --password-stdin
-                    """
-                    
-                    // Get the list of images to ensure the build was successful
-                    sh 'docker images'
-
-                    // Push images using docker-compose to Docker Hub
-                    sh 'docker compose -f projetPfa/docker-compose.yml push'
-                }
-            }
-        }
+        
 
 
         stage('Deploy') {
