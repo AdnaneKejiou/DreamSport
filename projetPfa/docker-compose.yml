@@ -48,7 +48,7 @@ services:
     container_name: gestionsite
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionSite;User=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionSiteProd;User Id=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
       - RabbitMQ__Host=rabbitmq
       - Redis__Host=redis
     ports:
@@ -75,7 +75,7 @@ services:
     container_name: gestionemployer
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionEmployer;User=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionEmployerProd;User Id=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
       - RabbitMQ__Host=rabbitmq
       - Redis__Host=redis
     ports:
@@ -98,7 +98,7 @@ services:
     container_name: auth
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=auth;User=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=authProd;User Id=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
       - RabbitMQ__Host=rabbitmq
       - Redis__Host=redis
     ports:
@@ -119,7 +119,7 @@ services:
     container_name: gestionutilisateur
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionUtilisateur;User=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionUtilisateurProd;User Id=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
       - RabbitMQ__Host=rabbitmq
       - Redis__Host=redis
     ports:
@@ -142,7 +142,7 @@ services:
     container_name: gestionequipe
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionEquipe;User=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionEquipeProd;User Id=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
       - RabbitMQ__Host=rabbitmq
       - Redis__Host=redis
     ports:
@@ -168,7 +168,7 @@ services:
     container_name: gestionreservation
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionReservation;User=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=gestionReservationProd;User Id=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
       - RabbitMQ__Host=rabbitmq
       - Redis__Host=redis
     ports:
@@ -208,7 +208,7 @@ services:
     container_name: chatetinvitation
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=chatEtInvitation;User=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=chatEtInvitationProd;User Id=sa;Password=YourStrongPassword123;Encrypt=False;TrustServerCertificate=True
       - RabbitMQ__Host=rabbitmq
       - Redis__Host=redis
     ports:
