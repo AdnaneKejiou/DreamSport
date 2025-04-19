@@ -11,7 +11,7 @@ services:
     networks:
       - app-network
     volumes:
-      - dreamsport_prod-data:/var/opt/mssql
+      - prodData:/var/opt/mssql
 
   # Redis service
   redis:
@@ -253,7 +253,7 @@ services:
     
 
 volumes:
-  dreamsport_prod-data:
+  prodData:
 
 networks:
   app-network:
