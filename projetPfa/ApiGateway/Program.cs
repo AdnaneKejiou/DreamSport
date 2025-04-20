@@ -58,6 +58,7 @@ app.UseCors();
 app.UseMiddleware<TenantMiddleware>();
 app.UseMiddleware<TenantMiddlewareHandler>();
 app.UseMiddleware<TenantComparingMiddleware>();
+app.UseRouting(); 
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -65,7 +66,6 @@ app.UseAuthorization();
 app.UseOcelot().Wait();
 
 app.MapControllers();
-app.UseRouting(); 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapMetrics(); // Prometheus /metrics endpoint
