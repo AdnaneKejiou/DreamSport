@@ -65,7 +65,7 @@ app.UseAuthorization();
 app.UseOcelot().Wait();
 
 app.MapControllers();
-// Expose metrics at /metrics
+app.UseRouting(); 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapMetrics(); // Prometheus /metrics endpoint

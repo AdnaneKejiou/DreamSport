@@ -56,6 +56,7 @@ builder.Services.AddSignalR()
     });
 var app = builder.Build();
 
+app.UseRouting(); 
 app.UseCors("AllowAll");
 
 app.MapHub<InvitationHub>("/invitationHub");

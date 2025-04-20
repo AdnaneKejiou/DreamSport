@@ -34,6 +34,7 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseRouting(); 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapMetrics(); // Prometheus /metrics endpoint

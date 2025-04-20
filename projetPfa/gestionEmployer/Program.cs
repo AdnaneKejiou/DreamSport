@@ -46,7 +46,7 @@ builder.Services.AddSingleton<ICacheService>(sp =>
 
 var app = builder.Build();
 
-
+app.UseRouting(); 
 
 
 app.UseAuthorization();
