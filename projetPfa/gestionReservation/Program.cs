@@ -3,6 +3,7 @@ using gestionReservation.Core.Interfaces;
 using gestionReservation.Infrastructure.Data.Repositories;
 using gestionReservation.Infrastructure.ExternServices;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,9 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics(); // Prometheus /metrics endpoint
+});
 // Démarrer l'application
 app.Run();

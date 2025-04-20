@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.Values;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,4 +65,10 @@ app.UseAuthorization();
 app.UseOcelot().Wait();
 
 app.MapControllers();
+// Expose metrics at /metrics
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics(); // Prometheus /metrics endpoint
+});
+
 app.Run();

@@ -5,6 +5,7 @@ using gestionEquipe.Core.Interfaces;
 using gestionEquipe.Infrastructure.Data.Repositories;
 using gestionEquipe.Core.Services;
 using gestionEquipe;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,5 +43,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics(); // Prometheus /metrics endpoint
+});
 app.Run();

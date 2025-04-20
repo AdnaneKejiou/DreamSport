@@ -5,6 +5,7 @@ using Auth.Models;
 using Auth.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,5 +72,8 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics(); // Prometheus /metrics endpoint
+});
 app.Run();

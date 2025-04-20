@@ -5,6 +5,7 @@ using gestionUtilisateur.Infrastructure.Data;
 using gestionUtilisateur.Infrastructure.Data.Repositories;
 using gestionUtilisateur.Infrastructure.Extern_Services;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -33,5 +34,8 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics(); // Prometheus /metrics endpoint
+});
 app.Run();

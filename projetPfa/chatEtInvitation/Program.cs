@@ -7,6 +7,7 @@ using chatEtInvitation.Infrastructure.Data.Repositories;
 using gestionEmployer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using chatEtInvitation.Core.Interfaces.Hub;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,5 +65,8 @@ app.MapHub<ChatHub>("/chatHub");
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics(); // Prometheus /metrics endpoint
+});
 app.Run();

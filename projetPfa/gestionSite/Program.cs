@@ -10,6 +10,7 @@ using gestionSite.Core.Interfaces.TerrainStatutsInterfaces;
 using gestionSite.Core.Services;
 using gestionSite.Infrastructure.Data.Repositories;
 using gestionSite.Infrastructure.Repositories;
+using Prometheus;
 using Shared.Messaging.Services;
 using StackExchange.Redis;
 
@@ -68,6 +69,9 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics(); // Prometheus /metrics endpoint
+});
 app.Run();
 

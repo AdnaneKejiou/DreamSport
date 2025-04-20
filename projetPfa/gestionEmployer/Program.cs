@@ -7,6 +7,7 @@ using gestionEmployer.Infrastructure.ExternServices;
 using Shared.Messaging.Services;
 using gestionEmployer.Core.Interfaces.CasheInterfaces;
 using StackExchange.Redis;
+using Prometheus;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -51,5 +52,8 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics(); // Prometheus /metrics endpoint
+});
 app.Run();
