@@ -88,6 +88,7 @@
         restarted: yes
       register: compose_output
       no_log: false
+      ignore_errors: yes
 
     # 12. Wait for SQL Server to be ready
     - name: Wait for SQL Server to be ready
