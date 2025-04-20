@@ -59,14 +59,6 @@
         group: aymen
         mode: '0644'
 
-    # 8. Copy wait-for-it.sh script to VM2
-    - name: Copy wait-for-it.sh script to VM2
-      copy:
-        src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/gestionSite/wait-for-it.sh
-        dest: /home/aymen/projects/dreamsport/gestionSite/wait-for-it.sh
-        owner: aymen
-        group: aymen
-        mode: '0755'
 
     # 9. Pull Docker images defined in the Docker Compose file
     - name: Pull all Docker images in the Docker Compose file
@@ -101,13 +93,14 @@
       wait_for:
         host: "localhost"
         port: 5672
-        timeout: 120   # Increased timeout to wait longer for readiness
+        timeout: 200   # Increased timeout to wait longer for readiness
         delay: 10      # Delay between retries to give the service time to initialize
         state: started
 
-    - name: Print docker compose output
-      debug:
-        var: compose_output
+    - name: Start Docker containers
+      docker_compose:
+        project_src: /home/aymen/projects/dreamsport
+        state: present
 
     # 14. Install Nginx
     - name: Install Nginx
