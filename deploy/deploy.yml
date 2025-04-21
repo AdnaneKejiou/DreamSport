@@ -88,14 +88,6 @@
         delay: 10      # Delay between retries to give the service time to initialize
         state: started
 
-    # 13. Wait for RabbitMQ to be ready
-    - name: Wait for RabbitMQ to be ready
-      wait_for:
-        host: "localhost"
-        port: 5672
-        timeout: 200   # Increased timeout to wait longer for readiness
-        delay: 10      # Delay between retries to give the service time to initialize
-        state: started
 
     - name: Start Docker containers
       docker_compose:
