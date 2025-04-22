@@ -36,7 +36,7 @@ export class ChatAmisService {
     };
   
     return this.http.post<void>(
-      `http://localhost:5010/gateway/chatteam/mark-as-seen`,
+      this.baseUrl+`/chatteam/mark-as-seen`,
       request
     );
   }

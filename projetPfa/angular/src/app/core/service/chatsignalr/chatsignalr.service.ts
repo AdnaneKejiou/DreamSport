@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { AuthService } from '../auth/authservice';
 import { AmisMessageDTO } from '../../models/chat/amis-message.dto';
 import { TeamMessageDTO } from '../../models/chat/team-message.dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class ChatSignalRService {
     console.log('[SignalR] Construction de la connexion avec userId =', userId);
 
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`http://99.0.2.5:5270/chatHub?userId=${userId}`, {
+      .withUrl(`/chatHub?userId=${userId}`, {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets,
         logger: signalR.LogLevel.Trace

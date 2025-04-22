@@ -116,7 +116,7 @@ export class TenantGuard implements CanActivate {
   private checkTenantExistence(tenantId: number): Observable<boolean> {
     const headers = new HttpHeaders().set('Tenant-ID', tenantId.toString());
   
-    return this.http.get<any>('http://99.0.2.5:5010/gateway/Admin/validate', { headers }).pipe(
+    return this.http.get<any>('/gateway/Admin/validate', { headers }).pipe(
       catchError((error) => {
         if (error.status === 404) {
           return of(false);
