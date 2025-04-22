@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { AuthService } from '../auth/authservice';
 import { AmisMessageDTO } from '../../models/chat/amis-message.dto';
 import { TeamMessageDTO } from '../../models/chat/team-message.dto';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
