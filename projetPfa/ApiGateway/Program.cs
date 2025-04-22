@@ -50,7 +50,7 @@ builder.Services.AddHttpClient("AdminService", client =>
 });
 var app = builder.Build();
 
-app.UseCors();
+app.UseCors("AllowAllOrigins");
 
 
 
