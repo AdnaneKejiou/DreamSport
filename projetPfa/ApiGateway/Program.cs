@@ -20,10 +20,10 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("https://localhost:4200")  // Allow your Angular app's origin
-               .AllowAnyHeader()                   // Allow any headers
-               .AllowAnyMethod()                   // Allow any HTTP methods
-               .AllowCredentials();                // Allow credentials (cookies, Authorization headers)
+        builder.WithOrigins("https://99.0.2.5:4200")  
+               .AllowAnyHeader()                   
+               .AllowAnyMethod()                  
+               .AllowCredentials();                
     });
 });
 builder.Services.AddHttpClient<TenantMiddleware>();
