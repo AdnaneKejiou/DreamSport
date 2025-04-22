@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 
 export class MailServiceService {
-  private apiUrl =this.environment.apiUrl+'/Mail/send'; // URL de l'API
+  private apiUrl =environment.apiUrl+'/Mail/send'; // URL de l'API
   mail='';
   tenantData$: Observable<any>;
 

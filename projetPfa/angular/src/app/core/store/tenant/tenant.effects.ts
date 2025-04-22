@@ -24,19 +24,19 @@ export class TenantEffects {
         const headers = new HttpHeaders().set('Tenant-Id', tenantId.toString());
 
         return forkJoin({
-          siteInfo: this.http.get<any>(this.environment.apiUrl+'/site', { headers }).pipe(
+          siteInfo: this.http.get<any>(environment.apiUrl+'/site', { headers }).pipe(
             catchError((error) => {
               console.warn('⚠️ Erreur Site Info:', error);
               return of(null); // Si l'API échoue, retourne `null` au lieu d'un échec total
             })
           ),
-          faq: this.http.get<any>(this.environment.apiUrl+'/faq', { headers }).pipe(
+          faq: this.http.get<any>(environment.apiUrl+'/faq', { headers }).pipe(
             catchError((error) => {
               console.warn('⚠️ Erreur FAQ:', error);
               return of(null);
             })
           ),
-          annonces: this.http.get<any>(this.environment.apiUrl+'/annonces', { headers }).pipe(
+          annonces: this.http.get<any>(environment.apiUrl+'/annonces', { headers }).pipe(
             catchError((error) => {
               console.warn('⚠️ Erreur Annonces:', error);
               return of(null);

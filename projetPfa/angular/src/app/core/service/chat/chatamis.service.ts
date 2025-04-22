@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ChatAmisService {
-  private baseUrl = this.environment.apiUrl+'/chatamis';
+  private baseUrl = environment.apiUrl+'/chatamis';
 
   constructor(private http: HttpClient) {}
 

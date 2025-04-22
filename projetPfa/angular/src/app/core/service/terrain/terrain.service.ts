@@ -38,7 +38,7 @@ export interface IUpdateStatus {
   providedIn: 'root',
 })
 export class TerrainService {
-  private apiUrl = this.environment.apiUrl+'/terrain';
+  private apiUrl = environment.apiUrl+'/terrain';
 
   constructor(private http: HttpClient) {
  
@@ -57,19 +57,19 @@ export class TerrainService {
 
   getTerrainStatuses(): Observable<TerrainStatus[]> {
     
-   return this.http.get<TerrainStatus[]>('http://localhost:5010/gateway/terrainstatus');
+   return this.http.get<TerrainStatus[]>(this.apiUrl+'/terrainstatus');
 
   }
 
   getSportCategories(): Observable<SportCategory[]> {
   
-    return this.http.get<SportCategory[]>('http://localhost:5010/gateway/SportCategorie/execute');
+    return this.http.get<SportCategory[]>(this.apiUrl+'/SportCategorie/execute');
   }
 
   // Dans TerrainService
 getReservationsForTerrain(terrainId: number): Observable<any[]> {
  
-  return this.http.get<any[]>(`http://localhost:5010/gateway/reservation/upcoming/${terrainId}`);
+  return this.http.get<any[]>(this.apiUrl+`/reservation/upcoming/${terrainId}`);
 }
 
 private httpOptions = {

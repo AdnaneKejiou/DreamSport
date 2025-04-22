@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BlockService {
-  private baseUrl = this.envienvironment.apiUrl+'/block';
+  private baseUrl = environment.apiUrl+'/block';
 
   constructor(private http: HttpClient) {}
 

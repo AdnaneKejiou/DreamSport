@@ -15,7 +15,7 @@ interface ChangerCapitaineEquipeDTO {
   providedIn: 'root'
 })
 export class EquipeService {
-  private apiUrl = this.environment.apiUrl;
+  private apiUrl = environment.apiUrl;
   
   public teamid:any ;
 
