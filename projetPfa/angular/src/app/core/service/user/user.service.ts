@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface User {
   id: number;
@@ -22,7 +23,7 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:5010/gateway/users';
+  private apiUrl = this.environment.apiUrl+'/users';
 
   constructor(private http: HttpClient) { }
 

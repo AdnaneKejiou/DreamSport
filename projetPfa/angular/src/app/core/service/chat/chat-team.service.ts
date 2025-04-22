@@ -5,12 +5,13 @@ import { TeamChatReturnedDTO } from '../../models/chat/team-chat-returned.dto';
 import { TeamMessageDTO } from '../../models/chat/team-message.dto';
 import { SendTeamMessageDTO } from '../../models/chat/send-team-message.dto';
 import { PaginatedResponse } from '../../models/chat/amis-chat-returned.dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatTeamService {
-  private baseUrl = 'http://localhost:5010/gateway/chatteam';
+  private baseUrl = this.environment.apiUrl+'/chatteam';
 
   constructor(private http: HttpClient) {}
 

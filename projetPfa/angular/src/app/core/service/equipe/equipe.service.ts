@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CloudflareService } from '../Cloudflare/cloudflare.service';
+import { environment } from 'src/environments/environment';
 
 interface ChangerCapitaineEquipeDTO {
   idEquipe: number;
@@ -14,7 +15,7 @@ interface ChangerCapitaineEquipeDTO {
   providedIn: 'root'
 })
 export class EquipeService {
-  private apiUrl = 'http://localhost:5010/gateway';
+  private apiUrl = this.environment.apiUrl;
   
   public teamid:any ;
 

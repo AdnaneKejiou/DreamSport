@@ -64,7 +64,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./gestionSite:/src/gestionSite  # Only for development if needed
+      - ./gestionSite:/src/gestionSite  
       - ./Shared.Messaging:/src/Shared.Messaging
 
 # gestionEmployer service

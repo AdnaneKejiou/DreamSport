@@ -33,7 +33,7 @@ export class ChatSignalRService {
     console.log('[SignalR] Construction de la connexion avec userId =', userId);
 
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`http://localhost:5270/chatHub?userId=${userId}`, {
+      .withUrl(`http://99.0.2.5:5270/chatHub?userId=${userId}`, {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets,
         logger: signalR.LogLevel.Trace

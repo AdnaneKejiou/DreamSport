@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { AmisChatReturnedDTO, PaginatedResponse } from '../../models/chat/amis-chat-returned.dto';
 import { SendAmisMessageDTO } from '../../models/chat/send-amis-message.dto';
 import { AmisMessageDTO } from '../../models/chat/amis-message.dto';
-
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatAmisService {
-  private baseUrl = 'http://localhost:5010/gateway/chatamis';
+  private baseUrl = this.environment.apiUrl+'/chatamis';
 
   constructor(private http: HttpClient) {}
 

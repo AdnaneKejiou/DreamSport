@@ -31,7 +31,7 @@ export class SignalRService {
     const userId = this.auth.getUserId().toString();
     
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`http://localhost:5270/invitationHub?userId=${userId}`, {
+      .withUrl(`http://99.0.2.5:5270/invitationHub?userId=${userId}`, {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets
       })

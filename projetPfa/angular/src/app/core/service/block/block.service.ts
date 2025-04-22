@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlockService {
-  private baseUrl = 'http://localhost:5010/gateway/block';
+  private baseUrl = this.envienvironment.apiUrl+'/block';
 
   constructor(private http: HttpClient) {}
 

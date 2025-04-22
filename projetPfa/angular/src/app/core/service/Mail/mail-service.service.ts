@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { selectTenantData } from 'src/app/core/store/tenant/tenant.selectors';
 import { Store } from '@ngrx/store';
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class MailServiceService {
-  private apiUrl = 'http://localhost:5010/gateway/Mail/send'; // URL de l'API
+  private apiUrl =this.environment.apiUrl+'/Mail/send'; // URL de l'API
   mail='';
   tenantData$: Observable<any>;
 

@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable } from 'rxjs';
 import { selectTenantId } from '../../store/tenant/tenant.selectors';
 import { Store } from '@ngrx/store';
+import { environment } from 'src/environments/environment';
+
 
 export interface Terrain {
   id: number;
@@ -36,7 +38,7 @@ export interface IUpdateStatus {
   providedIn: 'root',
 })
 export class TerrainService {
-  private apiUrl = 'http://localhost:5010/gateway/terrain';
+  private apiUrl = this.environment.apiUrl+'/terrain';
 
   constructor(private http: HttpClient) {
  

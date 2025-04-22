@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { of, forkJoin } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import * as TenantActions from './tenant.actions';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable()
 export class TenantEffects {
@@ -22,19 +24,19 @@ export class TenantEffects {
         const headers = new HttpHeaders().set('Tenant-Id', tenantId.toString());
 
         return forkJoin({
-          siteInfo: this.http.get<any>('http://localhost:5010/gateway/site', { headers }).pipe(
+          siteInfo: this.http.get<any>(this.environment.apiUrl+'/site', { headers }).pipe(
             catchError((error) => {
               console.warn('⚠️ Erreur Site Info:', error);
               return of(null); // Si l'API échoue, retourne `null` au lieu d'un échec total
             })
           ),
-          faq: this.http.get<any>('http://localhost:5010/gateway/faq', { headers }).pipe(
+          faq: this.http.get<any>(this.environment.apiUrl+'/faq', { headers }).pipe(
             catchError((error) => {
               console.warn('⚠️ Erreur FAQ:', error);
               return of(null);
             })
           ),
-          annonces: this.http.get<any>('http://localhost:5010/gateway/annonces', { headers }).pipe(
+          annonces: this.http.get<any>(this.environment.apiUrl+'/annonces', { headers }).pipe(
             catchError((error) => {
               console.warn('⚠️ Erreur Annonces:', error);
               return of(null);
