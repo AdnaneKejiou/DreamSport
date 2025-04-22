@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TenantEffects {
+  
   constructor(private actions$: Actions, private http: HttpClient, private store: Store) {}
 
   loadTenantData$ = createEffect(() =>
