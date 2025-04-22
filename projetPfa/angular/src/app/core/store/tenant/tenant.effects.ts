@@ -23,7 +23,7 @@ export class TenantEffects {
       switchMap((action) => {
         const tenantId = action.tenantId;
         const headers = new HttpHeaders().set('Tenant-Id', tenantId.toString());
-
+        console.log('hahah ',environment.apiUrl);
         return forkJoin({
           siteInfo: this.http.get<any>(environment.apiUrl+'/site', { headers }).pipe(
             catchError((error) => {
