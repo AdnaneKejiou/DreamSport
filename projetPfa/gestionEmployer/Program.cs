@@ -8,6 +8,8 @@ using Shared.Messaging.Services;
 using gestionEmployer.Core.Interfaces.CasheInterfaces;
 using StackExchange.Redis;
 using Prometheus;
+using Microsoft.AspNetCore.HttpOverrides;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
