@@ -8,7 +8,7 @@ namespace gestionUtilisateur.Infrastructure.Extern_Services
     public class MailService : IMailService
     {
         private readonly HttpClient _httpClient;
-        private static readonly string SiteUrl = "http://servicemail:8080/Gateway/Mail/send";
+        private static readonly string SiteUrl = "http://apigateway:8080/gateway/Mail/send";
 
         public MailService(HttpClient httpClient)
         {

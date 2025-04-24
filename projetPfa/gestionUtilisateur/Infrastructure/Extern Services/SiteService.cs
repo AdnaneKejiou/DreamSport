@@ -8,7 +8,7 @@ namespace gestionUtilisateur.Infrastructure.Extern_Services
     public class SiteService : ISiteService
     {
         private readonly HttpClient _httpClient;
-        private static readonly string SiteUrl = "http://gestionsite:8080/gateway/Site/name";
+        private static readonly string SiteUrl = "http://apigateway:8080/gateway/Site/name";
 
         public SiteService(HttpClient httpClient)
         {

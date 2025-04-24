@@ -8,7 +8,7 @@ namespace gestionUtilisateur.Infrastructure.Extern_Services
     public class AuthService : IAuthService
     {
         private readonly HttpClient _httpClient;
-        private static readonly string SiteUrl = "http://auth:8080/gateway/Login";
+        private static readonly string SiteUrl = "http://apigateway:8080/gateway/Login";
 
         public AuthService(HttpClient httpClient)
         {
