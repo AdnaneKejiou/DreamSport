@@ -8,6 +8,7 @@ using gestionEmployer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using chatEtInvitation.Core.Interfaces.Hub;
 using Prometheus;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +56,10 @@ builder.Services.AddSignalR()
         options.PayloadSerializerOptions.PropertyNamingPolicy = null;
     });
 var app = builder.Build();
-
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 app.UseRouting(); 
 app.UseCors("AllowAll");
 

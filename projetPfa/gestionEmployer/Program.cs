@@ -48,10 +48,7 @@ builder.Services.AddSingleton<ICacheService>(sp =>
 
 var app = builder.Build();
 
-app.UseForwardedHeaders(new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
+
 
 app.UseRouting(); 
 
