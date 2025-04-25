@@ -36,7 +36,7 @@ export class ChatAmisService {
     };
   
     return this.http.post<void>(
-      this.baseUrl+`/chatteam/mark-as-seen`,
+      environment.apiUrl+`/chatteam/mark-as-seen`,
       request
     );
   }
