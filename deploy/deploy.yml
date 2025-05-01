@@ -79,10 +79,10 @@
         state: absent
 
     # Start Docker containers 
-    - name: Start Docker containers
-      docker_compose:
-        project_src: /home/aymen/projects/dreamsport
-        state: present
+    - name: Start Docker containers manually
+      shell: docker compose -f docker-compose.yml up -d
+      args:
+        chdir: /home/aymen/projects/dreamsport
       ignore_errors: yes
 
     # Wait for SQL Server to be ready
@@ -94,10 +94,10 @@
         delay: 10      
         state: started
 
-    - name: Start Docker containers
-      docker_compose:
-        project_src: /home/aymen/projects/dreamsport
-        state: present
+    - name: Start Docker containers manually
+      shell: docker compose -f docker-compose.yml up -d
+      args:
+        chdir: /home/aymen/projects/dreamsport
 
     # Install Nginx
     - name: Install Nginx
