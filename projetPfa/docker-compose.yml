@@ -255,7 +255,7 @@ services:
   angular-app:
     build:
       context: .
-      dockerfile: /angular/Dockerfile
+      dockerfile: angular/Dockerfile
     image: mechaymen/angularapp:latest
     container_name: angular-app
     environment:

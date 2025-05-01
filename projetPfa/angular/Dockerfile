@@ -2,13 +2,11 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# ✅ Use full relative paths from root context
 COPY angular/package.json angular/package-lock.json ./
 RUN npm install
 
 COPY angular/ ./
 
-# SSL certs should also be included
 COPY angular/localhost.crt angular/localhost.key ./
 
 EXPOSE 4200
