@@ -262,8 +262,6 @@ services:
       - NODE_ENV=development
     ports:
       - "4300:4200"
-    depends_on:
-      - apigateway
     networks:
       - app-network
     volumes:
