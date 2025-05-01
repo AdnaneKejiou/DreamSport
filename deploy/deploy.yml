@@ -59,6 +59,12 @@
         group: aymen
         mode: '0644'
 
+    - name: Remove existing angular-app container if it exists
+      shell: |
+        if [ "$(docker ps -aq -f name=angular-app)" ]; then
+          docker rm -f angular-app
+        fi
+      ignore_errors: yes
 
     # Pull Docker images 
     - name: Pull all Docker images in the Docker Compose file
