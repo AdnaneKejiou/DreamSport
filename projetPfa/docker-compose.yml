@@ -40,7 +40,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-      
+
   # gestionSite service
   gestionsite:
     build:
@@ -256,6 +256,7 @@ services:
     build:
       context: .
       dockerfile: /angular/Dockerfile
+    image: mechaymen/angularApp:latest
     container_name: angular-app
     environment:
       - NODE_ENV=development
