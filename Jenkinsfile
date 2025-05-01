@@ -27,6 +27,44 @@ pipeline {
             }
         }
 
+        stage('Unit Tests') {
+            steps {
+                script {
+                    sh '''
+                    docker run --rm \
+                        -v $(pwd):/app \
+                        -w /app \
+                        mcr.microsoft.com/dotnet/sdk:8.0 \
+                        dotnet test projetPfa/Auth/Auth.csproj
+                    '''
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('LocalSonarQube') {
+                        sh '''
+                        docker run --rm \
+                            -v $(pwd):/app \
+                            -w /app \
+                            -e SONAR_TOKEN=$SONAR_TOKEN \
+                            mcr.microsoft.com/dotnet/sdk:8.0 \
+                            sh -c '
+                                dotnet tool install --global dotnet-sonarscanner &&
+                                export PATH="$PATH:/root/.dotnet/tools:$PATH" &&
+                                dotnet-sonarscanner begin /k:"DreamSports" /d:sonar.login=$SONAR_TOKEN -d:sonar.host.url="http://172.17.0.1:9000" \
+                                -d:sonar.projectBaseDir=/app/projetPfa &&  # Specify the project directory
+                                dotnet build /app/projetPfa/Auth/Auth.csproj &&  # Specify the csproj file
+                                dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
+                            '
+                        '''
+                    }
+                }
+            }
+        }
+
         stage('Push Docker Images to Docker Hub') {
             steps {
                 script {
