@@ -40,11 +40,12 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+      
   # gestionSite service
   gestionsite:
     build:
-      context: .  # Use the root directory as the build context
-      dockerfile: gestionSite/Dockerfile    # Make sure this folder is renamed to lowercase on disk
+      context: .  
+      dockerfile: gestionSite/Dockerfile   
     image: mechaymen/gestionsite:latest
     container_name: gestionsite
     environment:
@@ -88,7 +89,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./gestionEmployer:/src/gestionemployer  # Only for development if needed
+      - ./gestionEmployer:/src/gestionemployer  
 
   # Auth service
   auth:
@@ -213,7 +214,7 @@ services:
       - RabbitMQ__Host=rabbitmq
       - Redis__Host=redis
     ports:
-      - "5270:8080"  # HTTP port mapped
+      - "5270:8080"  
     depends_on:
       sqlserver:
         condition: service_started
@@ -226,7 +227,7 @@ services:
     volumes:
       - ./chatEtInvitation:/src/chatetinvitation
 
-# API Gateway (Ocelot) service
+# API Gateway 
   apigateway:
     build:
       context: . 
@@ -236,7 +237,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "5010:8080"  # Exposes port 5010 on the host, mapped to port 80 inside the container
+      - "5010:8080"  
     depends_on:
       - gestionsite
       - gestionemployer
@@ -249,9 +250,24 @@ services:
     networks:
       - app-network
     volumes:
-      - ./ApiGateway:/src/apigateway  # Bind the Ocelot configuration file for routing
+      - ./ApiGateway:/src/apigateway  
 
-    
+  angular-app:
+    build:
+      context: .
+      dockerfile: /angular/Dockerfile
+    container_name: angular-app
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "4200:4200"
+    depends_on:
+      - apigateway
+    networks:
+      - app-network
+    volumes:
+      - ./angular:/app
+      - /app/node_modules
 
 volumes:
   prodData:

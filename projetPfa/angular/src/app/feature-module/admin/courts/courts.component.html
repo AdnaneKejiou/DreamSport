@@ -217,12 +217,12 @@
 
           <div class="convenient-btns d-flex justify-content-end">
             <button type="button" class="btn btn-secondary d-inline-flex align-items-center me-2"
-                    (click)="closeModal('addCourtModal')">
+            data-bs-dismiss="modal" (click)="closeModal('addCourtModal')">
               <i class="feather icon-x-circle me-2"></i> Cancel
             </button>
             <button 
                     type="submit" class="btn btn-primary d-inline-flex align-items-center"
-                    [disabled]="courtForm.invalid || isUploading">
+                    data-bs-dismiss="modal" [disabled]="courtForm.invalid || isUploading">
               <span *ngIf="!isUploading">
                 <i class="feather icon-check-circle me-2"></i> Save
               </span>
