@@ -54,9 +54,9 @@
     - name: Copy docker-compose.yml to VM2
       copy:
         src: /var/lib/jenkins/workspace/pfa-deploy/projetPfa/docker-compose.yml
-        dest: /home/aymen/projects/dreamsport/docker-compose.yml
-        owner: aymen
-        group: aymen
+        dest: /home/adnane/projects/dreamsport/docker-compose.yml
+        owner: adnane
+        group: adnane
         mode: '0644'
 
     - name: Remove existing angular-app container if it exists
@@ -68,21 +68,21 @@
 
     # Pull Docker images 
     - name: Pull all Docker images in the Docker Compose file
-      shell: docker compose -f /home/aymen/projects/dreamsport/docker-compose.yml pull
+      shell: docker compose -f /home/adnane/projects/dreamsport/docker-compose.yml pull
       args:
-        chdir: /home/aymen/projects/dreamsport
+        chdir: /home/adnane/projects/dreamsport
 
     # Stop and remove existing old containers
     - name: Stop and remove existing Docker Compose containers
       docker_compose:
-        project_src: /home/aymen/projects/dreamsport
+        project_src: /home/adnane/projects/dreamsport
         state: absent
 
     # Start Docker containers 
     - name: Start Docker containers manually
       shell: docker compose -f docker-compose.yml up -d
       args:
-        chdir: /home/aymen/projects/dreamsport
+        chdir: /home/adnane/projects/dreamsport
       ignore_errors: yes
 
     # Wait for SQL Server to be ready
@@ -97,7 +97,7 @@
     - name: Start Docker containers manually
       shell: docker compose -f docker-compose.yml up -d
       args:
-        chdir: /home/aymen/projects/dreamsport
+        chdir: /home/adnane/projects/dreamsport
 
     # Install Nginx
     - name: Install Nginx

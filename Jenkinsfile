@@ -9,14 +9,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'docker-version',
-                    url: 'https://gitlab.com/Aymen.Mechida/dreamsport.git',
-                    credentialsId: 'gitlab-token'
-            }
-        }
-
          stage('Build the docker compose') {
             steps {
                 script {
