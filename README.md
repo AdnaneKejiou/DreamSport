@@ -46,7 +46,7 @@ Ce projet est basé sur une architecture microservices avec 9 services backend .
 
 ```bash
 # Cloner le projet
-git clone https://gitlab.com/AdnaneKejiou/DreamSport.git
+git clone https://github.com/AdnaneKejiou/DreamSport.git
 cd dreamsport
 
 # Lancer tous les services
